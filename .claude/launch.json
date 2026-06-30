@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "4321", "--directory", "/private/tmp/claude-501/-Users-ronibrot-roni-portfolio/2195a63e-4a08-4d2a-88b4-831ee82f53fc/scratchpad/preview"],
+      "port": 4321
+    }
+  ]
+}
