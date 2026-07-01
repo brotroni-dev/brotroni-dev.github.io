@@ -1,0 +1,36 @@
+/* ============================================================
+   Visual foundation - design tokens (single source of truth)
+   Mirrors content/visual-foundation.md. Used by every page.
+   ============================================================ */
+:root {
+  /* Parchment base (default surface) */
+  --bg:        #ECE3D0;  /* page background  */
+  --surface:   #F5EEDF;  /* cards / plates   */
+  --line:      #D8CDB6;  /* hairlines, rules */
+  --title:     #241F19;  /* display headings */
+  --text:      #3A332A;  /* body             */
+  --muted:     #6E6557;  /* secondary / meta */
+  --accent:    #B0613A;  /* terracotta (accent on light) */
+
+  /* Reserved near-black moment (expressive, used sparingly) */
+  --black:        #0E0C0A;
+  --black-title:  #F1ECE0;
+  --black-text:   #B8AF9F;
+  --black-muted:  #8C8475;
+  --ochre:        #C98A3C;  /* accent on dark */
+
+  /* Typography */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Spacing scale (4-based) */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+
+  /* Layout widths */
+  --reading: 640px;   /* prose column        */
+  --media:   920px;   /* media plates / wide */
+  --gutter:  clamp(20px, 5vw, 48px);
+  --radius:  8px;
+}
