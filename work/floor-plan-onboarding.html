@@ -72,9 +72,92 @@
   <p style="margin-top:var(--s4)">I explored four approaches with the team, evaluating each against three needs: keeping users in context, supporting hands-on practice, and working across both 2D and 3D.</p>
 </section>
 <div class="wide section--tight">
-  <div class="placeholder">
-    <p style="margin:0"><b>Four-approaches comparison</b> - original treatment pending approval</p>
-    <p class="mono" style="margin:var(--s2) 0 0">Tooltip · Wizard · One-pager · Sidebar (selected) - to be designed in the visual system</p>
+  <div class="approach-grid">
+    <div class="approach-card">
+      <p class="approach-card__label">Tooltip</p>
+      <h3 class="approach-card__name">Product walkthrough</h3>
+      <div class="approach-illo">
+        <svg viewBox="0 0 320 180" role="img" aria-label="A tooltip anchored to a feature on a dark canvas">
+          <rect width="320" height="180" rx="8" fill="#453f38"/>
+          <rect x="26" y="30" width="66" height="6" rx="3" fill="#5b544a"/>
+          <rect x="26" y="44" width="44" height="6" rx="3" fill="#544e45"/>
+          <rect x="72" y="74" width="116" height="58" rx="8" fill="#faf6ee"/>
+          <rect x="88" y="90" width="72" height="7" rx="3.5" fill="#d3c8b1"/>
+          <rect x="88" y="103" width="52" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="128" y="114" width="44" height="12" rx="4" fill="#B0613A"/>
+          <path d="M188 100 l12 6 -12 6 z" fill="#faf6ee"/>
+          <circle cx="224" cy="106" r="20" fill="#72F2E8" opacity="0.22"/>
+          <circle cx="224" cy="106" r="9" fill="#72F2E8"/>
+        </svg>
+      </div>
+      <p><span class="approach-micro">Offered</span>Fast to ship using existing components.</p>
+      <p><span class="approach-micro">Tradeoff</span>Better for feature discovery than workflow learning.</p>
+    </div>
+    <div class="approach-card">
+      <p class="approach-card__label">Wizard</p>
+      <h3 class="approach-card__name">Modal flow</h3>
+      <div class="approach-illo">
+        <svg viewBox="0 0 320 180" role="img" aria-label="A modal dialog centered over a dark canvas">
+          <rect width="320" height="180" rx="8" fill="#453f38"/>
+          <rect x="84" y="40" width="152" height="100" rx="9" fill="#faf6ee"/>
+          <rect x="104" y="60" width="88" height="8" rx="4" fill="#cfc4ad"/>
+          <rect x="104" y="76" width="112" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="104" y="88" width="96" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="104" y="106" width="112" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="104" y="106" width="56" height="6" rx="3" fill="#B0613A"/>
+          <rect x="160" y="118" width="56" height="14" rx="4" fill="#B0613A"/>
+        </svg>
+      </div>
+      <p><span class="approach-micro">Offered</span>Familiar, structured progression.</p>
+      <p><span class="approach-micro">Tradeoff</span>Separates instruction from the canvas, front-loads too much, and doesn't translate well to 3D.</p>
+    </div>
+    <div class="approach-card">
+      <p class="approach-card__label">One-pager</p>
+      <h3 class="approach-card__name">Help / guide page</h3>
+      <div class="approach-illo">
+        <svg viewBox="0 0 320 180" role="img" aria-label="A help page with a numbered steps list beside content blocks">
+          <rect width="320" height="180" rx="8" fill="#e9e0cf"/>
+          <rect x="24" y="20" width="80" height="8" rx="4" fill="#c6b99d"/>
+          <line x1="38" y1="56" x2="38" y2="130" stroke="#cabd9f" stroke-width="2"/>
+          <circle cx="38" cy="56" r="7" fill="#a99c82"/>
+          <rect x="54" y="52" width="72" height="7" rx="3.5" fill="#cabd9f"/>
+          <circle cx="38" cy="93" r="7" fill="#a99c82"/>
+          <rect x="54" y="89" width="58" height="7" rx="3.5" fill="#cabd9f"/>
+          <circle cx="38" cy="130" r="7" fill="#a99c82"/>
+          <rect x="54" y="126" width="66" height="7" rx="3.5" fill="#cabd9f"/>
+          <rect x="182" y="40" width="112" height="46" rx="6" fill="#faf6ee"/>
+          <rect x="204" y="53" width="68" height="20" rx="3" fill="none" stroke="#b3a488" stroke-width="1.6"/>
+          <rect x="182" y="96" width="112" height="46" rx="6" fill="#faf6ee"/>
+          <rect x="204" y="109" width="68" height="20" rx="3" fill="none" stroke="#b3a488" stroke-width="1.6"/>
+        </svg>
+      </div>
+      <p><span class="approach-micro">Offered</span>Can preserve progress across sessions.</p>
+      <p><span class="approach-micro">Tradeoff</span>Pulls users away from the work.</p>
+    </div>
+    <div class="approach-card approach-card--selected">
+      <p class="approach-card__label">Sidebar <span class="approach-tag">Selected</span></p>
+      <h3 class="approach-card__name">Persistent side panel</h3>
+      <div class="approach-illo">
+        <svg viewBox="0 0 320 180" role="img" aria-label="A persistent sidebar beside the plan on the canvas">
+          <rect width="320" height="180" rx="8" fill="#e9e0cf"/>
+          <rect x="16" y="18" width="92" height="144" rx="7" fill="#faf6ee"/>
+          <rect x="30" y="34" width="44" height="11" rx="4" fill="#B0613A"/>
+          <rect x="30" y="54" width="62" height="6" rx="3" fill="#d8cdb6"/>
+          <rect x="30" y="66" width="50" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="30" y="78" width="58" height="6" rx="3" fill="#e6ddc9"/>
+          <rect x="30" y="132" width="40" height="15" rx="4" fill="#B0613A"/>
+          <rect x="130" y="44" width="160" height="92" rx="4" fill="#faf6ee"/>
+          <rect x="150" y="60" width="120" height="60" rx="3" fill="none" stroke="#8a8170" stroke-width="2.5"/>
+        </svg>
+      </div>
+      <p><span class="approach-micro">Offered</span>Keeps guidance beside the action and lets users practice directly on the canvas, with progressive, task-based learning.</p>
+      <p><span class="approach-micro">Tradeoff</span>Adds persistent UI to an already dense workspace, and took more investment.</p>
+      <div class="approach-needs">
+        <span class="approach-need">In context</span>
+        <span class="approach-need">Hands-on practice</span>
+        <span class="approach-need">2D and 3D</span>
+      </div>
+    </div>
   </div>
 </div>
 <section class="reading section--tight">
@@ -86,8 +169,19 @@
 <section class="reading section">
   <h2 class="display">The design - a guided practice space</h2>
   <p style="margin-top:var(--s4)">The selected direction became a guided practice environment inside the real workspace - low-risk enough for experimentation, but close enough to the product to build transferable skills. Rather than opening onto the full workspace at once, it gave users one obvious first action to start from.</p>
-  <p class="mono" style="margin-top:var(--s5)">At a glance &nbsp;·&nbsp; Orient → Create → Add items → Review</p>
 </section>
+<div class="wide section--tight">
+  <p class="kicker" style="text-align:center">At a glance</p>
+  <div class="flow" style="margin-top:var(--s4)">
+    <div class="flow__step"><span class="flow__num">01</span><div class="flow__name">Orient</div><p class="flow__desc">Navigate the canvas and select objects</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">02</span><div class="flow__name">Create</div><p class="flow__desc">Draw a room point to point</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">03</span><div class="flow__name">Add items</div><p class="flow__desc">Structures, placeholders, and real products</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">04</span><div class="flow__name">Review</div><p class="flow__desc">View in 3D, then finish</p></div>
+  </div>
+</div>
 <div class="wide section--tight">
   <div class="media-row">
     <figure class="plate"><img src="../media/onboarding/welcome-modal.png" alt="Welcome to the 3D Floor Plan tutorial"><figcaption class="plate-cap">The welcome step sets one clear first action.</figcaption></figure>
@@ -121,7 +215,7 @@
 <!-- Stage 2 - Create -->
 <div class="wide section">
   <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Create - draw a room</span></div>
-  <p>Once users could navigate and manipulate the canvas, the tutorial introduced the pen tool and asked them to create a room point by point. <span class="principle">Design principle: control first, creation second.</span></p>
+  <p>Once users could navigate and manipulate the canvas, the tutorial introduced the pen tool and asked them to create a room point by point.</p>
   <figure style="margin-top:var(--s4); --mleft:3.4%;--mtop:24.2%;--mw:23.9%; --gleft:6.8%;--gtop:51%;--gw:17%;--gh:19.5%;--gfit:contain;--gpos:center; --px:39.9%;--py:29.7%;--pw:5.5%">
     <div class="fp-stage">
       <img class="fp-base" src="../media/onboarding/pen-tool-base.png" alt="">
@@ -130,6 +224,10 @@
       <span class="fp-marker"></span>
     </div>
   </figure>
+  <div class="principle-callout">
+    <p class="principle-callout__label">Design principle</p>
+    <p class="principle-callout__text">Control first. Creation second.</p>
+  </div>
 </div>
 
 <!-- Stage 3 - Add items -->
@@ -148,8 +246,12 @@
 <!-- Stage 4 - Review -->
 <div class="wide section">
   <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Review - see it in 3D</span></div>
-  <p>After users learned the core planning actions, the tutorial introduced Dollhouse mode - turning the plan from a flat workspace into a spatial environment they could inspect and refine. <span class="principle">Design principle: reveal the payoff after users understand the fundamentals.</span></p>
+  <p>After users learned the core planning actions, the tutorial introduced Dollhouse mode - turning the plan from a flat workspace into a spatial environment they could inspect and refine.</p>
   <figure class="plate"><img src="../media/onboarding/dollhouse.png" alt="The plan reviewed in Dollhouse 3D mode"><figcaption class="plate-cap">The spatial payoff. <span class="mut">(Flat-plan → Dollhouse transition shown as stills for now; motion asset pending.)</span></figcaption></figure>
+  <div class="principle-callout">
+    <p class="principle-callout__label">Design principle</p>
+    <p class="principle-callout__text">Reveal the payoff after users understand the fundamentals.</p>
+  </div>
 </div>
 
 <!-- Built for real working sessions -->
