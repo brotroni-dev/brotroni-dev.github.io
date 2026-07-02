@@ -176,6 +176,13 @@ figure { margin: 0; }
 .move__body { flex: 1; min-width: 0; }
 .move__body .stage__head { margin-top: 0; }
 
+/* --- Screen storyboard: uniform mobile screens in rows ---- */
+.screens { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5) var(--s4); }
+.screens figure { flex: 0 0 190px; max-width: 190px; margin: 0; }
+.screens img { width: 100%; display: block; border-radius: 18px; box-shadow: 0 4px 16px rgba(37, 31, 25, .10); }
+.screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); text-align: center; margin-top: var(--s2); line-height: 1.4; }
+@media (max-width: 640px) { .screens figure { flex-basis: 44%; max-width: 44%; } }
+
 /* --- Next project + footer -------------------------------- */
 .next { display: flex; align-items: center; gap: var(--s5); text-decoration: none; padding-block: var(--s6); }
 .next:hover .display { color: var(--accent); }
