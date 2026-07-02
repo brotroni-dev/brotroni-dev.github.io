@@ -66,7 +66,7 @@ li::marker { color: var(--accent); }
 
 /* --- Media (frameless - the assets carry their own framing) */
 figure { margin: 0; }
-.plate img { width: 100%; display: block; }
+.plate img { width: 100%; display: block; border-radius: 6px; }
 .plate--demo { max-width: 560px; margin-inline: auto; }   /* cap bare gifs / illustrations */
 .plate-cap { font-family: var(--font-mono); font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: var(--s3); }
 .media-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: start; }
@@ -81,7 +81,7 @@ figure { margin: 0; }
 
 /* --- Layered tutorial composite: base canvas + (modal) + gif + pulse --- */
 .fp-stage { position: relative; line-height: 0; }
-.fp-base  { width: 100%; display: block; }
+.fp-base  { width: 100%; display: block; border-radius: 6px; }
 .fp-dollhouse { position: absolute; left: var(--dl, 29%); top: var(--dt, 34%); width: var(--dw, 44%); height: auto; pointer-events: none; }
 .fp-confetti  { position: absolute; left: var(--cl, 3%); top: var(--ct, 33%); width: var(--cw, 30%); height: auto; pointer-events: none; }
 .fp-dim   { position: absolute; inset: 0; background: var(--bg); opacity: .5; pointer-events: none; }
@@ -179,9 +179,29 @@ figure { margin: 0; }
 /* --- Screen storyboard: uniform mobile screens in rows ---- */
 .screens { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5) var(--s4); }
 .screens figure { flex: 0 0 190px; max-width: 190px; margin: 0; }
-.screens img { width: 100%; display: block; border-radius: 18px; box-shadow: 0 4px 16px rgba(37, 31, 25, .10); }
+.screens img { width: 100%; display: block; border-radius: 6px; box-shadow: 0 4px 16px rgba(37, 31, 25, .10); }
 .screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); text-align: center; margin-top: var(--s2); line-height: 1.4; }
 @media (max-width: 640px) { .screens figure { flex-basis: 44%; max-width: 44%; } }
+
+/* --- Stat cards (impact) ---------------------------------- */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
+.stat { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: var(--s6) var(--s4); text-align: center; }
+.stat__num { font-family: var(--font-display); font-weight: 500; color: var(--accent); font-size: clamp(30px, 5vw, 40px); line-height: 1; }
+.stat__num small { font-size: .45em; color: var(--muted); }
+.stat__label { font-size: .9rem; color: var(--muted); margin: var(--s3) 0 0; line-height: 1.4; }
+
+/* --- Numbered mini-cards (approach intro, learnings) ------ */
+.mini-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+.mini-card { border-top: 2px solid var(--accent); padding-top: var(--s3); }
+.mini-card__n { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .1em; color: var(--accent); margin: 0; }
+.mini-card__t { font-family: var(--font-display); font-weight: 500; color: var(--title); font-size: var(--fs-title); margin: var(--s1) 0 var(--s2); line-height: 1.2; }
+.mini-card p { margin: 0; font-size: .92rem; color: var(--muted); line-height: 1.55; }
+
+/* --- Dark ("friction") section on-black adjustments ------- */
+.black .screens figcaption { color: var(--black-muted); }
+.black .summary { color: var(--black-muted); }
+
+@media (max-width: 640px) { .stats, .mini-cards { grid-template-columns: 1fr; } }
 
 /* --- Next project + footer -------------------------------- */
 .next { display: flex; align-items: center; gap: var(--s5); text-decoration: none; padding-block: var(--s6); }
