@@ -24,13 +24,21 @@
   --font-body:    'Inter', system-ui, -apple-system, sans-serif;
   --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
 
+  /* Type scale (consolidated - a small, consistent set of sizes) */
+  --fs-h1:    clamp(30px, 5vw, 42px);  /* page title            */
+  --fs-h2:    clamp(21px, 3vw, 26px);  /* section heading       */
+  --fs-title: 18px;                    /* card / stage / flow / nav titles */
+  --fs-body:  16px;                    /* body copy             */
+  --fs-label: 11px;                    /* compact mono labels   */
+  --fs-eyebrow: 12px;                  /* kicker / meta / caption */
+
   /* Spacing scale (4-based) */
   --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
   --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
 
   /* Layout widths */
   --reading: 640px;   /* prose column        */
-  --media:   920px;   /* media plates / wide */
+  --media:   860px;   /* media plates / wide */
   --gutter:  clamp(20px, 5vw, 48px);
   --radius:  8px;
 }

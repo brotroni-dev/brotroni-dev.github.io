@@ -51,11 +51,19 @@
   <hr class="rule">
 </div>
 
-<!-- Problem & Goal - final composed cards (label + heading + body + illustration baked in). Used as-is: no frame, caption, or surrounding copy. -->
+<!-- Problem & Goal - native cards in the site type system -->
 <div class="wide section">
   <div class="pg-pair">
-    <img src="../media/onboarding/problem.png" alt="Problem - powerful tools, no clear path through them: first-time users could see the tools but didn't know which action to start with, how the tools connected, or whether they were using them correctly.">
-    <img src="../media/onboarding/goal.png" alt="Goal - build confidence through guided practice: help users learn the core workflow by doing, without separating the tutorial from the product itself.">
+    <div class="pg-card">
+      <p class="pg-card__label">Problem</p>
+      <h3 class="pg-card__title">Powerful tools, no clear path through them</h3>
+      <p>First-time users could see the tools, but didn't know which action to start with, how the tools connected, or whether they were using them correctly.</p>
+    </div>
+    <div class="pg-card pg-card--goal">
+      <p class="pg-card__label">Goal</p>
+      <h3 class="pg-card__title">Build confidence through guided practice</h3>
+      <p>Help users learn the core workflow by doing, without separating the tutorial from the product itself.</p>
+    </div>
   </div>
 </div>
 
@@ -171,6 +179,9 @@
   <p style="margin-top:var(--s4)">The selected direction became a guided practice environment inside the real workspace - low-risk enough for experimentation, but close enough to the product to build transferable skills. Rather than opening onto the full workspace at once, it gave users one obvious first action to start from.</p>
 </section>
 <div class="wide section--tight">
+  <figure class="plate plate--demo" style="max-width:340px"><img src="../media/onboarding/welcome-modal.png" alt="Welcome to the 3D Floor Plan tutorial: one clear first action"><figcaption class="plate-cap" style="text-align:center">The welcome step sets one clear first action.</figcaption></figure>
+</div>
+<div class="wide section--tight">
   <p class="kicker" style="text-align:center">At a glance</p>
   <div class="flow" style="margin-top:var(--s4)">
     <div class="flow__step"><span class="flow__num">01</span><div class="flow__name">Orient</div><p class="flow__desc">Navigate the canvas and select objects</p></div>
@@ -183,10 +194,7 @@
   </div>
 </div>
 <div class="wide section--tight">
-  <div class="media-row">
-    <figure class="plate"><img src="../media/onboarding/welcome-modal.png" alt="Welcome to the 3D Floor Plan tutorial"><figcaption class="plate-cap">The welcome step sets one clear first action.</figcaption></figure>
-    <figure class="plate"><img src="../media/onboarding/welcome-dollhouse.png" alt="The practice environment inside the real workspace"><figcaption class="plate-cap">Practice happens inside the real workspace.</figcaption></figure>
-  </div>
+  <figure class="plate"><img src="../media/onboarding/welcome-dollhouse.png" alt="The finished home viewed in 3D - the kind of real workspace users practice in"><figcaption class="plate-cap">Practice happens inside the real workspace.</figcaption></figure>
 </div>
 
 <!-- The four stages -->
@@ -262,11 +270,16 @@
   <p><strong>Completing the onboarding.</strong> The final step reinforced completion while keeping momentum: users could either start a new floor plan or continue practicing in the same workspace.</p>
 </section>
 <div class="wide section--tight">
-  <div class="media-row">
-    <figure class="plate"><img src="../media/onboarding/exit-flow.png" alt="Leave without losing progress"><figcaption class="plate-cap">Leave without losing progress.</figcaption></figure>
-    <figure class="plate"><img src="../media/onboarding/resume-dashboard.png" alt="The dashboard brings users back to their spot"><figcaption class="plate-cap">Return to the exact spot.</figcaption></figure>
-  </div>
-  <figure class="plate" style="margin-top:var(--s4)"><img src="../media/onboarding/complete.png" alt="Completion - start a new plan or keep practicing"><figcaption class="plate-cap">Completion that leads back into real work.</figcaption></figure>
+  <figure class="plate"><img src="../media/onboarding/exit-flow.png" alt="Leave without losing progress"><figcaption class="plate-cap">Leave without losing progress.</figcaption></figure>
+  <figure class="plate" style="margin-top:var(--s6)"><img src="../media/onboarding/resume-dashboard.png" alt="The dashboard brings users back to their spot"><figcaption class="plate-cap">Return to the exact spot.</figcaption></figure>
+  <figure style="margin-top:var(--s6); --dl:33%;--dt:38%;--dw:41%; --cl:35%;--ct:28%;--cw:36%">
+    <div class="fp-stage">
+      <img class="fp-base" src="../media/onboarding/complete-base.png" alt="Completion - start a new plan or keep practicing">
+      <img class="fp-dollhouse" src="../media/onboarding/complete-dollhouse.png" alt="">
+      <img class="fp-confetti" src="../media/onboarding/confetti.gif" alt="">
+    </div>
+    <figcaption class="plate-cap">Completion that leads back into real work.</figcaption>
+  </figure>
 </div>
 
 <!-- Outcome -->
@@ -286,7 +299,7 @@
 <!-- Next project -->
 <div class="wide">
   <hr class="rule">
-  <a class="next" href="#">
+  <a class="next" href="ar-walkthrough.html">
     <svg class="signature" width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">
       <path d="M25,80 L80,50 L80,10 L25,40 Z" fill="#E7D9C6" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
       <path d="M80,50 L135,80 L135,40 L80,10 Z" fill="none" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
@@ -297,7 +310,7 @@
     </svg>
     <span>
       <span class="mono">Next project</span><br>
-      <span class="display" style="font-size:25px">AR Walkthrough →</span>
+      <span class="display" style="font-size:var(--fs-title)">AR Walkthrough →</span>
     </span>
   </a>
 </div>

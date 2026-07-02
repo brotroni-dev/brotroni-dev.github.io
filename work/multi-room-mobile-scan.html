@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-Room Mobile Scan - Roni Brot-Kolinkó</title>
+<meta name="description" content="Expanding mobile scanning beyond one room - extending capture from one room to a whole connected plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css">
+<link rel="stylesheet" href="../styles/main.css">
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
+    <span class="nav__links"><a href="#">Work</a><a href="#">About</a></span>
+  </div>
+</nav>
+
+<!-- Opener -->
+<header class="reading" style="padding-top:var(--s7)">
+  <svg class="signature" width="120" viewBox="0 0 160 125" aria-hidden="true">
+    <path d="M25,80 L80,50 L80,10 L25,40 Z" fill="none" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M80,50 L135,80 L135,40 L80,10 Z" fill="none" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
+    <path d="M80,110 L25,80" fill="none" stroke="#2A241C" stroke-width="0.6" stroke-dasharray="3 3"/>
+    <path d="M25,80 L80,50 L135,80 L80,110" fill="none" stroke="#B0613A" stroke-width="1.5" stroke-linejoin="round"/>
+    <circle cx="80" cy="110" r="3.4" fill="#B0613A"/>
+  </svg>
+  <p class="kicker" style="margin-top:var(--s3)">Capture</p>
+  <h1 class="display">Expanding mobile scanning beyond one room</h1>
+  <p class="summary">Extending capture from one room to a whole connected plan.</p>
+  <p class="lead" style="margin-top:var(--s5)">Mobile scanning worked well for a single room - but real projects rarely stop there. Multi-room mattered because it removed the one-room limit and made mobile capture useful for complete, connected floor plans: a more continuous on-site workflow for pros, and a step toward completing full floor plans on mobile rather than treating mobile as a single-room capture tool.</p>
+</header>
+
+<!-- Overview bar -->
+<div class="wide" style="margin-top:var(--s7)">
+  <hr class="rule">
+  <div class="overview">
+    <span class="overview__item"><b>Role</b> / Product Designer</span>
+    <span class="overview__item"><b>Scope</b> / Multi-room flow, in-scan interactions, prototyping, on-device validation</span>
+    <span class="overview__item"><b>Platform</b> / Mobile</span>
+  </div>
+  <hr class="rule">
+</div>
+
+<!-- Context & problem -->
+<section class="reading section">
+  <h2 class="display">Context &amp; problem</h2>
+  <p style="margin-top:var(--s4)">Mobile scan brought floor plan creation into the space itself: pros could capture walls, corners, and openings on site.</p>
+  <p><strong>The scan stopped at one room.</strong> For connected layouts, pros had to move back to desktop and manually assemble rooms into one plan.</p>
+</section>
+
+<!-- Goal -->
+<section class="reading section--tight">
+  <h2 class="display">Goal</h2>
+  <p style="margin-top:var(--s4)"><strong>Keep the scan moving across rooms.</strong> Enable pros to continue from room to room on site, while building one connected plan without losing momentum or orientation.</p>
+</section>
+
+<!-- Why it was hard -->
+<section class="reading section">
+  <h2 class="display">Why it was hard</h2>
+  <p style="margin-top:var(--s4)"><strong>The challenge wasn't scanning rooms - it was connecting them.</strong> Real renovation projects rarely happen one room at a time. To support full spaces, the product needed a way to connect separate scans within one shared spatial map. But introducing connected scans also meant introducing more guidance, decisions, and recovery moments throughout the flow.</p>
+  <p>That shifted the design problem from teaching the feature to making the flow resilient.</p>
+  <p style="margin-top:var(--s5)">The three real obstacles:</p>
+  <ul>
+    <li><strong>Death by dialogs</strong> - guidance that was helpful alone became heavy together, forcing users to stop, read, confirm, and repeat.</li>
+    <li><strong>Gaps in the map</strong> - geolocation was meant to give each room a shared spatial reference, but in practice it drifted or broke, making alignment, rotation, and stitching unreliable.</li>
+    <li><strong>The flow had to work even when the map didn't</strong> - when that happened, a tutorial could explain how to connect rooms but couldn't remove the underlying uncertainty. The experience needed to help users adjust, recover, and continue.</li>
+  </ul>
+</section>
+
+<!-- The before state -->
+<section class="reading section">
+  <h2 class="display">The "before" state</h2>
+  <p style="margin-top:var(--s4)"><strong>Original mobile scan flow, before the redesign.</strong> The flow was optimized for capturing one closed room quickly and accurately.</p>
+  <p>Once we saw where the original flow broke down, it was clear this wasn't a tutorial problem - users didn't need more explanation; they needed the flow itself to hold up as they moved. Rather than teaching them to work around the friction, I redesigned the interaction around the way they naturally moved through a space.</p>
+  <p class="mono" style="margin-top:var(--s4)">Visual pending - a representative still of the original one-room flow.</p>
+</section>
+
+<!-- The approach: three moves -->
+<section class="reading section">
+  <h2 class="display">The approach - three moves</h2>
+</section>
+
+<div class="wide section--tight move">
+  <div class="move__illo">
+    <svg viewBox="0 0 240 450" role="img" aria-label="Phone scan view: a turquoise guidance line traces a corner, with a persistent bottom action bar">
+      <rect x="18" y="8" width="204" height="434" rx="28" fill="#faf6ee" stroke="#cabd9f" stroke-width="2"/>
+      <rect x="30" y="30" width="180" height="392" rx="8" fill="#eae7df"/>
+      <rect x="99" y="18" width="42" height="5" rx="2.5" fill="#ddd2bb"/>
+      <polyline points="120,120 120,250" fill="none" stroke="#72F2E8" stroke-width="2.5" stroke-dasharray="2 7" opacity="0.6"/>
+      <polyline points="52,165 120,120 188,170" fill="none" stroke="#72F2E8" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="52" cy="165" r="5.5" fill="#72F2E8"/>
+      <circle cx="120" cy="120" r="6.5" fill="#72F2E8"/>
+      <circle cx="188" cy="170" r="5.5" fill="#72F2E8"/>
+      <rect x="44" y="372" width="152" height="34" rx="17" fill="#faf6ee" stroke="#d8cdb6" stroke-width="1.5"/>
+      <circle cx="68" cy="389" r="6.5" fill="#d8cdb6"/>
+      <rect x="88" y="383" width="76" height="12" rx="6" fill="#B0613A"/>
+      <circle cx="180" cy="389" r="6.5" fill="#d8cdb6"/>
+      <circle cx="120" cy="432" r="6" fill="none" stroke="#cabd9f" stroke-width="1.8"/>
+    </svg>
+  </div>
+  <div class="move__body">
+    <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Guidance within the flow</span></div>
+    <p class="summary" style="margin:0 0 var(--s3)">Instead of stopping users with separate instruction screens.</p>
+    <p>The new flow replaced a single "Point" action with a persistent bottom action bar. The guidance line evolved from a simple white dashed edge into a richer turquoise line system, making edges, corners, and room continuity easier to understand during capture.</p>
+    <p>The old instruction screens explained the process before the user performed it, then disappeared exactly when the guidance mattered most. Moving guidance into the capture screen let me support users in context: the action bar clarified what they could do next, and the line system showed the room connecting as they moved - replacing memorized instructions with immediate feedback, so users stayed oriented and kept momentum.</p>
+  </div>
+</div>
+
+<div class="wide section move move--right">
+  <div class="move__illo">
+    <svg viewBox="0 0 240 450" role="img" aria-label="Phone view: a window element on a wall with adjustment handles and a live dimension, edited in place">
+      <rect x="18" y="8" width="204" height="434" rx="28" fill="#faf6ee" stroke="#cabd9f" stroke-width="2"/>
+      <rect x="30" y="30" width="180" height="392" rx="8" fill="#eae7df"/>
+      <rect x="99" y="18" width="42" height="5" rx="2.5" fill="#ddd2bb"/>
+      <rect x="30" y="196" width="180" height="12" fill="#cabd9f"/>
+      <rect x="94" y="182" width="52" height="40" rx="3" fill="#faf6ee" stroke="#B0613A" stroke-width="2.5"/>
+      <line x1="120" y1="182" x2="120" y2="222" stroke="#e0d5bf" stroke-width="1.5"/>
+      <circle cx="94" cy="182" r="5.5" fill="#B0613A"/>
+      <circle cx="146" cy="182" r="5.5" fill="#B0613A"/>
+      <circle cx="94" cy="222" r="5.5" fill="#B0613A"/>
+      <circle cx="146" cy="222" r="5.5" fill="#B0613A"/>
+      <line x1="94" y1="248" x2="146" y2="248" stroke="#8a8170" stroke-width="1.5"/>
+      <line x1="94" y1="243" x2="94" y2="253" stroke="#8a8170" stroke-width="1.5"/>
+      <line x1="146" y1="243" x2="146" y2="253" stroke="#8a8170" stroke-width="1.5"/>
+      <rect x="107" y="257" width="26" height="10" rx="5" fill="#d8cdb6"/>
+      <circle cx="120" cy="432" r="6" fill="none" stroke="#cabd9f" stroke-width="1.8"/>
+    </svg>
+  </div>
+  <div class="move__body">
+    <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Adjust without leaving</span></div>
+    <p class="summary" style="margin:0 0 var(--s3)">Instead of sending users out of the capture flow.</p>
+    <p>Users could place doors and windows, fine-tune their position, and adjust their dimensions on the spot - without interrupting the scan.</p>
+    <p>Capturing first and fixing later was technically simpler, but it pushed uncertainty downstream. In-place refinement let users resolve mistakes while the real-world reference was still visible - before those mistakes affected the next room. It protected accuracy and trust in the plan as it grew, while keeping the workflow continuous on site.</p>
+  </div>
+</div>
+
+<div class="wide section move">
+  <div class="move__illo">
+    <svg viewBox="0 0 240 450" role="img" aria-label="Phone view: a captured room outline above two distinct buttons - Continue scanning (outline) and Finish (filled)">
+      <rect x="18" y="8" width="204" height="434" rx="28" fill="#faf6ee" stroke="#cabd9f" stroke-width="2"/>
+      <rect x="30" y="30" width="180" height="392" rx="8" fill="#eae7df"/>
+      <rect x="99" y="18" width="42" height="5" rx="2.5" fill="#ddd2bb"/>
+      <polyline points="62,95 120,66 180,100 180,175 62,175 62,95" fill="none" stroke="#c3b598" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="46" y="322" width="148" height="36" rx="9" fill="none" stroke="#B0613A" stroke-width="2"/>
+      <rect x="78" y="335" width="84" height="10" rx="5" fill="#B0613A"/>
+      <rect x="46" y="368" width="148" height="36" rx="9" fill="#B0613A"/>
+      <rect x="94" y="381" width="52" height="10" rx="5" fill="#faf6ee"/>
+      <circle cx="120" cy="432" r="6" fill="none" stroke="#cabd9f" stroke-width="1.8"/>
+    </svg>
+  </div>
+  <div class="move__body">
+    <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Separate continue from finish</span></div>
+    <p class="summary" style="margin:0 0 var(--s3)">Instead of making one "Next" button carry two decisions.</p>
+    <p>The redesigned flow clarified two different decisions: continue building the plan by scanning another room, or finish the full capture and move to preview.</p>
+    <p>"Next" was too ambiguous for a high-stakes moment in the flow: users couldn't tell whether it meant moving to the next room or completing the scan, which created hesitation and risked a premature exit. Splitting "Continue scanning" from "Finish" made the outcome of each action clear and kept users in control of when the plan was actually complete.</p>
+  </div>
+</div>
+
+<!-- The resulting flow -->
+<section class="reading section">
+  <h2 class="display">The resulting flow</h2>
+  <p style="margin-top:var(--s4)">Together, these changes kept users inside the capture experience: scan the room, build the plan, continue to the next room, or finish and move to preview.</p>
+</section>
+<div class="wide section--tight">
+  <div class="flow">
+    <div class="flow__step"><span class="flow__num">01</span><div class="flow__name">Scan</div><p class="flow__desc">Capture walls, corners, and openings</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">02</span><div class="flow__name">Build</div><p class="flow__desc">The connected plan grows room by room</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">03</span><div class="flow__name">Continue / Finish</div><p class="flow__desc">Add another room, or complete the capture</p></div>
+    <span class="flow__arrow">→</span>
+    <div class="flow__step"><span class="flow__num">04</span><div class="flow__name">Preview</div><p class="flow__desc">Review the full connected plan</p></div>
+  </div>
+</div>
+
+<!-- Impact -->
+<section class="reading section">
+  <h2 class="display">Impact</h2>
+  <p style="margin-top:var(--s4)">After launch, connected capture moved from an edge case to a regular part of mobile floor plan creation - adoption that suggested the redesigned flow was helping users move beyond single-room capture and build connected plans on mobile.</p>
+  <ul>
+    <li><strong>22%</strong> - share of mobile scans using the multi-room capability at its peak.</li>
+    <li><strong>~230 / day</strong> - multi-room continuation events, triggered when a user chose to continue a scan into another room.</li>
+    <li><strong>10&times;</strong> - monthly active user growth of 3D Floor Plans over four years (product-wide context, not a result of this feature).</li>
+  </ul>
+</section>
+
+<!-- Learnings -->
+<section class="reading section">
+  <h2 class="display">Learnings</h2>
+  <p style="margin-top:var(--s4)">Scanning more rooms wasn't the hard part. The real challenge was making the flow resilient enough to handle uncertainty without forcing users to stop or start over. Guidance, correction, and recovery needed to happen inside the task, so the plan could keep evolving without feeling fragile.</p>
+</section>
+
+<!-- Next project -->
+<div class="wide">
+  <hr class="rule">
+  <a class="next" href="floor-plan-onboarding.html">
+    <svg class="signature" width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">
+      <path d="M25,80 L80,50 L80,10 L25,40 Z" fill="#E7D9C6" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
+      <path d="M80,50 L135,80 L135,40 L80,10 Z" fill="none" stroke="#2A241C" stroke-width="0.9" stroke-linejoin="round"/>
+      <path d="M80,50 L135,80 L80,110 L25,80 Z" fill="none" stroke="#2A241C" stroke-width="0.8" stroke-linejoin="round"/>
+      <circle cx="84" cy="82" r="4" fill="#B0613A"/>
+      <path d="M84,82 L54,70" fill="none" stroke="#B0613A" stroke-width="1.5"/>
+      <path d="M54,70 L63,70 L59,76 Z" fill="#B0613A"/>
+    </svg>
+    <span>
+      <span class="mono">Next project</span><br>
+      <span class="display" style="font-size:var(--fs-title)">Floor Plan Onboarding →</span>
+    </span>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer__inner">
+    <span class="footer__name">Roni Brot-Kolinkó</span>
+    <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Résumé ↓</a>
+  </div>
+</footer>
+
+</body>
+</html>
