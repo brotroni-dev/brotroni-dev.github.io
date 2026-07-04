@@ -8,6 +8,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -177,13 +178,16 @@ figure { margin: 0; }
 .move__body .stage__head { margin-top: 0; }
 
 /* --- Screen storyboard: uniform mobile screens in rows ---- */
-.screens { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s5) var(--s4); }
-.screens figure { flex: 0 0 190px; max-width: 190px; margin: 0; }
-.screens img { width: 100%; display: block; border-radius: 6px; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(37, 31, 25, .10); }
-.screens--tri { max-width: 630px; margin-inline: auto; }
-.screens .flow__arrow { align-self: center; }
+/* Screens in one horizontal row per flow (never stacked); full-bleed so they
+   fit, with horizontal scroll as a fallback on narrow viewports. */
+.screens { display: flex; flex-wrap: nowrap; justify-content: safe center; gap: var(--s4);
+  overflow-x: auto; width: 100vw; margin-left: calc(50% - 50vw); padding: 4px var(--gutter) var(--s3);
+  scrollbar-width: thin; }
+.screens figure { flex: 0 0 185px; max-width: 185px; margin: 0; }
+.screens img { width: 100%; display: block; border-radius: 10px; border: 1px solid var(--line); box-shadow: 0 4px 16px rgba(37, 31, 25, .10); }
+.screens .flow__arrow { align-self: center; flex: 0 0 auto; }
 .screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); text-align: center; margin-top: var(--s2); line-height: 1.4; }
-@media (max-width: 640px) { .screens figure { flex-basis: 44%; max-width: 44%; } }
+@media (max-width: 640px) { .screens figure { flex-basis: 150px; max-width: 150px; } }
 
 /* --- Stat cards (impact) ---------------------------------- */
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
@@ -198,6 +202,11 @@ figure { margin: 0; }
 .mini-card__n { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .1em; color: var(--accent); margin: 0; }
 .mini-card__t { font-family: var(--font-display); font-weight: 500; color: var(--title); font-size: var(--fs-title); margin: var(--s1) 0 var(--s2); line-height: 1.2; }
 .mini-card p { margin: 0; font-size: .92rem; color: var(--muted); line-height: 1.55; }
+
+/* --- Outcome / result highlight --------------------------- */
+.result { border-left: 3px solid var(--accent); padding-left: var(--s5); }
+.result__stmt { font-family: var(--font-display); font-weight: 500; color: var(--title); font-size: clamp(19px, 2.4vw, 23px); line-height: 1.32; margin: 0 0 var(--s4); }
+.result p:last-child { margin-bottom: 0; }
 
 /* --- Dark ("friction") section on-black adjustments ------- */
 .black .screens figcaption { color: var(--black-muted); }
