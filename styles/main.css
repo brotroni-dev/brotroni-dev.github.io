@@ -9,7 +9,9 @@ html { scroll-behavior: smooth; }
 body {
   margin: 0;
   overflow-x: hidden;
-  background: var(--bg);
+  background:
+    radial-gradient(560px circle at 88% 130px, rgba(201, 138, 60, .12), transparent 60%),
+    var(--bg);
   color: var(--text);
   font-family: var(--font-body);
   font-size: var(--fs-body);
@@ -169,6 +171,22 @@ figure { margin: 0; }
 .flow__desc { margin: 0; font-size: .82rem; line-height: 1.4; color: var(--muted); }
 .flow__arrow { align-self: center; color: var(--accent); font-family: var(--font-mono); font-size: 15px; }
 
+/* --- Full user flow diagram (recreated process artifact) -- */
+.uflow { border: 1px solid var(--line); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--surface) 60%, var(--bg)); padding: var(--s6) var(--s5); }
+.uflow__lane { display: flex; align-items: center; flex-wrap: wrap; gap: var(--s2); }
+.uflow__stage { margin-top: var(--s4); padding-top: var(--s4); border-top: 1px solid var(--line); }
+.uflow__stagehead { display: flex; align-items: baseline; gap: var(--s2); margin-bottom: var(--s3);
+  font-family: var(--font-display); font-weight: 500; color: var(--title); font-size: var(--fs-title); }
+.uflow__num { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--accent); }
+.uflow__node { font-family: var(--font-body); font-size: 12.5px; line-height: 1.3; color: var(--text);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; }
+.uflow__node--key { border-color: var(--accent); color: var(--accent); font-weight: 500; }
+.uflow__node--done { background: var(--accent); color: #F6EEE5; border-color: var(--accent); font-weight: 500; }
+.uflow__node--out { background: transparent; border-style: dashed; color: var(--muted); }
+.uflow__arrow { color: var(--accent); font-family: var(--font-mono); font-size: 13px; flex: 0 0 auto; }
+.uflow__branch { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin: var(--s2) 0 0 var(--s2); }
+
 /* --- Case-study move: schematic illustration beside text --- */
 .move { display: flex; gap: var(--s6); align-items: center; }
 .move--right { flex-direction: row-reverse; }
@@ -241,7 +259,7 @@ figure { margin: 0; }
 .eyebrow svg { width: 20px; height: 20px; color: var(--accent); flex: 0 0 auto; }
 .eyebrow__n { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--accent); letter-spacing: .04em; }
 .eyebrow__t { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
-.eyebrow__line { flex: 1; height: 1px; background: var(--line); margin-left: var(--s1); }
+.eyebrow__line { display: none; }
 .black .eyebrow svg, .black .eyebrow__n { color: var(--ochre); }
 .black .eyebrow__t { color: var(--black-muted); }
 .black .eyebrow__line { background: #3A342B; }
@@ -259,18 +277,19 @@ figure { margin: 0; }
 /* --- User voice: real quotes from research / sessions ----- */
 .voice { display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: start;
   padding: var(--s5) var(--s5) var(--s5) var(--s4); border: 1px solid var(--line);
-  border-left: 3px solid var(--sage); border-radius: var(--radius);
-  background: color-mix(in srgb, var(--sage) 13%, var(--surface)); }
-.voice__mark { font-family: var(--font-display); font-weight: 600; font-size: 46px; line-height: .7; color: var(--sage-ink); }
+  border-left: 3px solid var(--accent); border-radius: var(--radius);
+  background: color-mix(in srgb, var(--accent) 4%, var(--surface)); }
+.voice__mark { font-family: var(--font-display); font-weight: 600; font-size: 26px; line-height: .7; color: var(--accent); opacity: .5; }
 .voice__text { font-family: var(--font-display); font-weight: 500; font-size: clamp(17px, 2.1vw, 20px);
   line-height: 1.4; color: var(--title); margin: 0 0 var(--s3); }
+.voice__text:last-child { margin-bottom: 0; }
 .voice__attr { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .06em; color: var(--muted); }
-.voice__attr b { color: var(--sage-ink); font-weight: 500; }
+.voice__attr b { color: var(--accent); font-weight: 500; }
 .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
 /* Cluster of 2-3 short quotes as compact stacked cards (adapts 2 or 3 wide) */
 .voice-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: var(--s4); }
 .voice-set .voice { grid-template-columns: 1fr; gap: 2px; padding: var(--s5) var(--s4); }
-.voice-set .voice__mark { font-size: 34px; margin-bottom: 2px; }
+.voice-set .voice__mark { font-size: 22px; margin-bottom: 2px; }
 .voice-set .voice__text { font-size: 15px; line-height: 1.46; margin: 0 0 var(--s3); }
 @media (max-width: 640px) { .voice-grid { grid-template-columns: 1fr; } .voice__mark { font-size: 38px; } }
 
@@ -300,4 +319,57 @@ figure { margin: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+/* ============================================================
+   Motion & interaction layer (progressive enhancement, JS-driven).
+   Everything here is additive - the site works fully without it.
+   ============================================================ */
+
+/* Top scroll-progress bar */
+.progress { position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 9998; pointer-events: none; }
+.progress__bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--ochre), var(--accent)); }
+
+/* Table of contents - top-aligned, follows on scroll (wide screens only) */
+.toc { position: fixed; top: 148px;
+  left: calc((100vw - var(--media)) / 2 - 156px); width: 132px; z-index: 60; }
+.toc__label { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: var(--s3); }
+.toc__item { position: relative; display: block; border-left: 2px solid transparent;
+  padding: 6px 0 6px 12px; color: var(--text); font-size: 13px; text-decoration: none;
+  transition: color .2s, border-color .25s; }
+.toc__item.is-active { color: var(--accent); border-left-color: var(--accent); font-weight: 500; }
+.toc__u { position: absolute; left: 12px; bottom: 3px; height: 1.5px; width: 0; background: var(--accent); transition: width .26s; }
+.toc__item:hover .toc__u { width: calc(100% - 12px); }
+@media (max-width: 1200px) { .toc { display: none; } }
+
+/* Rotating stamp - opener decoration, centered in the right margin */
+.stamp { position: absolute; top: 116px; left: calc(75vw + 140px); z-index: 2; pointer-events: none; }
+.stamp svg { display: block; }
+.stamp__spin { transform-origin: 70px 70px; animation: stampRot 18s linear infinite; }
+@keyframes stampRot { to { transform: rotate(360deg); } }
+@media (max-width: 1240px) { .stamp { display: none; } }
+
+/* Scroll reveal - framed elements only, never screens/composites */
+html.reveal-ready .pg-card, html.reveal-ready .mini-card, html.reveal-ready .approach-card,
+html.reveal-ready .stat, html.reveal-ready .voice, html.reveal-ready .flow__step,
+html.reveal-ready .diagram, html.reveal-ready .principle-callout, html.reveal-ready .result {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
+html.reveal-ready .pg-card.is-in, html.reveal-ready .mini-card.is-in, html.reveal-ready .approach-card.is-in,
+html.reveal-ready .stat.is-in, html.reveal-ready .voice.is-in, html.reveal-ready .flow__step.is-in,
+html.reveal-ready .diagram.is-in, html.reveal-ready .principle-callout.is-in, html.reveal-ready .result.is-in {
+  opacity: 1; transform: none; }
+
+/* Smiley custom cursor (single colour, no fill) */
+body.cursor-on, body.cursor-on * { cursor: none; }
+.cursor-face, .cursor-nose { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%); opacity: 0; }
+.cursor-nose { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; transition: opacity .2s; }
+.cursor-face { transition: opacity .2s, transform .16s cubic-bezier(.34, 1.56, .64, 1); }
+.cursor-face .cf-sm { transition: d .18s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  .stamp__spin { animation: none; }
+  .progress__bar { transition: none; }
 }

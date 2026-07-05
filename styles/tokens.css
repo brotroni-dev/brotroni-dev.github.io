@@ -37,7 +37,7 @@
   --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
 
   /* Layout widths */
-  --reading: 640px;   /* prose column        */
+  --reading: 860px;   /* prose column - matches media so text and screens align */
   --media:   860px;   /* media plates / wide */
   --gutter:  clamp(20px, 5vw, 48px);
   --radius:  8px;

@@ -8,10 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=3">
-<link rel="stylesheet" href="../styles/main.css?v=3">
+<link rel="stylesheet" href="../styles/tokens.css?v=7">
+<link rel="stylesheet" href="../styles/main.css?v=7">
+<script>(function(){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('reveal-ready');}catch(e){}})();</script>
 </head>
-<body>
+<body data-project="Floor Plan Onboarding">
 
 <!-- Line-icon sprite (shared visual language) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -53,10 +54,17 @@
   <h1 class="display">From first step to confident planning</h1>
   <p class="summary">Helping first-time users learn the workspace through guided practice.</p>
   <p class="lead" style="margin-top:var(--s5)">3D Floor Plans offered a powerful set of tools, but for a first-time user, the blank workspace made it difficult to know where to begin. Onboarding mattered because users needed more than an introduction to individual features - they needed a clear path to completing a first plan and enough confidence to continue working on their own.</p>
+  <div class="stamp" aria-hidden="true"></div>
 </header>
 
 <div class="wide section--tight">
-  <figure class="plate"><img src="../media/onboarding/hero.jpg" alt="The 3D Floor Plan tutorial open on a laptop at a designer's desk"></figure>
+  <figure style="--dl:33%;--dt:38%;--dw:41%; --cl:35%;--ct:28%;--cw:36%">
+    <div class="fp-stage">
+      <img class="fp-base" src="../media/onboarding/complete-base.png" alt="The completed onboarding: a finished 3D floor plan with a congratulations screen">
+      <img class="fp-dollhouse" src="../media/onboarding/complete-dollhouse.png" alt="">
+      <img class="fp-confetti" src="../media/onboarding/confetti.gif" alt="">
+    </div>
+  </figure>
 </div>
 
 <!-- Overview bar -->
@@ -71,7 +79,7 @@
 </div>
 
 <!-- Problem & Goal - native cards in the site type system -->
-<div class="wide section">
+<div class="wide section" id="overview" data-toc="Overview">
   <div class="pg-pair">
     <div class="pg-card">
       <p class="pg-card__label">Problem</p>
@@ -88,13 +96,42 @@
 
 
 <!-- Reframe -->
-<section class="reading section">
+<section class="reading section" id="challenge" data-toc="The challenge">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-crosshair"/></svg><span class="eyebrow__t">The challenge</span><span class="eyebrow__line"></span></div>
   <h2 class="display">The challenge wasn't finding a tool - it was knowing what came next</h2>
-  <p style="margin-top:var(--s4)">In first-time use, the main friction wasn't individual feature discovery. Users needed help understanding the sequence: where to begin, what to do next, and whether they were on the right track.</p>
+  <p style="margin-top:var(--s4)">The main friction wasn't finding features. Users needed the sequence: where to begin, what to do next, and whether they were on track.</p>
 </section>
-<!-- Where onboarding should live -->
+
+<!-- User needs (before the solution - frames why onboarding mattered) -->
 <section class="reading section">
+  <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-voice"/></svg><span class="eyebrow__t">User needs</span><span class="eyebrow__line"></span></div>
+  <h2 class="display">What first-time users were missing</h2>
+</section>
+<div class="wide section--tight">
+  <div class="voice-set">
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">I didn't need a tour of every button. I needed to know what to do first.</p>
+      </div>
+    </figure>
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">The tools were there, but I didn't understand the order - what to try now, and what comes after.</p>
+      </div>
+    </figure>
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">I wanted to practice without feeling like I could break something.</p>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<!-- Where onboarding should live -->
+<section class="reading section" id="exploration" data-toc="Exploration">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-compass"/></svg><span class="eyebrow__t">Exploration</span><span class="eyebrow__line"></span></div>
   <h2 class="display">Where onboarding should live</h2>
   <p style="margin-top:var(--s4)">I explored four approaches with the team, evaluating each against three needs: keeping users in context, supporting hands-on practice, and working across both 2D and 3D.</p>
@@ -189,15 +226,15 @@
   </div>
 </div>
 <section class="reading section--tight">
-  <p><strong>The core tradeoff:</strong> the lighter options shipped faster but pulled users away from the canvas. The sidebar took more investment, but kept learning in context - users could apply each instruction directly on the canvas instead of translating guidance from a separate surface into the workspace.</p>
-  <p>With the sidebar chosen, the question shifted from <em>where</em> guidance should live to <em>how</em> the practice itself should unfold - what users would do first, and in what order.</p>
+  <p><strong>The core tradeoff:</strong> lighter options shipped faster but pulled users off the canvas. The sidebar cost more, but kept learning in context - each instruction applied directly on the canvas, not translated from a separate surface.</p>
+  <p>With the sidebar chosen, the question shifted from <em>where</em> guidance should live to <em>how</em> the practice should unfold - what users do first, and in what order.</p>
 </section>
 
 <!-- The design: a guided practice space -->
-<section class="reading section">
+<section class="reading section" id="design" data-toc="The design">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-cube"/></svg><span class="eyebrow__t">The design</span><span class="eyebrow__line"></span></div>
   <h2 class="display">The design - a guided practice space</h2>
-  <p style="margin-top:var(--s4)">The selected direction became a guided practice environment inside the real workspace - low-risk enough for experimentation, but close enough to the product to build transferable skills. Rather than opening onto the full workspace at once, it gave users one obvious first action to start from.</p>
+  <p style="margin-top:var(--s4)">The result was a guided practice space inside the real workspace - low-risk enough to experiment, close enough to build real skills. Instead of opening onto everything at once, it gave users one obvious first action.</p>
 </section>
 <div class="wide section--tight">
   <figure class="plate plate--demo" style="max-width:340px"><img src="../media/onboarding/welcome-modal.png" alt="Welcome to the 3D Floor Plan tutorial: one clear first action"><figcaption class="plate-cap" style="text-align:center">The welcome step sets one clear first action.</figcaption></figure>
@@ -218,19 +255,68 @@
   <figure class="plate"><img src="../media/onboarding/welcome-dollhouse.png" alt="The finished home viewed in 3D - the kind of real workspace users practice in"><figcaption class="plate-cap">Practice happens inside the real workspace.</figcaption></figure>
 </div>
 
+<!-- The onboarding flow -->
+<section class="reading section" id="flow" data-toc="The flow">
+  <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-route"/></svg><span class="eyebrow__t">The flow</span></div>
+  <h2 class="display">The full onboarding flow</h2>
+  <p style="margin-top:var(--s4)">The complete path a first-time user moved through - from entry, through three guided stages, to a finished plan and back into real work.</p>
+</section>
+<div class="wide section--tight">
+  <div class="uflow">
+    <div class="uflow__lane">
+      <span class="uflow__node">Pro enters the dashboard</span>
+      <span class="uflow__arrow">&rarr;</span>
+      <span class="uflow__node uflow__node--key">Onboarding</span>
+      <span class="uflow__arrow">&rarr;</span>
+      <span class="uflow__node">Greeting + short intro</span>
+    </div>
+    <div class="uflow__stage">
+      <div class="uflow__stagehead"><span class="uflow__num">01</span> Navigation</div>
+      <div class="uflow__lane">
+        <span class="uflow__node">Floorplan mode</span><span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node">Dollhouse mode</span><span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node">Walkthrough mode</span>
+      </div>
+    </div>
+    <div class="uflow__stage">
+      <div class="uflow__stagehead"><span class="uflow__num">02</span> Tools</div>
+      <div class="uflow__lane">
+        <span class="uflow__node">Selection tool &middot; move items</span><span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node">Pen tool &middot; build a room</span>
+      </div>
+    </div>
+    <div class="uflow__stage">
+      <div class="uflow__stagehead"><span class="uflow__num">03</span> Adding items</div>
+      <div class="uflow__lane">
+        <span class="uflow__node">Structures &middot; add a door</span><span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node">Products &middot; generic item</span><span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node">Source &middot; marketplace item</span>
+      </div>
+    </div>
+    <div class="uflow__stage">
+      <div class="uflow__lane">
+        <span class="uflow__node uflow__node--done">Onboarding complete</span>
+        <span class="uflow__arrow">&rarr;</span>
+        <span class="uflow__node uflow__node--out">Continue this plan</span>
+        <span class="uflow__node uflow__node--out">New floor plan</span>
+        <span class="uflow__node uflow__node--out">Help resources</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- The four stages -->
-<section class="reading section">
+<section class="reading section" id="stages" data-toc="The stages">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-steps"/></svg><span class="eyebrow__t">The sequence</span><span class="eyebrow__line"></span></div>
   <h2 class="display">The four stages</h2>
-  <p style="margin-top:var(--s4)">The sequence was designed to build confidence one layer at a time. Users first needed to understand how to move around the workspace, select objects, and recover if they got lost - only then did it make sense to ask them to create a room.</p>
-  <p>Once the basic structure existed, adding items had a clear context rather than feeling like another disconnected tool to learn. The tutorial ended in 3D because Review was both validation and payoff: users could see that the actions they'd just learned had produced a coherent, spatial result.</p>
-  <p>Introducing creation or furnishing too early would have added complexity before users had the basic control to understand or correct what they were doing. Each stage prepared them for the next - from control, to creation, to detail, and finally to understanding the complete plan.</p>
+  <p style="margin-top:var(--s4)">The sequence builds confidence one layer at a time. Users first learn to move around the workspace, select objects, and recover if they get lost - only then does it make sense to create a room. With structure in place, adding items has a clear context instead of feeling like another disconnected tool.</p>
+  <p>The tutorial ends in 3D because Review is both validation and payoff: users see that the actions they just learned produced a coherent, spatial result. Each stage prepares the next - control, creation, detail, and finally the complete plan.</p>
 </section>
 
 <!-- Stage 1 - Orient -->
 <div class="wide section">
   <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Orient - establish control</span></div>
-  <p>Before asking users to build anything, we gave them a low-risk way to understand movement, zoom, and orientation, then selecting and moving an existing object - so users understood how the workspace behaved before creating anything new. Orient came first by design: these actions were reversible and low-risk, giving users room to get comfortable navigating and selecting before they were asked to create or change the plan.</p>
+  <p>Before asking users to build anything, we gave them a low-risk way to move, zoom, and orient, then to select and move an existing object. These actions were reversible by design - room to get comfortable before creating or changing the plan.</p>
   <figure class="plate" style="margin-top:var(--s4)"><img src="../media/onboarding/navigation.png" alt="Navigation tutorial: zoom to center, zoom in, and zoom out; for mouse navigation, scroll to zoom and drag to move around the canvas"></figure>
   <figure style="margin-top:var(--s4); --mleft:3.3%;--mtop:26.3%;--mw:24%; --gleft:5.1%;--gtop:49%;--gw:20.5%;--gh:19.5%;--gfit:cover;--gpos:center; --px:31.2%;--py:59.2%;--pw:5.5%">
     <div class="fp-stage">
@@ -263,7 +349,7 @@
 <!-- Stage 3 - Add items -->
 <div class="wide section">
   <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Add items - structures, products, source</span></div>
-  <p>The side menu was introduced in a deliberate sequence: Structures for the architectural shell, Products for quick placeholders, and Source for real marketplace items. Inline feedback corrected mistakes while keeping the next step available - feedback, not failure states: a misplaced item suggested a correction without preventing the user from continuing.</p>
+  <p>The side menu unfolded in sequence: Structures for the shell, Products for quick placeholders, Source for real marketplace items. Feedback, not failure states - a misplaced item suggested a correction without blocking the user from continuing.</p>
   <figure style="margin-top:var(--s4); --mleft:3.3%;--mtop:26.8%;--mw:24%; --gleft:8.3%;--gtop:51.6%;--gw:14%;--gh:17%;--gfit:cover;--gpos:center">
     <div class="fp-stage">
       <img class="fp-base" src="../media/onboarding/add-items-base.png" alt="">
@@ -291,12 +377,12 @@
 </div>
 
 <!-- Built for real working sessions -->
-<section class="reading section">
+<section class="reading section" id="sessions" data-toc="In practice">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-frame"/></svg><span class="eyebrow__t">In practice</span><span class="eyebrow__line"></span></div>
   <h2 class="display">Built for real working sessions</h2>
-  <p style="margin-top:var(--s4)">Because onboarding had to fit around real work, users needed to be able to pause, return, and complete it without losing their progress - then move naturally from practice into the actual product.</p>
-  <p><strong>Stop-and-resume.</strong> Users didn't always complete the tutorial in one session, so progress was saved automatically and surfaced again when they returned - they could leave without losing progress and resume from their exact spot.</p>
-  <p><strong>Completing the onboarding.</strong> The final step reinforced completion while keeping momentum: users could either start a new floor plan or continue practicing in the same workspace.</p>
+  <p style="margin-top:var(--s4)">Onboarding had to fit around real work - users could pause, return, and finish without losing progress, then move from practice into the product.</p>
+  <p><strong>Stop-and-resume.</strong> Few users finished in one session, so progress saved automatically and resurfaced on return - leave without losing progress, resume from the exact spot.</p>
+  <p><strong>Completing the onboarding.</strong> The final step kept momentum: start a new floor plan, or keep practicing in the same workspace.</p>
 </section>
 <div class="wide section--tight">
   <figure class="plate"><img src="../media/onboarding/exit-flow.png" alt="Leave without losing progress"><figcaption class="plate-cap">Leave without losing progress.</figcaption></figure>
@@ -313,7 +399,7 @@
 
 <!-- Outcome -->
 <div class="wide"><div class="deco-rule"><span class="deco-rule__node deco-rule__node--fill"></span></div></div>
-<section class="reading section--tight">
+<section class="reading section--tight" id="outcome" data-toc="Outcome">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-sparkle"/></svg><span class="eyebrow__t">Outcome</span><span class="eyebrow__line"></span></div>
   <h2 class="display">The onboarding made the canvas feel learnable</h2>
   <p style="margin-top:var(--s4)">The tutorial taught a workflow, not a list of features - gain control, create, add detail, and review the result in 3D.</p>
@@ -322,39 +408,9 @@
     <p>The result suggested the onboarding was supporting users through the early learning curve - giving them a structured path to practice the core workflow before applying it in their own work.</p>
   </div>
 </section>
-<!-- User voice -->
-<section class="reading section">
-  <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-voice"/></svg><span class="eyebrow__t">In their words</span><span class="eyebrow__line"></span></div>
-  <h2 class="display">What first-time users said</h2>
-</section>
-<div class="wide section--tight">
-  <div class="voice-set">
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">I didn't need a tour of every button. I needed to know what to do first.</p>
-        <p class="voice__attr"><b>First-time user</b> &middot; research</p>
-      </div>
-    </figure>
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">The tools were there, but I didn't understand the order - what to try now, and what comes after.</p>
-        <p class="voice__attr"><b>First-time user</b> &middot; research</p>
-      </div>
-    </figure>
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">I wanted to practice without feeling like I could break something.</p>
-        <p class="voice__attr"><b>New user</b> &middot; first session</p>
-      </div>
-    </figure>
-  </div>
-</div>
 
 <!-- Learnings -->
-<section class="reading section">
+<section class="reading section" id="learnings" data-toc="Learnings">
   <div class="eyebrow"><svg aria-hidden="true"><use href="#ic-bulb"/></svg><span class="eyebrow__t">Learnings</span><span class="eyebrow__line"></span></div>
   <h2 class="display">What the onboarding taught me</h2>
   <p style="margin-top:var(--s4)">Onboarding a complex tool isn't about explaining everything it can do - it's about giving people a clear path to one meaningful result.</p>
@@ -396,5 +452,6 @@
   </div>
 </footer>
 
+<script src="../scripts/site.js?v=3" defer></script>
 </body>
 </html>
