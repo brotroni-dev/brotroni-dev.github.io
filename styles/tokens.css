@@ -28,7 +28,7 @@
   --fs-h1:    clamp(30px, 5vw, 42px);  /* page title            */
   --fs-h2:    clamp(21px, 3vw, 26px);  /* section heading       */
   --fs-title: 18px;                    /* card / stage / flow / nav titles */
-  --fs-body:  16px;                    /* body copy             */
+  --fs-body:  14px;                    /* body copy (compact, editorial) */
   --fs-label: 11px;                    /* compact mono labels   */
   --fs-eyebrow: 12px;                  /* kicker / meta / caption */
 
@@ -41,4 +41,15 @@
   --media:   860px;   /* media plates / wide */
   --gutter:  clamp(20px, 5vw, 48px);
   --radius:  8px;
+  --radius-screen: 6px;   /* screenshots / device screens (locked) */
+
+  /* Turquoise belongs to PRODUCT ARTIFACTS ONLY - real screenshots/GIFs, the
+     tutorial pulse marker, and product-screen mockups showing AR/scan cues.
+     Never use it for portfolio chrome (voice cards, labels, links, decoration). */
+  --turq:      #72F2E8;   /* product interaction fill / halo */
+  --turq-ink:  #2FA79B;   /* product interaction stroke */
+
+  /* Muted sage / lichen - the portfolio's accent for user-insight (voice) cards */
+  --sage:      #909A7E;   /* card border / hairline */
+  --sage-ink:  #5C6A47;   /* readable sage for marks + attribution */
 }
