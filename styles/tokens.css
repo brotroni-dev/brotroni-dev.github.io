@@ -3,14 +3,14 @@
    Mirrors content/visual-foundation.md. Used by every page.
    ============================================================ */
 :root {
-  /* Parchment base (default surface) */
-  --bg:        #ECE3D0;  /* page background  */
-  --surface:   #F5EEDF;  /* cards / plates   */
-  --line:      #D8CDB6;  /* hairlines, rules */
-  --title:     #241F19;  /* display headings */
-  --text:      #3A332A;  /* body             */
-  --muted:     #6E6557;  /* secondary / meta */
-  --accent:    #B0613A;  /* terracotta (accent on light) */
+  /* White base, near-black primary, no beige (neutral greys) */
+  --bg:        #FFFFFF;  /* page background            */
+  --surface:   #F6F6F5;  /* cards / plates (neutral)   */
+  --line:      #E4E3E1;  /* hairlines, borders         */
+  --title:     #17140F;  /* headings / primary (black) */
+  --text:      #36322C;  /* body                       */
+  --muted:     #76726B;  /* secondary / meta           */
+  --accent:    #9E4E2C;  /* antique orange - sparing accent */
 
   /* Reserved near-black moment (expressive, used sparingly) */
   --black:        #0E0C0A;
