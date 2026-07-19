@@ -375,3 +375,123 @@ figure { margin: 0; }
 .toc--dark .toc__item:hover { color: var(--black-text); }
 .toc--dark .toc__item.is-active { color: var(--black-title); border-left-color: var(--black-title); }
 @media (max-width: 1200px) { .toc { display: none; } }
+
+/* ============================================================
+   Multi-Room case study - layout / rhythm / hierarchy pass.
+   Scoped to body.mr so the other case studies are untouched.
+   Presentation only: no new colours, fonts, or components.
+   ============================================================ */
+
+/* 1 · Readability - shorter measure for body copy; headings stay wide */
+.mr .reading p:not(.kicker) { max-width: 700px; }
+.mr .reading .lead { max-width: 720px; }
+
+/* 2 · Rhythm - a visual sits close to the text that introduces it,
+       while chapters keep their generous gap (.section stays s9) */
+.mr .section--tight { margin-top: var(--s5); }
+/* standalone transitions belong to the story, not to empty space */
+.mr .mr-tr { margin-top: var(--s7); }
+.mr .mr-tr + * { margin-top: var(--s5); }
+
+/* 3 · Hierarchy - a clear but restrained three-tier scale; screens are
+       downscaled from their source, so they stay crisp and readable */
+.mr .screens figure { flex: 0 0 176px; max-width: 176px; }
+.mr .screens--hero figure { flex: 0 0 208px; max-width: 208px; }
+.mr .screens--quiet figure { flex: 0 0 144px; max-width: 144px; }
+/* the five dialog screens read a touch larger, still one row */
+.mr .screens--dialogs figure { flex: 0 0 160px; max-width: 160px; }
+
+/* 6 · Quotes - compact and editorial */
+.mr .voice-set .voice { padding: var(--s4); border-left-width: 2px; }
+.mr .voice-set .voice__mark { font-size: 18px; margin-bottom: 0; }
+.mr .voice-set .voice__text { font-size: 16px; line-height: 1.44; margin-bottom: 0; }
+
+/* 7 · Problem / Goal - the goal is a solid terracotta card, light text on brown */
+.mr .ig-card--goal .ig-card__stmt { font-size: clamp(21px, 2.7vw, 28px); }
+
+/* 7b · When the section carries the evidence screen, it reads top to bottom:
+        problem -> proof -> goal, so the visual makes the case between them */
+.mr .ig-pair--story { display: flex; flex-direction: column; gap: var(--s6); }
+.mr .ig-evidence { margin: 0; text-align: center; }
+.mr .ig-evidence__head { font-family: var(--font-display); font-weight: 500; color: var(--title);
+  font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; margin: 0 0 var(--s5); }
+.mr .ig-evidence__body { display: flex; align-items: center; justify-content: center;
+  gap: var(--s6); flex-wrap: wrap; }
+.mr .ig-evidence__shot { flex: 0 0 auto; width: 208px; max-width: 60vw; }
+.mr .ig-evidence__shot img { width: 100%; display: block;
+  border: 1px solid var(--line); border-radius: var(--radius-screen); }
+
+.mr .ig-evidence__aside { flex: 0 1 240px; text-align: left; }
+.mr .ev-label { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 var(--s2); }
+.mr .ev-note { margin: 0; font-size: var(--fs-body); line-height: 1.5; color: var(--muted); }
+
+.mr .ig-evidence__cap { max-width: 460px; margin: var(--s5) auto 0;
+  font-size: var(--fs-body); line-height: 1.5; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .mr .ig-evidence__aside { flex-basis: 100%; max-width: 340px; margin: 0 auto; text-align: center; }
+}
+
+/* 9 · Principles read as the roadmap for the three numbered moves below */
+.mr .mini-card__n { font-size: 13px; }
+.mr .stage__num { font-size: 22px; }
+
+/* 10 · Resulting flow - scannable left to right, less boxed */
+.mr .flow__step { background: transparent; border: 0; border-top: 2px solid var(--line);
+  border-radius: 0; padding: var(--s3) var(--s4) 0 0; }
+.mr .flow__arrow { font-size: 18px; align-self: center; }
+
+/* 11 · Impact - the numbers lead; the product-wide metric stays context */
+/* Hero - a touch larger than the reading width for emphasis */
+.mr .mr-hero { max-width: 965px; }
+
+/* "Original mobile scan flow" reads as quiet context, not a headline */
+.mr #before .display { font-size: clamp(19px, 2.6vw, 22px); }
+
+.mr .stats { grid-template-columns: repeat(2, 1fr); max-width: 620px; margin-inline: auto; }
+
+/* Epilogue - a single plain phone screenshot, centered, no frame */
+.mr .itw-shot { margin: 0; display: flex; justify-content: center; }
+.mr .itw-shot img { width: 208px; max-width: 60vw; display: block; }
+.mr .stat { padding: var(--s5) var(--s4); }
+.mr .stat__num { font-size: clamp(38px, 6vw, 54px); }
+.mr .stat__label { font-size: 13px; margin-top: var(--s2); }
+
+/* 12 · Responsive - keep screenshots legible on small screens */
+@media (max-width: 720px) {
+  .mr .screens figure, .mr .screens--hero figure { flex-basis: 190px; max-width: 190px; }
+  .mr .screens--quiet figure { flex-basis: 140px; max-width: 140px; }
+}
+
+/* Before/after comparison in The challenge - ~20% smaller so it reads as
+   supporting evidence, not the main visual focus */
+.mr .screens--compare figure { flex: 0 0 166px; max-width: 166px; }
+@media (max-width: 720px) {
+  .mr .screens--compare figure { flex-basis: 152px; max-width: 152px; }
+}
+
+/* Principle 03 - the two "before" dialogs are stacked so one sits behind the
+   other (literally "hidden behind dialogs"), compressing them to roughly one
+   phone's footprint; the single "after" screen is a touch larger and reads as
+   the clean resolution. */
+.mr .p03-compare { display: flex; align-items: center; justify-content: center;
+  gap: var(--s6); flex-wrap: wrap; }
+.mr .p03-side { display: flex; flex-direction: column; align-items: center; gap: var(--s4); }
+.mr .p03-side figure { margin: 0; }
+.mr .p03-side figcaption { font-family: var(--font-mono); font-size: var(--fs-label);
+  color: var(--muted); text-align: center; line-height: 1.4; max-width: 230px; }
+.mr .p03-side figcaption .p03-lbl { display: block; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--title); margin-bottom: 3px; }
+.mr .p03-stack { display: flex; align-items: flex-start; }
+.mr .p03-stack img { width: 165px; display: block;
+  border: 1px solid var(--line); border-radius: var(--radius-screen); background: #FFF; }
+.mr .p03-stack .p03-front { margin-left: -50px; margin-top: 34px; }
+.mr .p03-front img { box-shadow: -10px 8px 24px rgba(23, 20, 15, .16); }
+.mr .p03-after img { width: 179px; display: block;
+  border: 1px solid var(--line); border-radius: var(--radius-screen); }
+@media (max-width: 640px) {
+  .mr .p03-stack img { width: 145px; }
+  .mr .p03-stack .p03-front { margin-left: -44px; }
+  .mr .p03-after img { width: 160px; }
+}

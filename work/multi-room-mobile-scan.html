@@ -8,10 +8,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=34">
-<link rel="stylesheet" href="../styles/main.css?v=34">
+<link rel="stylesheet" href="../styles/tokens.css?v=91">
+<link rel="stylesheet" href="../styles/main.css?v=91">
 </head>
-<body>
+<body class="mr">
 
 <!-- Nav -->
 <nav class="nav">
@@ -22,14 +22,14 @@
 </nav>
 
 <!-- Main image (top) -->
-<div class="wide" style="padding-top:var(--s6)">
+<div class="wide mr-hero" style="padding-top:var(--s6)">
   <figure class="plate plate--bare"><img src="../media/multi-room/hero.png" alt="From a phone scanning a room on site to the complete connected floor plan in the desktop workspace"></figure>
 </div>
 
 <!-- Opener -->
-<header class="reading" style="margin-top:var(--s7)">
-  <h1 class="display">Expanding mobile scanning beyond one room</h1>
-  <p class="lead" style="margin-top:var(--s5)">Mobile scanning worked well for a single room, but real projects rarely stop there. Multi-room removed that limit - making mobile capture useful for complete, connected floor plans, and moving pros toward finishing a whole plan on site.</p>
+<header class="reading" style="margin-top:var(--s6)">
+  <h1 class="display">Turning disconnected room scans into one connected floor plan</h1>
+  <p class="lead" style="margin-top:var(--s5)">Pros could scan a room with their phone by marking each wall corner. Multi Room Scan let them continue from room to room and build one connected floor plan.</p>
 </header>
 
 <!-- Overview bar (directly under the lead) -->
@@ -43,13 +43,55 @@
   <hr class="rule">
 </div>
 
-<!-- 1 · Context & problem -->
-<section class="reading section" id="problem" data-toc="Problem">
+<!-- 2 · When one room wasn't enough -->
+<section class="reading section" id="problem" data-toc="Problem" style="margin-top:var(--s7)">
   <h2 class="display">When one room wasn't enough</h2>
-  <p style="margin-top:var(--s4)">Mobile scan brought floor plan creation into the space itself: pros could capture walls, corners, and openings on site. But real renovation projects often extended beyond a single room.</p>
+  <p style="margin-top:var(--s4)">The mobile flow was built around completing one room at a time. Pros could scan the space, add doors and windows, and continue refining the plan later on desktop. But once a project included more than one room, that flow no longer matched the way they worked.</p>
 </section>
+<div class="wide section--tight" style="margin-bottom:128px">
+  <figure class="plate plate--bare" style="max-width:400px;margin-inline:auto"><img src="../media/multi-room/illus.png" alt="A pro scanning a room on a tablet on site, then refining the floor plan later on desktop"></figure>
+</div>
 
-<!-- User voice (the research, right after the problem) -->
+<!-- 3 · Original mobile scan flow (the before state) -->
+<section class="reading section" id="before" data-toc="Before">
+  <div class="eyebrow"><span class="eyebrow__t">Before</span></div>
+  <h2 class="display">The original mobile scan flow</h2>
+  <p class="summary" style="margin-top:var(--s2)">Designed to capture one enclosed room at a time</p>
+</section>
+<div class="wide section--tight" style="margin-top:var(--s4)">
+  <div class="screens">
+    <figure><img src="../media/multi-room/floor-plans-list.png" alt="The floor-plans list, where a pro taps Start Scanning to begin"><figcaption>Start scanning</figcaption></figure>
+    <figure><img src="../media/multi-room/scan.png" alt="Aiming the device at the floor to detect it"><figcaption>Detect the floor</figcaption></figure>
+    <figure><img src="../media/multi-room/place-corner-points.png" alt="Placing a point at each corner of the room"><figcaption>Place corner points</figcaption></figure>
+    <figure><img src="../media/multi-room/close-shape.png" alt="Closing the room shape"><figcaption>Close the shape</figcaption></figure>
+    <figure><img src="../media/multi-room/ready-floor-plan.png" alt="One captured room, ready"><figcaption>One room, ready</figcaption></figure>
+  </div>
+</div>
+
+<!-- 5 · The problem, then 6 · the evidence -->
+<div class="wide section--tight" id="insight" style="margin-top:var(--s4)">
+  <div class="ig-pair ig-pair--story">
+    <div class="ig-card ig-card--insight">
+      <p class="ig-card__label">The problem</p>
+      <p class="ig-card__stmt">The scan stopped at one room.</p>
+      <p class="ig-card__note">Each additional room had to be started as a separate floor plan, even when it belonged to the same project.</p>
+    </div>
+    <figure class="ig-evidence">
+      <p class="ig-evidence__head">One project, separate floor plans.</p>
+      <div class="ig-evidence__body">
+        <div class="ig-evidence__shot">
+          <img src="../media/multi-room/floor-plans-list-marked.png?v=53" alt="The floor-plans list with same-project rows highlighted, showing they appear as separate items">
+        </div>
+        <div class="ig-evidence__aside">
+          <p class="ev-label">No way to reconnect them</p>
+          <p class="ev-note">Rooms from the same project appeared as separate plans, even though they belonged to one home.</p>
+        </div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+<!-- 7 · In their words -->
 <section class="reading section" id="voices" data-toc="In their words">
   <div class="eyebrow"><span class="eyebrow__t">In their words</span></div>
   <h2 class="display">What pros said</h2>
@@ -60,84 +102,56 @@
       <div class="voice__mark" aria-hidden="true">&ldquo;</div>
       <div>
         <p class="voice__text">I don't want to stop after every room. I need the scan to keep up with the way I move through the home.</p>
-        <p class="voice__attr"><b>Pro</b> &middot; discovery</p>
       </div>
     </figure>
     <figure class="voice">
       <div class="voice__mark" aria-hidden="true">&ldquo;</div>
       <div>
         <p class="voice__text">I need to know where this new room connects before I move on, otherwise I'm not sure I can trust the plan.</p>
-        <p class="voice__attr"><b>Pro</b> &middot; usability session</p>
       </div>
     </figure>
   </div>
 </div>
 
-<!-- 2 · Problem + Goal (paired colour cards) -->
-<div class="wide section--tight" id="insight" data-toc="Goal">
-  <div class="ig-pair">
-    <div class="ig-card ig-card--insight">
-      <p class="ig-card__label">The problem</p>
-      <p class="ig-card__stmt">The scan stopped at one room.</p>
-      <p class="ig-card__note">For connected layouts, pros had to move back to desktop and manually assemble rooms into one plan.</p>
-    </div>
+<!-- 8 · The design goal -->
+<div class="wide section--tight" data-toc="Goal" style="margin-top:var(--s7)">
+  <div class="ig-pair ig-pair--story">
     <div class="ig-card ig-card--goal" id="goal">
       <p class="ig-card__label">The goal</p>
-      <p class="ig-card__stmt">Keep the scan moving across rooms - one connected plan, without losing momentum or orientation.</p>
+      <p class="ig-card__stmt">Let pros move from room to room while keeping enough context to build one connected floor plan.</p>
     </div>
   </div>
 </div>
 
-<!-- From mobile capture to desktop completion -->
-<section class="reading section">
-  <div class="eyebrow"><span class="eyebrow__t">The workflow</span></div>
-  <h2 class="display">From mobile capture to desktop completion</h2>
-  <p style="margin-top:var(--s4)">Pros could scan a single room on mobile, then continue the full plan later on desktop - one job split across two places, with the connecting work left to do by hand.</p>
-</section>
-
-<!-- Original mobile scan flow (the before state) -->
-<section class="reading section" id="before" data-toc="Before">
-  <div class="eyebrow"><span class="eyebrow__t">Before</span></div>
-  <h2 class="display">Original mobile scan flow</h2>
-  <p class="summary" style="margin-top:var(--s3)">Existing experience before the redesign.</p>
-  <p style="margin-top:var(--s4)">The flow was optimized for capturing one closed room quickly and accurately.</p>
-</section>
-<div class="wide section--tight">
-  <div class="screens">
-    <figure><img src="../media/multi-room/start-scanning.png" alt="Starting a scan from the floor-plan list"><figcaption>Start scanning</figcaption></figure>
-    <figure><img src="../media/multi-room/scan.png" alt="Aiming the device at the floor to detect it"><figcaption>Detect the floor</figcaption></figure>
-    <figure><img src="../media/multi-room/place-corner-points.png" alt="Placing a point at each corner of the room"><figcaption>Place corner points</figcaption></figure>
-    <figure><img src="../media/multi-room/close-shape.png" alt="Closing the room shape"><figcaption>Close the shape</figcaption></figure>
-    <figure><img src="../media/multi-room/ready-floor-plan.png" alt="One captured room, ready"><figcaption>One room, ready</figcaption></figure>
-  </div>
-</div>
-
-<!-- The challenge -->
+<!-- 8 · The core challenge -->
 <section class="reading section" id="challenge" data-toc="The challenge">
   <div class="eyebrow"><span class="eyebrow__t">The challenge</span></div>
-  <h2 class="display">The challenge wasn't scanning rooms - it was connecting them</h2>
-  <p style="margin-top:var(--s4)">To support full spaces, the product needed to connect separate scans into one shared map. But connected scans also brought more guidance, decisions, and recovery moments into the flow.</p>
+  <h2 class="display">Connecting rooms into one plan</h2>
+  <p style="margin-top:var(--s4)">At first, it sounded simple: let pros keep scanning. But once they entered the next room, we still had to figure out where it belonged in the plan. Every room needed to stay connected to the same shared reference, and that turned out to be one of the hardest parts of the project.</p>
 </section>
 <div class="wide section--tight">
-  <div class="screens">
-    <figure><img src="../media/multi-room/challenge-1.png" alt="A single room captured as a clean 2D shape"></figure>
+  <div class="screens screens--hero screens--compare">
+    <figure><img src="../media/multi-room/challenge-1.png" alt="A single room captured as a clean 2D shape"><figcaption>One room</figcaption></figure>
     <span class="flow__arrow">→</span>
-    <figure><img src="../media/multi-room/challenge-2.png" alt="The rooms connected into one whole-space plan"></figure>
+    <figure><img src="../media/multi-room/challenge-2.png" alt="The rooms connected into one whole-space plan"><figcaption>One connected home</figcaption></figure>
   </div>
 </div>
-<section class="reading section--tight">
-  <p><strong>Geolocation was meant to bridge the gap</strong> - estimating where each room scan was captured, so separate scans could line up and connect into one floor plan.</p>
+
+<!-- 8 · Geolocation: what it was meant to do (transition into "Gaps in the map") -->
+<section class="reading section--tight" style="margin-top:var(--s7)">
+  <p>We used the phone's location data to estimate where each room belonged on the shared map. When that estimate drifted, the rooms stopped lining up.</p>
 </section>
 
-<!-- The friction (BLACK): three obstacles -->
+<!-- 9 + 8 · The friction (BLACK): death by dialogs, then gaps in the map -->
 <section class="black" id="friction" data-toc="The friction" style="margin-top:var(--s9)">
   <div class="reading">
     <p class="kicker">The friction</p>
     <h2 class="display" style="margin-top:var(--s2)">Death by dialogs</h2>
-    <p style="margin-top:var(--s4)">Helpful alone. Heavy together. What started as guidance became friction, forcing users to stop, read, confirm, and repeat.</p>
+    <p style="margin-top:var(--s4)">Each dialog solved a real problem. Together, they interrupted the flow.</p>
+    <p style="margin-top:var(--s4)">We needed to explain what happened after each room, where pros could go next, and what still needed to be saved. Each step made sense on its own. Together, they kept stopping the scan.</p>
   </div>
   <div class="wide section--tight">
-    <div class="screens">
+    <div class="screens screens--quiet screens--dialogs">
       <figure><img src="../media/multi-room/feature-intro.png" alt="Dialog introducing scan rooms back-to-back"><figcaption>Feature introduction</figcaption></figure>
       <figure><img src="../media/multi-room/before-preview.png" alt="Finalize Scan dialog before preview"><figcaption>Before previewing the scan</figcaption></figure>
       <figure><img src="../media/multi-room/whats-next.png" alt="Saved and ready: scan another room, or I'm all set"><figcaption>What's next?</figcaption></figure>
@@ -146,46 +160,44 @@
     </div>
   </div>
 
+  <div class="reading section mr-tr">
+    <p>As we worked to cut the dialogs down, a second problem surfaced - one that had nothing to do with copy. The rooms themselves weren't always lining up.</p>
+  </div>
   <div class="reading section">
     <h2 class="display">Gaps in the map</h2>
-    <p style="margin-top:var(--s4)">Geolocation was meant to give every room a shared reference, but it didn't always hold. When it drifted, rooms behaved like separate scans - making alignment, rotation, and stitching unreliable.</p>
+    <p style="margin-top:var(--s4)">Meanwhile, we discovered a technical problem: rooms didn't always line up on the shared map. Pros needed a way to move, rotate, or remove them manually.</p>
   </div>
   <div class="wide section--tight">
-    <div class="screens">
+    <div class="screens screens--hero">
       <figure><img src="../media/multi-room/disconnected-rooms.png" alt="Rooms drifting apart as separate, disconnected shapes"><figcaption>Rooms drifted into separate local scans</figcaption></figure>
     </div>
   </div>
 
-  <div class="reading section">
-    <h2 class="display">The flow had to work even when the map didn't</h2>
-    <p style="margin-top:var(--s4)">A tutorial could explain how to connect rooms, but it couldn't remove the uncertainty when the reference drifted. Rather than depend on perfect alignment, the flow had to help users adjust, recover, and continue.</p>
+  <div class="reading" style="margin-top:var(--s5)">
+    <p>Our first attempt was to give pros manual controls to move, rotate, and remove rooms. We introduced them through a short tutorial.</p>
   </div>
-  <div class="wide section--tight">
-    <div class="screens">
+  <div class="wide section--tight" style="margin-top:var(--s4)">
+    <div class="screens screens--quiet">
       <figure><img src="../media/multi-room/tutorial-1.png" alt="Instruction dialog: how to move rooms"></figure>
       <figure><img src="../media/multi-room/tutorial-2.png" alt="Instruction dialog: how to rotate rooms"></figure>
       <figure><img src="../media/multi-room/tutorial-3.png" alt="Instruction dialog: how to delete rooms"></figure>
     </div>
   </div>
+  <div class="reading" style="margin-top:var(--s4)">
+    <p>The controls solved the technical problem, but the tutorial became another interruption. Explaining the workaround didn't make it easier to use.</p>
+  </div>
 </section>
 
 <!-- Making multi-room scan feel continuous (approach) -->
-<section class="reading section" id="approach" data-toc="The approach">
+<section class="reading section" id="approach" data-toc="The approach" style="margin-top:var(--s8)">
   <div class="eyebrow"><span class="eyebrow__t">The approach</span></div>
   <h2 class="display">Making multi-room scan feel continuous</h2>
-  <p style="margin-top:var(--s4)">That shifted the problem from teaching the feature to making the flow resilient: keep users inside the scan, allow corrections in place, and separate the decision to continue from the decision to finish.</p>
+  <p style="margin-top:var(--s4)">We realized that more guidance wasn't making the experience easier. So we changed the flow itself: guidance appeared when it was needed, rooms could be adjusted without leaving the scan, and continuing or finishing became a clear choice.</p>
 </section>
-<div class="wide section--tight">
-  <div class="mini-cards">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Guidance within the flow</h3><p>Instead of stopping users with separate instruction screens.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Adjust without leaving</h3><p>Instead of sending users out of the capture flow.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Separate continue from finish</h3><p>Instead of making one "Next" button carry two decisions.</p></div>
-  </div>
-</div>
 
 <!-- Move 1: guidance stayed inside the scan (before / after) -->
-<section class="reading section">
-  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Guidance and actions stayed inside the scan</span></div>
+<section class="reading section" style="margin-top:var(--s7)">
+  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Guidance within the flow</span></div>
   <p style="margin-top:var(--s3)">A single "Point" action became a persistent action bar, and the plain white dashed edge became a richer turquoise line system - making edges, corners, and room continuity easier to read during capture.</p>
 </section>
 <div class="wide section--tight">
@@ -197,8 +209,8 @@
 
 <!-- Move 2: refine in place -->
 <section class="reading section">
-  <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Refine in place</span></div>
-  <p style="margin-top:var(--s3)">Users could place doors and windows, fine-tune their position, and adjust their dimensions on the spot - without interrupting the scan.</p>
+  <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Refine without breaking the flow</span></div>
+  <p style="margin-top:var(--s3)">The editing capability already existed, but the interaction felt fragmented. We refined the flow so pros could add, position, and resize openings more smoothly without losing their place in the scan.</p>
 </section>
 <div class="wide section--tight">
   <div class="screens">
@@ -208,37 +220,36 @@
   </div>
 </div>
 
-<!-- Move 3: making the next step explicit -->
+<!-- Move 3: before / after - continue and finish made explicit -->
 <section class="reading section">
-  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Making the next step explicit</span></div>
-  <p style="margin-top:var(--s3)">The flow separated two decisions: scan another room, or finish and move to preview.</p>
+  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Separate continue from finish</span></div>
+  <p style="margin-top:var(--s3)">Previously, users had to move through multiple dialogs to understand whether they were continuing or finishing. We made both decisions visible in the scan itself: move to the next room, or finish and review the plan.</p>
 </section>
 <div class="wide section--tight">
-  <div class="screens">
-    <figure><img src="../media/multi-room/next-room-dialog.png" alt="In-scan prompt to continue to the next room or finish"><figcaption>Continue, or finish</figcaption></figure>
-    <figure><img src="../media/multi-room/continue-finish.png" alt="Finish Scanning confirmation dialog"><figcaption>Finish scanning?</figcaption></figure>
+  <div class="p03-compare">
+    <div class="p03-side">
+      <div class="p03-stack">
+        <figure class="p03-back"><img src="../media/multi-room/before-preview.png" alt="The Finalize Scan? dialog"></figure>
+        <figure class="p03-front"><img src="../media/multi-room/whats-next.png" alt="The Saved and Ready to Go! dialog"></figure>
+      </div>
+      <figcaption><span class="p03-lbl">Before</span>Hidden behind dialogs</figcaption>
+    </div>
+    <span class="flow__arrow">→</span>
+    <div class="p03-side p03-after">
+      <figure><img src="../media/multi-room/next-room-dialog.png" alt="The in-scan screen with separate Next Room and Finish actions"></figure>
+      <figcaption><span class="p03-lbl">After</span>Visible in the scan</figcaption>
+    </div>
   </div>
 </div>
 
 <!-- The resulting flow -->
 <section class="reading section" id="resulting-flow" data-toc="Resulting flow">
   <div class="eyebrow"><span class="eyebrow__t">Resulting flow</span></div>
-  <h2 class="display">The resulting flow</h2>
-  <p style="margin-top:var(--s4)">Together, these changes kept users inside the capture experience: scan the room, build the plan, continue to the next room, or finish and move to preview.</p>
+  <h2 class="display">One continuous experience</h2>
+  <p style="margin-top:var(--s4);margin-bottom:0">The new flow let pros scan, adjust, and continue from room to room without losing their place.</p>
 </section>
-<div class="wide section--tight">
-  <div class="flow">
-    <div class="flow__step"><span class="flow__num">01</span><div class="flow__name">Scan</div><p class="flow__desc">Capture walls, corners, and openings</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">02</span><div class="flow__name">Build</div><p class="flow__desc">The connected plan grows room by room</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">03</span><div class="flow__name">Continue / Finish</div><p class="flow__desc">Add another room, or complete the capture</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">04</span><div class="flow__name">Preview</div><p class="flow__desc">Review the full connected plan</p></div>
-  </div>
-</div>
-<div class="wide section--tight">
-  <div class="screens">
+<div class="wide section--tight" style="margin-top:var(--s4)">
+  <div class="screens screens--hero">
     <figure><img src="../media/multi-room/build.png" alt="Building the connected plan inside the scan"><figcaption>Build the connected plan</figcaption></figure>
     <figure><img src="../media/multi-room/preview.png" alt="Preview of the full connected floor plan"><figcaption>The full connected plan</figcaption></figure>
   </div>
@@ -254,7 +265,6 @@
   <div class="stats">
     <div class="stat"><div class="stat__num">22%</div><p class="stat__label">Share of mobile scans using multi-room, at its peak</p></div>
     <div class="stat"><div class="stat__num">~230<small>/day</small></div><p class="stat__label">Room-to-room continuation events</p></div>
-    <div class="stat"><div class="stat__num">10&times;</div><p class="stat__label">Monthly active user growth of 3D Floor Plans - product-wide context, not caused by this feature</p></div>
   </div>
 </div>
 <!-- Learnings -->
@@ -265,10 +275,19 @@
 </section>
 <div class="wide section--tight">
   <div class="mini-cards">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Keep users oriented</h3><p>Users needed to understand where they were as the plan grew across rooms.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Guide without stopping</h3><p>Instructions worked best when they appeared inside the scan, not as extra dialogs.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Let users keep moving</h3><p>Users needed to fix, continue, or finish without getting blocked.</p></div>
+    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Confidence matters more than perfect alignment</h3><p>Pros needed to understand where they were and trust the plan enough to keep moving, even when the spatial reference was imperfect.</p></div>
+    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Guidance works best inside the flow</h3><p>Instructions were most useful when they appeared in context, rather than as separate dialogs that interrupted the scan.</p></div>
+    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Momentum is part of the experience</h3><p>Users needed to adjust, continue, or finish without losing their place or feeling blocked.</p></div>
   </div>
+</div>
+
+<!-- Epilogue: in the wild -->
+<section class="reading section" id="in-the-wild" data-toc="In the wild">
+  <div class="eyebrow"><span class="eyebrow__t">In the wild</span></div>
+  <p style="margin-top:var(--s4)">What I loved most was being able to test the flow anywhere. I could scan real spaces, catch issues as they happened, and give developers immediate feedback while we were still shaping the experience.</p>
+</section>
+<div class="wide section--tight">
+  <figure class="itw-shot"><img src="../media/multi-room/inthewild.png" alt="Testing the multi-room scan flow in a real room on a phone"></figure>
 </div>
 
 <!-- Next project -->
@@ -300,6 +319,8 @@
   </div>
 </footer>
 
-<script src="../scripts/site.js?v=5" defer></script>
+<!-- Floating Contents rail temporarily removed to evaluate the reading experience.
+     Component is intact in ../scripts/site.js - re-enable by restoring this line:
+     <script src="../scripts/site.js?v=5" defer></script> -->
 </body>
 </html>
