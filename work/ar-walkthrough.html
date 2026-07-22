@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=58">
-<link rel="stylesheet" href="../styles/main.css?v=58">
+<link rel="stylesheet" href="../styles/tokens.css?v=60">
+<link rel="stylesheet" href="../styles/main.css?v=60">
 </head>
 <body>
 
@@ -38,17 +38,18 @@
   <div class="overview">
     <span class="overview__item"><b>Role</b> / Product Designer</span>
     <span class="overview__item"><b>Scope</b> / AR setup and alignment flow, interaction design, prototyping, on-device validation</span>
-    <span class="overview__item"><b>Platform</b> / Mobile / AR</span>
+    <span class="overview__item"><b>Platform</b> / iOS (iPhone + iPad) / AR</span>
   </div>
   <hr class="rule">
 </div>
 
 <!-- 2 · The Insight -->
 <section class="reading section" id="insight" data-toc="Insight">
-  <h2 class="display">Clients could see the design, but they still had to imagine being inside it</h2>
+  <h2 class="display">Seeing the design was not the same as experiencing the space</h2>
   <p style="margin-top:var(--s4)">Plans and renders showed what the space might look like, but clients still had to picture what it would actually feel like around them. That is a difficult leap to make when so much depends on getting the decision right.</p>
 </section>
 <div class="wide section--tight">
+  <div class="eyebrow"><span class="eyebrow__t">Selected client feedback</span></div>
   <div class="voice-set">
     <figure class="voice">
       <div class="voice__mark" aria-hidden="true">&ldquo;</div>
@@ -79,8 +80,8 @@
   <div class="ig-pair">
     <div class="ig-card ig-card--insight">
       <p class="ig-card__label">The problem</p>
-      <p class="ig-card__stmt">Clients could see the design, but they still had to imagine being inside it.</p>
-      <p class="ig-card__note">Plans and renders showed what the space might look like, but clients still had to picture what it would actually feel like around them.</p>
+      <p class="ig-card__stmt">Static plans and renders could not communicate scale or presence.</p>
+      <p class="ig-card__note">Clients still had to imagine the spatial relationships and what the finished proposal would feel like around them.</p>
     </div>
     <div class="ig-card ig-card--goal" id="goal">
       <p class="ig-card__label">The goal</p>
@@ -92,9 +93,9 @@
 <!-- 5 · The Design Challenge -->
 <section class="reading section" id="challenge" data-toc="The challenge" style="margin-top:var(--s10)">
   <div class="eyebrow"><span class="eyebrow__t">The Design Challenge</span></div>
-  <h2 class="display">How do you make a completely new interaction feel instinctive?</h2>
+  <h2 class="display">How do you make an unfamiliar interaction feel instinctive?</h2>
   <p style="margin-top:var(--s4)">For many pros, this was their first AR experience. The challenge was helping them understand where they were in relation to the virtual space, and where the virtual space was in relation to the room around them.</p>
-  <p style="margin-top:var(--s4)">There were very few established AR interaction patterns to learn from, so the experience had to be shaped through live testing and observation.</p>
+  <p style="margin-top:var(--s4)">There were few established patterns for this kind of AR setup, so the experience had to be shaped through live testing and observation.</p>
 </section>
 
 <!-- 6 · The Turning Point -->
@@ -115,8 +116,8 @@
 
 <!-- Chapter 01 -->
 <section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Follow existing instincts</span></div>
-  <p style="margin-top:var(--s3)">Users naturally tried to rotate the plan around their position, much like orienting a map. We kept their position fixed and let the plan rotate around them, matching the mental model they already brought to the experience.</p>
+  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Anchor the user, move the plan</span></div>
+  <p style="margin-top:var(--s3)">The user's position remained fixed while the floor plan rotated beneath it, mirroring how people orient a map and making direction easier to understand.</p>
 </section>
 <div class="wide chapter-media">
   <figure class="diagram">
@@ -156,7 +157,7 @@
   <div class="screens screens--xl">
     <figure>
       <div class="screen-video">
-        <video src="../media/ar/ar-walkthrough.mp4" autoplay muted loop playsinline aria-label="The AR walkthrough: the proposed space seen at full scale with the interface out of the way"></video>
+        <video src="../media/ar/ar-walkthrough.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The AR walkthrough: the proposed space seen at full scale with the interface out of the way"></video>
         <svg class="screen-video__chevron" viewBox="0 0 8 15" fill="none" aria-hidden="true"><path d="M6.9 1.1 1.1 7.5l5.8 6.4" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
     </figure>
@@ -164,22 +165,24 @@
 </div>
 
 <!-- Validation -->
-<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--s10)">
+<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--s9)">
   <div class="eyebrow"><span class="eyebrow__t">Validation</span></div>
   <h2 class="display">What testing changed</h2>
   <p style="margin-top:var(--s4)">Repeated internal tests and live client demos revealed that small interaction details determined whether placement felt intuitive and controllable. When people could understand where they were and where the experience would be placed without guidance, we knew the mental model was working.</p>
 </section>
 
-<!-- Finding 1 -->
+<!-- Findings 1 + 2 -->
 <section class="reading" style="margin-top:var(--s8)">
-  <h3 class="display" style="font-size:var(--fs-title)">Slowing down the floor plan</h3>
-  <p style="margin-top:var(--s3)">The plan initially reacted too quickly to touch, making precise positioning difficult. We reduced the interaction sensitivity until rotating and moving the plan felt controlled.</p>
-</section>
-
-<!-- Finding 2 -->
-<section class="reading" style="margin-top:var(--s7)">
-  <h3 class="display" style="font-size:var(--fs-title)">Separating virtual surfaces</h3>
-  <p style="margin-top:var(--s3)">The wall and floor overlays went through several color and opacity iterations. They needed to remain visible over the camera feed without hiding the physical room.</p>
+  <div class="findings-pair">
+    <div>
+      <h3 class="display" style="font-size:var(--fs-title)">Slowing down the floor plan</h3>
+      <p style="margin-top:var(--s3)">The plan initially reacted too quickly to touch, making precise positioning difficult. We reduced the interaction sensitivity until rotating and moving the plan felt controlled.</p>
+    </div>
+    <div>
+      <h3 class="display" style="font-size:var(--fs-title)">Separating virtual surfaces</h3>
+      <p style="margin-top:var(--s3)">The wall and floor overlays went through several color and opacity iterations. They needed to remain visible over the camera feed without hiding the physical room.</p>
+    </div>
+  </div>
 </section>
 
 <!-- Finding 3 -->
@@ -208,33 +211,35 @@
   </figure>
 </div>
 
-<!-- From imagining to experiencing -->
+<!-- Launch -->
 <section class="reading section" id="value">
+  <div class="eyebrow"><span class="eyebrow__t">Launch</span></div>
   <h2 class="display">From imagining the design to experiencing the whole space</h2>
-  <p style="margin-top:var(--s4)">AR let clients view the proposal at full scale and understand how the finished space would come together around them.</p>
+  <p style="margin-top:var(--s4)">The feature launched as Life-Sized Walkthroughs, allowing clients to experience a proposal at full scale inside the space it would transform.</p>
 </section>
 <div class="wide section--tight">
   <figure class="video-ph">
     <div class="video-ph__frame">
       <iframe src="https://www.youtube.com/embed/uX66wrFXuCE" title="Life-Sized Walkthroughs video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
+    <figcaption>Official Houzz Pro launch video</figcaption>
   </figure>
 </div>
 
 <!-- Outcome -->
-<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--s10)">
+<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--s8)">
   <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
-  <h2 class="display">The conversation shifted from explaining the proposal to reacting to it</h2>
+  <h2 class="display">The conversation moved from explaining the proposal to experiencing it</h2>
   <div class="result" style="margin-top:var(--s4)">
-    <p class="result__stmt">Clients could respond to the space in real time, making design conversations more immediate and helping pros present their vision with greater confidence.</p>
+    <p class="result__stmt">Clients could react to the space at full scale, making design conversations more immediate and giving pros a clearer way to communicate their vision.</p>
   </div>
 </section>
 
 <!-- What stayed with me -->
 <section class="reading section" id="reflection" data-toc="Reflection" style="margin-top:var(--s10)">
   <h2 class="display">What stayed with me</h2>
-  <p style="margin-top:var(--s4)">There were very few AR patterns to learn from, so I had to design without a playbook. That meant experimenting, testing, and trusting what people did naturally.</p>
-  <p class="beat__stmt" style="margin-top:var(--s6)">When no patterns exist, human behavior becomes the best reference.</p>
+  <p style="margin-top:var(--s4)">There were few established AR patterns to rely on. Testing showed that the clearest design signals came from what people did naturally: how they rotated the plan, searched for their position, and adjusted the virtual room.</p>
+  <p class="beat__stmt" style="margin-top:var(--s6)">When interaction patterns did not exist, user behavior became the clearest design signal.</p>
 </section>
 
 <!-- Next project -->
@@ -268,16 +273,38 @@
 
 <!-- <script src="../scripts/site.js?v=5" defer></script> TOC disabled for now -->
 <script>
-// Play the walkthrough video only while it is on screen
+// Walkthrough video: play only on screen, accessible play/pause, respect reduced motion
 (function () {
   'use strict';
   var v = document.querySelector('.screen-video video');
-  if (!v || !('IntersectionObserver' in window)) return;
-  new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      if (en.isIntersecting) { v.play().catch(function () {}); } else { v.pause(); }
-    });
-  }, { threshold: 0.25 }).observe(v);
+  if (!v) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var userPaused = false;
+  var label = function () {
+    v.setAttribute('aria-label', (v.paused ? 'Play' : 'Pause') + ' the AR walkthrough video');
+  };
+  var toggle = function () {
+    if (v.paused) { userPaused = false; v.play().catch(function () {}); }
+    else { userPaused = true; v.pause(); }
+  };
+  v.setAttribute('tabindex', '0');
+  v.setAttribute('role', 'button');
+  v.addEventListener('click', toggle);
+  v.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+  v.addEventListener('play', label);
+  v.addEventListener('pause', label);
+  if (reduce) { v.autoplay = false; v.pause(); }
+  label();
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) { v.pause(); }
+        else if (!reduce && !userPaused) { v.play().catch(function () {}); }
+      });
+    }, { threshold: 0.25 }).observe(v);
+  }
 })();
 </script>
 </body>

@@ -230,16 +230,25 @@ figure { margin: 0; }
 .marker-final img { width: 260px; max-width: 100%; height: auto; display: block; margin-inline: auto; }
 
 /* Chapter rhythm (AR walkthrough 01-04): one consistent editorial spacing scale */
-.chapter { margin-top: 160px; }
-.chapter-media { margin-top: 64px; }
+.chapter { margin-top: 120px; }
+.chapter-media { margin-top: 52px; }
 .screens--lg figure { flex: 0 0 232px; max-width: 232px; }
 /* The walkthrough video is sized directly (not via a full-width wrapper): 320px on desktop, 82vw on small screens */
 .screens--xl figure { flex: 0 0 auto; max-width: none; }
 .screens--xl video { width: 320px; max-width: min(82vw, 320px); height: auto; }
 @media (max-width: 640px) {
-  .chapter { margin-top: 112px; }
+  .chapter { margin-top: 88px; }
   .screens.screens--lg figure { flex-basis: min(80vw, 440px); max-width: min(80vw, 440px); }
 }
+
+/* Validation findings: compact two-column pair on desktop, stacked on small screens */
+.findings-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s6); }
+@media (max-width: 640px) { .findings-pair { grid-template-columns: 1fr; gap: var(--s6); } }
+
+/* Accessibility: visible keyboard focus + comfortable hit areas on text links */
+a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 2px; }
+.nav__links a, .footer__inner a { padding-block: 12px; }
 .screens .flow__arrow { align-self: center; flex: 0 0 auto; }
 .screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); text-align: center; margin-top: var(--s2); line-height: 1.4; }
 @media (max-width: 640px) { .screens figure { flex-basis: 150px; max-width: 150px; } }
@@ -262,7 +271,8 @@ figure { margin: 0; }
 .diagram img { max-width: 528px; }
 
 /* Video placeholder - a prominent 16:9 frame standing in for a walkthrough video */
-.video-ph { margin: 0; }
+.video-ph { margin: 0 auto; max-width: 960px; }
+.video-ph figcaption { margin-top: 12px; font-size: 14px; line-height: 1.5; color: var(--muted); text-align: center; }
 .video-ph__frame { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
   border: 1px solid var(--line); border-radius: var(--radius-screen); }
 .video-ph__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
