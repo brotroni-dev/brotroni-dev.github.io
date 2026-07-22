@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AR Walkthrough - Roni Brot-Kolinkó</title>
+<title>Life-Sized Walkthroughs - Roni Brot-Kolinkó</title>
 <meta name="description" content="When the proposal enters the room - turning proposals into a spatial experience clients can stand inside.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=34">
-<link rel="stylesheet" href="../styles/main.css?v=34">
+<link rel="stylesheet" href="../styles/tokens.css?v=58">
+<link rel="stylesheet" href="../styles/main.css?v=58">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="#">Work</a><a href="#">About</a></span>
+    <span class="nav__links"><a href="/work">Work</a><a href="#">About</a></span>
   </div>
 </nav>
 
@@ -29,7 +29,7 @@
 <!-- Opener -->
 <header class="reading" style="margin-top:var(--s7)">
   <h1 class="display">When the proposal enters the room</h1>
-  <p class="lead" style="margin-top:var(--s5)">A proposal can be clear on paper and still be hard to grasp at full scale. Plans and renders showed the design, but left clients to imagine standing inside it. AR brought the proposal into the real room - a shared view pros and clients could react to together.</p>
+  <p class="lead" style="margin-top:var(--s5)">Designing Life-Sized Walkthroughs, an AR experience that let pros place a proposed design at full scale inside the client's existing space.</p>
 </header>
 
 <!-- Overview bar (directly under the lead) -->
@@ -43,328 +43,199 @@
   <hr class="rule">
 </div>
 
-<!-- 1 · Context & problem -->
-<section class="reading section" id="problem" data-toc="Problem">
-  <h2 class="display">Clients still had to imagine the design</h2>
-  <p style="margin-top:var(--s4)">Plans and renders could show the proposal, but clients still had to imagine how it would feel inside the actual space.</p>
-  <figure class="voice" style="margin-top:var(--s5)">
-    <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-    <div>
-      <p class="voice__text">I can understand the plan, but I still have to imagine what it means in this room.</p>
-      <p class="voice__attr"><b>Interior designer</b> &middot; discovery</p>
-    </div>
-  </figure>
+<!-- 2 · The Insight -->
+<section class="reading section" id="insight" data-toc="Insight">
+  <h2 class="display">Clients could see the design, but they still had to imagine being inside it</h2>
+  <p style="margin-top:var(--s4)">Plans and renders showed what the space might look like, but clients still had to picture what it would actually feel like around them. That is a difficult leap to make when so much depends on getting the decision right.</p>
 </section>
+<div class="wide section--tight">
+  <div class="voice-set">
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">I can see the design, but I still can't picture being inside it.</p>
+      </div>
+    </figure>
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">It's hard to commit when I can't see how everything comes together.</p>
+      </div>
+    </figure>
+    <figure class="voice">
+      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
+      <div>
+        <p class="voice__text">The render looks great, but I still don't understand the scale.</p>
+      </div>
+    </figure>
+  </div>
+</div>
+<div class="wide section--tight">
+  <figure class="plate plate--bare" style="max-width:266px;margin-inline:auto"><img src="../media/ar/arwalkthrough.png" alt="A pro showing a floor plan to a client while both try to imagine the finished living room pictured in a thought bubble above them"></figure>
+</div>
 
-<!-- 2 · Insight + Goal (paired colour cards) -->
-<div class="wide section--tight" id="insight" data-toc="Insight &amp; goal">
+<!-- 3 · Problem + Goal (two-card layout) -->
+<div class="wide section--tight" data-toc="Goal">
   <div class="ig-pair">
     <div class="ig-card ig-card--insight">
-      <p class="ig-card__label">The insight</p>
-      <p class="ig-card__stmt">Clients didn't need another render. They needed to stand inside the proposal.</p>
-      <p class="ig-card__note">The missing piece wasn't detail - it was scale. Seeing the design in the real room turned imagination into a shared reference.</p>
+      <p class="ig-card__label">The problem</p>
+      <p class="ig-card__stmt">Clients could see the design, but they still had to imagine being inside it.</p>
+      <p class="ig-card__note">Plans and renders showed what the space might look like, but clients still had to picture what it would actually feel like around them.</p>
     </div>
     <div class="ig-card ig-card--goal" id="goal">
       <p class="ig-card__label">The goal</p>
-      <p class="ig-card__stmt">Make the proposal feel real - so clients could understand, discuss, and trust it faster.</p>
+      <p class="ig-card__stmt">Create a memorable, immersive experience that would bring the proposal to life and help pros stand out with clients.</p>
     </div>
   </div>
 </div>
 
-<!-- Why AR -->
-<section class="reading section" id="why-ar" data-toc="Why AR">
-  <div class="eyebrow"><span class="eyebrow__t">Why AR</span></div>
-  <h2 class="display">Why AR?</h2>
-  <p style="margin-top:var(--s4)">As AR grew more accessible and competitors adopted it, we saw a chance to make Houzz Pro's floor plans tangible and useful on site.</p>
+<!-- 5 · The Design Challenge -->
+<section class="reading section" id="challenge" data-toc="The challenge" style="margin-top:var(--s10)">
+  <div class="eyebrow"><span class="eyebrow__t">The Design Challenge</span></div>
+  <h2 class="display">How do you make a completely new interaction feel instinctive?</h2>
+  <p style="margin-top:var(--s4)">For many pros, this was their first AR experience. The challenge was helping them understand where they were in relation to the virtual space, and where the virtual space was in relation to the room around them.</p>
+  <p style="margin-top:var(--s4)">There were very few established AR interaction patterns to learn from, so the experience had to be shaped through live testing and observation.</p>
 </section>
-<div class="wide section--tight">
-  <div class="mini-cards">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Meet market expectations</h3><p>AR was becoming a more common part of spatial planning tools.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Bring plans into context</h3><p>Users could view the design inside the actual room, not only as a flat plan or render.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Support on-site conversations</h3><p>Pros could discuss design decisions with clients while standing in the space itself.</p></div>
+
+<!-- 6 · The Turning Point -->
+<section class="reading section" id="turning" data-toc="The turning point" style="margin-top:var(--s10)">
+  <div class="eyebrow"><span class="eyebrow__t">The Turning Point</span></div>
+  <h2 class="display">The behavior we thought we needed to correct became the key to the solution</h2>
+  <div class="result" style="margin-top:var(--s5)">
+    <p class="result__stmt">During live testing, people instinctively rotated the floor plan as soon as they picked up the device. When the same behavior kept repeating, it became clear that users were showing us how they expected the interaction to work.</p>
+    <p>Instead of teaching a new behavior, I proposed redesigning the experience around that instinct.</p>
   </div>
-</div>
-
-<!-- The AR flow: schematic screens redrawn in the site's language -->
-<section class="reading section" id="flow" data-toc="The flow">
-  <div class="eyebrow"><span class="eyebrow__t">The flow</span></div>
-  <h2 class="display">The AR flow connected the plan to the room</h2>
-  <p style="margin-top:var(--s4)">Pros launched AR from the floor plan list, chose a starting point, aligned the digital plan with the real space, and previewed the design in AR.</p>
 </section>
-<div class="section--tight">
-  <div class="ar-flow">
 
-    <!-- 1. Launch from list -->
-    <figure>
-      <svg viewBox="0 0 200 400" role="img" aria-label="Launching AR from the 3D floor plans list">
-        <rect x="1.5" y="1.5" width="197" height="397" rx="8" fill="#FFFFFF" stroke="#E4E3E1" stroke-width="1.5"/>
-        <text x="24" y="34" font-family="Inter,sans-serif" font-size="9" fill="#76726B">9:41</text>
-        <path d="M28 47 l-5 5 5 5" fill="none" stroke="#76726B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        <text x="108" y="54" text-anchor="middle" font-family="Inter,sans-serif" font-size="10" font-weight="600" fill="#36322C">3D Floor Plans</text>
-        <line x1="16" y1="68" x2="184" y2="68" stroke="#ECEBE9" stroke-width="1"/>
-        <rect x="16" y="82" width="168" height="48" rx="9" fill="#FFFFFF" stroke="#26C6B7" stroke-width="1.8"/>
-        <rect x="27" y="97" width="26" height="18" rx="2.5" fill="none" stroke="#9B9891" stroke-width="1.2"/>
-        <path d="M31 106 h7 M38 100 v11 M45 100 v5" stroke="#B8B6B1" stroke-width="1"/>
-        <rect x="63" y="97" width="70" height="5.5" rx="2.75" fill="#55524C"/>
-        <rect x="63" y="108" width="44" height="4.5" rx="2.25" fill="#C9C7C3"/>
-        <path d="M163 95.5 l8.5 4.9 v9.8 l-8.5 4.9 l-8.5 -4.9 v-9.8 z" fill="#E4FAF7" stroke="#26C6B7" stroke-width="1.5"/>
-        <text x="163" y="108" text-anchor="middle" font-family="Inter,sans-serif" font-size="7.5" font-weight="700" fill="#188C81">AR</text>
-        <g fill="none" stroke="#E4E3E1" stroke-width="1.3">
-          <rect x="16" y="142" width="168" height="36" rx="9"/>
-          <rect x="16" y="186" width="168" height="36" rx="9"/>
-          <rect x="16" y="230" width="168" height="36" rx="9"/>
-          <rect x="16" y="274" width="168" height="36" rx="9"/>
-        </g>
-        <rect x="16" y="352" width="168" height="34" rx="17" fill="#9E4E2C"/>
-        <text x="100" y="373.5" text-anchor="middle" font-family="Inter,sans-serif" font-size="10.5" font-weight="600" fill="#F8F1E9">Start Scanning</text>
-      </svg>
-      <figcaption>Launch from list</figcaption>
-    </figure>
-
-    <span class="flow__arrow">→</span>
-
-    <!-- 2. Choose starting point -->
-    <figure>
-      <svg viewBox="0 0 200 400" role="img" aria-label="Choosing a starting point on the floor plan, with a viewing cone and position marker">
-        <rect x="1.5" y="1.5" width="197" height="397" rx="8" fill="#FFFFFF" stroke="#E4E3E1" stroke-width="1.5"/>
-        <g fill="#FCFCFB" stroke="#76726B" stroke-width="2" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M55,304 L55,150 L100,150 L100,112 L150,112 L150,232 L110,232 L110,304 Z"/>
-        </g>
-        <g fill="none" stroke="#B8B6B1" stroke-width="1.6" stroke-linejoin="round">
-          <path d="M100,150 L100,232"/>
-          <path d="M100,178 L150,178"/>
-          <path d="M55,230 L100,230"/>
-        </g>
-        <path d="M78,262 L60,222 L96,222 Z" fill="#72F2E8" opacity="0.42"/>
-        <path d="M78,262 L60,222 L96,222 Z" fill="none" stroke="#26C6B7" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle cx="78" cy="262" r="6.5" fill="#FFFFFF" stroke="#26C6B7" stroke-width="2.6"/>
-      </svg>
-      <figcaption>Choose starting point</figcaption>
-    </figure>
-
-    <span class="flow__arrow">→</span>
-
-    <!-- 3. Scan the room -->
-    <figure>
-      <svg viewBox="0 0 200 400" role="img" aria-label="Scanning the room: an empty room with sensing arcs">
-        <rect x="1.5" y="1.5" width="197" height="397" rx="8" fill="#FFFFFF" stroke="#E4E3E1" stroke-width="1.5"/>
-        <path d="M34,150 L100,120 L100,236 L34,266 Z" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M166,150 L100,120 L100,236 L166,266 Z" fill="#F6F6F5" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M34,266 L100,236 L166,266 L100,300 Z" fill="#EFEEEC" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <g fill="#C2C0BB">
-          <circle cx="82" cy="262" r="1.1"/><circle cx="100" cy="256" r="1.1"/><circle cx="118" cy="262" r="1.1"/>
-          <circle cx="90" cy="274" r="1.1"/><circle cx="110" cy="274" r="1.1"/><circle cx="100" cy="284" r="1.1"/>
-        </g>
-        <g fill="none" stroke="#26C6B7" stroke-width="2" stroke-linecap="round">
-          <path d="M62,322 Q100,300 138,322" opacity="0.9"/>
-          <path d="M52,340 Q100,314 148,340" opacity="0.6"/>
-          <path d="M42,358 Q100,328 158,358" opacity="0.35"/>
-        </g>
-      </svg>
-      <figcaption>Scan the room</figcaption>
-    </figure>
-
-    <span class="flow__arrow">→</span>
-
-    <!-- 4. Fit the virtual walls -->
-    <figure>
-      <svg viewBox="0 0 200 400" role="img" aria-label="Fitting the virtual walls: a turquoise wireframe box adjusted over the room by a finger">
-        <rect x="1.5" y="1.5" width="197" height="397" rx="8" fill="#FFFFFF" stroke="#E4E3E1" stroke-width="1.5"/>
-        <path d="M34,168 L100,138 L100,254 L34,284 Z" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.4" stroke-linejoin="round"/>
-        <path d="M166,168 L100,138 L100,254 L166,284 Z" fill="#F6F6F5" stroke="#9B9891" stroke-width="1.4" stroke-linejoin="round"/>
-        <path d="M34,284 L100,254 L166,284 L100,318 Z" fill="#EFEEEC" stroke="#9B9891" stroke-width="1.4" stroke-linejoin="round"/>
-        <g fill="none" stroke="#26C6B7" stroke-width="2.2" stroke-linejoin="round">
-          <path d="M34,110 L100,80 L166,110 L100,140 Z"/>
-          <path d="M34,110 L34,284"/>
-          <path d="M166,110 L166,284"/>
-          <path d="M100,80 L100,254"/>
-          <path d="M34,284 L100,318 L166,284"/>
-        </g>
-        <path d="M34,110 L100,80 L166,110 L100,140 Z" fill="#72F2E8" opacity="0.12"/>
-        <path d="M150,392 C146,352 150,300 162,300 C172,300 176,312 176,326 L176,392 Z" fill="#EFEDEA" stroke="#C9C7C3" stroke-width="1.3" stroke-linejoin="round"/>
-        <path d="M162,300 q10,-1 12,7" fill="none" stroke="#E4E3E1" stroke-width="1.2"/>
-      </svg>
-      <figcaption>Fit the virtual walls</figcaption>
-    </figure>
-
-    <span class="flow__arrow">→</span>
-
-    <!-- 5. See the proposal in space -->
-    <figure>
-      <svg viewBox="0 0 200 400" role="img" aria-label="Previewing the proposal: the furnished room rendered in place">
-        <rect x="1.5" y="1.5" width="197" height="397" rx="8" fill="#FFFFFF" stroke="#E4E3E1" stroke-width="1.5"/>
-        <path d="M34,150 L100,120 L100,236 L34,266 Z" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M166,150 L100,120 L100,236 L166,266 Z" fill="#F6F6F5" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M34,266 L100,236 L166,266 L100,300 Z" fill="#EFEEEC" stroke="#9B9891" stroke-width="1.5" stroke-linejoin="round"/>
-        <path d="M50,176 L74,165 L74,206 L50,217 Z" fill="#FFFFFF" stroke="#B8B6B1" stroke-width="1.3" stroke-linejoin="round"/>
-        <path d="M62,170.5 L62,211.5" stroke="#B8B6B1" stroke-width="1"/>
-        <path d="M120,168 L150,180 L150,206 L120,194 Z" fill="#FFFFFF" stroke="#B8B6B1" stroke-width="1.3" stroke-linejoin="round"/>
-        <ellipse cx="100" cy="276" rx="50" ry="18" fill="none" stroke="#C2C0BB" stroke-width="1.3"/>
-        <path d="M112,246 L150,258 L150,270 L112,258 Z" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.3" stroke-linejoin="round"/>
-        <path d="M112,246 L112,258 M124,250 L124,262 M137,254 L137,266" stroke="#B8B6B1" stroke-width="1"/>
-        <ellipse cx="92" cy="278" rx="15" ry="6.5" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.3"/>
-        <path d="M56,266 L56,232" stroke="#9B9891" stroke-width="1.3"/>
-        <path d="M50,230 q6,-8 12,0 z" fill="#FCFCFB" stroke="#9B9891" stroke-width="1.2"/>
-        <path d="M150,128 C151.6,133 154,135.4 159,137 C154,138.6 151.6,141 150,146 C148.4,141 146,138.6 141,137 C146,135.4 148.4,133 150,128 Z" fill="#26C6B7"/>
-        <path d="M60,244 C61.2,247.6 63,249.4 66.6,250.6 C63,251.8 61.2,253.6 60,257.2 C58.8,253.6 57,251.8 53.4,250.6 C57,249.4 58.8,247.6 60,244 Z" fill="#26C6B7"/>
-      </svg>
-      <figcaption>See the proposal in space</figcaption>
-    </figure>
-
-  </div>
-</div>
-
-<!-- Aligning the floor plan with the real space -->
-<section class="reading section" id="alignment" data-toc="Alignment">
-  <div class="eyebrow"><span class="eyebrow__t">Alignment model</span></div>
-  <h2 class="display">Aligning the floor plan with the real space</h2>
-  <p style="margin-top:var(--s4)">Getting the plan to sit correctly in the room was the core challenge. I anchored the model to a fixed user position and let the digital plan rotate until it matched their real-world view - geolocation for broad context, the position marker and viewing direction for precise alignment.</p>
+<!-- 7 · Designing around what felt natural -->
+<section class="reading section" id="interaction" data-toc="Designing" style="margin-top:var(--s10)">
+  <h2 class="display">Designing around what felt natural</h2>
+  <p style="margin-top:var(--s4)">The goal wasn't to teach AR. It was to make it feel immediately familiar.</p>
 </section>
-<div class="wide section--tight">
+
+<!-- Chapter 01 -->
+<section class="reading section chapter">
+  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Follow existing instincts</span></div>
+  <p style="margin-top:var(--s3)">Users naturally tried to rotate the plan around their position, much like orienting a map. We kept their position fixed and let the plan rotate around them, matching the mental model they already brought to the experience.</p>
+</section>
+<div class="wide chapter-media">
   <figure class="diagram">
-    <svg viewBox="0 0 680 430" role="img" aria-label="Alignment model: the floor plan rotates around a fixed user position and viewing direction to match the real room">
-      <g fill="none" stroke="#9E4E2C" stroke-width="1.6" stroke-dasharray="6 5" stroke-linecap="round">
-        <path d="M250,120 A150,150 0 0 0 205,232"/>
-        <path d="M475,300 A150,150 0 0 0 452,196"/>
-      </g>
-      <path d="M205,232 l-6,-10 12,1 z" fill="#9E4E2C"/>
-      <path d="M475,300 l7,-9 1,12 z" fill="#9E4E2C"/>
-      <g transform="rotate(-12 340 215)">
-        <g fill="#F6F6F5" stroke="#17140F" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round">
-          <path d="M272,150 L340,150 L340,120 L410,120 L410,285 L340,285 L340,300 L272,300 Z"/>
-        </g>
-        <g fill="none" stroke="#9B9891" stroke-width="1.8" stroke-linejoin="round">
-          <path d="M340,150 L340,285"/>
-          <path d="M340,190 L410,190"/>
-          <path d="M272,240 L340,240"/>
-        </g>
-      </g>
-      <path d="M356,214 L326,150 L392,150 Z" fill="#9E4E2C" opacity="0.15"/>
-      <path d="M356,214 L326,150 L392,150 Z" fill="none" stroke="#9E4E2C" stroke-width="1.5" stroke-linejoin="round"/>
-      <circle cx="356" cy="214" r="9" fill="#9E4E2C"/>
-      <circle cx="356" cy="214" r="16" fill="none" stroke="#9E4E2C" stroke-width="1.4" opacity="0.5"/>
-
-      <line x1="470" y1="150" x2="392" y2="160" stroke="#9E4E2C" stroke-width="1.3"/>
-      <circle cx="392" cy="160" r="2.6" fill="#9E4E2C"/>
-      <rect x="470" y="128" width="192" height="46" rx="8" fill="#F6F6F5" stroke="#E4E3E1" stroke-width="1.2"/>
-      <text x="486" y="150" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#17140F">Viewing direction</text>
-      <text x="486" y="166" font-family="Inter,sans-serif" font-size="12" fill="#76726B">Where the user is facing</text>
-
-      <line x1="356" y1="223" x2="356" y2="250" stroke="#9E4E2C" stroke-width="1.3"/>
-      <rect x="262" y="250" width="188" height="46" rx="8" fill="#F6F6F5" stroke="#E4E3E1" stroke-width="1.2"/>
-      <text x="278" y="272" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#17140F">User position</text>
-      <text x="278" y="288" font-family="Inter,sans-serif" font-size="12" fill="#76726B">Fixed anchor in the real space</text>
-
-      <line x1="205" y1="300" x2="258" y2="300" stroke="#9E4E2C" stroke-width="1.3"/>
-      <circle cx="258" cy="300" r="2.6" fill="#9E4E2C"/>
-      <rect x="20" y="300" width="185" height="46" rx="8" fill="#F6F6F5" stroke="#E4E3E1" stroke-width="1.2"/>
-      <text x="36" y="322" font-family="Inter,sans-serif" font-size="14" font-weight="600" fill="#17140F">Plan rotation</text>
-      <text x="36" y="338" font-family="Inter,sans-serif" font-size="12" fill="#76726B">Matches the layout to the room</text>
-    </svg>
+    <img src="../media/ar/fp-rotation.png" alt="The mental model: the floor plan rotates around a fixed user position, the way you turn a map to match the room you are standing in">
   </figure>
 </div>
 
-<!-- Fitting the virtual room to the physical space (real on-device screens) -->
-<section class="reading section" id="on-device" data-toc="On device">
-  <div class="eyebrow"><span class="eyebrow__t">On device</span></div>
-  <h2 class="display">Fitting the virtual room to the physical space</h2>
-  <p style="margin-top:var(--s4)">Once the starting point was aligned, users scanned the room and adjusted the virtual walls to match the physical space.</p>
+<!-- Chapter 02 -->
+<section class="reading section chapter">
+  <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Choose where the walkthrough begins</span></div>
+  <p style="margin-top:var(--s3)">Pros began by positioning themselves on the floor plan and choosing where the walkthrough would start.</p>
 </section>
-<div class="section--tight">
-  <div class="screens">
-    <figure><img src="../media/ar/set-starting-point.png" alt="Set starting point: the floor plan with a marker to place where the AR experience begins"><figcaption>Set starting point</figcaption></figure>
-    <span class="flow__arrow">→</span>
-    <figure><img src="../media/ar/scan-room.jpg" alt="Scan the room: the camera view with guidance to slowly tilt the device"><figcaption>Scan the room</figcaption></figure>
-    <span class="flow__arrow">→</span>
-    <figure><img src="../media/ar/fit-walls.jpg" alt="Fit virtual walls: the camera view with the virtual walls overlaid to match the space"><figcaption>Fit the virtual walls</figcaption></figure>
+<div class="wide chapter-media">
+  <div class="screens screens--lg">
+    <figure><img src="../media/ar/set-starting-point.png" alt="Positioning on the floor plan: move and rotate the plan to choose where the walkthrough begins"></figure>
   </div>
 </div>
 
-<!-- The core tradeoff -->
-<section class="reading section" id="tradeoff" data-toc="The tradeoff">
-  <div class="eyebrow"><span class="eyebrow__t">The tradeoff</span></div>
-  <h2 class="display">The core tradeoff: believable, without becoming cumbersome</h2>
-  <p style="margin-top:var(--s4)">Precise alignment made the proposal credible, but every extra setup step pulled the pro away from the client. The goal: the least calibration needed for a stable, convincing result.</p>
+<!-- Chapter 03 -->
+<section class="reading section chapter">
+  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Fit the virtual room to the physical space</span></div>
+  <p style="margin-top:var(--s3)">In the camera view, pros scanned the room, aligned the virtual walls with the physical space, and confirmed the placement.</p>
 </section>
-<div class="wide section--tight">
-  <div class="split">
-    <div class="pg-card">
-      <p class="pg-card__label">01 · Believable</p>
-      <ul>
-        <li>Match the user's real position and viewing direction</li>
-        <li>Fit virtual walls to the physical room</li>
-        <li>Keep the proposal stable at room scale</li>
-      </ul>
-    </div>
-    <div class="pg-card">
-      <p class="pg-card__label">02 · Lightweight</p>
-      <ul>
-        <li>Avoid complex map controls</li>
-        <li>Minimize repeated calibration</li>
-        <li>Make repositioning easy</li>
-      </ul>
-    </div>
+<div class="wide chapter-media">
+  <div class="screens">
+    <figure><img src="../media/ar/scan-room.jpg" alt="The live camera view while scanning the floor of the real room"></figure>
+    <figure><img src="../media/ar/fit-walls.jpg" alt="The virtual walls overlaid on the camera view to match the physical space"></figure>
+  </div>
+</div>
+
+<!-- Chapter 04 -->
+<section class="reading section chapter">
+  <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Let the space become the focus</span></div>
+  <p style="margin-top:var(--s3)">Once the walkthrough began, the interface receded so people could focus on the space itself.</p>
+</section>
+<div class="wide chapter-media">
+  <div class="screens screens--xl">
+    <figure>
+      <div class="screen-video">
+        <video src="../media/ar/ar-walkthrough.mp4" autoplay muted loop playsinline aria-label="The AR walkthrough: the proposed space seen at full scale with the interface out of the way"></video>
+        <svg class="screen-video__chevron" viewBox="0 0 8 15" fill="none" aria-hidden="true"><path d="M6.9 1.1 1.1 7.5l5.8 6.4" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </figure>
   </div>
 </div>
 
 <!-- Validation -->
-<section class="reading section" id="validation" data-toc="Validation">
+<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--s10)">
   <div class="eyebrow"><span class="eyebrow__t">Validation</span></div>
-  <h2 class="display">Validation</h2>
-  <p style="margin-top:var(--s4)">Scale, alignment, and spatial trust can't be judged in static prototypes, so we tested on-device and in real rooms throughout.</p>
+  <h2 class="display">What testing changed</h2>
+  <p style="margin-top:var(--s4)">Repeated internal tests and live client demos revealed that small interaction details determined whether placement felt intuitive and controllable. When people could understand where they were and where the experience would be placed without guidance, we knew the mental model was working.</p>
 </section>
-<div class="wide section--tight">
-  <div class="mini-cards mini-cards--4">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">On-device tests</h3><p>Orientation, alignment, and recovery issues that static screens couldn't reveal.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">User sessions</h3><p>Checked whether people understood the setup and trusted the spatial result.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Client demos</h3><p>Observed whether AR supported the conversation instead of interrupting it.</p></div>
-    <div class="mini-card"><p class="mini-card__n">04</p><h3 class="mini-card__t">Post-launch monitoring</h3><p>Tracked whether the feature was being adopted in real project work.</p></div>
-  </div>
-</div>
 
-<!-- Outcome -->
-<section class="reading section" id="outcome" data-toc="Outcome">
-  <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
-  <h2 class="display">The proposal became a shared spatial reference</h2>
-  <div class="result" style="margin-top:var(--s4)">
-    <p class="result__stmt">AR gave pros and clients one thing to inspect, react to, and discuss together, right there in the room.</p>
-    <p>The conversation moved from translation to decision - both sides looking at the same spatial view.</p>
-  </div>
+<!-- Finding 1 -->
+<section class="reading" style="margin-top:var(--s8)">
+  <h3 class="display" style="font-size:var(--fs-title)">Slowing down the floor plan</h3>
+  <p style="margin-top:var(--s3)">The plan initially reacted too quickly to touch, making precise positioning difficult. We reduced the interaction sensitivity until rotating and moving the plan felt controlled.</p>
 </section>
-<div class="wide section--tight">
-  <figure class="plate plate--cap">
-    <img src="../media/ar/outcome.jpg" alt="A person holding a tablet that shows a proposed kitchen rendered in AR inside the real kitchen">
-    <figcaption class="plate-cap">A proposed kitchen, previewed in AR on site.</figcaption>
+
+<!-- Finding 2 -->
+<section class="reading" style="margin-top:var(--s7)">
+  <h3 class="display" style="font-size:var(--fs-title)">Separating virtual surfaces</h3>
+  <p style="margin-top:var(--s3)">The wall and floor overlays went through several color and opacity iterations. They needed to remain visible over the camera feed without hiding the physical room.</p>
+</section>
+
+<!-- Finding 3 -->
+<section class="reading" id="marker" style="margin-top:var(--s7)">
+  <h3 class="display" style="font-size:var(--fs-title)">Keeping the user visible</h3>
+  <p style="margin-top:var(--s3)">The rendered floor plan contained much more visual detail than the simple 2D version. Common location markers either disappeared into the plan or communicated the wrong meaning.</p>
+</section>
+<div class="reading">
+  <div class="marker-row">
+    <figure class="marker-item">
+      <img src="../media/ar/marker-dot-cone.png" alt="A dot with a view cone marking the user's position on a rendered floor plan">
+      <figcaption><b>Dot + view cone</b> Direction was clear, but the marker disappeared against detailed plans.</figcaption>
+    </figure>
+    <figure class="marker-item">
+      <img src="../media/ar/marker-crosshair.png" alt="A crosshair marking the user's position on a rendered floor plan">
+      <figcaption><b>Crosshair</b> Highly visible, but it suggested a target rather than the user's position.</figcaption>
+    </figure>
+    <figure class="marker-item">
+      <img src="../media/ar/marker-pin.png" alt="A map pin marking the user's position on a rendered floor plan">
+      <figcaption><b>Map pin</b> A familiar location symbol, but it did not communicate viewing direction.</figcaption>
+    </figure>
+  </div>
+  <figure class="marker-final">
+    <img src="../media/ar/marker-final.png" alt="The final marker on the full rendered floor plan: a colored dot with white separation, a gradient view cone, and a directional arrow">
+    <figcaption><b>Final marker</b> Color, white separation, a gradient cone, and a directional arrow kept both position and orientation visible across simple and rendered floor plans.</figcaption>
   </figure>
 </div>
-<!-- User voice -->
-<section class="reading section">
-  <div class="eyebrow"><span class="eyebrow__t">In their words</span></div>
-  <h2 class="display">What pros and clients said</h2>
+
+<!-- From imagining to experiencing -->
+<section class="reading section" id="value">
+  <h2 class="display">From imagining the design to experiencing the whole space</h2>
+  <p style="margin-top:var(--s4)">AR let clients view the proposal at full scale and understand how the finished space would come together around them.</p>
 </section>
-<div class="reading section--tight">
-  <figure class="voice">
-    <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-    <div>
-      <p class="voice__text">When we're both looking at the same spatial reference, the conversation becomes more concrete.</p>
-      <p class="voice__attr"><b>Pro</b> &middot; on-site client demo</p>
+<div class="wide section--tight">
+  <figure class="video-ph">
+    <div class="video-ph__frame">
+      <iframe src="https://www.youtube.com/embed/uX66wrFXuCE" title="Life-Sized Walkthroughs video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
   </figure>
 </div>
 
-<!-- Learnings -->
-<section class="reading section" id="learnings" data-toc="Learnings">
-  <div class="eyebrow"><span class="eyebrow__t">Learnings</span></div>
-  <h2 class="display">What the AR work taught me</h2>
-  <p style="margin-top:var(--s4)">Spatial experiences live or die on a careful balance between believability and effort.</p>
-</section>
-<div class="wide section--tight">
-  <div class="mini-cards">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Aligned enough to be believed</h3><p>The result has to feel aligned enough with the real room for clients to trust it.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Setup can't become the experience</h3><p>Precision matters, but calibration can't take over and become the experience itself.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Ask, then get out of the way</h3><p>Ask only for the input needed to place the proposal convincingly, then step back so the conversation stays on the design.</p></div>
+<!-- Outcome -->
+<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--s10)">
+  <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
+  <h2 class="display">The conversation shifted from explaining the proposal to reacting to it</h2>
+  <div class="result" style="margin-top:var(--s4)">
+    <p class="result__stmt">Clients could respond to the space in real time, making design conversations more immediate and helping pros present their vision with greater confidence.</p>
   </div>
-</div>
+</section>
+
+<!-- What stayed with me -->
+<section class="reading section" id="reflection" data-toc="Reflection" style="margin-top:var(--s10)">
+  <h2 class="display">What stayed with me</h2>
+  <p style="margin-top:var(--s4)">There were very few AR patterns to learn from, so I had to design without a playbook. That meant experimenting, testing, and trusting what people did naturally.</p>
+  <p class="beat__stmt" style="margin-top:var(--s6)">When no patterns exist, human behavior becomes the best reference.</p>
+</section>
 
 <!-- Next project -->
 <div class="wide">
@@ -395,6 +266,19 @@
   </div>
 </footer>
 
-<script src="../scripts/site.js?v=5" defer></script>
+<!-- <script src="../scripts/site.js?v=5" defer></script> TOC disabled for now -->
+<script>
+// Play the walkthrough video only while it is on screen
+(function () {
+  'use strict';
+  var v = document.querySelector('.screen-video video');
+  if (!v || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { v.play().catch(function () {}); } else { v.pause(); }
+    });
+  }, { threshold: 0.25 }).observe(v);
+})();
+</script>
 </body>
 </html>
