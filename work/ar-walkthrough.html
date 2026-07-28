@@ -8,48 +8,46 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=60">
-<link rel="stylesheet" href="../styles/main.css?v=60">
+<link rel="stylesheet" href="../styles/tokens.css?v=84">
+<link rel="stylesheet" href="../styles/main.css?v=84">
 </head>
-<body>
+<body class="lsw">
 
 <!-- Nav -->
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="/work">Work</a><a href="#">About</a></span>
+    <span class="nav__links"><a href="#">About</a></span>
   </div>
 </nav>
 
 <!-- Main image (top) -->
-<div class="wide" style="padding-top:var(--s6)">
+<div class="wide hero-media">
   <figure class="plate"><img src="../media/ar/hero.png" alt="A hand holding a phone that shows a proposed living room rendered in AR inside an empty real room"></figure>
 </div>
 
 <!-- Opener -->
-<header class="reading" style="margin-top:var(--s7)">
+<header class="reading" style="margin-top:var(--s8)">
   <h1 class="display">When the proposal enters the room</h1>
   <p class="lead" style="margin-top:var(--s5)">Designing Life-Sized Walkthroughs, an AR experience that let pros place a proposed design at full scale inside the client's existing space.</p>
 </header>
 
 <!-- Overview bar (directly under the lead) -->
-<div class="wide" style="margin-top:var(--s5)">
+<div class="wide ov-bar" style="margin-top:var(--s7)">
   <hr class="rule">
   <div class="overview">
-    <span class="overview__item"><b>Role</b> / Product Designer</span>
-    <span class="overview__item"><b>Scope</b> / AR setup and alignment flow, interaction design, prototyping, on-device validation</span>
-    <span class="overview__item"><b>Platform</b> / iOS (iPhone + iPad) / AR</span>
+    <span class="overview__item"><b>My Role</b> / Product Designer</span>
   </div>
   <hr class="rule">
 </div>
 
 <!-- 2 · The Insight -->
-<section class="reading section" id="insight" data-toc="Insight">
+<section class="reading section first-section" id="insight" data-toc="Insight">
   <h2 class="display">Seeing the design was not the same as experiencing the space</h2>
-  <p style="margin-top:var(--s4)">Plans and renders showed what the space might look like, but clients still had to picture what it would actually feel like around them. That is a difficult leap to make when so much depends on getting the decision right.</p>
+  <p style="margin-top:var(--sp-head)">Plans and renders helped clients understand how a project might look. What they could not show was scale: how the room would feel, how everything would fit together, and whether the proposal felt right in the actual space.</p>
 </section>
-<div class="wide section--tight">
-  <div class="eyebrow"><span class="eyebrow__t">Selected client feedback</span></div>
+<div class="wide section--tight" style="margin-top:var(--sp-tight)">
+  <div class="eyebrow" style="margin-bottom:var(--sp-head)"><span class="eyebrow__t">Selected client feedback</span></div>
   <div class="voice-set">
     <figure class="voice">
       <div class="voice__mark" aria-hidden="true">&ldquo;</div>
@@ -71,75 +69,60 @@
     </figure>
   </div>
 </div>
-<div class="wide section--tight">
+<div class="wide section--tight" style="margin-top:var(--sp-tight)">
   <figure class="plate plate--bare" style="max-width:266px;margin-inline:auto"><img src="../media/ar/arwalkthrough.png" alt="A pro showing a floor plan to a client while both try to imagine the finished living room pictured in a thought bubble above them"></figure>
 </div>
 
 <!-- 3 · Problem + Goal (two-card layout) -->
-<div class="wide section--tight" data-toc="Goal">
-  <div class="ig-pair">
+<div class="wide section--tight" data-toc="Goal" style="margin-top:var(--sp-tight)">
+  <div class="ig-pair ig-pair--compact">
     <div class="ig-card ig-card--insight">
       <p class="ig-card__label">The problem</p>
-      <p class="ig-card__stmt">Static plans and renders could not communicate scale or presence.</p>
-      <p class="ig-card__note">Clients still had to imagine the spatial relationships and what the finished proposal would feel like around them.</p>
+      <p class="ig-card__stmt">Plans showed the proposal. Clients still had to imagine its scale and how it would feel around them.</p>
     </div>
     <div class="ig-card ig-card--goal" id="goal">
       <p class="ig-card__label">The goal</p>
-      <p class="ig-card__stmt">Create a memorable, immersive experience that would bring the proposal to life and help pros stand out with clients.</p>
+      <p class="ig-card__stmt">Help pros bring the proposal into the room so clients could experience it at full scale.</p>
     </div>
   </div>
 </div>
 
-<!-- 5 · The Design Challenge -->
-<section class="reading section" id="challenge" data-toc="The challenge" style="margin-top:var(--s10)">
-  <div class="eyebrow"><span class="eyebrow__t">The Design Challenge</span></div>
-  <h2 class="display">How do you make an unfamiliar interaction feel instinctive?</h2>
-  <p style="margin-top:var(--s4)">For many pros, this was their first AR experience. The challenge was helping them understand where they were in relation to the virtual space, and where the virtual space was in relation to the room around them.</p>
-  <p style="margin-top:var(--s4)">There were few established patterns for this kind of AR setup, so the experience had to be shaped through live testing and observation.</p>
-</section>
-
-<!-- 6 · The Turning Point -->
-<section class="reading section" id="turning" data-toc="The turning point" style="margin-top:var(--s10)">
-  <div class="eyebrow"><span class="eyebrow__t">The Turning Point</span></div>
-  <h2 class="display">The behavior we thought we needed to correct became the key to the solution</h2>
-  <div class="result" style="margin-top:var(--s5)">
-    <p class="result__stmt">During live testing, people instinctively rotated the floor plan as soon as they picked up the device. When the same behavior kept repeating, it became clear that users were showing us how they expected the interaction to work.</p>
-    <p>Instead of teaching a new behavior, I proposed redesigning the experience around that instinct.</p>
-  </div>
-</section>
-
-<!-- 7 · Designing around what felt natural -->
-<section class="reading section" id="interaction" data-toc="Designing" style="margin-top:var(--s10)">
-  <h2 class="display">Designing around what felt natural</h2>
-  <p style="margin-top:var(--s4)">The goal wasn't to teach AR. It was to make it feel immediately familiar.</p>
-</section>
-
 <!-- Chapter 01 -->
-<section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Anchor the user, move the plan</span></div>
-  <p style="margin-top:var(--s3)">The user's position remained fixed while the floor plan rotated beneath it, mirroring how people orient a map and making direction easier to understand.</p>
+<section class="reading section chapter" style="margin-top:var(--sp-tight)">
+  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Launch from the floor plan list</span></div>
+  <p style="margin-top:var(--sp-step-intro)">Pros tapped the AR icon next to the floor plan they wanted to present. The walkthrough opened with that plan already selected.</p>
 </section>
 <div class="wide chapter-media">
-  <figure class="diagram">
-    <img src="../media/ar/fp-rotation.png" alt="The mental model: the floor plan rotates around a fixed user position, the way you turn a map to match the room you are standing in">
+  <figure class="launch-shot">
+    <img src="../media/ar/floor-plans-list.png?v=3" alt="The 3D Floor Plans list, where each proposal has an AR entry point pros can open">
   </figure>
 </div>
 
 <!-- Chapter 02 -->
 <section class="reading section chapter">
   <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Choose where the walkthrough begins</span></div>
-  <p style="margin-top:var(--s3)">Pros began by positioning themselves on the floor plan and choosing where the walkthrough would start.</p>
+  <p style="margin-top:var(--sp-step-intro)">Before entering the camera view, pros placed themselves on the floor plan and oriented it to the room. Since the interaction was unfamiliar, we watched what people tried to do naturally.</p>
+</section>
+<!-- Core interaction (within step 02) -->
+<section class="reading" id="turning" style="margin-top:var(--sp-tight)">
+  <div class="eyebrow" style="margin-bottom:20px"><span class="eyebrow__t">The Core Interaction</span></div>
+  <h3 class="display" style="font-size:var(--fs-title);line-height:1.2">The user stayed fixed while the floor plan rotated around them</h3>
+  <p style="margin-top:30px">During testing, pros instinctively rotated the floor plan to align it with the room, much like orienting a map. They expected their position to remain anchored while the plan moved around them.</p>
+  <p style="margin-top:var(--sp-head)">Instead of correcting the gesture, I designed the setup around it. The fixed marker showed where the user was standing and facing, while rotating the plan let them choose how the virtual space would be positioned before entering AR.</p>
 </section>
 <div class="wide chapter-media">
   <div class="screens screens--lg">
     <figure><img src="../media/ar/set-starting-point.png" alt="Positioning on the floor plan: move and rotate the plan to choose where the walkthrough begins"></figure>
   </div>
+  <figure class="diagram" style="margin-top:var(--s7)">
+    <img src="../media/ar/fp-rotation.png?v=2" alt="The mental model: the floor plan rotates around a fixed user marker, the way you turn a map to match the direction you are facing">
+  </figure>
 </div>
 
 <!-- Chapter 03 -->
 <section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Fit the virtual room to the physical space</span></div>
-  <p style="margin-top:var(--s3)">In the camera view, pros scanned the room, aligned the virtual walls with the physical space, and confirmed the placement.</p>
+  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Match the virtual room to the real one</span></div>
+  <p style="margin-top:var(--sp-step-intro)">In the camera view, pros scanned the room, adjusted the virtual walls until they lined up with the physical space, and confirmed the placement.</p>
 </section>
 <div class="wide chapter-media">
   <div class="screens">
@@ -150,8 +133,8 @@
 
 <!-- Chapter 04 -->
 <section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Let the space become the focus</span></div>
-  <p style="margin-top:var(--s3)">Once the walkthrough began, the interface receded so people could focus on the space itself.</p>
+  <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Get the interface out of the way</span></div>
+  <p style="margin-top:var(--sp-step-intro)">Once the walkthrough started, nearly everything disappeared from the screen so people could focus on the room around them.</p>
 </section>
 <div class="wide chapter-media">
   <div class="screens screens--xl">
@@ -165,59 +148,67 @@
 </div>
 
 <!-- Validation -->
-<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--s9)">
+<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--sp-media-next)">
   <div class="eyebrow"><span class="eyebrow__t">Validation</span></div>
-  <h2 class="display">What testing changed</h2>
-  <p style="margin-top:var(--s4)">Repeated internal tests and live client demos revealed that small interaction details determined whether placement felt intuitive and controllable. When people could understand where they were and where the experience would be placed without guidance, we knew the mental model was working.</p>
+  <h2 class="display">What testing refined</h2>
+  <p style="margin-top:var(--sp-head)">Once the core interaction was in place, internal tests and live client demos helped us refine the details that made the setup feel clear and controlled: how quickly the plan responded, how readable the virtual surfaces remained over the camera feed, and how easily pros could understand their position and direction on the floor plan.</p>
 </section>
 
-<!-- Findings 1 + 2 -->
-<section class="reading" style="margin-top:var(--s8)">
-  <div class="findings-pair">
-    <div>
-      <h3 class="display" style="font-size:var(--fs-title)">Slowing down the floor plan</h3>
-      <p style="margin-top:var(--s3)">The plan initially reacted too quickly to touch, making precise positioning difficult. We reduced the interaction sensitivity until rotating and moving the plan felt controlled.</p>
+<!-- Three findings, equal columns -->
+<div class="wide" style="margin-top:var(--sp-text-media)">
+  <div class="findings-3">
+    <div class="finding">
+      <p class="finding__n">01</p>
+      <h3 class="display">Slowing down the floor plan</h3>
+      <p>At first, the plan reacted too quickly to touch. Small gestures caused large movements, so we slowed it down until people could position it without fighting the interface.</p>
     </div>
-    <div>
-      <h3 class="display" style="font-size:var(--fs-title)">Separating virtual surfaces</h3>
-      <p style="margin-top:var(--s3)">The wall and floor overlays went through several color and opacity iterations. They needed to remain visible over the camera feed without hiding the physical room.</p>
+    <div class="finding">
+      <p class="finding__n">02</p>
+      <h3 class="display">Making the overlays easy to read</h3>
+      <p>The wall and floor overlays had to be easy to see without covering the room underneath. We tested different colors and opacity levels until both surfaces stayed clear over the camera feed.</p>
+    </div>
+    <div class="finding">
+      <p class="finding__n">03</p>
+      <h3 class="display">Keeping the user visible</h3>
+      <p>The simple marker worked on the 2D plan, but it became harder to find once the plan included detailed furniture and materials. We tried several familiar patterns. Each solved part of the problem, but introduced a new one.</p>
     </div>
   </div>
-</section>
+</div>
 
-<!-- Finding 3 -->
-<section class="reading" id="marker" style="margin-top:var(--s7)">
-  <h3 class="display" style="font-size:var(--fs-title)">Keeping the user visible</h3>
-  <p style="margin-top:var(--s3)">The rendered floor plan contained much more visual detail than the simple 2D version. Common location markers either disappeared into the plan or communicated the wrong meaning.</p>
+<!-- Marker exploration: separate wide visual block -->
+<section class="reading" id="marker" style="margin-top:var(--sp-media-next)">
+  <h3 class="display" style="font-size:var(--fs-title)">Finding the right user marker</h3>
 </section>
-<div class="reading">
+<div class="wide" style="margin-top:var(--sp-text-media)">
+  <div class="marker-block">
   <div class="marker-row">
     <figure class="marker-item">
       <img src="../media/ar/marker-dot-cone.png" alt="A dot with a view cone marking the user's position on a rendered floor plan">
-      <figcaption><b>Dot + view cone</b> Direction was clear, but the marker disappeared against detailed plans.</figcaption>
+      <figcaption><b>Dot + view cone</b> It showed direction, but the marker got lost in the rendered plan.</figcaption>
     </figure>
     <figure class="marker-item">
       <img src="../media/ar/marker-crosshair.png" alt="A crosshair marking the user's position on a rendered floor plan">
-      <figcaption><b>Crosshair</b> Highly visible, but it suggested a target rather than the user's position.</figcaption>
+      <figcaption><b>Crosshair</b> It stood out, but looked like a target rather than the user's position.</figcaption>
     </figure>
     <figure class="marker-item">
       <img src="../media/ar/marker-pin.png" alt="A map pin marking the user's position on a rendered floor plan">
-      <figcaption><b>Map pin</b> A familiar location symbol, but it did not communicate viewing direction.</figcaption>
+      <figcaption><b>Map pin</b> It clearly marked a place, but not the direction the user was facing.</figcaption>
     </figure>
   </div>
   <figure class="marker-final">
     <img src="../media/ar/marker-final.png" alt="The final marker on the full rendered floor plan: a colored dot with white separation, a gradient view cone, and a directional arrow">
-    <figcaption><b>Final marker</b> Color, white separation, a gradient cone, and a directional arrow kept both position and orientation visible across simple and rendered floor plans.</figcaption>
+    <figcaption><b>Final marker</b> The final version combined color, a white outline, a soft viewing cone, and an arrow. Together, they kept both position and direction clear on simple and rendered floor plans.</figcaption>
   </figure>
+  </div>
 </div>
 
 <!-- Launch -->
-<section class="reading section" id="value">
+<section class="reading section" id="value" style="margin-top:var(--sp-section)">
   <div class="eyebrow"><span class="eyebrow__t">Launch</span></div>
-  <h2 class="display">From imagining the design to experiencing the whole space</h2>
-  <p style="margin-top:var(--s4)">The feature launched as Life-Sized Walkthroughs, allowing clients to experience a proposal at full scale inside the space it would transform.</p>
+  <h2 class="display">From looking at the proposal to walking through it</h2>
+  <p style="margin-top:var(--sp-head)">Life-Sized Walkthroughs launched in Houzz Pro, giving clients a way to experience proposals at full scale in the rooms they were planning to change.</p>
 </section>
-<div class="wide section--tight">
+<div class="wide section--tight" style="margin-top:var(--sp-text-media)">
   <figure class="video-ph">
     <div class="video-ph__frame">
       <iframe src="https://www.youtube.com/embed/uX66wrFXuCE" title="Life-Sized Walkthroughs video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -227,23 +218,23 @@
 </div>
 
 <!-- Outcome -->
-<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--s8)">
+<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--sp-media-next)">
   <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
-  <h2 class="display">The conversation moved from explaining the proposal to experiencing it</h2>
-  <div class="result" style="margin-top:var(--s4)">
-    <p class="result__stmt">Clients could react to the space at full scale, making design conversations more immediate and giving pros a clearer way to communicate their vision.</p>
+  <h2 class="display">The conversation shifted from explaining the proposal to discussing the space</h2>
+  <div class="result" style="margin-top:var(--sp-head)">
+    <p class="result__stmt">Clients could respond to what they saw around them, while pros could talk through choices in context instead of asking clients to imagine the result.</p>
   </div>
 </section>
 
 <!-- What stayed with me -->
-<section class="reading section" id="reflection" data-toc="Reflection" style="margin-top:var(--s10)">
+<section class="reading section" id="reflection" data-toc="Reflection" style="margin-top:var(--sp-media-next)">
   <h2 class="display">What stayed with me</h2>
-  <p style="margin-top:var(--s4)">There were few established AR patterns to rely on. Testing showed that the clearest design signals came from what people did naturally: how they rotated the plan, searched for their position, and adjusted the virtual room.</p>
-  <p class="beat__stmt" style="margin-top:var(--s6)">When interaction patterns did not exist, user behavior became the clearest design signal.</p>
+  <p style="margin-top:var(--sp-head)">There was no playbook for this interaction. The most useful clues came from watching what people tried to do before we told them anything: rotate the plan, find themselves, and line the virtual room up with the real one.</p>
+  <p class="beat__stmt" style="margin-top:var(--s6)">When there was no pattern to follow, people's behavior showed us what the pattern should be.</p>
 </section>
 
 <!-- Next project -->
-<div class="wide">
+<div class="wide" style="margin-top:var(--sp-media-next)">
   <hr class="rule">
   <a class="next" href="multi-room-mobile-scan.html">
     <svg class="signature" width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">

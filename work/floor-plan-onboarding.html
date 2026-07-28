@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=34">
-<link rel="stylesheet" href="../styles/main.css?v=34">
+<link rel="stylesheet" href="../styles/tokens.css?v=44">
+<link rel="stylesheet" href="../styles/main.css?v=44">
 </head>
 <body>
 
@@ -17,35 +17,33 @@
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="/work">Work</a><a href="#">About</a></span>
+    <span class="nav__links"><a href="#">About</a></span>
   </div>
 </nav>
 
 <!-- Main image (top): completion state as product proof -->
-<div class="wide" style="padding-top:var(--s6)">
+<div class="wide hero-media">
   <figure class="hero-shot"><img src="../media/onboarding/complete-hero.png" alt="The completed onboarding in the Houzz Pro workspace: a Congratulations modal beside the finished 3D dollhouse floor plan"></figure>
 </div>
 
 <!-- Opener -->
-<header class="reading" style="margin-top:var(--s7)">
+<header class="reading" style="margin-top:var(--s8)">
   <h1 class="display">3D Floor Plans Onboarding</h1>
   <p class="lead" style="margin-top:var(--s5)">3D Floor Plans offered a powerful set of tools, but for a first-time user, the blank workspace made it difficult to know where to begin. Onboarding mattered because users needed more than an introduction to individual features - they needed a clear path to completing a first plan and enough confidence to continue working on their own.</p>
 </header>
 
 <!-- Overview bar (directly under the lead) -->
-<div class="wide" style="margin-top:var(--s5)">
+<div class="wide ov-bar" style="margin-top:var(--s7)">
   <hr class="rule">
   <div class="overview">
-    <span class="overview__item"><b>Role</b> / Product Designer</span>
-    <span class="overview__item"><b>Scope</b> / Concept exploration, task sequencing, interaction design, detailed states</span>
-    <span class="overview__item"><b>Platform</b> / Desktop web</span>
+    <span class="overview__item"><b>My Role</b> / Product Designer</span>
   </div>
   <hr class="rule">
 </div>
 
 <!-- Problem & Goal - native cards in the site type system -->
 <!-- 1 · Context & problem -->
-<section class="reading section" id="problem" data-toc="Problem">
+<section class="reading section first-section" id="problem" data-toc="Problem">
   <h2 class="display">Powerful tools, no clear first step</h2>
   <p style="margin-top:var(--s4)">3D Floor Plans gave pros a powerful set of tools. But for a first-time user, the blank workspace made it hard to know where to begin - they could see every feature and still not know which action to start with, how the tools connected, or whether they were doing it right.</p>
 </section>
@@ -213,14 +211,10 @@
     <div class="flow__step"><span class="flow__num">04</span><div class="flow__name">Review</div><p class="flow__desc">See it in 3D</p></div>
   </div>
 </div>
-<div class="wide" style="margin-top:var(--s6)">
-  <figure class="plate" style="max-width:230px;margin-inline:auto"><img src="../media/onboarding/welcome-dollhouse.png" alt="A small preview of the finished plan in 3D"><figcaption class="plate-cap" style="text-align:center">A preview of the payoff - the finished plan in 3D, explored in full at Review.</figcaption></figure>
-</div>
-
 <!-- The onboarding flow -->
 <section class="reading section" id="flow">
   <div class="eyebrow"><span class="eyebrow__t">The flow</span></div>
-  <h2 class="display">The full onboarding flow</h2>
+  <h2 class="display">The experience, step by step</h2>
   <p style="margin-top:var(--s4)">The complete path a first-time user moved through - from entry, through three guided stages, to a finished plan and back into real work.</p>
 </section>
 <div class="wide section--tight">
@@ -413,6 +407,6 @@
   </div>
 </footer>
 
-<script src="../scripts/site.js?v=5" defer></script>
+<!-- <script src="../scripts/site.js?v=5" defer></script> TOC disabled for now -->
 </body>
 </html>

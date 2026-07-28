@@ -23,8 +23,16 @@ a { color: inherit; }
 /* --- Layout containers ------------------------------------ */
 .reading { max-width: var(--reading); margin-inline: auto; padding-inline: var(--gutter); }
 .wide    { max-width: var(--media);   margin-inline: auto; padding-inline: var(--gutter); }
-.section { margin-top: var(--s9); }
+.section { margin-top: var(--sp-section); }
 .section--tight { margin-top: var(--s7); }
+/* Body copy never runs to the full media width */
+.reading p { max-width: var(--copy); }
+/* One intentional gap between the hero metadata bar and the first content section (all case studies) */
+.section.first-section { margin-top: 92px; }
+@media (max-width: 640px) { .section.first-section { margin-top: 76px; } }
+/* Shared case-study hero: consistent gap from the header to the hero media */
+.hero-media { padding-top: 68px; }
+@media (max-width: 640px) { .hero-media { padding-top: 44px; } }
 
 /* --- Typography ------------------------------------------- */
 .display { font-family: var(--font-display); font-weight: 500; color: var(--title); line-height: 1.08; }
@@ -50,7 +58,7 @@ li::marker { color: var(--accent); }
 /* --- Nav -------------------------------------------------- */
 .nav { border-bottom: 1px solid var(--line); }
 .nav__inner {
-  max-width: var(--media); margin-inline: auto; padding: var(--s4) var(--gutter);
+  max-width: var(--media); margin-inline: auto; padding: 30px var(--gutter);
   display: flex; justify-content: space-between; align-items: center;
 }
 .nav__name { font-family: var(--font-display); font-weight: 500; color: var(--title); font-size: var(--fs-title); text-decoration: none; }
@@ -226,12 +234,44 @@ figure { margin: 0; }
   display: block; border-radius: var(--radius-screen); }
 .marker-item figcaption, .marker-final figcaption { margin-top: 16px; font-size: 14px; line-height: 1.5; color: var(--muted); }
 .marker-item figcaption b, .marker-final figcaption b { display: block; font-weight: 600; color: var(--title); margin-bottom: 4px; }
-.marker-final { max-width: 380px; margin: 88px auto 0; }
-.marker-final img { width: 260px; max-width: 100%; height: auto; display: block; margin-inline: auto; }
+.marker-final { max-width: 300px; margin: 88px auto 0; }
+.marker-final img { width: 100%; height: auto; display: block; }
+
+/* Validation findings: three equal columns with a small accent number */
+.findings-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s6); }
+.finding__n { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; color: var(--accent); margin: 0 0 var(--s3); }
+.finding h3 { font-size: clamp(18px, 1.9vw, 20px); line-height: 1.2; margin: 0; }
+.finding p { margin-top: var(--s3); }
+@media (max-width: 640px) { .findings-3 { grid-template-columns: 1fr; gap: var(--s7); } }
+/* Marker exploration: a separate, wide visual block */
+.marker-block { background: #F6F4F1; border-radius: 16px; padding: var(--s7) var(--s6); }
+.marker-block .marker-row { margin-top: 0; }
+@media (max-width: 640px) { .marker-block { padding: var(--s6) var(--s5); } }
 
 /* Chapter rhythm (AR walkthrough 01-04): one consistent editorial spacing scale */
 .chapter { margin-top: 120px; }
 .chapter-media { margin-top: 52px; }
+/* Life-Sized Walkthroughs: one consistent, responsive spacing scale (desktop / tablet -15% / mobile) */
+:root { --sp-section: 120px; --sp-tight: 64px; --sp-head: 28px; --sp-text-media: 56px; --sp-media-next: 92px; --sp-step-intro: 30px; }
+@media (max-width: 1024px) { :root { --sp-section: 100px; --sp-tight: 56px; --sp-head: 24px; --sp-text-media: 48px; --sp-media-next: 80px; --sp-step-intro: 28px; } }
+@media (max-width: 640px)  { :root { --sp-section: 80px; --sp-tight: 48px; --sp-head: 20px; --sp-text-media: 40px; --sp-media-next: 68px; --sp-step-intro: 24px; } }
+.chapter { margin-top: var(--sp-media-next); }
+.chapter-media { margin-top: var(--sp-text-media); }
+.marker-row { margin-top: var(--sp-text-media); }
+.ov-bar .rule { margin-block: 30px; }
+/* Inside chapter media the screens row is a plain centered flex row, not the full-bleed 100vw scroller
+   (the 100vw + negative-margin trick centers on the viewport incl. scrollbar, leaving media slightly offset) */
+.chapter-media .screens { width: auto; margin-left: 0; padding-inline: 0; justify-content: center;
+  gap: clamp(28px, 3vw, 48px); flex-wrap: wrap; }
+@media (max-width: 480px) { .chapter-media .screens { gap: 24px; } }
+/* Step 01 entry point: bare transparent screenshot, centered, no frame */
+.launch-shot { margin: 0 auto; max-width: 240px; position: relative; }
+.launch-shot img { width: 100%; height: auto; display: block; }
+/* Soft spotlight on the AR entry point (icon sits at 81% / 16.5% of the frame) */
+.launch-shot::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at 81% 16.5%,
+    rgba(23,20,15,0) 0, rgba(23,20,15,0) 26px,
+    rgba(23,20,15,.13) 74px, rgba(23,20,15,.13) 100%); }
 .screens--lg figure { flex: 0 0 232px; max-width: 232px; }
 /* The walkthrough video is sized directly (not via a full-width wrapper): 320px on desktop, 82vw on small screens */
 .screens--xl figure { flex: 0 0 auto; max-width: none; }
@@ -239,6 +279,7 @@ figure { margin: 0; }
 @media (max-width: 640px) {
   .chapter { margin-top: 88px; }
   .screens.screens--lg figure { flex-basis: min(80vw, 440px); max-width: min(80vw, 440px); }
+  .launch-shot { max-width: min(66vw, 240px); }
 }
 
 /* Validation findings: compact two-column pair on desktop, stacked on small screens */
@@ -324,20 +365,22 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
 /* --- Insight + Goal: paired colour cards (under the brown panel) --- */
 .ig-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: stretch; }
 .ig-card { border-radius: 14px; padding: var(--s6); }
+.ig-pair--compact .ig-card { padding: 40px; }
+@media (max-width: 640px) { .ig-pair--compact .ig-card { padding: 28px; } }
 .ig-card--insight { background: #F1E6D9; }
 .ig-card--goal { background: #9E4E2C; }
 .ig-card__label { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .14em;
   text-transform: uppercase; color: var(--accent); margin: 0 0 var(--s3); }
 .ig-card--goal .ig-card__label { color: #F0D9C8; }
-.ig-card__stmt { font-family: var(--font-display); font-weight: 500; font-size: clamp(19px, 2.4vw, 25px);
-  line-height: 1.24; color: var(--title); margin: 0; }
+.ig-card__stmt { font-family: var(--font-display); font-weight: 500; font-size: clamp(16px, 1.9vw, 20px);
+  line-height: 1.28; color: var(--title); margin: 0; }
 .ig-card--goal .ig-card__stmt { color: #F8F1E9; }
 .ig-card__note { margin: var(--s4) 0 0; font-size: var(--fs-body); color: #5B4A3B; }
 .ig-card--goal .ig-card__note { color: #F0D9C8; }
 @media (max-width: 640px) { .ig-pair { grid-template-columns: 1fr; } }
 
 /* --- Section eyebrow: plain mono label -------------------- */
-.eyebrow { margin: 0 0 var(--s3); }
+.eyebrow { margin: 0 0 20px; }
 .eyebrow__t { font-family: var(--font-mono); font-size: var(--fs-label); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
 .black .eyebrow__t { color: var(--black-muted); }
 
@@ -355,8 +398,8 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
 .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s4); }
 /* Cluster of 2-3 short quotes as compact stacked cards (adapts 2 or 3 wide) */
 .voice-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(232px, 1fr)); gap: var(--s4); }
-.voice-set .voice { grid-template-columns: 1fr; gap: 2px; padding: var(--s5) var(--s4); }
-.voice-set .voice__mark { font-size: 22px; margin-bottom: 2px; }
+.voice-set .voice { grid-template-columns: 1fr; gap: 2px; padding: var(--s3) var(--s4); }
+.voice-set .voice__mark { font-size: 18px; margin-bottom: 0; }
 .voice-set .voice__text { font-size: 15px; line-height: 1.46; margin: 0 0 var(--s3); }
 @media (max-width: 640px) { .voice-grid { grid-template-columns: 1fr; } .voice__mark { font-size: 38px; } }
 
@@ -398,7 +441,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
 /* --- Responsive ------------------------------------------- */
 @media (max-width: 640px) {
   .media-row, .pg-pair, .approach-grid { grid-template-columns: 1fr; }
-  .section { margin-top: var(--s8); }
+  .nav__inner { padding: 22px var(--gutter); }
   .flow__arrow { display: none; }
   .flow__step { flex-basis: 100%; }
   .move, .move--right { flex-direction: column; align-items: stretch; }
@@ -435,8 +478,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
    ============================================================ */
 
 /* 1 · Readability - shorter measure for body copy; headings stay wide */
-.mr .reading p:not(.kicker) { max-width: 700px; }
-.mr .reading .lead { max-width: 720px; }
+.mr .reading .lead { max-width: var(--copy); }
 
 /* 2 · Rhythm - a visual sits close to the text that introduces it,
        while chapters keep their generous gap (.section stays s9) */
@@ -459,7 +501,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
 .mr .voice-set .voice__text { font-size: 16px; line-height: 1.44; margin-bottom: 0; }
 
 /* 7 · Problem / Goal - the goal is a solid terracotta card, light text on brown */
-.mr .ig-card--goal .ig-card__stmt { font-size: clamp(21px, 2.7vw, 28px); }
+.mr .ig-card--goal .ig-card__stmt { font-size: clamp(17px, 2.1vw, 22px); }
 
 /* 7b · When the section carries the evidence screen, it reads top to bottom:
         problem -> proof -> goal, so the visual makes the case between them */
@@ -496,7 +538,6 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
 
 /* 11 · Impact - the numbers lead; the product-wide metric stays context */
 /* Hero - a touch larger than the reading width for emphasis */
-.mr .mr-hero { max-width: 965px; }
 
 /* "Original mobile scan flow" reads as quiet context, not a headline */
 .mr #before .display { font-size: clamp(19px, 2.6vw, 22px); }

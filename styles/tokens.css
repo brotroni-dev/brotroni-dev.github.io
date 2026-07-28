@@ -37,9 +37,10 @@
   --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
 
   /* Layout widths */
-  --reading: 860px;   /* prose column - matches media so text and screens align */
-  --media:   860px;   /* media plates / wide */
-  --gutter:  clamp(20px, 5vw, 48px);
+  --reading: 920px;   /* reading column - headings + section structure */
+  --media:   1160px;  /* wide container - hero media, diagrams, card grids, screens */
+  --copy:    660px;   /* body-copy cap (~70-80 chars) - never full media width */
+  --gutter:  clamp(24px, 5vw, 72px);   /* page gutters: 24 mobile -> ~72 large desktop */
   --radius:  8px;
   --radius-screen: 6px;   /* screenshots / device screens (locked) */
 
