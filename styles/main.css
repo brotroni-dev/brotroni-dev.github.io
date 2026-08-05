@@ -21,25 +21,27 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; }
 
 /* --- Layout containers ------------------------------------ */
-.reading { max-width: var(--reading); margin-inline: auto; padding-inline: var(--gutter); }
+.reading { max-width: var(--media); margin-inline: auto; padding-inline: var(--gutter); }
+/* Reading content shares the wide column's LEFT edge; only its measure is narrower */
+.reading h1, .reading h2, .reading h3, .reading .lead { max-width: var(--reading); }
 .wide    { max-width: var(--media);   margin-inline: auto; padding-inline: var(--gutter); }
 .section { margin-top: var(--sp-section); }
 .section--tight { margin-top: var(--s7); }
 /* Body copy never runs to the full media width */
 .reading p { max-width: var(--copy); }
 /* One intentional gap between the hero metadata bar and the first content section (all case studies) */
-.section.first-section { margin-top: 92px; }
-@media (max-width: 640px) { .section.first-section { margin-top: 76px; } }
+.section.first-section { margin-top: 88px; }
+@media (max-width: 640px) { .section.first-section { margin-top: 68px; } }
 /* Shared case-study hero: consistent gap from the header to the hero media */
-.hero-media { padding-top: 68px; }
-@media (max-width: 640px) { .hero-media { padding-top: 44px; } }
+.hero-media { padding-top: 76px; }
+@media (max-width: 640px) { .hero-media { padding-top: 48px; } }
 
 /* --- Typography ------------------------------------------- */
 .display { font-family: var(--font-display); font-weight: 500; color: var(--title); line-height: 1.08; }
 h1.display { font-size: var(--fs-h1); margin: var(--s3) 0; }
 h2.display { font-size: var(--fs-h2); line-height: 1.16; margin: 0; }
 .lead { font-size: 16px; line-height: 1.6; color: var(--text); }
-.summary { font-style: italic; color: var(--muted); margin: 0; }
+.summary { font-style: normal; color: var(--muted); margin: 0; }
 .mut { color: var(--muted); }
 p { margin: 0 0 var(--s4); }
 ul { margin: 0 0 var(--s4); padding-left: 1.15em; }
@@ -258,7 +260,7 @@ figure { margin: 0; }
 .chapter { margin-top: var(--sp-media-next); }
 .chapter-media { margin-top: var(--sp-text-media); }
 .marker-row { margin-top: var(--sp-text-media); }
-.ov-bar .rule { margin-block: 30px; }
+.ov-bar .rule { margin-block: 18px; }
 /* Inside chapter media the screens row is a plain centered flex row, not the full-bleed 100vw scroller
    (the 100vw + negative-margin trick centers on the viewport incl. scrollbar, leaving media slightly offset) */
 .chapter-media .screens { width: auto; margin-left: 0; padding-inline: 0; justify-content: center;
@@ -291,7 +293,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   outline: 2px solid var(--accent); outline-offset: 2px; }
 .nav__links a, .footer__inner a { padding-block: 12px; }
 .screens .flow__arrow { align-self: center; flex: 0 0 auto; }
-.screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--muted); text-align: center; margin-top: var(--s2); line-height: 1.4; }
+.screens figcaption { font-family: var(--font-mono); font-size: var(--fs-label); color: var(--text); text-align: center; margin-top: 6px; line-height: 1.4; }
 @media (max-width: 640px) { .screens figure { flex-basis: 150px; max-width: 150px; } }
 
 /* --- AR schematic flow: phone screens redrawn in the site's language --- */
@@ -478,7 +480,6 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
    ============================================================ */
 
 /* 1 · Readability - shorter measure for body copy; headings stay wide */
-.mr .reading .lead { max-width: var(--copy); }
 
 /* 2 · Rhythm - a visual sits close to the text that introduces it,
        while chapters keep their generous gap (.section stays s9) */
@@ -511,7 +512,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   font-size: clamp(20px, 2.4vw, 26px); line-height: 1.25; margin: 0 0 var(--s5); }
 .mr .ig-evidence__body { display: flex; align-items: center; justify-content: center;
   gap: var(--s6); flex-wrap: wrap; }
-.mr .ig-evidence__shot { flex: 0 0 auto; width: 208px; max-width: 60vw; }
+.mr .ig-evidence__shot { flex: 0 0 auto; width: 208px; max-width: 60vw; margin-inline: auto; }
 .mr .ig-evidence__shot img { width: 100%; display: block;
   border: 1px solid var(--line); border-radius: var(--radius-screen); }
 
@@ -520,7 +521,7 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   text-transform: uppercase; color: var(--accent); margin: 0 0 var(--s2); }
 .mr .ev-note { margin: 0; font-size: var(--fs-body); line-height: 1.5; color: var(--muted); }
 
-.mr .ig-evidence__cap { max-width: 460px; margin: var(--s5) auto 0;
+.mr .ig-evidence__cap { max-width: 460px; margin: var(--s3) auto 0;
   font-size: var(--fs-body); line-height: 1.5; color: var(--muted); }
 
 @media (max-width: 640px) {
@@ -564,6 +565,18 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   .mr .screens--compare figure { flex-basis: 152px; max-width: 152px; }
 }
 
+/* 2 · The original flow reads as one continuous five-step sequence that spans
+       the content column: first/last screens flush with the heading and limit
+       callout, remaining space distributed evenly (~40-56px on desktop). Not
+       full-bleed - it sits inside the shared .wide content box and inherits its
+       gutters, so it stays a horizontal-scroll row on narrow screens. */
+.mr .screens--flow {
+  width: auto; margin-left: 0; padding: 4px 0 var(--s3);
+  justify-content: space-between; gap: var(--s4);
+}
+.mr .screens--flow figure { flex: 0 0 166px; max-width: 166px; }
+.mr .screens--flow figcaption { margin-top: 12px; }
+
 /* Principle 03 - the two "before" dialogs are stacked so one sits behind the
    other (literally "hidden behind dialogs"), compressing them to roughly one
    phone's footprint; the single "after" screen is a touch larger and reads as
@@ -588,3 +601,54 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   .mr .p03-stack .p03-front { margin-left: -44px; }
   .mr .p03-after img { width: 160px; }
 }
+
+/* --- Floor-plan rotation animation, in a phone mockup (Core Interaction, LSW)
+   The plan swings gently one way, back, then the other, while the user marker
+   stays anchored at the pivot and keeps facing the same direction. The grid is
+   the phone screen; the plan + marker live in an SVG on top of it. */
+.fpr-figure { margin: 0; }
+.fpr-phone {
+  position: relative; width: 100%; max-width: 320px;
+  aspect-ratio: 305.84 / 663.07; margin-inline: auto;
+  display: flex; flex-direction: column;
+  background: #FFFFFF; border: 1px solid #17140F; border-radius: 26px;
+  box-shadow: 4px 4px 0 #17140F; overflow: hidden;
+  font-family: -apple-system, 'SF Pro Text', var(--font-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.fpr-status { flex: none; display: flex; align-items: center; justify-content: space-between;
+  padding: 9px 16px 3px; font-size: 10px; color: #000; font-weight: 500; }
+.fpr-status__l, .fpr-status__r { display: flex; align-items: center; gap: 4px; }
+.fpr-status__l { font-weight: 400; }
+.fpr-dots { letter-spacing: -1px; font-size: 8px; }
+.fpr-batt { display: inline-block; width: 16px; height: 8px; border: 1px solid #000; border-radius: 2px; position: relative; }
+.fpr-batt::before { content: ""; position: absolute; inset: 1px; right: 4px; background: #000; border-radius: 1px; }
+.fpr-batt::after { content: ""; position: absolute; right: -2px; top: 2px; width: 1px; height: 4px; background: #000; }
+.fpr-header { flex: none; display: flex; align-items: center; gap: 8px; padding: 6px 16px 12px; }
+.fpr-back { width: 12px; color: #222; display: flex; }
+.fpr-title { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 15px; font-weight: 600; color: #222; }
+.fpr-title svg { width: 13px; height: 13px; }
+.fpr-next { font-size: 15px; font-weight: 400; color: #222; }
+.fpr-stage { position: relative; flex: 1; overflow: hidden; border-top: 1px solid #EDECEA;
+  background-image: linear-gradient(#E6E6E6 1px, transparent 1px), linear-gradient(90deg, #E6E6E6 1px, transparent 1px);
+  background-size: 30px 30px; background-position: center top; }
+.fpr-anim { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+  width: 72%; height: auto; overflow: visible; }
+.fpr-anim__plan { transform-box: view-box; transform-origin: 116px 150px;   /* marker point = pivot */
+  animation: fprSwing 11s ease-in-out infinite; will-change: transform; }
+@keyframes fprSwing {
+  0%   { transform: rotate(0deg);   }
+  22%  { transform: rotate(19deg);  }
+  44%  { transform: rotate(0deg);   }
+  50%  { transform: rotate(0deg);   }
+  72%  { transform: rotate(-19deg); }
+  94%  { transform: rotate(0deg);   }
+  100% { transform: rotate(0deg);   }
+}
+@media (prefers-reduced-motion: reduce) { .fpr-anim__plan { animation: none; transform: rotate(-9deg); } }
+.fpr-card { position: absolute; left: 13px; right: 13px; bottom: 14px;
+  display: flex; gap: 9px; align-items: flex-start;
+  background: #FFFFFF; border-radius: 10px; padding: 14px 16px; box-shadow: 0 5px 16px rgba(0,0,0,.18); }
+.fpr-card svg { flex: none; width: 16px; height: 16px; margin-top: 1px; }
+.fpr-card p { margin: 0; font-size: 12px; line-height: 1.45; color: #222; }
