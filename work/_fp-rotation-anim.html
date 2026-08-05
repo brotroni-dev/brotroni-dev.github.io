@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Floor-plan rotation animation - preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=105">
+<link rel="stylesheet" href="../styles/main.css?v=105">
+<style>
+  /* ===== Phone mockup around the floor-plan animation ===== */
+  .fpr-phone {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 305.84 / 663.07;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border: 1px solid #17140F;
+    border-radius: 26px;
+    box-shadow: 4px 4px 0 #17140F;
+    overflow: hidden;
+    font-family: -apple-system, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* status bar */
+  .fpr-status {
+    flex: none; display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 16px 3px; font-size: 10px; color: #000; font-weight: 500;
+  }
+  .fpr-status__l, .fpr-status__r { display: flex; align-items: center; gap: 4px; }
+  .fpr-status__l { font-weight: 400; }
+  .fpr-dots { letter-spacing: -1px; font-size: 8px; }
+  .fpr-batt { display: inline-block; width: 16px; height: 8px; border: 1px solid #000; border-radius: 2px; position: relative; }
+  .fpr-batt::before { content: ""; position: absolute; inset: 1px; right: 4px; background: #000; border-radius: 1px; }
+  .fpr-batt::after { content: ""; position: absolute; right: -2px; top: 2px; width: 1px; height: 4px; background: #000; }
+
+  /* header */
+  .fpr-header {
+    flex: none; display: flex; align-items: center; gap: 8px;
+    padding: 6px 16px 12px;
+  }
+  .fpr-back { width: 12px; color: #222; display: flex; }
+  .fpr-title { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 15px; font-weight: 600; color: #222; }
+  .fpr-title svg { width: 13px; height: 13px; }
+  .fpr-next { font-size: 15px; font-weight: 400; color: #222; }
+
+  /* screen: grid background + animation + card */
+  .fpr-stage {
+    position: relative; flex: 1; overflow: hidden;
+    border-top: 1px solid #EDECEA;
+    background-image:
+      linear-gradient(#E6E6E6 1px, transparent 1px),
+      linear-gradient(90deg, #E6E6E6 1px, transparent 1px);
+    background-size: 30px 30px;
+    background-position: center top;
+  }
+
+  .fpr-anim {
+    position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+    width: 72%; height: auto; overflow: visible;
+  }
+  .fpr-anim__plan {
+    transform-box: view-box;
+    transform-origin: 116px 150px;      /* the marker point = pivot */
+    animation: fprSwing 11s ease-in-out infinite;
+    will-change: transform;
+  }
+  @keyframes fprSwing {
+    0%   { transform: rotate(0deg);   }
+    22%  { transform: rotate(19deg);  }
+    44%  { transform: rotate(0deg);   }
+    50%  { transform: rotate(0deg);   }
+    72%  { transform: rotate(-19deg); }
+    94%  { transform: rotate(0deg);   }
+    100% { transform: rotate(0deg);   }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fpr-anim__plan { animation: none; transform: rotate(-9deg); }
+  }
+
+  /* instruction card */
+  .fpr-card {
+    position: absolute; left: 13px; right: 13px; bottom: 14px;
+    display: flex; gap: 9px; align-items: flex-start;
+    background: #FFFFFF; border-radius: 10px; padding: 14px 16px;
+    box-shadow: 0 5px 16px rgba(0,0,0,.18);
+  }
+  .fpr-card svg { flex: none; width: 16px; height: 16px; margin-top: 1px; }
+  .fpr-card p { margin: 0; font-size: 12px; line-height: 1.45; color: #222; }
+</style>
+</head>
+<body class="lsw">
+
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="ar-walkthrough.html">&larr; Back to case study</a>
+    <span class="nav__links"><a href="#">Preview</a></span>
+  </div>
+</nav>
+
+<section class="reading" id="turning" style="margin-top:var(--s8)">
+  <div class="eyebrow" style="margin-bottom:20px"><span class="eyebrow__t">The Core Interaction</span></div>
+  <h3 class="display" style="font-size:var(--fs-title);line-height:1.2">The user stayed fixed while the floor plan rotated around them</h3>
+  <p style="margin-top:30px">During testing, pros instinctively rotated the floor plan to align it with the room, much like orienting a map. They expected their position to remain anchored while the plan moved around them.</p>
+  <p style="margin-top:var(--sp-head)">Instead of correcting the gesture, I designed the setup around it. The fixed marker showed where the user was standing and facing, while rotating the plan let them choose how the virtual space would be positioned before entering AR.</p>
+</section>
+
+<div class="wide chapter-media">
+  <figure class="fpr-figure" style="margin-top:var(--s7)">
+    <div class="fpr-phone" role="img"
+         aria-label="A phone showing the Summer house floor plan on a grid. The plan turns gently from side to side around a fixed user marker that keeps facing the same direction.">
+
+      <!-- status bar -->
+      <div class="fpr-status">
+        <span class="fpr-status__l"><span class="fpr-dots">&#9679;&#9679;&#9679;&#9675;&#9675;</span>&nbsp;Houzz</span>
+        <span class="fpr-status__c">1:20 PM</span>
+        <span class="fpr-status__r">77% <span class="fpr-batt"></span></span>
+      </div>
+
+      <!-- header -->
+      <div class="fpr-header">
+        <span class="fpr-back"><svg viewBox="0 0 8 14" fill="none"><path d="M7 1 1 7l6 6" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span class="fpr-title">Summer house
+          <svg viewBox="0 0 14 14" fill="none"><path d="M9.5 1.5l3 3-7 7-3.5.5.5-3.5 7-7z" stroke="#727169" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="fpr-next">Next</span>
+      </div>
+
+      <!-- screen -->
+      <div class="fpr-stage">
+        <svg class="fpr-anim" viewBox="-6 -6 244 352" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fprMarkCone" x1="15.9176" y1="56.412" x2="33.6614" y2="6.63444" gradientUnits="userSpaceOnUse">
+              <stop/><stop offset="1" stop-opacity="0.01"/>
+            </linearGradient>
+            <filter id="fprMarkArrow" x="15.9634" y="2.75921" width="23.5327" height="47.5737" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="bg"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="a"/>
+              <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="1.63318"/><feComposite in2="a" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+              <feBlend mode="normal" in2="bg" result="e1"/><feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
+            </filter>
+            <filter id="fprMarkHalo" x="6.13761" y="41.1404" width="22.8464" height="22.8464" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="bg"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="a"/>
+              <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="0.816591"/><feComposite in2="a" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+              <feBlend mode="normal" in2="bg" result="e1"/><feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
+            </filter>
+            <filter id="fprMarkDot" x="8.00699" y="43.1456" width="19.6008" height="19.6008" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="bg"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="a"/>
+              <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="2.44977"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
+              <feBlend mode="normal" in2="bg" result="e1"/><feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
+            </filter>
+          </defs>
+
+          <!-- Rotating floor plan (exact artwork) -->
+          <g class="fpr-anim__plan">
+            <path d="M229.462 338.069H2.4502L2.4502 247.084L2.4502 162.471L2.4502 105.826H91.5072L92.265 2.4502L139.294 2.4502L229.462 2.4502V120.342V173.446V338.069Z" fill="#F8F6F2"/>
+            <path d="M2.4502 162.471L2.4502 105.826H94.7402M139.294 2.4502L92.265 2.4502L91.5072 105.826H2.4502M92.265 2.4502V71.4857M92.265 105.826V71.4857M92.265 71.4857H139.294V2.4502M139.294 2.4502L229.462 2.4502V120.342M139.294 173.446H193.041M229.462 173.446V338.069H2.4502L2.4502 247.084M229.462 173.446V120.342M229.462 173.446H193.041M229.462 120.342H193.041M139.294 120.342C160.284 120.342 172.052 120.342 193.041 120.342M193.041 120.342V173.446M2.4502 247.084H99.337V162.471H2.4502M2.4502 247.084L2.4502 162.471" stroke="black" stroke-width="4.89955" fill="none"/>
+            <path d="M139.638 71.8604V176.384" stroke="black" stroke-width="4.89955" fill="none"/>
+            <path d="M67.7773 106.155L67.7773 162.5" stroke="black" stroke-width="4.89955" fill="none"/>
+            <path d="M72.4844 163.345L72.4844 163.549L72.2802 163.549L72.2802 163.345L72.4844 163.345ZM72.4844 163.268L72.2802 163.267L72.6885 163.268L72.4844 163.268ZM72.4834 163.344L72.2793 163.344L72.2793 163.344L72.4834 163.344ZM96.209 187.069L96.4131 187.069L96.4131 187.273L96.209 187.273L96.209 187.069ZM96.209 163.345L96.209 163.141L96.4131 163.141L96.4131 163.345L96.209 163.345ZM72.4844 163.345L72.2802 163.345L72.2802 163.268L72.4844 163.268L72.6885 163.268L72.6885 163.345L72.4844 163.345ZM72.4844 163.268L72.6885 163.268C72.6885 163.283 72.6882 163.297 72.688 163.309C72.6877 163.322 72.6876 163.333 72.6875 163.344L72.4834 163.344L72.2793 163.344C72.2793 163.329 72.2795 163.314 72.2797 163.302C72.28 163.289 72.2802 163.278 72.2802 163.267L72.4844 163.268ZM72.4834 163.344L72.6875 163.344C72.6875 176.334 83.2185 186.865 96.209 186.865L96.209 187.069L96.209 187.273C82.993 187.273 72.2793 176.56 72.2793 163.344L72.4834 163.344ZM96.209 187.069L96.0048 187.069L96.0048 163.345L96.209 163.345L96.4131 163.345L96.4131 187.069L96.209 187.069ZM96.209 163.345L96.209 163.549L72.4844 163.549L72.4844 163.345L72.4844 163.141L96.209 163.141L96.209 163.345Z" fill="#222222"/>
+            <rect x="-0.204148" y="0.204148" width="27.9806" height="6.89171" rx="0.612443" transform="matrix(-1 -1.36411e-08 1.03966e-08 1 97.786 158.828)" fill="#F8F6F2" stroke="#222222" stroke-width="0.408295"/>
+            <rect x="-0.204148" y="0.204148" width="27.9806" height="6.89171" rx="0.612443" transform="matrix(-1 -1.36411e-08 1.03966e-08 1 179.737 116.521)" fill="#F8F6F2" stroke="#222222" stroke-width="0.408295"/>
+          </g>
+
+          <!-- Fixed user marker (exact artwork), rotated so its cone points straight up -->
+          <g transform="translate(116 150) rotate(-19.62) translate(-17.5613 -51.7446)">
+            <ellipse cx="17.5613" cy="51.7446" rx="4.89351" ry="4.89351" transform="rotate(-160.381 17.5613 51.7446)" fill="#00CFAD"/>
+            <g transform="translate(15.9176 56.412) scale(1.32) translate(-15.9176 -56.412)">
+              <path opacity="0.9" d="M15.9176 56.412L19.3689 1.53924L33.6616 6.63405L47.9542 11.7289L15.9176 56.412Z" fill="url(#fprMarkCone)" fill-opacity="0.8"/>
+            </g>
+            <g filter="url(#fprMarkArrow)">
+              <path d="M34.5311 5.20886L27.3484 11.3177L36.2302 14.4837L34.5311 5.20886ZM19.9993 45.9756L20.7685 46.2498L21.2875 44.7938L20.5183 44.5196L19.7491 44.2454L19.2301 45.7014L19.9993 45.9756ZM21.5563 41.6077L22.3255 41.8819L23.3635 38.97L22.5943 38.6958L21.8251 38.4216L20.7871 41.3335L21.5563 41.6077ZM23.6323 35.7839L24.4014 36.0581L25.4394 33.1462L24.6702 32.872L23.9011 32.5978L22.8631 35.5097L23.6323 35.7839ZM25.7082 29.9601L26.4774 30.2343L27.5154 27.3224L26.7462 27.0482L25.977 26.774L24.9391 29.6859L25.7082 29.9601ZM27.7842 24.1363L28.5534 24.4105L29.5914 21.4985L28.8222 21.2244L28.053 20.9502L27.015 23.8621L27.7842 24.1363ZM29.8602 18.3125L30.6294 18.5866L31.6674 15.6747L30.8982 15.4005L30.129 15.1264L29.091 18.0383L29.8602 18.3125ZM31.9362 12.4886L32.7053 12.7628L33.7433 9.85091L32.9741 9.57672L32.205 9.30254L31.167 12.2144L31.9362 12.4886ZM34.5311 5.20886L27.3484 11.3177L36.2302 14.4837L34.5311 5.20886ZM19.9993 45.9756L20.7685 46.2498L21.2875 44.7938L20.5183 44.5196L19.7491 44.2454L19.2301 45.7014L19.9993 45.9756ZM21.5563 41.6077L22.3255 41.8819L23.3635 38.97L22.5943 38.6958L21.8251 38.4216L20.7871 41.3335L21.5563 41.6077ZM23.6323 35.7839L24.4014 36.0581L25.4394 33.1462L24.6702 32.872L23.9011 32.5978L22.8631 35.5097L23.6323 35.7839ZM25.7082 29.9601L26.4774 30.2343L27.5154 27.3224L26.7462 27.0482L25.977 26.774L24.9391 29.6859L25.7082 29.9601ZM27.7842 24.1363L28.5534 24.4105L29.5914 21.4985L28.8222 21.2244L28.053 20.9502L27.015 23.8621L27.7842 24.1363ZM29.8602 18.3125L30.6294 18.5866L31.6674 15.6747L30.8982 15.4005L30.129 15.1264L29.091 18.0383L29.8602 18.3125ZM31.9362 12.4886L32.7053 12.7628L33.7433 9.85091L32.9741 9.57672L32.205 9.30254L31.167 12.2144L31.9362 12.4886Z" fill="white"/>
+            </g>
+            <g opacity="0.8" filter="url(#fprMarkHalo)">
+              <ellipse cx="17.5608" cy="51.747" rx="9.78701" ry="9.78701" transform="rotate(-160.381 17.5608 51.747)" fill="#00CFAD"/>
+            </g>
+            <g filter="url(#fprMarkDot)">
+              <ellipse cx="17.8076" cy="52.1294" rx="4.89955" ry="4.89954" transform="rotate(-160.381 17.8076 52.1294)" fill="white"/>
+            </g>
+          </g>
+        </svg>
+
+        <!-- instruction card -->
+        <div class="fpr-card">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 0.5c.4 3.2 1.9 4.7 5.1 5.1-3.2.4-4.7 1.9-5.1 5.1-.4-3.2-1.9-4.7-5.1-5.1C6.1 5.2 7.6 3.7 8 .5z" fill="#00CFAD"/><path d="M13.2 10.4c.2 1.4.9 2.1 2.3 2.3-1.4.2-2.1.9-2.3 2.3-.2-1.4-.9-2.1-2.3-2.3 1.4-.2 2.1-.9 2.3-2.3z" fill="#00CFAD"/></svg>
+          <p>Move and rotate your floor plan until the pointer is on the spot where you want to start your AR experience.</p>
+        </div>
+      </div>
+    </div>
+  </figure>
+</div>
+
+<div class="reading" style="margin-top:var(--s7);color:var(--muted);font-size:13px">
+  Preview only - phone chrome, plan size, swing amount, and grid are easy to tune.
+</div>
+
+</body>
+</html>

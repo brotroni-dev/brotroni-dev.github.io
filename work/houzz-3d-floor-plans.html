@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Houzz Pro: 3D Floor Plans - Roni Brot-Kolinkó</title>
+<meta name="description" content="Context on Houzz, Houzz Pro, and 3D Floor Plans - the product these case studies are part of.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=108">
+<link rel="stylesheet" href="../styles/main.css?v=108">
+<style>
+/* ============================================================
+   Houzz Pro: 3D Floor Plans - context / hub page.
+   Reuses the shared system; hz- classes for the bespoke bits.
+   ============================================================ */
+.hz-back { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--accent); text-decoration: none; }
+.hz-back:hover { text-decoration: underline; }
+
+/* --- Overview: text + hierarchy diagram --- */
+.hz-split { display: grid; grid-template-columns: 1fr 500px; gap: var(--s8); align-items: start; }
+.hz-split__text > .eyebrow { margin-bottom: var(--s5); }
+.hz-split__text p { max-width: 440px; margin: 0 0 var(--s5); }
+.hz-split__text p:last-child { margin-bottom: 0; }
+
+.hz-hierarchy { position: relative; display: flex; flex-direction: column; }
+.hz-card { display: flex; align-items: center; gap: var(--s4); width: 82%;
+  background: #fff; border: 1.5px solid var(--title); border-radius: 14px;
+  box-shadow: 4px 5px 0 var(--title); padding: 20px 22px; box-sizing: border-box; }
+.hz-card--1 { align-self: flex-end; z-index: 3; }
+.hz-card--2 { align-self: flex-start; margin-top: 26px; z-index: 2; }
+.hz-card--3 { align-self: flex-end; margin-top: 26px; z-index: 1; }
+.hz-card__body { flex: 1 1 auto; }
+.hz-card__t { font-family: var(--font-body); font-weight: 600; font-size: 15px;
+  letter-spacing: .02em; color: var(--title); }
+.hz-card__d { font-family: var(--font-body); font-size: 14px; line-height: 1.4;
+  color: var(--text); margin-top: 3px; }
+.hz-card__logo { width: 46px; height: 46px; object-fit: contain; flex: 0 0 auto; }
+.hz-card--3 .hz-card__logo { width: 60px; height: 46px; }
+/* dashed connector between card 2 and card 3 */
+.hz-hier-link { position: absolute; left: 12%; top: 46%; width: 40px; height: 90px;
+  pointer-events: none; }
+
+/* --- Audience: 60 / 30 / 10 staircase --- */
+.hz-audience { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4);
+  align-items: end; }
+.hz-aud { border-radius: 14px; padding: 22px 22px 26px; box-sizing: border-box; }
+.hz-aud--1 { background: #F4C64F; min-height: 340px; }
+.hz-aud--2 { background: #F8E1AC; min-height: 190px; }
+.hz-aud--3 { background: #FBF0DA; min-height: 118px; }
+.hz-aud__t { font-family: var(--font-body); font-weight: 600; font-size: 16px;
+  color: var(--title); margin: 0 0 var(--s2); }
+.hz-aud__d { font-family: var(--font-body); font-size: 13px; line-height: 1.5;
+  color: var(--title); margin: 0; opacity: .82; }
+
+/* --- Workflow --- */
+.hz-illo { margin: 0; }
+.hz-illo img { width: 100%; max-width: 1016px; height: auto; display: block; margin-inline: auto; }
+.hz-arrow { text-align: center; color: var(--accent); font-size: 22px; line-height: 1;
+  margin: var(--s2) 0 var(--s6); }
+.hz-steps { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+  gap: var(--s5); }
+.hz-step { margin: 0; display: flex; flex-direction: column; }
+.hz-step img { height: 248px; width: auto; max-width: 100%; display: block;
+  border-radius: 10px; border: 1px solid var(--line); }
+.hz-step figcaption { display: flex; align-items: center; gap: var(--s2); margin-top: var(--s3);
+  font-family: var(--font-body); font-size: 14px; color: var(--title); }
+.hz-step__n { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--title); color: #fff; font-family: var(--font-mono); font-size: 12px;
+  display: inline-flex; align-items: center; justify-content: center; }
+
+@media (max-width: 860px) {
+  .hz-split { grid-template-columns: 1fr; gap: var(--s7); }
+  .hz-hierarchy { max-width: 460px; }
+  .hz-card { width: 88%; }
+  .hz-audience { grid-template-columns: 1fr; align-items: stretch; }
+  .hz-aud { min-height: 0 !important; }
+  .hz-step img { height: 240px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
+    <span class="nav__links"><a href="/about">About</a></span>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="reading" style="margin-top:var(--s7)">
+  <a class="hz-back" href="../index.html">&larr; Back</a>
+  <h1 class="display" style="margin-top:var(--s4)">Houzz Pro: 3D Floor Plans</h1>
+  <p class="lead" style="margin-top:var(--s4)">3D Floor Plans helps renovation professionals capture real spaces, refine floor plans, and present proposals to clients.</p>
+</header>
+
+<!-- Overview -->
+<section class="wide hz-split" style="margin-top:var(--s9)">
+  <div class="hz-split__text">
+    <div class="eyebrow"><span class="eyebrow__t">Overview</span></div>
+    <p>Houzz connects homeowners with renovation professionals, products, and design inspiration.</p>
+    <p>Houzz Pro is the professional workspace within Houzz, helping contractors, designers, and architects manage renovation projects from lead to completion.</p>
+    <p>Within Houzz Pro, 3D Floor Plans helps pros turn real spaces into plans they can refine, share, and present to clients.</p>
+  </div>
+  <div class="hz-hierarchy">
+    <svg class="hz-hier-link" viewBox="0 0 40 90" aria-hidden="true" fill="none">
+      <path d="M8 4 C 2 40, 2 55, 30 84" stroke="#17140F" stroke-width="1.4" stroke-dasharray="4 5" stroke-linecap="round"/>
+    </svg>
+    <div class="hz-card hz-card--1">
+      <div class="hz-card__body"><div class="hz-card__t">HOUZZ</div><div class="hz-card__d">Inspiration and marketplace</div></div>
+      <img class="hz-card__logo" src="../media/context/logo-houzz.png" alt="Houzz logo">
+    </div>
+    <div class="hz-card hz-card--2">
+      <div class="hz-card__body"><div class="hz-card__t">HOUZZ PRO</div><div class="hz-card__d">Business tools for renovation pros</div></div>
+      <img class="hz-card__logo" src="../media/context/logo-houzzpro.png" alt="Houzz Pro logo">
+    </div>
+    <div class="hz-card hz-card--3">
+      <div class="hz-card__body"><div class="hz-card__t">3D FLOOR PLANS</div><div class="hz-card__d">Scan &rarr; Refine &rarr; Present</div></div>
+      <img class="hz-card__logo" src="../media/context/icon-3dfloorplans.png" alt="3D Floor Plans icon">
+    </div>
+  </div>
+</section>
+
+<!-- Audience -->
+<section class="reading" style="margin-top:var(--s10)">
+  <div class="eyebrow"><span class="eyebrow__t">Audience</span></div>
+  <p style="margin-top:var(--s5)">3D Floor Plans supported renovation professionals across site visits, planning, and client conversations. Contractors made up the largest share of users, followed by designers and architects.</p>
+</section>
+<div class="wide" style="margin-top:var(--s7)">
+  <div class="hz-audience">
+    <div class="hz-aud hz-aud--1">
+      <p class="hz-aud__t">Contractors 60%</p>
+      <p class="hz-aud__d">Measure spaces, communicate with clients, and use the broadest range of Houzz Pro tools.</p>
+    </div>
+    <div class="hz-aud hz-aud--2">
+      <p class="hz-aud__t">Designers 30%</p>
+      <p class="hz-aud__d">Plan layouts, add room details, use product libraries, and communicate design intent.</p>
+    </div>
+    <div class="hz-aud hz-aud--3">
+      <p class="hz-aud__t">Architects 10%</p>
+      <p class="hz-aud__d">Validate dimensions, structure, accuracy, and the floor plans themselves.</p>
+    </div>
+  </div>
+</div>
+
+<!-- The workflow -->
+<section class="reading" style="margin-top:var(--s10)">
+  <div class="eyebrow"><span class="eyebrow__t">The workflow</span></div>
+  <p style="margin-top:var(--s5)">Pros move between site visits, office planning, and client conversations. 3D Floor Plans helps carry spatial information across those moments - from capture, to refinement, to presentation.</p>
+</section>
+<div class="wide" style="margin-top:var(--s7)">
+  <figure class="hz-illo"><img src="../media/context/workflow-illustration.png" alt="A pro scanning a room on site with a tablet, a designer refining the plan at a desk, and pros presenting the plan to clients"></figure>
+  <div class="hz-arrow" aria-hidden="true">&darr;</div>
+  <div class="hz-steps">
+    <figure class="hz-step">
+      <img src="../media/context/ctx-scan.jpg" alt="Scanning a room in AR on a phone">
+      <figcaption><span class="hz-step__n">1</span> Scan the space</figcaption>
+    </figure>
+    <figure class="hz-step">
+      <img src="../media/context/ctx-build.jpg" alt="Building and refining the 3D floor plan in the workspace">
+      <figcaption><span class="hz-step__n">2</span> Build and refine</figcaption>
+    </figure>
+    <figure class="hz-step">
+      <img src="../media/context/ctx-present.jpg" alt="Presenting the plan at full scale in AR on a tablet">
+      <figcaption><span class="hz-step__n">3</span> Present with AR</figcaption>
+    </figure>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="margin-top:var(--s10)">
+  <div class="footer__inner">
+    <span class="footer__name">Roni Brot-Kolinkó</span>
+    <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Résumé ↓</a>
+  </div>
+</footer>
+
+</body>
+</html>

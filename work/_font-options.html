@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serif options - bolder Didone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Playfair+Display:wght@600;700&family=Bodoni+Moda:opsz,wght@6..96,600;700&family=DM+Serif+Display&family=Fraunces:opsz,wght@9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=33">
+<style>
+  body { margin: 0; background: #F1EADD; color: #17140F; font-family: 'Inter', sans-serif;
+    padding: 56px clamp(24px,5vw,72px) 96px; }
+  .intro { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #76726B; max-width: 740px; margin: 0 0 var(--s8); line-height: 1.6; }
+  .opt { border-top: 1px solid #E4D8C3; padding: var(--s6) 0 var(--s7); }
+  .opt.ref { background: #EDE3D2; margin: 0 -12px var(--s4); padding: var(--s5) 12px var(--s6); border-radius: 12px; border: 0; }
+  .opt-name { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .12em;
+    text-transform: uppercase; color: #9E4E2C; margin-bottom: var(--s4); }
+  .opt-name small { color: #76726B; text-transform: none; letter-spacing: .04em; margin-left: 10px; }
+  .sample { color: #17140F; font-size: clamp(28px, 4.4vw, 46px); line-height: 1.32;
+    letter-spacing: -0.005em; margin: 0; max-width: 1000px; }
+  .tok { display: inline-block; vertical-align: -0.14em; width: 1.15em; height: 1.15em; border-radius: 100px;
+    object-fit: cover; border: 1px solid rgba(23,20,15,.1); box-shadow: 0 1px 5px rgba(46,30,16,.18); margin: 0 .06em; }
+  .f-gilda { font-family: 'Gilda Display', serif; font-weight: 400; }
+  .f-playfair6 { font-family: 'Playfair Display', serif; font-weight: 600; }
+  .f-playfair7 { font-family: 'Playfair Display', serif; font-weight: 700; }
+  .f-bodoni6 { font-family: 'Bodoni Moda', serif; font-weight: 600; }
+  .f-bodoni7 { font-family: 'Bodoni Moda', serif; font-weight: 700; }
+  .f-dmserif { font-family: 'DM Serif Display', serif; font-weight: 400; }
+  .f-fraunces6 { font-family: 'Fraunces', serif; font-weight: 600; }
+</style>
+</head>
+<body>
+  <p class="intro">Gilda has no bold (Regular only, shown up top as the reference). Below: real bold faces in the same elegant high-contrast Didone lane, so you get that look with weight. Body stays Inter.</p>
+
+  <div class="opt ref">
+    <span class="opt-name">Reference · Gilda Display <small>Regular only - no bold available</small></span>
+    <p class="sample f-gilda">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">1 · Playfair Display <small>600 - semibold, elegant editorial</small></span>
+    <p class="sample f-playfair6">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">2 · Playfair Display <small>700 - bold</small></span>
+    <p class="sample f-playfair7">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">3 · Bodoni Moda <small>600 - semibold, sharp Didone</small></span>
+    <p class="sample f-bodoni6">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">4 · Bodoni Moda <small>700 - bold</small></span>
+    <p class="sample f-bodoni7">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">5 · DM Serif Display <small>single weight, but naturally bold + high-contrast</small></span>
+    <p class="sample f-dmserif">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+
+  <div class="opt">
+    <span class="opt-name">6 · Fraunces <small>600 - your current face at semibold, for reference</small></span>
+    <p class="sample f-fraunces6">Hey! I'm <img class="tok" src="../media/home/portrait.png" style="object-position:center 26%" alt=""> Roni - a product designer <img class="tok" src="../media/home/work-token.png" alt="">, and someone who cares a lot about how things feel <img class="tok" src="../media/home/lamb.jpg" style="object-position:center 30%" alt="">.</p>
+  </div>
+</body>
+</html>
