@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About - Roni Brot-Kolinkó</title>
+<meta name="description" content="Roni Brot-Kolinkó - a senior product designer based in Tel Aviv, working across web and mobile.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=112">
+<link rel="stylesheet" href="../styles/main.css?v=112">
+<style>
+/* ============================================================
+   About - a plain editorial page. Reuses the shared system;
+   ab- classes only for the back link, longer measure, and photo.
+   ============================================================ */
+.ab-back { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--accent); text-decoration: none; }
+.ab-back:hover { text-decoration: underline; }
+
+/* This page reads more like prose: a slightly larger, wider measure than the
+   compact 14px case-study body, matching the Figma design. */
+.reading.ab-copy h2.display { margin-bottom: var(--s5); }
+.reading.ab-copy p { max-width: 760px; font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0 0 var(--s5); }
+.reading.ab-copy p:last-child { margin-bottom: 0; }
+
+.ab-photo { margin: 0; }
+.ab-photo img { width: 100%; max-width: 420px; height: auto; aspect-ratio: 4 / 3;
+  display: block; border-radius: 8px; }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
+    <span class="nav__links"><a href="/about">About</a></span>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="reading" style="margin-top:var(--s7)">
+  <a class="ab-back" href="../index.html">&larr; Back</a>
+  <h1 class="display" style="margin-top:var(--s4)">About me</h1>
+  <p class="lead" style="margin-top:var(--s4)">I'm a senior product designer based in Tel Aviv, working across web and mobile.</p>
+</header>
+
+<!-- How I got here -->
+<section class="reading ab-copy" style="margin-top:var(--s8)">
+  <h2 class="display">How I got here</h2>
+  <p>After graduating from Shenkar, I managed an artist's gallery, worked in social media, and later worked as a content editor.</p>
+  <p>The projects I enjoyed most weren't purely visual. They also involved understanding people and figuring out how something should work. That led me to study UX/UI and join a design agency, where I worked with clients in healthcare, banking, drone technology, and corporate training.</p>
+  <p>Working across short-term projects made me want to stay involved after launch and see how products evolved over time. I joined an in-house product team and have since worked across a wide range of product areas on web and mobile.</p>
+</section>
+
+<!-- Outside of work -->
+<section class="reading ab-copy" style="margin-top:var(--s7)">
+  <h2 class="display">Outside of work</h2>
+  <p>When I'm not working, I'm usually volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
+</section>
+
+<!-- Photo -->
+<div class="reading" style="margin-top:var(--s8)">
+  <figure class="ab-photo">
+    <img src="../media/about/sheeps.jpeg" alt="Roni sitting among a flock of sheep at an animal sanctuary">
+  </figure>
+</div>
+
+<!-- Footer -->
+<footer class="footer" style="margin-top:var(--s10)">
+  <div class="footer__inner">
+    <span class="footer__name">Roni Brot-Kolinkó</span>
+    <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+    <a href="#">LinkedIn</a>
+    <a href="#">Résumé &darr;</a>
+  </div>
+</footer>
+
+</body>
+</html>

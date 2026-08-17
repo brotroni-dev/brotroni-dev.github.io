@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=104">
-<link rel="stylesheet" href="../styles/main.css?v=104">
+<link rel="stylesheet" href="../styles/tokens.css?v=114">
+<link rel="stylesheet" href="../styles/main.css?v=114">
 </head>
 <body>
 
@@ -21,25 +21,22 @@
   </div>
 </nav>
 
-<!-- Main image (top): completion state as product proof -->
-<div class="wide hero-media">
-  <figure class="hero-shot"><img src="../media/onboarding/complete-hero.png" alt="The completed onboarding in the Houzz Pro workspace: a Congratulations modal beside the finished 3D dollhouse floor plan"></figure>
-</div>
-
-<!-- Opener -->
-<header class="reading" style="margin-top:var(--s8)">
-  <a href="houzz-3d-floor-plans.html" style="display:inline-block;margin-bottom:var(--s4);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--accent);text-decoration:none">&#8599; Houzz Pro: 3D Floor Plans</a>
-  <h1 class="display">3D Floor Plans Onboarding</h1>
-  <p class="lead" style="margin-top:var(--s5)">3D Floor Plans offered a powerful set of tools, but for a first-time user, the blank workspace made it difficult to know where to begin. Onboarding mattered because users needed more than an introduction to individual features - they needed a clear path to completing a first plan and enough confidence to continue working on their own.</p>
-</header>
-
-<!-- Overview bar (directly under the lead) -->
-<div class="wide ov-bar" style="margin-top:var(--s7)">
-  <hr class="rule">
-  <div class="overview">
-    <span class="overview__item"><b>My Role</b> / Product Designer</span>
+<!-- Hero (shared case-study structure): meta -> title -> lead -> divider -> role -> media -->
+<header class="cs-hero">
+  <div class="ctx-bar">
+    <span class="ctx-bar__meta">Houzz Pro &middot; 3D Floor Plans &middot; Web</span>
+    <a class="ctx-bar__link" href="houzz-3d-floor-plans.html">About Houzz Pro &amp; 3D Floor Plans &rarr;</a>
   </div>
-  <hr class="rule">
+  <h1 class="cs-hero__title">Helping users get started with 3D Floor Plans</h1>
+  <p class="cs-hero__lead">3D Floor Plans offered a powerful set of tools, but for a first-time user, the blank workspace made it difficult to know where to begin. Onboarding mattered because users needed more than an introduction to individual features - they needed a clear path to completing a first plan and enough confidence to continue working on their own.</p>
+</header>
+<div class="cs-ov">
+  <hr class="cs-ov__rule">
+  <p class="cs-ov__role"><b>My Role</b> / Product Designer</p>
+  <hr class="cs-ov__rule">
+</div>
+<div class="cs-heromedia">
+  <figure class="hero-shot"><img src="../media/onboarding/complete-hero.png" alt="The completed onboarding in the Houzz Pro workspace: a Congratulations modal beside the finished 3D dollhouse floor plan"></figure>
 </div>
 
 <!-- Problem & Goal - native cards in the site type system -->

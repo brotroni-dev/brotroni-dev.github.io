@@ -3,13 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Multi-Room Mobile Scan - Roni Brot-Kolinkó</title>
 <meta name="description" content="Expanding mobile scanning beyond one room - extending capture from one room to a whole connected plan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=108">
-<link rel="stylesheet" href="../styles/main.css?v=108">
+<link rel="stylesheet" href="../styles/tokens.css?v=114">
+<link rel="stylesheet" href="../styles/main.css?v=114">
 <style>
 /* ============================================================
    Multi-Room Mobile Scan — case study (built from Figma spec).
@@ -41,7 +44,7 @@
 
 /* figure + screenshot */
 .mrx-fig { display:flex; flex-direction:column; align-items:center; gap:12px; }
-.mrx-fig img { width:100%; border:1px solid var(--line); border-radius:6px; }
+.mrx-fig img { display:block; width:100%; height:auto; aspect-ratio:375/812; border:1px solid var(--line); border-radius:6px; }
 .mrx-fig figcaption { align-self:stretch; }
 
 /* Opener */
@@ -262,7 +265,10 @@
 
   <!-- Opener -->
   <header class="mrx-opener">
-    <a href="houzz-3d-floor-plans.html" style="font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;color:var(--accent);text-decoration:none">&#8599; Houzz Pro: 3D Floor Plans</a>
+    <div class="ctx-bar">
+      <span class="ctx-bar__meta">Houzz Pro &middot; 3D Floor Plans &middot; Mobile</span>
+      <a class="ctx-bar__link" href="houzz-3d-floor-plans.html">About Houzz Pro &amp; 3D Floor Plans &rarr;</a>
+    </div>
     <h1 class="mrx-h1">Turning room-by-room scans into one connected floor plan</h1>
     <p class="mrx-lead">Pros could already scan one room by marking its corners with their phone. Multi-Room Scan extended that flow across an entire project, letting them move from room to room and build one connected floor plan.</p>
   </header>
