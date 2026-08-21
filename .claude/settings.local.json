@@ -76,7 +76,16 @@
       "Bash(curl -sL -o /private/tmp/claude-501/-Users-ronibrot-roni-portfolio/56d3ebb3-f589-49ca-9556-f3c5e8232db3/scratchpad/metrics2.png \"https://www.figma.com/api/mcp/asset/50e1c3e2-da59-457e-9d0e-c831e5407f83\")",
       "Bash(python3 -c \"import fitz; print\\('pymupdf', fitz.__doc__[:30]\\)\")",
       "Bash(python3 -c \"import pypdf; print\\('pypdf ok'\\)\")",
-      "Bash(python3 -c \"import PyPDF2; print\\('PyPDF2 ok'\\)\")"
+      "Bash(python3 -c \"import PyPDF2; print\\('PyPDF2 ok'\\)\")",
+      "Bash(python3 - /Users/ronibrot/.claude/projects/-Users-ronibrot-roni-portfolio/56d3ebb3-f589-49ca-9556-f3c5e8232db3/tool-results/mcp-075e3ec6-ff0a-4bae-aef5-6aab8204b7a1-get_metadata-1787337874706.txt)",
+      "mcp__075e3ec6-ff0a-4bae-aef5-6aab8204b7a1__get_variable_defs",
+      "mcp__075e3ec6-ff0a-4bae-aef5-6aab8204b7a1__get_design_context",
+      "Bash(curl -sL -o ob-hero.png \"https://www.figma.com/api/mcp/asset/a8c34a9d-bcfc-4532-b877-7fedbfe513bb.png\")",
+      "Bash(curl -sL -o ob-markerbig.png \"https://www.figma.com/api/mcp/asset/7368edab-7b37-4948-b9f5-71b47954ee96.png\")",
+      "Bash(curl -sL -o ob-insightgoal.png \"https://www.figma.com/api/mcp/asset/0c4b3aab-ae27-456d-b805-93dc9b7ea47e.png\")",
+      "Bash(curl -sL -o ob-learnings.png \"https://www.figma.com/api/mcp/asset/be50c710-52d4-4c1a-8143-ef0d8da331ba.png\")",
+      "Bash(curl -sL -o ob-marker2.png \"https://www.figma.com/api/mcp/asset/f81286bc-5dc0-4657-8389-12fe45c042dd.png\")",
+      "Bash(git commit -q -m ' *)"
     ]
   }
 }

@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roni Brot-Kolinkó - Product Designer</title>
-<meta name="description" content="Roni Brot-Kolinkó - a product designer, curious person, and someone who cares a lot about how things feel.">
+<meta name="description" content="Roni Brot-Kolinkó - a product designer who asks a lot of questions and cares deeply about how things feel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles/tokens.css?v=38">
 <style>
   /* ============================================================
-     Homepage - white, minimal. Shares the case-study layout
-     system: same header container (--media / --gutter / height),
-     same gutters, same spacing tokens. Normal top-down flow.
+     Homepage - warm, editorial, minimal. A compact personal hero
+     followed immediately by the three Houzz Pro case studies as a
+     single, clearly labelled body of work. Shares the case-study
+     system (--media / --gutter / spacing tokens).
      ============================================================ */
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     margin: 0; background: var(--bg); color: var(--text);
     font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.7;
@@ -38,34 +40,68 @@
   .hero { padding-top: 80px; }
   .hero__line { font-family: var(--font-display); font-weight: 500; color: var(--title);
     font-size: clamp(26px, 4.6vw, 48px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; max-width: 20ch; }
+  .hero__more { display: inline-block; margin-top: var(--s5);
+    font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
+    color: var(--accent); text-decoration: none; }
+  .hero__more:hover { text-decoration: underline; }
 
-  /* --- Selected work list --- */
-  .work { margin-top: 48px; }
-  .work__kicker { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
-    color: var(--muted); margin: 0 0 var(--s5); }
-  .work__list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); max-width: 1000px; }
-  .work__list li { border-bottom: 1px solid var(--line); }
-  .work__list a { display: flex; flex-direction: column; gap: 4px; padding: 24px 0; text-decoration: none;
-    transition: transform .22s cubic-bezier(.62,0,.34,1); }
-  .work__t { font-family: var(--font-display); font-weight: 500; font-size: clamp(20px, 2.4vw, 25px);
-    color: var(--title); line-height: 1.2; transition: color .2s ease; }
-  .work__d { font-family: var(--font-body); font-size: var(--fs-body); color: var(--muted); line-height: 1.5; }
-  .work__list a:hover { transform: translateX(8px); }
-  .work__list a:hover .work__t { color: var(--accent); }
-  @media (hover: none) { .work__list a:hover { transform: none; } }
+  /* --- Selected work: header directly on the page --------------- */
+  .work { margin-top: 56px; scroll-margin-top: var(--s6); }
+  .work__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); margin: 0 0 var(--s4); }
+  .work__h { font-family: var(--font-display); font-weight: 500; color: var(--title);
+    font-size: clamp(23px, 3vw, 31px); line-height: 1.2; margin: 0; max-width: 20ch; }
+  .work__intro { font-family: var(--font-body); font-size: 15px; color: var(--muted);
+    line-height: 1.6; margin: var(--s4) 0 var(--s4); max-width: 58ch; }
+  .work__ctx { display: inline-block; font-family: var(--font-mono); font-size: 13px;
+    letter-spacing: .04em; color: var(--accent); text-decoration: none; }
+  .work__ctx:hover { text-decoration: underline; }
 
-  /* --- Footer (normal flow) --- */
-  .foot { margin-top: 72px; padding-bottom: 48px; }
-  .foot__inner { max-width: var(--media); margin-inline: auto; padding-inline: var(--gutter);
-    display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); align-items: baseline; }
-  .foot a, .foot span { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); text-decoration: none; }
-  .foot a:hover { color: var(--accent); }
+  /* --- Three projects as one labelled list --------------------- */
+  .proj-list { list-style: none; margin: var(--s7) 0 0; padding: 0; border-top: 1px solid var(--line); }
+  .proj-list li { border-bottom: 1px solid var(--line); }
+  .proj { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s5);
+    padding: clamp(24px, 3vw, 36px) 0; text-decoration: none;
+    transition: transform .24s cubic-bezier(.62,0,.34,1); }
+  .proj__body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .proj__kick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+  .proj__stage { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--accent); }
+  .proj__plat { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--muted); }
+  .proj__title { font-family: var(--font-display); font-weight: 500; color: var(--title);
+    font-size: clamp(20px, 2.6vw, 27px); line-height: 1.22; transition: color .2s ease; }
+  .proj__desc { font-family: var(--font-body); font-size: 14px; color: var(--muted);
+    line-height: 1.55; max-width: 56ch; }
+  .proj__arrow { font-family: var(--font-body); font-size: 22px; color: var(--muted);
+    flex: 0 0 auto; transition: color .2s ease, transform .24s cubic-bezier(.62,0,.34,1); }
+  .proj:hover { transform: translateX(6px); }
+  .proj:hover .proj__title { color: var(--accent); }
+  .proj:hover .proj__arrow { color: var(--accent); transform: translateX(4px); }
+  @media (hover: none) { .proj:hover { transform: none; } }
+
+  /* --- Closing: a warm, concise "Let's talk" ------------------- */
+  .close { margin-top: 96px; border-top: 1px solid var(--line); padding: 56px 0 64px; }
+  .close__h { font-family: var(--font-display); font-weight: 500; color: var(--title);
+    font-size: clamp(24px, 3.4vw, 34px); line-height: 1.15; margin: 0; }
+  .close__line { font-family: var(--font-body); font-size: 15px; color: var(--text);
+    line-height: 1.6; margin: var(--s4) 0 var(--s5); max-width: 46ch; }
+  .close__links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); align-items: baseline; }
+  .close__links a { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
+    color: var(--muted); text-decoration: none; }
+  .close__links a:hover { color: var(--accent); }
 
   @media (max-width: 640px) {
     .top__inner { padding: 22px var(--gutter); }
     .hero { padding-top: 56px; }
-    .work { margin-top: 40px; }
     .hero__line { font-size: clamp(23px, 6.4vw, 32px); }
+    .work { margin-top: 48px; }
+    .proj { grid-template-columns: 1fr; gap: var(--s3); }
+    .proj__arrow { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .proj, .proj__arrow { transition: none; }
   }
 </style>
 </head>
@@ -78,28 +114,71 @@
     </div>
   </header>
 
-  <main class="hero">
-    <div class="bound">
+  <main>
+    <section class="hero bound">
       <p class="hero__line">Hey! I'm Roni - a product designer, curious person, and someone who cares a lot about how things feel.</p>
-      <section class="work" aria-label="Selected work">
-        <p class="work__kicker">Selected work</p>
-        <ul class="work__list">
-          <li><a href="work/multi-room-mobile-scan.html"><span class="work__t">Multi-Room Scan</span><span class="work__d">Turning room-by-room scans into one connected floor plan.</span></a></li>
-          <li><a href="work/floor-plan-onboarding.html"><span class="work__t">3D Floor Plans Onboarding</span><span class="work__d">A guided path to a first finished plan.</span></a></li>
-          <li><a href="work/ar-walkthrough.html"><span class="work__t">Life-Sized Walkthroughs</span><span class="work__d">Placing a proposal in the room at full scale, in AR.</span></a></li>
-        </ul>
-      </section>
-    </div>
+      <a class="hero__more" href="/about">More about me →</a>
+    </section>
+
+    <section class="work bound" id="work" aria-label="Selected work">
+      <p class="work__label">Selected work</p>
+      <h2 class="work__h">Designing across the 3D Floor Plans journey</h2>
+      <p class="work__intro">Three projects from my work on Houzz Pro - from capturing a space to presenting it at full scale.</p>
+      <a class="work__ctx" href="work/houzz-3d-floor-plans.html">About Houzz Pro →</a>
+
+      <ul class="proj-list">
+        <li>
+          <a class="proj" href="work/multi-room-mobile-scan.html">
+            <span class="proj__body">
+              <span class="proj__kick">
+                <span class="proj__stage">01 · Capture</span>
+                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Mobile</span>
+              </span>
+              <span class="proj__title">Turning room-by-room scans into one connected floor plan</span>
+              <span class="proj__desc">Mobile capture, in-scan interactions, and a connected multi-room flow.</span>
+            </span>
+            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="work/floor-plan-onboarding.html">
+            <span class="proj__body">
+              <span class="proj__kick">
+                <span class="proj__stage">02 · Build &amp; Refine</span>
+                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Web</span>
+              </span>
+              <span class="proj__title">Guiding users through a complex floor-planning workspace</span>
+              <span class="proj__desc">Onboarding that teaches the tools by doing, toward a first finished plan.</span>
+            </span>
+            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+        <li>
+          <a class="proj" href="work/ar-walkthrough.html">
+            <span class="proj__body">
+              <span class="proj__kick">
+                <span class="proj__stage">03 · Present</span>
+                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Mobile AR</span>
+              </span>
+              <span class="proj__title">From floor plan to life-sized walkthrough</span>
+              <span class="proj__desc">An AR experience that places the proposal in the room at full scale.</span>
+            </span>
+            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="close bound">
+      <h2 class="close__h">Let's talk</h2>
+      <p class="close__line">Always happy to talk about design, products, or the questions behind them.</p>
+      <div class="close__links">
+        <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+        <a href="#">LinkedIn</a>
+        <a href="assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
+      </div>
+    </section>
   </main>
-
-  <footer class="foot">
-    <div class="foot__inner">
-      <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Résumé ↓</a>
-    </div>
-  </footer>
-
 
 </body>
 </html>

@@ -19,6 +19,10 @@
   color: var(--accent); text-decoration: none; }
 .ab-back:hover { text-decoration: underline; }
 
+/* Compact professional-context line beneath the heading (not an intro statement) */
+.ab-meta { font-family: var(--font-body); font-size: 15px; line-height: 1.6;
+  color: var(--muted); margin: 0; }
+
 /* This page reads more like prose: a slightly larger, wider measure than the
    compact 14px case-study body, matching the Figma design. */
 .reading.ab-copy h2.display { margin-bottom: var(--s5); }
@@ -45,15 +49,15 @@
 <header class="reading" style="margin-top:var(--s7)">
   <a class="ab-back" href="../index.html">&larr; Back</a>
   <h1 class="display" style="margin-top:var(--s4)">About me</h1>
-  <p class="lead" style="margin-top:var(--s4)">I'm a senior product designer based in Tel Aviv, working across web and mobile.</p>
+  <p class="ab-meta" style="margin-top:var(--s4)">Senior Product Designer · Tel Aviv · Web &amp; Mobile</p>
 </header>
 
 <!-- How I got here -->
 <section class="reading ab-copy" style="margin-top:var(--s8)">
   <h2 class="display">How I got here</h2>
-  <p>After graduating from Shenkar, I managed an artist's gallery, worked in social media, and later worked as a content editor.</p>
-  <p>The projects I enjoyed most weren't purely visual. They also involved understanding people and figuring out how something should work. That led me to study UX/UI and join a design agency, where I worked with clients in healthcare, banking, drone technology, and corporate training.</p>
-  <p>Working across short-term projects made me want to stay involved after launch and see how products evolved over time. I joined an in-house product team and have since worked across a wide range of product areas on web and mobile.</p>
+  <p>After studying textile design at Shenkar, I managed an artist's gallery, worked in social media, and later became a content editor.</p>
+  <p>Over time, I found myself more interested in how people understood and used things than in the visual layer alone. That led me to study UX/UI and join a design agency, where I worked across healthcare, banking, drone technology, and corporate training.</p>
+  <p>I eventually wanted to stay with products beyond launch and see how they evolved. I moved in-house and have since designed across a wide range of web and mobile products.</p>
 </section>
 
 <!-- Outside of work -->
@@ -75,7 +79,7 @@
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
     <a href="#">LinkedIn</a>
-    <a href="#">Résumé &darr;</a>
+    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé &darr;</a>
   </div>
 </footer>
 
