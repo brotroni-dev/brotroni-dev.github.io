@@ -95,10 +95,14 @@ body.hzx { background: #f4f4f4; }
    added by JS, so with no JS the bars are simply already full. The 151px
    .hzx-barwrap track holds the space, so the card never changes height.
    Each bar starts only after the one before it has nearly settled. */
-.hzx-chart--anim .hzx-bar { height: 0; }
+.hzx-chart--anim .hzx-bar { height: 0; opacity: 0; }
 .hzx-chart--anim .hzx-bar span { opacity: 0; }
+/* Each bar fades up as it grows, so it materialises out of nothing rather
+   than wiping into view at full strength. */
 .hzx-chart--anim.is-in .hzx-bar {
-  transition: height 1100ms cubic-bezier(.16, 1, .3, 1); }
+  opacity: 1;
+  transition: height 1100ms cubic-bezier(.16, 1, .3, 1),
+              opacity 650ms ease; }
 .hzx-chart--anim.is-in .hzx-bar span {
   opacity: 1; transition: opacity 400ms ease; }
 .hzx-chart--anim.is-in .hzx-bar--1 { height: 151px; transition-delay: 0ms; }
@@ -118,7 +122,8 @@ body.hzx { background: #f4f4f4; }
 /* The dashed run that ties the three steps together. It draws OVER the cards
    (Figma z-index 3); pointer-events:none keeps the cards clickable through it. */
 .hzx-connector { position: absolute; left: 203px; top: 133px; width: 595px; height: 171px;
-  z-index: 3; pointer-events: none; }
+  z-index: 3; pointer-events: none; display: block; overflow: visible; }
+
 .hzx-card { flex: 0 1 324px; min-width: 0; background: #fff; border: 1px solid var(--line);
   border-radius: 12px; overflow: hidden; text-decoration: none; display: flex;
   flex-direction: column; position: relative; z-index: 1; will-change: transform;
@@ -196,15 +201,14 @@ body.hzx { background: #f4f4f4; }
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
     <span class="nav__links">
       <a href="../index.html#work">Work</a>
-      <a href="/about">About</a>
-      <a href="mailto:brotroni@gmail.com">Contact</a>
+      <a href="../about/">About</a>
     </span>
   </div>
 </nav>
 
 <!-- Back -->
 <div class="hzx-band hzx-backbar">
-  <a class="hzx-back" href="../index.html">&larr; Back</a>
+  <a class="hzx-back" href="../index.html" data-back>&larr; Back</a>
 </div>
 
 <!-- Opener -->
@@ -283,11 +287,31 @@ body.hzx { background: #f4f4f4; }
   </div>
 
   <div class="hzx-cards">
-    <img class="hzx-connector" src="../media/context/hz-connector.svg" alt="" aria-hidden="true" width="595" height="171">
+    <!-- Inlined so the stroke can carry an animated gradient; same path as
+         media/context/hz-connector.svg -->
+    <svg class="hzx-connector" aria-hidden="true" focusable="false"
+         width="595" height="171" viewBox="0 0 595.887 172.988"
+         preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Grey run with one warm pool in it. The script below slides the pool
+             along the line, and parks it over whichever card is hovered.
+             x1/x2 are the pool's edges; without JS it sits softly centred. -->
+        <linearGradient id="hzxFlow" gradientUnits="userSpaceOnUse" x1="148" y1="0" x2="448" y2="0">
+          <stop offset="0"    stop-color="#CBC7C0"/>
+          <stop offset="0.18" stop-color="#C08A62"/>
+          <stop offset="0.36" stop-color="#9E4E2C"/>
+          <stop offset="0.64" stop-color="#9E4E2C"/>
+          <stop offset="0.82" stop-color="#C08A62"/>
+          <stop offset="1"    stop-color="#CBC7C0"/>
+        </linearGradient>
+      </defs>
+      <path d="M595.157 108.253C578.889 125.617 433.273 242.545 257.52 108.253C173.901 44.361 79.8994 13.7028 0.157466 0.987524"
+            stroke="url(#hzxFlow)" stroke-width="2" stroke-dasharray="4.59 4.59"/>
+    </svg>
 
     <a class="hzx-card" href="multi-room-mobile-scan.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-capture.png" alt="A contractor scanning a room with a tablet" width="966" height="1071">
+        <img src="../media/context/hz-capture.png?v=2" alt="A contractor scanning a room with a tablet" width="966" height="1071">
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -300,7 +324,7 @@ body.hzx { background: #f4f4f4; }
 
     <a class="hzx-card" href="floor-plan-onboarding.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-build.png" alt="A designer refining a floor plan on a desktop screen" width="966" height="1071">
+        <img src="../media/context/hz-build.png?v=2" alt="A designer refining a floor plan on a desktop screen" width="966" height="1071">
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -313,7 +337,7 @@ body.hzx { background: #f4f4f4; }
 
     <a class="hzx-card" href="ar-walkthrough.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-present.png" alt="A pro showing a plan on a tablet to two clients at a table" width="966" height="1071">
+        <img src="../media/context/hz-present.png?v=2" alt="A pro showing a plan on a tablet to two clients at a table" width="966" height="1071">
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -331,10 +355,82 @@ body.hzx { background: #f4f4f4; }
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
-    <a href="#">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/roni-brot-kolink%C3%B3/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
+
+<script>
+/* The warm pool in the connector follows the pointer: hovering a card parks it
+   over that card, and with nothing hovered it drifts gently along the run.
+   The gradient's x1/x2 are plain SVG attributes, so this is driven per frame
+   rather than by CSS. */
+(function () {
+  var svg = document.querySelector('svg.hzx-connector');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.hzx-card'));
+  if (!svg || !cards.length) return;
+  var grad = svg.querySelector('#hzxFlow');
+  if (!grad) return;
+
+  var VB = 595.887;   // the connector's viewBox width
+  var BAND = 300;     // how wide the warm pool is, in those units
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function place(x) {
+    grad.setAttribute('x1', (x - BAND / 2).toFixed(1));
+    grad.setAttribute('x2', (x + BAND / 2).toFixed(1));
+  }
+
+  /* Where the pool should sit for a given card. The line is narrower than the
+     card row - it runs from inside card 1 to inside card 3 - so a card's own
+     centre can fall outside it. Use the middle of the stretch of line the card
+     actually covers, which keeps the pool on the line for all three. */
+  function centreOf(card) {
+    var c = svg.getBoundingClientRect();
+    if (!c.width) return VB / 2;
+    var r = card.getBoundingClientRect();
+    var l = Math.max(r.left, c.left);
+    var rt = Math.min(r.right, c.right);
+    var mid = (rt > l) ? (l + rt) / 2 : (r.left < c.left ? c.left : c.right);
+    return (mid - c.left) * (VB / c.width);
+  }
+
+  var hovered = null;
+  cards.forEach(function (card) {
+    function on()  { hovered = card; if (reduce) place(centreOf(card)); }
+    function off() { if (hovered === card) { hovered = null; if (reduce) place(VB / 2); } }
+    card.addEventListener('mouseenter', on);
+    card.addEventListener('mouseleave', off);
+    card.addEventListener('focus', on);
+    card.addEventListener('blur', off);
+  });
+
+  // Reduced motion: the pool still answers hover, it just never drifts on its own
+  if (reduce) { place(VB / 2); return; }
+
+  var pos = VB / 2, phase = 0, last = 0;
+  place(pos);
+
+  function frame(now) {
+    var dt = last ? Math.min(now - last, 50) : 16;
+    last = now;
+
+    var target;
+    if (hovered) {
+      target = centreOf(hovered);
+    } else {
+      phase += (dt / 7000) * Math.PI * 2;              // 7s round trip
+      target = VB / 2 + Math.sin(phase) * (VB / 2);
+    }
+
+    // frame-rate independent easing, ~180ms to settle
+    pos += (target - pos) * (1 - Math.exp(-dt / 180));
+    place(pos);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 
 <script>
 // Grow the user bars once, the first time the chart scrolls into view.
@@ -355,6 +451,29 @@ body.hzx { background: #f4f4f4; }
     });
   }, { threshold: 0.35 });
   io.observe(chart);
+})();
+</script>
+
+<script>
+/* The Back link behaves like the browser's own Back button, so arriving here
+   from a case study returns you to that case study rather than to the home
+   page. The href stays as the fallback for a direct visit, a new tab, or a
+   visitor coming from outside the site. */
+(function () {
+  var back = document.querySelector('[data-back]');
+  if (!back) return;
+  var internal = false;
+  try {
+    internal = !!document.referrer &&
+               new URL(document.referrer).origin === location.origin;
+  } catch (e) {}
+  if (!internal || history.length < 2) return;
+  back.addEventListener('click', function (e) {
+    /* leave modifier-clicks alone so "open in new tab" still works */
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    history.back();
+  });
 })();
 </script>
 

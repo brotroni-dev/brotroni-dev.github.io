@@ -34,7 +34,9 @@ body.abx { background: #f4f4f4;
 .abx-back:hover { color: var(--title); }
 
 /* --- Opener --- */
-.abx-opener { padding-top: 32px; }
+/* The footer is pinned with margin-top: auto, which overrides the rule's
+   usual 64px top margin, so the gap above it lives here instead. */
+.abx-opener { padding-top: 32px; padding-bottom: var(--s8); }
 .abx-title { font-family: var(--font-display); font-weight: 300;
   font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title); margin: 0; }
 .abx-lead { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
@@ -68,15 +70,14 @@ body.abx { background: #f4f4f4;
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
     <span class="nav__links">
       <a href="../index.html#work">Work</a>
-      <a href="/about" aria-current="page">About</a>
-      <a href="mailto:brotroni@gmail.com">Contact</a>
+      <a href="index.html" aria-current="page">About</a>
     </span>
   </div>
 </nav>
 
 <!-- Back -->
 <div class="abx-band abx-backbar">
-  <a class="abx-back" href="../index.html">&larr; Back</a>
+  <a class="abx-back" href="../index.html" data-back>&larr; Back</a>
 </div>
 
 <!-- Opener -->
@@ -93,12 +94,12 @@ body.abx { background: #f4f4f4;
 
     <section class="abx-sec">
       <h2>My work</h2>
-      <p>What I enjoy most about product design is getting dropped into a new problem and learning my way into it. I'm naturally curious, so I ask a lot of questions, pull in the right people, and try to understand the world around the problem before deciding where to go. I like working openly, sharing ideas early, getting feedback quickly, and bringing people along as the work takes shape. A big part of what I bring to a team is the human side of the job: communication, presentation, mentoring, and creating the kind of relationships that make it easier to do good work together.</p>
+      <p>What I enjoy most about product design is stepping into an unfamiliar problem and learning my way through it. I ask a lot of questions, bring in the right people, and turn different perspectives into a clear direction. I like working openly, sharing ideas early, and staying close to the details all the way to launch. A big part of what I bring to a team is the human side of the job: communication, presentation, mentoring, and creating the kind of relationships that make it easier to do good work together.</p>
     </section>
 
     <section class="abx-sec">
       <h2>Outside of work</h2>
-      <p>When I'm not working, I'm usually volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
+      <p>When I'm not working, I'm volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
     </section>
   </div>
 </main>
@@ -108,10 +109,33 @@ body.abx { background: #f4f4f4;
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
-    <a href="#">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/roni-brot-kolink%C3%B3/" target="_blank" rel="noopener">LinkedIn</a>
     <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
+
+<script>
+/* The Back link behaves like the browser's own Back button, so arriving here
+   from a case study returns you to that case study rather than to the home
+   page. The href stays as the fallback for a direct visit, a new tab, or a
+   visitor coming from outside the site. */
+(function () {
+  var back = document.querySelector('[data-back]');
+  if (!back) return;
+  var internal = false;
+  try {
+    internal = !!document.referrer &&
+               new URL(document.referrer).origin === location.origin;
+  } catch (e) {}
+  if (!internal || history.length < 2) return;
+  back.addEventListener('click', function (e) {
+    /* leave modifier-clicks alone so "open in new tab" still works */
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    history.back();
+  });
+})();
+</script>
 
 </body>
 </html>

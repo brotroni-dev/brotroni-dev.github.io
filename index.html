@@ -48,21 +48,43 @@ body.hpx { background: #f4f4f4; }
   border-radius: 12px 12px 0 0; padding: 48px 40px; }
 .hpx-intro h2 { font-family: var(--font-display); font-weight: 300; font-size: 32px;
   line-height: 1.2; color: var(--title); margin: 0; max-width: 685px; }
+/* 760 keeps the measure in check but clears the 731px this line needs, so the
+   subtitle sits on one line instead of dropping two words to a second. */
 .hpx-intro p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
-  color: var(--text); margin: 16px 0 0; max-width: 692px; }
+  color: var(--text); margin: 16px 0 0; max-width: 760px; }
 
 /* Outlined pill that fills in on hover */
-.hpx-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
-  border: 1px solid var(--accent); border-radius: 4px; padding: 8px 12px;
+.hpx-btn { position: relative; display: inline-flex; margin-top: 16px;
+  border: 1px solid var(--accent); border-radius: 4px;
   font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
-  color: var(--accent); text-decoration: none;
-  transition: background-color 180ms ease, color 180ms ease; }
+  color: var(--accent); text-decoration: none; overflow: hidden; }
+.hpx-btn__t { display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 12px; white-space: nowrap; }
+/* The hover appearance - accent fill AND white label together - lives in one
+   layer stacked exactly over the resting one, revealed by a circle that grows
+   from wherever the pointer crossed the edge. Because the fill and the white
+   text are clipped by the same shape, each letter turns white at the instant
+   the ink reaches it: no colour fade, so nothing can lag behind the fill.
+   --x/--y come from the script at the end of the page; without JS the circle
+   simply opens from the centre. */
+.hpx-btn__t--on {
+  position: absolute; inset: 0; box-sizing: border-box;
+  background: var(--accent); color: #fff;
+  clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
+  /* An even curve, not a front-loaded one: cubic-bezier(.22,1,.36,1) was
+     98% done after 120ms, so the fill read as instant however long the
+     duration said it was. */
+  transition: clip-path 690ms cubic-bezier(.4, 0, .2, 1); }
+/* 180px just clears the 167px diagonal, so the whole sweep is on screen
+   instead of half the animation happening outside the button. */
+.hpx-btn:hover .hpx-btn__t--on,
+.hpx-btn:focus-visible .hpx-btn__t--on {
+  clip-path: circle(180px at var(--x, 50%) var(--y, 50%)); }
 .hpx-btn i { font-style: normal; transition: transform 200ms cubic-bezier(.22, 1, .36, 1); }
-.hpx-btn:hover, .hpx-btn:focus-visible { background: var(--accent); color: #fff; }
 .hpx-btn:hover i, .hpx-btn:focus-visible i { transform: translateX(3px); }
 
 /* --- Project rows --- */
-.hpx-list { background: #fff; border-radius: 0 0 12px 12px; padding: 0 40px 20px; }
+.hpx-list { background: #fff; border-radius: 0 0 12px 12px; padding: 20px 40px; }
 .hpx-proj { display: block; text-decoration: none; padding-block: 20px;
   border-bottom: 1px solid var(--line); }
 .hpx-proj:last-child { border-bottom: 0; }
@@ -100,6 +122,11 @@ body.hpx { background: #f4f4f4; }
 .hpx-closelinks a { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
   color: var(--muted); text-decoration: none; transition: color 160ms ease; }
 .hpx-closelinks a:hover, .hpx-closelinks a:focus-visible { color: var(--accent); }
+/* The address itself also picks up an underline on hover, so it reads as a
+   link that opens a draft rather than as plain text */
+.hpx-closelinks a[href^="mailto:"]:hover,
+.hpx-closelinks a[href^="mailto:"]:focus-visible {
+  text-decoration: underline; text-underline-offset: 3px; }
 
 /* ============================================================
    Editor's notes: five segments of the hero title reveal a
@@ -196,7 +223,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 /* ---------- Responsive ---------- */
 @media (max-width: 860px) {
   .hpx-intro { padding: 36px 24px; }
-  .hpx-list { padding: 0 24px 16px; }
+  .hpx-list { padding: 16px 24px; }
   .hpx-projrow { padding: 12px; }
   .hpx-hero { padding-top: 56px; }
   .hpx-card, .hpx-close { margin-top: 48px; }
@@ -209,6 +236,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 }
 @media (prefers-reduced-motion: reduce) {
   .hpx-arrowlink i, .hpx-btn i, .hpx-arrow, .hpx-projrow { transition: none; }
+  .hpx-btn__t--on { transition: none; }
   .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow { transform: none; }
 }
 </style>
@@ -223,8 +251,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
     <a class="nav__name" href="index.html">Roni Brot-Kolinkó</a>
     <span class="nav__links">
       <a href="#work">Work</a>
-      <a href="/about">About</a>
-      <a href="mailto:brotroni@gmail.com">Contact</a>
+      <a href="about/">About</a>
     </span>
   </div>
 </nav>
@@ -234,13 +261,13 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
   <!-- Hero -->
   <section class="hpx-hero">
     <div class="hpx-titlewrap">
-      <h1>Hey! <span class="hpx-seg" data-note="hi">I'm Roni</span>, a <span class="hpx-seg" data-note="designer">product designer</span>, <span class="hpx-seg" data-note="curious">curious person</span>, and someone who <span class="hpx-seg" data-note="cares">cares a lot</span> about <span class="hpx-seg" data-note="feel">how things feel.</span></h1>
+      <h1>Hey! <span class="hpx-seg" data-note="hi">I'm Roni</span>, a <span class="hpx-seg" data-note="designer">product designer</span>, <span class="hpx-seg" data-note="curious">curious person</span>, and <span class="hpx-seg" data-note="cares">someone who cares a lot</span> about <span class="hpx-seg" data-note="feel">how things feel.</span></h1>
 
       <div class="hpx-notes">
         <figure class="hpx-note hpx-note--hi" data-note="hi">
           <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
           <span class="hpx-note__body">
-            <img src="media/notes/note-hi.png" alt="Roni at her desk, leaning back in the chair with a cat curled up underneath" width="778" height="1024">
+            <img src="media/notes/note-hi.png?v=2" alt="Roni on a coastal cliff path, smiling at the camera with the sea behind her" width="778" height="1024">
             <p>Hi &#128075;</p>
           </span>
         </figure>
@@ -248,7 +275,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
         <figure class="hpx-note hpx-note--designer" data-note="designer">
           <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
           <span class="hpx-note__body">
-            <p>Product design is mostly complicated problems and people who see them differently. Conveniently, I like both.</p>
+            <p>I like taking a vague problem, giving it shape, and staying with it until the details survive launch. I care deeply about the work, but I'm not precious about my first idea.</p>
           </span>
         </figure>
 
@@ -271,21 +298,21 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
           <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
           <span class="hpx-note__body">
             <img src="media/notes/note-sheep.png" alt="Roni crouching among a flock of sheep at an animal sanctuary" width="1024" height="768">
-            <p>I get attached easily - to people and to animals. This is, in my humble opinion, the correct sheep-to-person ratio.</p>
+            <p>I get attached easily - to people and to animals.<br>This is, in my humble opinion, the correct sheep-to-person ratio.</p>
           </span>
         </figure>
       </div>
     </div>
 
-    <a class="hpx-arrowlink" href="/about">More about me <i aria-hidden="true">&rarr;</i></a>
+    <a class="hpx-arrowlink" href="about/">More about me <i aria-hidden="true">&rarr;</i></a>
   </section>
 
   <!-- Selected work -->
   <section class="hpx-card" id="work" aria-label="Selected work">
     <div class="hpx-intro">
       <h2>Designing across the 3D Floor Plans journey</h2>
-      <p>Three projects from my work on Houzz Pro - from capturing a space to presenting it at full scale.</p>
-      <a class="hpx-btn" href="work/houzz-3d-floor-plans.html">About Houzz Pro <i aria-hidden="true">&rarr;</i></a>
+      <p>Projects from my work on Houzz Pro - from capturing a space to presenting it at full&nbsp;scale.</p>
+      <a class="hpx-btn" href="work/houzz-3d-floor-plans.html"><span class="hpx-btn__t">About Houzz Pro <i aria-hidden="true">&rarr;</i></span><span class="hpx-btn__t hpx-btn__t--on" aria-hidden="true">About Houzz Pro <i>&rarr;</i></span></a>
     </div>
 
     <div class="hpx-list">
@@ -330,12 +357,31 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
     <p>Always happy to talk about design, products, or the questions behind them.</p>
     <div class="hpx-closelinks">
       <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
-      <a href="#">LinkedIn</a>
+      <a href="https://www.linkedin.com/in/roni-brot-kolink%C3%B3/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
     </div>
   </section>
 
 </main>
+
+<script>
+/* Tell the button's ink where the pointer crossed its edge, so the fill grows
+   out from that point on the way in and retracts toward the exit point on the
+   way out. Purely cosmetic - the fill still works from the centre without it. */
+(function () {
+  var btns = document.querySelectorAll('.hpx-btn');
+  if (!btns.length) return;
+  Array.prototype.forEach.call(btns, function (btn) {
+    function mark(e) {
+      var r = btn.getBoundingClientRect();
+      btn.style.setProperty('--x', (e.clientX - r.left).toFixed(1) + 'px');
+      btn.style.setProperty('--y', (e.clientY - r.top).toFixed(1) + 'px');
+    }
+    btn.addEventListener('mouseenter', mark);
+    btn.addEventListener('mouseleave', mark);
+  });
+})();
+</script>
 
 <script>
 // Hovering a title segment reveals its editor's note over a warm overlay.
