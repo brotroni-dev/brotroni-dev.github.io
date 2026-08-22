@@ -134,7 +134,9 @@
    card (header/intro stay real text); the GIF overlays only the demo box */
 .obx-chapfig { position: relative; margin: 24px 0 0; line-height: 0; }
 .obx-chapimg { display: block; width: 100%; height: auto; }
-.obx-gif { position: absolute; display: block; object-fit: fill; border: 0; }
+/* cover, not fill: fill stretches the clip to the slot's dimensions, which was
+   squashing drag-bath by 40%. cover keeps every shape true and crops instead. */
+.obx-gif { position: absolute; display: block; object-fit: cover; border: 0; }
 .obx-panel { background: #dcd7cf; border-radius: 12px; padding: 32px; margin-top: 24px; }
 .obx-prow { display: flex; gap: 32px; align-items: center; }
 .obx-prow + .obx-prow { margin-top: 32px; }
@@ -227,7 +229,7 @@
 
 <!-- Hero plate -->
 <div class="obx-band obx-hero">
-  <img src="../media/onboarding/hero-plate.png?v=2" alt="The 3D Floor Plans onboarding tutorial: a series of guided tooltip cards leading a first-time user from adding items to viewing the finished plan in 3D" width="2032" height="936">
+  <img src="../media/onboarding/hero-plate.png?v=3" alt="The 3D Floor Plans onboarding tutorial: a series of guided tooltip cards leading a first-time user from adding items to viewing the finished plan in 3D" width="2032" height="936">
 </div>
 
 <!-- Context -->
@@ -272,7 +274,7 @@
     <p>The Floor Planner was designed as an accessible alternative to complex CAD software, but its first-use experience left users facing a blank canvas, with key tools spread across menus and no clear path to creating a plan.</p>
   </div>
   <div class="obx-problem__img">
-    <img src="../media/onboarding/problem-workspace.png" alt="The Floor Planner opening on an empty room outline, with tools spread across the toolbar and side panels">
+    <img src="../media/onboarding/problem-workspace.png?v=2" alt="The Floor Planner opening on an empty room outline, with tools spread across the toolbar and side panels">
   </div>
 </section>
 
@@ -318,7 +320,7 @@
     <p>We chose a hands-on flow built around a ready-made plan and divided it into four stages: navigating the canvas, using Select and Draw, adding products, and reviewing the result in 3D.</p>
   </div>
   <div class="obx-chosen__img">
-    <img src="../media/onboarding/chosen-workspace.png" alt="The Floor Plan mode workspace with a furnished sample plan, ready to practice on">
+    <img src="../media/onboarding/chosen-workspace.png?v=2" alt="The Floor Plan mode workspace with a furnished sample plan, ready to practice on">
   </div>
 </section>
 
@@ -355,7 +357,7 @@
     <div class="obx-chead"><span class="obx-cnum">02</span><h2 class="obx-ctitle">Draw a room</h2></div>
     <p class="obx-cintro">Next, users tried the Pen tool by drawing a room point by point.</p>
     <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch02-design.png" alt="The Pen Tool tutorial card beside the floor plan">
+      <img class="obx-chapimg" src="../media/onboarding/ch02-design.png?v=2" alt="The Pen Tool tutorial card beside the floor plan">
       <img class="obx-gif" style="left:25.33%;top:50.99%;width:18.47%;height:24.88%" src="../media/onboarding/draw-room.gif" alt="Drawing a room point to point">
     </figure>
   </div>
@@ -367,7 +369,7 @@
     <div class="obx-chead"><span class="obx-cnum">03</span><h2 class="obx-ctitle">Find and add items</h2></div>
     <p class="obx-cintro">Users added a door, a generic product, and a marketplace item, learning where to find each one as they worked. Items needed to sit fully inside the room, so the tutorial pointed out when something needed adjusting. We later added snapping as a temporary solution, making precise placement less demanding.</p>
     <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch03-design.png" alt="The Adding Items tutorial card beside the floor plan and the Baths product panel">
+      <img class="obx-chapimg" src="../media/onboarding/ch03-design.png?v=2" alt="The Adding Items tutorial card beside the floor plan and the Baths product panel">
       <img class="obx-gif" style="left:16.34%;top:50.45%;width:15.23%;height:14.18%" src="../media/onboarding/drag-bath.gif" alt="Placing an item inside the room">
     </figure>
   </div>
@@ -379,7 +381,7 @@
     <div class="obx-chead"><span class="obx-cnum">04</span><h2 class="obx-ctitle">Explore in 3D</h2></div>
     <p class="obx-cintro">We saved the Dollhouse view for the end, where users could explore the space, resize items, change wall colors, and try different flooring.</p>
     <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch04-design.png" alt="The Viewing in 3D tutorial card beside the Dollhouse view and the Materials panel">
+      <img class="obx-chapimg" src="../media/onboarding/ch04-design.png?v=2" alt="The Viewing in 3D tutorial card beside the Dollhouse view and the Materials panel">
     </figure>
   </div>
 </section>
@@ -397,12 +399,12 @@
     <div class="obx-lrcol">
       <h3>Leaving</h3>
       <p>If users wanted to leave midway, we reassured them that their progress was saved and they could return to complete the tutorial at any time.</p>
-      <img src="../media/onboarding/bs-leaving.png" alt="A Need to go? prompt over the workspace, reassuring the user their progress is saved and they can return any time">
+      <img src="../media/onboarding/bs-leaving.png?v=2" alt="A Need to go? prompt over the workspace, reassuring the user their progress is saved and they can return any time">
     </div>
     <div class="obx-lrcol">
       <h3>Returning</h3>
       <p>The sample plan was saved to their Floor Plans dashboard, with their tutorial progress shown at the top so they could pick up where they left off.</p>
-      <img src="../media/onboarding/bs-returning.png" alt="The Floor Plans dashboard showing the saved Sample Floor Plan, with a banner reading 3 of 4 tutorial steps completed">
+      <img src="../media/onboarding/bs-returning.png?v=2" alt="The Floor Plans dashboard showing the saved Sample Floor Plan, with a banner reading 3 of 4 tutorial steps completed">
     </div>
   </div>
 </div>
@@ -410,7 +412,7 @@
 <!-- Completion -->
 <section class="obx-band obx-complete" id="outcome-lead">
   <figure class="obx-completeframe">
-    <img src="../media/onboarding/completion-workspace.png" alt="Tutorial complete: a Congratulations message beside the finished 3D floor plan in Dollhouse view, inviting the user to start a new plan or keep practicing">
+    <img src="../media/onboarding/completion-workspace.png?v=2" alt="Tutorial complete: a Congratulations message beside the finished 3D floor plan in Dollhouse view, inviting the user to start a new plan or keep practicing">
     <img class="obx-gif" style="left:2%;top:40%;width:26%;height:30%;object-fit:contain" src="../media/onboarding/confetti.gif" alt="">
   </figure>
 </section>
