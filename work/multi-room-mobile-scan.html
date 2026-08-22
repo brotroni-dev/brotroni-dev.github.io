@@ -3,588 +3,812 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <title>Multi-Room Mobile Scan - Roni Brot-Kolinkó</title>
-<meta name="description" content="Expanding mobile scanning beyond one room - extending capture from one room to a whole connected plan.">
+<meta name="description" content="Multi-Room Scan let renovation pros add rooms to the same floor plan on mobile, instead of creating a separate plan after every scan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=114">
-<link rel="stylesheet" href="../styles/main.css?v=114">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=127">
+<link rel="stylesheet" href="../styles/main.css?v=127">
 <style>
 /* ============================================================
-   Multi-Room Mobile Scan — case study (built from Figma spec).
-   Self-contained: all classes are `mrx-` prefixed so nothing
-   from the shared .mr rules interferes.
+   Multi-Room Mobile Scan - visual redesign (from Figma
+   node 162:169). Same system as the other two case studies:
+   white ground, Fraunces headings, full-bleed gray bands,
+   white rounded cards. One reserved near-black section carries
+   the technical constraint and the two failed attempts.
+   Prefixed mrx- so it stays scoped to this page.
    ============================================================ */
-.mrx {
-  --ink:#17140F; --body:#36322C; --muted:#76726B; --accent:#9E4E2C;
-  --line:#E4E3E1; --f6:#F6F6F5; --f2:#F2F2F7; --cream:#F8F1E9; --sand:#F1ECE0;
-  --taupe:#B8AF9F; --taupe2:#8C8475; --brown:#5B4A3B; --lime:#E1FF73;
-  --blk:#0E0C0A; --ochre:#C98A3C; --blk-title:#F1ECE0; --blk-text:#B8AF9F; --note:#5B4A3B;
-  /* content centers at 1016px; color bands still bleed full-width */
-  --edge: max(24px, calc((100% - 1016px) / 2));
-  width:100%; display:flex; flex-direction:column; overflow-x:clip;
+
+/* --- Shared band: background runs full-bleed (side to side); content is
+   centered and locked to a 1016 column (72px sides at desktop) --- */
+.mrx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.footer__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+
+.mrx-band .mrx-label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  line-height: 1.3; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin: 0; }
+.mrx-rule { width: 100%; height: 1px; border: 0; background: var(--line); margin: 0; }
+/* Mono caption under a screenshot */
+.mrx-cap { font-family: var(--font-mono); font-size: 11px; line-height: 1.4;
+  color: var(--text); text-align: center; margin: 0; }
+
+/* --- Meta line + opener --- */
+.mrx-metabar { padding-block: 20px; line-height: 1.33; }
+.mrx-meta { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); }
+.mrx-opener { padding-top: 32px; padding-bottom: 12px; }
+.mrx-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title);
+  max-width: 920px; margin: 0; }
+.mrx-lead { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); max-width: 920px; margin: 24px 0 0; }
+.mrx-rolebar { padding-top: 20px; padding-bottom: 32px; line-height: 1.33;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.mrx-role { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--muted); margin: 0; }
+.mrx-role b { color: var(--accent); font-weight: 500; }
+
+/* --- Hero illustration: full-width drawing, clipped top and bottom as in Figma --- */
+.mrx-heroillus { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); }
+.mrx-heroillus__box { position: relative; width: 100%; aspect-ratio: 1016 / 372;
+  overflow: hidden; margin: 0; }
+.mrx-heroillus__box img { position: absolute; left: 0; top: -8.6%; width: 100%; height: auto; display: block; }
+
+/* --- Context --- */
+.mrx-context { background: #f6f6f5; padding-bottom: 64px; }
+.mrx-context p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 12px 0 0; }
+
+/* --- User voices: taupe panel + four quote cards --- */
+.mrx-voices { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 72px; }
+.mrx-voicespanel { background: #dcd7cf; border-radius: 16px; padding: 64px 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.mrx-voicespanel__head { display: flex; flex-direction: column; align-items: center;
+  gap: 12px; text-align: center; }
+.mrx-voicespanel__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  line-height: 1.3; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.mrx-voicespanel__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.mrx-voicespanel__sub { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); max-width: 560px; margin: 0; }
+.mrx-qcards { display: flex; gap: 20px; align-items: stretch; width: 100%; }
+.mrx-qcard { flex: 1 1 0; min-width: 0; background: #fff; border-radius: 12px;
+  padding: 32px 24px; display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.mrx-qcard__mark { font-family: var(--font-display); font-weight: 600; font-size: 56px;
+  line-height: .5; height: 19px; color: var(--accent); }
+.mrx-qcard__text { font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: 16px; line-height: 1.44; color: var(--title); margin: 0; }
+
+/* --- Users / JTBD --- */
+.mrx-uj { background: #f6f6f5; padding-bottom: 72px; display: flex; gap: 24px; align-items: stretch; }
+.mrx-ujcard { flex: 1 1 0; min-width: 0; background: #fff;
+  border-left: 1px solid var(--accent); border-radius: 0 12px 12px 0;
+  padding: 32px 32px 32px 33px; }
+.mrx-ujcard__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  line-height: 1.3; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.mrx-ujcard__text { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.28; color: var(--title); margin: 12px 0 0; }
+
+/* --- Before / problem 01, and the five-screen flow --- */
+.mrx-before { padding-block: 32px 20px; }
+/* Problem 01 opens the section, so no extra top margin above the section padding */
+.mrx-problem { margin-top: 0; }
+.mrx-problem__t { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 8px 0 0; }
+.mrx-problem__d { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 8px 0 0; }
+
+/* Flow chips: four steps with rust arrows between them */
+.mrx-flow { display: flex; align-items: stretch; gap: 8px; margin-top: 16px; }
+.mrx-flowstep { flex: 1 1 0; min-width: 0; background: #fff; border: 1px solid var(--line);
+  border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 4px; }
+.mrx-flowstep--on { background: #E1FF73; }
+.mrx-flowstep b { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); }
+.mrx-flowstep span { font-family: var(--font-body); font-size: 16px; line-height: 1.4; color: var(--text); }
+.mrx-flowarrow { flex: 0 0 auto; align-self: center; color: var(--accent);
+  font-family: var(--font-mono); font-size: 13px; line-height: 1; }
+/* The loop back to the list, under the Before flow */
+.mrx-loop { display: block; width: 79.9%; margin: 5px 0 0 10.04%; height: auto; }
+
+/* Five-screen flow panel */
+.mrx-screenflow { background: #f6f6f5; border-radius: 16px; padding: 32px; margin: 32px 0 0;
+  display: flex; justify-content: space-between; gap: 16px; }
+.mrx-screenflow figure { flex: 0 1 166px; min-width: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px; }
+.mrx-screenflow img { width: 100%; height: auto; display: block; border-radius: 6px; }
+
+/* --- The limit: text + annotated evidence panel --- */
+.mrx-limit { padding-block: 32px 64px; display: flex; gap: 32px; align-items: center; }
+.mrx-limit__text { flex: 0 1 291px; min-width: 0; }
+.mrx-limit__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.mrx-limit__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  color: var(--text); margin: 16px 0 0; }
+.mrx-evidence { flex: 1 1 0; min-width: 0; background: #f6f6f5; border-radius: 16px;
+  padding: 32px; margin: 0; display: flex; justify-content: center; }
+.mrx-evidence img { width: 474px; max-width: 100%; height: auto; display: block; }
+
+/* --- Completing the property required desktop --- */
+.mrx-desktop { background: #f6f6f5; padding-block: 32px; display: flex; gap: 40px;
+  align-items: center; min-height: calc(253px + 64px); }
+.mrx-desktop figure { flex: 0 1 676px; min-width: 0; margin: 0; }
+.mrx-desktop img { width: 100%; height: auto; display: block; border-radius: 6px; }
+.mrx-desktop__text { flex: 0 1 300px; min-width: 0; }
+.mrx-desktop__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.mrx-desktop__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  color: var(--text); margin: 16px 0 0; }
+
+/* --- The goal --- */
+.mrx-goalwrap { background: #f6f6f5; padding-block: 32px; }
+.mrx-goalcard { background: #fff; border: 1px solid var(--line); border-radius: 14px;
+  padding: 32px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.mrx-goalcard__text { font-family: var(--font-display); font-weight: 300; font-size: 32px;
+  line-height: 1.28; color: var(--title); margin: 0; }
+
+/* --- The challenge --- */
+.mrx-challenge { background: #f6f6f5; padding-block: 32px; display: flex; gap: 24px;
+  align-items: center; min-height: calc(228px + 64px); }
+.mrx-challenge__text { flex: 0 1 460px; min-width: 0; }
+.mrx-challenge__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.mrx-challenge__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  color: var(--text); margin: 16px 0 0; }
+.mrx-challenge figure { flex: 0 1 532px; min-width: 0; margin: 0; }
+.mrx-challenge img { width: 100%; height: auto; display: block; }
+
+/* ---------- The reserved near-black section ---------- */
+.mrx-black { background: #000; padding-bottom: 32px; }
+/* The near-black section keeps its ochre for contrast; size matches the rest */
+.mrx-black .mrx-label { color: #ecac71; }
+.mrx-black h2, .mrx-black h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--black-title); margin: 8px 0 0; }
+.mrx-black p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--black-text); margin: 16px 0 0; }
+.mrx-black .mrx-cap { color: var(--black-muted); }
+
+/* The rooms didn't line up: text + the drift diagram */
+.mrx-drift { padding-top: 48px; display: flex; gap: 23px; align-items: flex-start; }
+.mrx-drift__text { flex: 0 1 386px; min-width: 0; padding-top: 63px; }
+.mrx-drift figure { flex: 0 1 606px; min-width: 0; margin: 0; }
+.mrx-drift img { width: 100%; height: auto; display: block; }
+
+/* Attempt 01: intro + five dialog screens */
+.mrx-attempt1 { padding-block: 48px 32px; }
+.mrx-attempt1 p { max-width: 1016px; }
+.mrx-dialogs { display: flex; justify-content: space-between; gap: 24px; margin-top: 34px; }
+.mrx-dialogs figure { flex: 0 1 160px; min-width: 0; margin: 0;
+  display: flex; flex-direction: column; gap: 12px; }
+.mrx-dialogs img { width: 100%; height: auto; display: block; border-radius: 6px; }
+
+/* Attempt 02: text + the three tutorial screens */
+.mrx-attempt2 { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
+.mrx-attempt2__text { flex: 0 1 432px; min-width: 0; }
+.mrx-attempt2__text p { font-size: 16px; }
+.mrx-tutorial { flex: 0 1 552px; min-width: 0; margin: 0; padding: 32px; min-height: 422px;
+  border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.mrx-tutorial img { flex: 0 1 148px; min-width: 0; width: 148px; height: auto;
+  display: block; border-radius: 6px; }
+
+/* --- After: the same flow, one step highlighted --- */
+.mrx-after { background: #f6f6f5; padding-block: 32px;
+  display: flex; flex-direction: column; justify-content: center; min-height: calc(190px + 64px); }
+.mrx-after__t { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.2; color: var(--title); margin: 8px 0 0; }
+.mrx-after__d { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 8px 0 0; }
+.mrx-after .mrx-flow { margin-top: 16px; }
+
+/* --- Turning point --- */
+.mrx-turning { padding-block: 32px; display: flex; gap: 32px; align-items: flex-start; }
+.mrx-turning__text { flex: 0 1 708px; min-width: 0; padding-top: 41px; }
+.mrx-turning__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.mrx-turning__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 16px 0 0; }
+.mrx-turning figure { flex: 0 1 220px; min-width: 0; margin: 0; }
+.mrx-turning img { width: 100%; height: auto; display: block; }
+
+/* --- Three parts of the experience --- */
+.mrx-three { padding-block: 48px 40px; }
+.mrx-three__intro { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0 0 12px; max-width: 1016px; }
+.mrx-threecard { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 40px; }
+.mrx-threegrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mrx-threeitem { border-top: 2px solid var(--accent); padding-top: 12px;
+  display: flex; flex-direction: column; gap: 8px; }
+.mrx-threeitem__n { font-family: var(--font-mono); font-weight: 500; font-size: 13px;
+  letter-spacing: .1em; color: var(--accent); margin: 0; }
+.mrx-threeitem__t { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.mrx-threeitem__d { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--text); margin: 0; }
+
+/* ---------- The final experience ---------- */
+/* 32px above from the section's own padding, 32px below from the header block */
+.mrx-final { background: #f6f6f5; padding-block: 32px; }
+.mrx-final__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.mrx-step { background: #f6f6f5; padding-bottom: 32px; }
+.mrx-stepcard { background: #fff; border-radius: 16px; padding: 32px;
+  display: flex; gap: 32px; align-items: flex-start; }
+.mrx-stepcard--stack { flex-direction: column; align-items: stretch; gap: 0; }
+.mrx-steptext { flex: 1 1 0; min-width: 0; }
+.mrx-steptext h3 { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.mrx-steptext p, .mrx-steptext ol { font-family: var(--font-body); font-size: 16px;
+  line-height: 1.7; color: var(--text); margin: 12px 0 0; }
+.mrx-steptext ol { padding-left: 1.2em; }
+.mrx-steptext li { margin: 0 0 4px; padding-left: 2px; }
+.mrx-steptext li::marker { color: var(--text); }
+.mrx-stepcard__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0 0 32px; text-align: center; }
+
+/* Taupe plate the phone screenshots sit on */
+.mrx-plate { background: #dcd7cf; border-radius: 8px; margin: 0;
+  display: flex; align-items: flex-start; justify-content: center; }
+.mrx-plate figure { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.mrx-plate img { width: 100%; height: auto; display: block; border-radius: 6px; }
+.mrx-plate--2 { flex: 0 1 384px; min-width: 0; gap: 10px; padding: 12px 11px; }
+.mrx-plate--3 { flex: 0 1 560px; min-width: 0; gap: 10px; padding: 12px 6px; }
+.mrx-plate--2c { flex: 0 1 464px; min-width: 0; gap: 12px; padding: 12px 50px; }
+.mrx-plate--5 { gap: 16px; padding: 12px; }
+.mrx-plate figure { flex: 0 1 176px; min-width: 0; }
+
+/* Step 03: the before stack, an arrow, and the after screen */
+.mrx-vs { flex: 0 1 511px; min-width: 0; background: #dcd7cf; border-radius: 8px;
+  margin: 0; padding: 12px 6px; display: flex; align-items: flex-start; justify-content: center; gap: 10px; }
+.mrx-vs__before { flex: 0 1 280px; min-width: 0; margin: 0; }
+.mrx-vs__stack { position: relative; width: 100%; aspect-ratio: 280 / 391; }
+.mrx-vs__stack img { position: absolute; width: 58.93%; height: auto; border-radius: 6px; display: block; }
+.mrx-vs__stack img:first-child { left: 0; top: 0; }
+.mrx-vs__stack img:last-child { left: 41.07%; top: 8.7%; }
+.mrx-vs__arrow { flex: 0 0 auto; align-self: center; color: var(--accent);
+  font-family: var(--font-mono); font-weight: 500; font-size: 33px; line-height: 1; }
+.mrx-vs__after { flex: 0 1 179px; min-width: 0; margin: 0; }
+.mrx-vs__after img { width: 100%; height: auto; display: block; border-radius: 6px; }
+.mrx-vscap { margin: 12px 0 0; text-align: left; }
+.mrx-vscap b { display: block; font-family: var(--font-mono); font-weight: 500; font-size: 11px;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--title); }
+.mrx-vscap span { font-family: var(--font-mono); font-size: 11px; line-height: 1.4; color: var(--muted); }
+
+/* In the wild: text beside a single phone on a taupe plate */
+.mrx-wild { background: #f6f6f5; padding-bottom: 32px; }
+.mrx-wildcard { background: #fff; border-radius: 16px; padding: 32px;
+  display: flex; gap: 32px; align-items: flex-start; justify-content: space-between; }
+.mrx-wildcard__text { flex: 0 1 408px; min-width: 0; padding-top: 8px; }
+.mrx-wildcard__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.mrx-wildcard__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 12px 0 0; }
+.mrx-wildplate { flex: 0 0 339px; background: #dcd7cf; border-radius: 8px; margin: 0;
+  padding: 24px 0; display: flex; justify-content: center; }
+.mrx-wildplate img { width: 176px; max-width: 52%; height: auto; display: block; border-radius: 6px; }
+
+/* --- Impact --- */
+.mrx-impact { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 64px 32px; }
+.mrx-impact__head { text-align: center; display: flex; flex-direction: column;
+  align-items: center; gap: 12px; }
+.mrx-impact__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; max-width: 760px; }
+.mrx-impact__d { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
+  color: var(--text); margin: 0; max-width: 620px; }
+.mrx-stats { display: flex; gap: 16px; margin-top: 32px; }
+.mrx-stat { flex: 1 1 0; min-width: 0; background: #fff; border: 1px solid var(--line);
+  border-radius: 16px; padding: 28px 16px; display: flex; flex-direction: column;
+  align-items: center; gap: 8px; text-align: center; }
+.mrx-stat__n { font-family: var(--font-display); font-weight: 600; font-size: 54px;
+  line-height: 1; color: var(--accent); margin: 0; }
+.mrx-stat__n small { font-size: 28px; }
+.mrx-stat__d { font-family: var(--font-body); font-size: 16px; line-height: 1.4;
+  color: var(--text); margin: 0; }
+
+/* --- Learnings --- */
+.mrx-learn { background: #f4f4f4; padding-block: 32px 72px; }
+.mrx-learncard { background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  padding: 40px; display: flex; flex-direction: column; gap: 52px; }
+.mrx-learncard__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.mrx-learncard__intro { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 16px 0 0; max-width: 660px; }
+.mrx-learngrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.mrx-learnitem { border-top: 2px solid var(--accent); padding-top: 12px;
+  display: flex; flex-direction: column; gap: 8px; }
+.mrx-learnitem__n { font-family: var(--font-mono); font-weight: 500; font-size: 13px;
+  letter-spacing: .1em; color: var(--accent); margin: 0; }
+.mrx-learnitem__t { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.mrx-learnitem__d { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--text); margin: 0; }
+
+/* --- Next project --- */
+.mrx-next { padding-bottom: 32px; }
+.mrx-nextlink { display: inline-flex; flex-direction: column; gap: 2px;
+  margin: 56px 0 32px; line-height: 1.3; text-decoration: none; }
+.mrx-nextlink__k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); }
+.mrx-nextlink__t { font-family: var(--font-display); font-weight: 400; font-size: 18px; color: var(--title); }
+.mrx-nextlink:hover .mrx-nextlink__t { color: var(--accent); }
+.mrx-footwrap { margin-top: 0; padding-top: 32px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .mrx-qcards { flex-wrap: wrap; }
+  .mrx-qcard { flex: 1 1 44%; }
+  .mrx-screenflow, .mrx-dialogs { flex-wrap: wrap; justify-content: center; }
+  .mrx-screenflow figure, .mrx-dialogs figure { flex: 0 1 150px; }
 }
-.mrx * { box-sizing:border-box; }
-.mrx p, .mrx h1, .mrx h2, .mrx h3, .mrx figure { margin:0; }
-.mrx img { display:block; max-width:100%; }
-
-/* type */
-.mrx-h1 { font-family:var(--font-display); font-weight:600; font-size:42px; line-height:108%; color:var(--ink); max-width:920px; }
-.mrx-h2 { font-family:var(--font-display); font-weight:600; font-size:26px; line-height:116%; color:var(--ink); }
-.mrx-lead { font-family:var(--font-body); font-weight:400; font-size:16px; line-height:160%; color:var(--body); max-width:920px; }
-.mrx-body { font-family:var(--font-body); font-weight:400; font-size:14px; line-height:170%; color:var(--body); }
-.mrx-eyebrow { font-family:var(--font-mono); font-weight:500; font-size:11px; line-height:14px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
-.mrx-eyebrow--accent { color:var(--accent); letter-spacing:.14em; }
-.mrx-eyebrow--ochre { color:var(--ochre); font-size:12px; line-height:16px; }
-.mrx-cap { font-family:var(--font-mono); font-weight:400; font-size:11px; line-height:140%; text-align:center; color:var(--body); }
-
-/* figure + screenshot */
-.mrx-fig { display:flex; flex-direction:column; align-items:center; gap:12px; }
-.mrx-fig img { display:block; width:100%; height:auto; aspect-ratio:375/812; border:1px solid var(--line); border-radius:6px; }
-.mrx-fig figcaption { align-self:stretch; }
-
-/* Opener */
-.mrx-opener { display:flex; flex-direction:column; align-items:flex-start; gap:24px; padding:64px 72px 12px; }
-/* Overview */
-.mrx-ov { display:flex; flex-direction:column; align-items:flex-start; gap:18px; padding:20px 72px 64px; }
-.mrx-rule { width:100%; height:1px; border:0; background:var(--line); margin:0; }
-.mrx-role { font-family:var(--font-mono); font-weight:400; font-size:12px; line-height:16px; letter-spacing:.04em; color:var(--muted); }
-.mrx-role b { color:var(--accent); font-weight:500; }
-
-/* Hero */
-.mrx-hero { padding:0 69px 32px; }
-.mrx-heroplate { display:flex; justify-content:center; align-items:center; padding:32px; background:var(--f6); border-radius:16px; }
-.mrx-heroplate img { border-radius:6px; }
-
-/* Illustration band */
-.mrx-illus { display:flex; align-items:center; gap:24px; padding:72px; background:var(--f6); }
-.mrx-illus__text { flex:1 1 0; display:flex; flex-direction:column; gap:16px; max-width:533px; }
-.mrx-illus__img { flex:0 0 448px; display:flex; justify-content:center; align-items:center; padding:24px; }
-.mrx-illus__img img { width:400px; border-radius:6px; }
-
-/* Before header */
-.mrx-before { display:flex; flex-direction:column; align-items:center; padding:64px 0 0; }
-.mrx-before__head { display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
-.mrx-before__eh { display:flex; flex-direction:column; align-items:center; gap:12px; }
-.mrx-sub { font-family:var(--font-body); font-size:14px; line-height:170%; color:var(--muted); }
-/* Before 5-screen flow */
-.mrx-flowwrap { padding:20px 72px; }
-.mrx-flowcard { padding:32px; background:var(--f6); border-radius:16px; }
-.mrx-flow { display:flex; justify-content:space-between; align-items:flex-start; }
-.mrx-flow .mrx-fig { width:166px; }
-
-/* The limit */
-.mrx-limit { padding:16px 72px 0; }
-.mrx-limit__row { display:flex; align-items:center; gap:32px; }
-.mrx-insight { flex:1 1 0; display:flex; flex-direction:column; gap:16px; }
-.mrx-insight__label { font-family:var(--font-mono); font-weight:500; font-size:11px; line-height:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); }
-.mrx-insight__stmt { font-family:var(--font-display); font-weight:600; font-size:26px; line-height:116%; color:var(--ink); }
-.mrx-insight__note { font-family:var(--font-body); font-size:14px; line-height:150%; color:var(--note); }
-.mrx-evidence { flex:0 0 693px; display:flex; flex-direction:column; align-items:center; gap:12px; padding:32px; background:var(--f6); border-radius:16px; }
-.mrx-evidence img { width:208px; border:1px solid var(--line); border-radius:6px; }
-.mrx-evidence__cap { font-family:var(--font-body); font-size:14px; line-height:150%; text-align:center; color:var(--muted); max-width:460px; }
-
-/* Voices */
-.mrx-voices { display:flex; flex-direction:column; align-items:center; }
-.mrx-voices__head { display:flex; flex-direction:column; align-items:center; gap:12px; padding:64px 72px 0; text-align:center; }
-.mrx-vg { position:relative; isolation:isolate; display:flex; flex-direction:column; }
-.mrx-voiceset { display:flex; align-items:stretch; gap:16px; padding:48px 72px 0; margin:0 0 -40px; position:relative; z-index:1; }
-.mrx-voice { flex:1 1 0; display:flex; flex-direction:column; align-items:flex-start; gap:2px; padding:20px; background:#E6E1D8; border:1px solid #76726B; box-shadow:inset -3px -3px 0 #76726B; border-radius:8px; }
-.mrx-voice__mark { font-family:var(--font-display); font-weight:600; font-size:63px; line-height:78px; color:var(--accent); }
-.mrx-voice p { font-family:var(--font-display); font-style:italic; font-weight:600; font-size:16px; line-height:144%; color:var(--ink); }
-
-/* Goal */
-.mrx-goal { display:flex; flex-direction:column; justify-content:center; align-items:center; gap:12px; padding:103px 72px; background:var(--taupe2); position:relative; z-index:0; }
-.mrx-goal__label { font-family:var(--font-mono); font-weight:500; font-size:11px; line-height:14px; letter-spacing:.14em; text-transform:uppercase; color:var(--cream); }
-.mrx-goal__stmt { font-family:var(--font-display); font-weight:600; font-size:43px; line-height:128%; text-align:center; color:#fff; max-width:1096px; }
-
-/* Challenge */
-.mrx-challenge { display:flex; justify-content:center; align-items:flex-start; gap:32px; padding:64px 72px; }
-.mrx-challenge__left { flex:1 1 0; display:flex; flex-direction:column; gap:38px; }
-.mrx-challenge__text { display:flex; flex-direction:column; gap:16px; }
-.mrx-challenge__eh { display:flex; flex-direction:column; gap:12px; }
-.mrx-compare { flex:0 0 375px; display:flex; align-items:center; gap:16px; }
-.mrx-compare .mrx-fig { width:166px; }
-.mrx-arrow { font-family:var(--font-mono); font-weight:500; font-size:18px; color:var(--accent); flex:none; }
-
-/* Lime sticky notes */
-.mrx-note { background:var(--lime); padding:24px; align-self:center; }
-.mrx-note--a { width:435px; max-width:100%; transform:rotate(4.67deg); }
-.mrx-note--b { width:352px; max-width:100%; transform:rotate(8.68deg); display:flex; flex-direction:column; gap:16px; }
-.mrx-note p { font-family:var(--font-body); font-size:14px; line-height:170%; color:var(--body); }
-.mrx-note__title { font-family:var(--font-display); font-weight:600; font-size:16px; line-height:116%; color:var(--ink); }
-
-/* Friction (black) */
-.mrx-black { display:flex; flex-direction:column; align-items:flex-start; padding:64px 0; background:var(--blk); }
-.mrx-black__intro { display:flex; flex-direction:column; gap:8px; padding:0 72px; align-self:stretch; }
-.mrx-black__eh { display:flex; flex-direction:column; gap:8px; }
-.mrx-black__intro .mrx-h2 { color:var(--blk-title); }
-.mrx-black__intro .mrx-body { color:var(--blk-text); max-width:741px; }
-.mrx-dialogs { display:flex; flex-direction:column; align-items:center; gap:34px; padding:48px 72px 0; align-self:stretch; }
-.mrx-dialogset { display:flex; justify-content:space-between; align-items:flex-start; gap:16px; align-self:stretch; }
-.mrx-dialogset .mrx-fig { width:160px; margin:0 auto; }
-.mrx-dialogset figcaption { color:var(--taupe2); }
-/* big taupe statement band */
-.mrx-statement { display:flex; justify-content:center; align-items:center; padding:64px 72px; margin:72px 0; align-self:stretch; background:var(--taupe); }
-.mrx-statement p { font-family:var(--font-display); font-weight:600; font-size:43px; line-height:128%; text-align:center; color:#fff; max-width:1016px; }
-/* gaps two-col */
-.mrx-gaps { display:flex; justify-content:center; align-items:stretch; gap:32px; padding:0 72px; align-self:stretch; }
-.mrx-gaps__l { flex:0 0 442px; display:flex; flex-direction:column; gap:32px; }
-.mrx-gaps__r { flex:1 1 0; display:flex; flex-direction:column; justify-content:flex-start; gap:32px; }
-.mrx-gaps .mrx-body { color:var(--blk-text); min-height:72px; }
-.mrx-gaps .mrx-card { flex:1; }
-.mrx-card { display:flex; justify-content:center; align-items:center; gap:16px; padding:32px; border-radius:16px; }
-.mrx-card--brown { background:var(--brown); }
-.mrx-card--taupe { background:var(--taupe); }
-.mrx-card--brown .mrx-fig { width:208px; }
-.mrx-card--brown .mrx-fig img { width:148px; }
-.mrx-card--brown figcaption { color:var(--blk-title); }
-.mrx-card--taupe img { width:148px; border-radius:6px; }
-.mrx-noterow { display:flex; justify-content:center; padding:64px 0 32px; align-self:stretch; }
-
-/* Approach */
-.mrx-approach { display:flex; flex-direction:column; gap:16px; padding:64px 72px; }
-.mrx-approach__eh { display:flex; flex-direction:column; gap:20px; }
-.mrx-approach .mrx-body { max-width:660px; }
-
-/* Moves */
-.mrx-movewrap { display:flex; justify-content:center; align-items:center; padding:0 0 32px; }
-.mrx-movewrap--last { padding-bottom:64px; }
-.mrx-move { width:1012px; max-width:calc(100% - 148px); padding:32px; background:var(--f2); border-radius:16px; display:flex; align-items:flex-start; gap:32px; }
-.mrx-move__text { flex:1 1 0; display:flex; flex-direction:column; gap:12px; }
-.mrx-move__screens { flex:none; display:flex; align-items:flex-start; gap:16px; }
-.mrx-move__screens .mrx-fig { width:176px; }
-.mrx-stage { display:flex; align-items:baseline; gap:12px; }
-.mrx-stage__n { font-family:var(--font-display); font-weight:600; font-size:22px; line-height:27px; color:var(--accent); }
-.mrx-stage__name { font-family:var(--font-display); font-weight:600; font-size:18px; line-height:22px; color:var(--ink); }
-/* p03 stacked before/after */
-.mrx-p03 { flex:none; display:flex; align-items:center; gap:16px; }
-.mrx-p03__side { display:flex; flex-direction:column; align-items:center; gap:16px; }
-.mrx-p03__stack { position:relative; width:280px; height:391px; }
-.mrx-p03__stack img { position:absolute; width:165px; border:1px solid var(--line); border-radius:6px; }
-.mrx-p03__back { left:0; top:0; }
-.mrx-p03__front { left:115px; top:34px; box-shadow:-10px 8px 24px rgba(23,20,15,.16); }
-.mrx-p03__lbl { display:flex; flex-direction:column; align-items:center; gap:3px; }
-.mrx-p03__lbl b { font-family:var(--font-mono); font-weight:500; font-size:11px; line-height:14px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); }
-.mrx-p03__lbl span { font-family:var(--font-mono); font-weight:400; font-size:11px; line-height:140%; color:var(--muted); }
-.mrx-p03__after img { width:179px; border:1px solid var(--line); border-radius:6px; }
-.mrx-p03__arrow { font-family:var(--font-mono); font-weight:500; font-size:33px; line-height:43px; color:var(--accent); }
-
-/* Resulting flow */
-.mrx-resulthead { display:flex; flex-direction:column; align-items:center; gap:12px; padding:64px 72px 12px; background:var(--cream); text-align:center; }
-.mrx-resulthead__eh { display:flex; flex-direction:column; align-items:center; gap:8px; }
-.mrx-result { display:flex; justify-content:center; align-items:center; gap:32px; padding:32px 72px 64px; background:var(--cream); }
-.mrx-result__screens { display:flex; align-items:flex-start; gap:16px; position:relative; z-index:1; }
-.mrx-result__screens .mrx-fig { width:208px; }
-
-/* Learnings */
-.mrx-learnwrap { padding:72px; }
-.mrx-learn { display:flex; flex-direction:column; gap:72px; padding:40px; border:1px solid var(--taupe); border-radius:16px; }
-.mrx-learn__head { display:flex; flex-direction:column; gap:16px; }
-.mrx-learn__eh { display:flex; flex-direction:column; gap:12px; }
-.mrx-learn__head .mrx-body { max-width:660px; }
-.mrx-learn__cards { display:flex; align-items:flex-start; gap:24px; }
-.mrx-mini { flex:1 1 0; display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:2px solid var(--accent); }
-.mrx-mini__eh { display:flex; flex-direction:column; gap:4px; }
-.mrx-mini__n { font-family:var(--font-mono); font-weight:500; font-size:13px; line-height:17px; letter-spacing:.1em; color:var(--accent); }
-.mrx-mini__t { font-family:var(--font-display); font-weight:600; font-size:18px; line-height:120%; color:var(--ink); }
-.mrx-mini p { font-family:var(--font-body); font-size:13.5px; line-height:155%; color:var(--muted); }
-
-/* In the wild */
-.mrx-wildwrap { padding:0 72px; }
-.mrx-wild { display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:40px; background:var(--sand); border-radius:16px; }
-.mrx-wild__text { display:flex; flex-direction:column; gap:12px; max-width:520px; padding-bottom:12px; border-bottom:2px solid var(--taupe2); }
-.mrx-wild__img { flex:0 0 339px; display:flex; justify-content:center; align-items:center; padding:24px 0; background:var(--taupe); border-radius:8px; }
-.mrx-wild__img img { width:156px; }
-
-/* Next project */
-.mrx-next { display:flex; flex-direction:column; gap:24px; padding:24px 72px 32px; }
-.mrx-nextlink { display:flex; align-items:center; gap:24px; padding:32px 0; text-decoration:none; }
-.mrx-next__text { display:flex; flex-direction:column; gap:2px; }
-.mrx-next__label { font-family:var(--font-mono); font-weight:400; font-size:12px; line-height:16px; letter-spacing:.06em; color:var(--muted); }
-.mrx-next__title { font-family:var(--font-display); font-weight:600; font-size:18px; line-height:22px; color:var(--ink); }
-.mrx-nextlink:hover .mrx-next__title { color:var(--accent); }
-
-/* Impact stats strip (bottom) */
-.mrx-impact { padding-block:72px 24px; display:flex; flex-direction:column; align-items:center; gap:40px; }
-.mrx-impact__head { display:flex; flex-direction:column; align-items:center; gap:12px; max-width:760px; text-align:center; }
-.mrx-stats { display:flex; gap:16px; max-width:620px; width:100%; margin-inline:auto; }
-.mrx-stat { flex:1 1 0; display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; padding:28px 16px; background:var(--f6); border:1px solid var(--line); border-radius:16px; }
-.mrx-stat__num { font-family:var(--font-display); font-weight:600; font-size:54px; line-height:1; color:var(--accent); }
-.mrx-stat__num small { font-size:.45em; color:var(--muted); }
-.mrx-stat__label { font-family:var(--font-body); font-size:13px; line-height:1.4; color:var(--muted); }
-@media (max-width: 560px) { .mrx-stats { flex-direction:column; } }
-
-/* Center every section's content at 1016 while its background bleeds edge-to-edge.
-   Placed after the per-section padding shorthands so it wins for the inline axis. */
-.mrx-opener, .mrx-ov, .mrx-hero, .mrx-illus, .mrx-before, .mrx-flowwrap, .mrx-limit,
-.mrx-voices__head, .mrx-voiceset, .mrx-goal, .mrx-challenge, .mrx-black__intro,
-.mrx-dialogs, .mrx-statement, .mrx-gaps, .mrx-approach, .mrx-resulthead, .mrx-result,
-.mrx-learnwrap, .mrx-wildwrap, .mrx-impact, .mrx-next { padding-inline: var(--edge); }
-
-/* ---- Responsive ---- */
-@media (max-width: 980px) {
-  .mrx-illus, .mrx-limit__row, .mrx-challenge, .mrx-move, .mrx-gaps, .mrx-wild { flex-direction:column; align-items:stretch; }
-  .mrx-illus__img, .mrx-evidence, .mrx-compare, .mrx-move__screens, .mrx-gaps__l, .mrx-gaps__r, .mrx-wild__img { flex:1 1 auto; }
-  .mrx-move { max-width:calc(100% - 48px); }
-  .mrx-move__screens, .mrx-compare, .mrx-p03 { justify-content:center; flex-wrap:wrap; }
-  .mrx-flow { flex-wrap:wrap; justify-content:center; gap:24px; }
-  .mrx-dialogset { flex-wrap:wrap; justify-content:center; }
-  .mrx-h1 { font-size:clamp(30px,7vw,42px); }
-  .mrx-goal__stmt, .mrx-statement p { font-size:clamp(26px,5vw,43px); }
+@media (max-width: 900px) {
+  /* Stacked: flex-basis would become a HEIGHT here, so hand sizing back to content */
+  .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-attempt2, .mrx-turning,
+  .mrx-uj, .mrx-stepcard, .mrx-wildcard {
+    flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 24px; }
+  .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *, .mrx-attempt2 > *,
+  .mrx-turning > *, .mrx-uj > *, .mrx-stepcard > *, .mrx-wildcard > * {
+    flex: 0 0 auto; width: 100%; }
+  .mrx-drift__text, .mrx-turning__text { padding-top: 0; }
+  .mrx-desktop, .mrx-challenge, .mrx-after, .mrx-tutorial { min-height: 0; }
+  .mrx-stepcard--flip { flex-direction: column-reverse; }
+  .mrx-challenge figure, .mrx-turning figure, .mrx-desktop figure { align-self: center; max-width: 460px; }
+  .mrx-flow { flex-wrap: wrap; }
+  .mrx-flowstep { flex: 1 1 40%; }
+  .mrx-flowarrow { display: none; }
+  .mrx-loop { display: none; }
+  .mrx-threegrid, .mrx-learngrid { grid-template-columns: 1fr; gap: 32px; }
+  .mrx-wildplate { align-self: center; }
+  .mrx-plate--2, .mrx-plate--3, .mrx-plate--2c, .mrx-vs { padding-inline: 12px; }
 }
-@media (max-width: 640px) {
-  .mrx-opener, .mrx-ov, .mrx-illus, .mrx-flowwrap, .mrx-limit, .mrx-voices__head,
-  .mrx-voiceset, .mrx-goal, .mrx-challenge, .mrx-black__intro, .mrx-dialogs,
-  .mrx-statement, .mrx-gaps, .mrx-approach, .mrx-resulthead, .mrx-result,
-  .mrx-wildwrap, .mrx-next { padding-left:24px; padding-right:24px; }
-  .mrx-hero { padding-left:16px; padding-right:16px; }
-  .mrx-learnwrap { padding:40px 24px; }
-  .mrx-learn__cards { flex-direction:column; }
-  .mrx-voiceset { flex-direction:column; margin:0; }
-  .mrx-goal { padding-block:56px; }
-  .mrx-note--a, .mrx-note--b { transform:none; width:100%; }
+@media (max-width: 700px) {
+  .mrx-qcard { flex: 1 1 100%; }
+  .mrx-voicespanel { padding: 40px 20px; gap: 32px; }
+  .mrx-voicespanel__h { font-size: 21px; }
+  .mrx-goalcard__text { font-size: 24px; }
+  .mrx-learncard, .mrx-threecard, .mrx-stepcard, .mrx-wildcard, .mrx-screenflow { padding: 24px; }
+  .mrx-stats { flex-direction: column; }
+  .mrx-flowstep { flex: 1 1 100%; }
+  .mrx-vs { flex-direction: column; align-items: center; }
+  /* Two screenshots per row rather than a single narrow column */
+  .mrx-screenflow figure, .mrx-dialogs figure, .mrx-plate--5 figure { flex: 0 1 calc(50% - 8px); }
+  .mrx-tutorial img { flex: 0 1 calc(33.333% - 7px); width: auto; }
+  .mrx-vs__arrow { transform: rotate(90deg); }
+  .mrx-tutorial { padding: 16px 0; }
+  .mrx-plate--5 { flex-wrap: wrap; }
 }
 </style>
 </head>
-<body>
+<body class="mrx">
 
 <!-- Nav -->
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="#">About</a></span>
+    <span class="nav__links">
+      <a href="../index.html#work">Work</a>
+      <a href="/about">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
   </div>
 </nav>
 
-<div class="mrx">
-
-  <!-- Opener -->
-  <header class="mrx-opener">
-    <div class="ctx-bar">
-      <span class="ctx-bar__meta">Houzz Pro &middot; 3D Floor Plans &middot; Mobile</span>
-      <a class="ctx-bar__link" href="houzz-3d-floor-plans.html">About Houzz Pro &amp; 3D Floor Plans &rarr;</a>
-    </div>
-    <h1 class="mrx-h1">Turning room-by-room scans into one connected floor plan</h1>
-    <p class="mrx-lead">Pros could already scan one room by marking its corners with their phone. Multi-Room Scan extended that flow across an entire project, letting them move from room to room and build one connected floor plan.</p>
-  </header>
-
-  <!-- Overview -->
-  <div class="mrx-ov">
-    <hr class="mrx-rule">
-    <p class="mrx-role"><b>My Role</b> / Product Designer</p>
-    <hr class="mrx-rule">
-  </div>
-
-  <!-- Hero media -->
-  <div class="mrx-hero">
-    <div class="mrx-heroplate">
-      <img src="../media/multi-room/hero.png" alt="From a phone scanning a room on site to the complete connected floor plan in the desktop workspace">
-    </div>
-  </div>
-
-  <!-- When one room wasn't enough (gray band, text + illustration) -->
-  <section class="mrx-illus">
-    <div class="mrx-illus__text">
-      <h2 class="mrx-h2">When one room wasn't enough</h2>
-      <p class="mrx-body">The mobile flow ended after a single room. Pros could add doors and windows and refine the plan on desktop, but multi-room projects had to be split across separate floor plans.</p>
-    </div>
-    <div class="mrx-illus__img">
-      <img src="../media/multi-room/illus.png" alt="A pro scanning a room on a tablet on site, then refining the floor plan later on desktop">
-    </div>
-  </section>
-
-  <!-- Before: header + 5-screen flow -->
-  <section class="mrx-before">
-    <div class="mrx-before__head">
-      <div class="mrx-before__eh">
-        <div class="mrx-eyebrow mrx-eyebrow--accent">Before</div>
-        <h2 class="mrx-h2">The original mobile scan flow</h2>
-      </div>
-      <p class="mrx-sub">Built to capture one enclosed room at a time</p>
-    </div>
-  </section>
-  <div class="mrx-flowwrap">
-    <div class="mrx-flowcard">
-      <div class="mrx-flow">
-        <figure class="mrx-fig"><img src="../media/multi-room/floor-plans-list-clean.png" alt="The floor-plans list, where a pro taps Start Scanning to begin"><figcaption class="mrx-cap">Start scanning</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/scan.png" alt="Aiming the device at the floor to detect it"><figcaption class="mrx-cap">Detect the floor</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/place-corner-points.png" alt="Placing a point at each corner of the room"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/close-shape.png" alt="Closing the room shape"><figcaption class="mrx-cap">Close the shape</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/ready-floor-plan.png" alt="One captured room, ready"><figcaption class="mrx-cap">One room, ready</figcaption></figure>
-      </div>
-    </div>
-  </div>
-
-  <!-- The limit (transparent card left, evidence in gray card right) -->
-  <div class="mrx-limit">
-    <div class="mrx-limit__row">
-      <div class="mrx-insight">
-        <div class="mrx-insight__label">The limit</div>
-        <p class="mrx-insight__stmt">Each scan created a separate floor plan.</p>
-        <p class="mrx-insight__note">To capture another room, pros had to return to the list and start again, even when both rooms belonged to the same project.</p>
-      </div>
-      <div class="mrx-evidence">
-        <img src="../media/multi-room/floor-plans-list-marked.png?v=53" alt="The floor-plans list with same-project rows highlighted, showing they appear as separate items">
-        <p class="mrx-evidence__cap">Rooms from the same project appeared as separate plans.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- User voice header -->
-  <section class="mrx-voices">
-    <div class="mrx-voices__head">
-      <div class="mrx-eyebrow">User voice</div>
-      <h2 class="mrx-h2">What pros said</h2>
-    </div>
-  </section>
-
-  <!-- Voice cards overlapping the Conclusion band -->
-  <div class="mrx-vg">
-    <div class="mrx-voiceset">
-      <figure class="mrx-voice">
-        <span class="mrx-voice__mark" aria-hidden="true">&ldquo;</span>
-        <p>I don't want to stop after every room. I need the scan to keep up with the way I move through the home.</p>
-      </figure>
-      <figure class="mrx-voice">
-        <span class="mrx-voice__mark" aria-hidden="true">&ldquo;</span>
-        <p>I need to know where this new room connects before I move on, otherwise I'm not sure I can trust the plan.</p>
-      </figure>
-      <figure class="mrx-voice">
-        <span class="mrx-voice__mark" aria-hidden="true">&ldquo;</span>
-        <p>[Third quote - to be added]</p>
-      </figure>
-    </div>
-    <div class="mrx-goal">
-      <div class="mrx-goal__label">Conclusion</div>
-      <p class="mrx-goal__stmt">Let pros move from room to room while keeping enough context to build one connected floor plan.</p>
-    </div>
-  </div>
-
-  <!-- The challenge (text + lime note left, compare screens right) -->
-  <section class="mrx-challenge">
-    <div class="mrx-challenge__left">
-      <div class="mrx-challenge__text">
-        <div class="mrx-challenge__eh">
-          <div class="mrx-eyebrow">The challenge</div>
-          <h2 class="mrx-h2">Connecting rooms into one plan</h2>
-        </div>
-        <p class="mrx-body">At first, it sounded simple: let pros keep scanning. But once they entered the next room, we still had to figure out where it belonged in the plan. Every room needed to stay connected to the same shared reference, and that turned out to be one of the hardest parts of the project.</p>
-      </div>
-      <div class="mrx-note mrx-note--a">
-        <p>We used the phone's location data to estimate where each room belonged on the shared map. When that estimate drifted, the rooms stopped lining up.</p>
-      </div>
-    </div>
-    <div class="mrx-compare">
-      <figure class="mrx-fig"><img src="../media/multi-room/challenge-1.png" alt="A single room captured as a clean 2D shape"><figcaption class="mrx-cap">One room</figcaption></figure>
-      <span class="mrx-arrow">→</span>
-      <figure class="mrx-fig"><img src="../media/multi-room/challenge-2.png" alt="The rooms connected into one whole-space plan"><figcaption class="mrx-cap">One connected home</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- Friction (black) -->
-  <section class="mrx-black">
-    <div class="mrx-black__intro">
-      <div class="mrx-black__eh">
-        <div class="mrx-eyebrow mrx-eyebrow--ochre">The friction</div>
-        <h2 class="mrx-h2">Death by dialogs</h2>
-      </div>
-      <p class="mrx-body">Each dialog solved a real problem. Together, they interrupted the flow. We needed to explain what happened after each room, where pros could go next, and what still needed to be saved. Each step made sense on its own. Together, they kept stopping the scan.</p>
-    </div>
-    <div class="mrx-dialogs">
-      <div class="mrx-dialogset">
-        <figure class="mrx-fig"><img src="../media/multi-room/feature-intro.png" alt="Dialog introducing scan rooms back-to-back"><figcaption class="mrx-cap">Feature introduction</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/before-preview.png" alt="Finalize Scan dialog before preview"><figcaption class="mrx-cap">Before previewing the scan</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/whats-next.png" alt="Saved and ready: scan another room, or I'm all set"><figcaption class="mrx-cap">What's next?</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/name-room.png" alt="Dialog to name the captured room"><figcaption class="mrx-cap">Name the room</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/save-plan.png" alt="Dialog to save the plan"><figcaption class="mrx-cap">Save plan</figcaption></figure>
-      </div>
-    </div>
-    <div class="mrx-statement">
-      <p>As we worked to cut the dialogs down, a second problem surfaced - one that had nothing to do with copy. The rooms themselves weren't always lining up.</p>
-    </div>
-    <div class="mrx-gaps">
-      <div class="mrx-gaps__l">
-        <p class="mrx-body">Meanwhile, we discovered a technical problem: rooms didn't always line up on the shared map. Pros needed a way to move, rotate, or remove them manually.</p>
-        <div class="mrx-card mrx-card--brown">
-          <figure class="mrx-fig"><img src="../media/multi-room/disconnected-rooms.png" alt="Rooms drifting apart as separate, disconnected shapes"><figcaption class="mrx-cap">Rooms drifted into separate local scans</figcaption></figure>
-        </div>
-      </div>
-      <div class="mrx-gaps__r">
-        <p class="mrx-body">Our first attempt was to give pros manual controls to move, rotate, and remove rooms. We introduced them through a short tutorial.</p>
-        <div class="mrx-card mrx-card--taupe">
-          <img src="../media/multi-room/tutorial-1.png" alt="Instruction dialog: how to move rooms">
-          <img src="../media/multi-room/tutorial-2.png" alt="Instruction dialog: how to rotate rooms">
-          <img src="../media/multi-room/tutorial-3.png" alt="Instruction dialog: how to delete rooms">
-        </div>
-      </div>
-    </div>
-    <div class="mrx-noterow">
-      <div class="mrx-note mrx-note--a">
-        <p>The controls solved the technical problem, but the tutorial became another interruption. Explaining the workaround didn't make it easier to use.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- The approach -->
-  <section class="mrx-approach">
-    <div class="mrx-approach__eh">
-      <div class="mrx-eyebrow">The approach</div>
-      <h2 class="mrx-h2">Making multi-room scan feel continuous</h2>
-    </div>
-    <p class="mrx-body">We realized that more guidance wasn't making the experience easier. So we changed the flow itself: guidance appeared when it was needed, rooms could be adjusted without leaving the scan, and continuing or finishing became a clear choice.</p>
-  </section>
-
-  <!-- Move 01: text left, screens right -->
-  <div class="mrx-movewrap">
-    <div class="mrx-move">
-      <div class="mrx-move__text">
-        <div class="mrx-stage"><span class="mrx-stage__n">01</span><span class="mrx-stage__name">Guidance within the flow</span></div>
-        <p class="mrx-body">A single "Point" action became a persistent action bar, and the plain white dashed edge became a richer turquoise line system - making edges, corners, and room continuity easier to read during capture.</p>
-      </div>
-      <div class="mrx-move__screens">
-        <figure class="mrx-fig"><img src="../media/multi-room/original.png" alt="The original flow: a single Point action and a white dashed edge"><figcaption class="mrx-cap">Original</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/new-flow.png" alt="The new flow: a turquoise line system and a persistent action bar"><figcaption class="mrx-cap">New</figcaption></figure>
-      </div>
-    </div>
-  </div>
-
-  <!-- Move 02: screens left, text right -->
-  <div class="mrx-movewrap">
-    <div class="mrx-move">
-      <div class="mrx-move__screens">
-        <figure class="mrx-fig"><img src="../media/multi-room/added-window.png" alt="A window added onto the wall"><figcaption class="mrx-cap">Added window</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/positioned-window.png" alt="The window repositioned"><figcaption class="mrx-cap">Positioned window</figcaption></figure>
-        <figure class="mrx-fig"><img src="../media/multi-room/adjusted-dimensions.png" alt="The window dimensions adjusted with the corner dots"><figcaption class="mrx-cap">Adjusted dimensions</figcaption></figure>
-      </div>
-      <div class="mrx-move__text">
-        <div class="mrx-stage"><span class="mrx-stage__n">02</span><span class="mrx-stage__name">Refine without breaking the flow</span></div>
-        <p class="mrx-body">The editing capability already existed, but the interaction felt fragmented. We refined the flow so pros could add, position, and resize openings more smoothly without losing their place in the scan.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Move 03: text left, before/after right -->
-  <div class="mrx-movewrap mrx-movewrap--last">
-    <div class="mrx-move">
-      <div class="mrx-move__text">
-        <div class="mrx-stage"><span class="mrx-stage__n">03</span><span class="mrx-stage__name">Separate continue from finish</span></div>
-        <p class="mrx-body">Previously, users had to move through multiple dialogs to understand whether they were continuing or finishing. We made both decisions visible in the scan itself: move to the next room, or finish and review the plan.</p>
-      </div>
-      <div class="mrx-p03">
-        <div class="mrx-p03__side">
-          <div class="mrx-p03__stack">
-            <img class="mrx-p03__back" src="../media/multi-room/before-preview.png" alt="The Finalize Scan? dialog">
-            <img class="mrx-p03__front" src="../media/multi-room/whats-next.png" alt="The Saved and Ready to Go! dialog">
-          </div>
-          <div class="mrx-p03__lbl"><b>Before</b><span>Hidden behind dialogs</span></div>
-        </div>
-        <span class="mrx-p03__arrow">→</span>
-        <div class="mrx-p03__side mrx-p03__after">
-          <img src="../media/multi-room/next-room-dialog.png" alt="The in-scan screen with separate Next Room and Finish actions">
-          <div class="mrx-p03__lbl"><b>After</b><span>Visible in the scan</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Resulting flow header (cream) -->
-  <section class="mrx-resulthead">
-    <div class="mrx-resulthead__eh">
-      <div class="mrx-eyebrow">Resulting flow</div>
-      <h2 class="mrx-h2">One continuous experience</h2>
-    </div>
-    <p class="mrx-body">The new flow let pros scan, adjust, and continue from room to room without losing their place.</p>
-  </section>
-  <!-- Resulting flow screens + impact note (cream) -->
-  <div class="mrx-result">
-    <div class="mrx-result__screens">
-      <figure class="mrx-fig"><img src="../media/multi-room/build.png" alt="Building the connected plan inside the scan"><figcaption class="mrx-cap">Build the connected plan</figcaption></figure>
-      <figure class="mrx-fig"><img src="../media/multi-room/preview.png" alt="Preview of the full connected floor plan"><figcaption class="mrx-cap">The full connected plan</figcaption></figure>
-    </div>
-    <div class="mrx-note mrx-note--b">
-      <p class="mrx-note__title">Connected capture became part of everyday project work</p>
-      <p>After launch, connected capture moved from an edge case to a regular part of mobile floor plan creation - a sign the flow was helping pros build connected plans on site.</p>
-    </div>
-  </div>
-
-  <!-- Learnings (bordered container) -->
-  <section class="mrx-learnwrap">
-    <div class="mrx-learn">
-      <div class="mrx-learn__head">
-        <div class="mrx-learn__eh">
-          <div class="mrx-eyebrow">Learnings</div>
-          <h2 class="mrx-h2">What multi-room scan taught us</h2>
-        </div>
-        <p class="mrx-body">The challenge wasn't just scanning more rooms; it was helping users stay oriented, keep momentum, and trust the plan as it grew.</p>
-      </div>
-      <div class="mrx-learn__cards">
-        <div class="mrx-mini">
-          <div class="mrx-mini__eh"><span class="mrx-mini__n">01</span><h3 class="mrx-mini__t">Confidence matters more than perfect alignment</h3></div>
-          <p>Pros needed to understand where they were and trust the plan enough to keep moving, even when the spatial reference was imperfect.</p>
-        </div>
-        <div class="mrx-mini">
-          <div class="mrx-mini__eh"><span class="mrx-mini__n">02</span><h3 class="mrx-mini__t">Guidance works best inside the flow</h3></div>
-          <p>Instructions were most useful when they appeared in context, rather than as separate dialogs that interrupted the scan.</p>
-        </div>
-        <div class="mrx-mini">
-          <div class="mrx-mini__eh"><span class="mrx-mini__n">03</span><h3 class="mrx-mini__t">Momentum is part of the experience</h3></div>
-          <p>Users needed to adjust, continue, or finish without losing their place or feeling blocked.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- In the wild (cream card) -->
-  <section class="mrx-wildwrap">
-    <div class="mrx-wild">
-      <div class="mrx-wild__text">
-        <div class="mrx-eyebrow">In the wild</div>
-        <p class="mrx-body">What I loved most was being able to test the flow anywhere. I could scan real spaces, catch issues as they happened, and give developers immediate feedback while we were still shaping the experience.</p>
-      </div>
-      <div class="mrx-wild__img">
-        <img src="../media/multi-room/inthewild.png" alt="Testing the multi-room scan flow in a real room on a phone">
-      </div>
-    </div>
-  </section>
-
-  <!-- Impact stats strip -->
-  <section class="mrx-impact">
-    <div class="mrx-impact__head">
-      <div class="mrx-eyebrow">Impact</div>
-      <h2 class="mrx-h2">Connected capture became part of everyday project work</h2>
-      <p class="mrx-body">After launch, connected capture moved from an edge case to a regular part of mobile floor plan creation - a sign the flow was helping pros build connected plans on site.</p>
-    </div>
-    <div class="mrx-stats">
-      <div class="mrx-stat"><div class="mrx-stat__num">22%</div><p class="mrx-stat__label">Share of mobile scans using multi-room, at its peak</p></div>
-      <div class="mrx-stat"><div class="mrx-stat__num">~230<small>/day</small></div><p class="mrx-stat__label">Room-to-room continuation events</p></div>
-    </div>
-  </section>
-
-  <!-- Next project -->
-  <div class="mrx-next">
-    <hr class="mrx-rule">
-    <a class="mrx-nextlink" href="floor-plan-onboarding.html">
-      <svg width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">
-        <path d="M25,80 L80,50 L80,10 L25,40 Z" fill="#F6F6F5" stroke="#17140F" stroke-width="0.9" stroke-linejoin="round"/>
-        <path d="M80,50 L135,80 L135,40 L80,10 Z" fill="none" stroke="#17140F" stroke-width="0.9" stroke-linejoin="round"/>
-        <path d="M80,50 L135,80 L80,110 L25,80 Z" fill="none" stroke="#17140F" stroke-width="0.8" stroke-linejoin="round"/>
-        <circle cx="84" cy="82" r="4" fill="#9E4E2C"/>
-        <path d="M84,82 L54,70" fill="none" stroke="#9E4E2C" stroke-width="1.5"/>
-        <path d="M54,70 L63,70 L59,76 Z" fill="#9E4E2C"/>
-      </svg>
-      <span class="mrx-next__text">
-        <span class="mrx-next__label">Next project</span>
-        <span class="mrx-next__title">3D Floor Plans Onboarding →</span>
-      </span>
-    </a>
-  </div>
-
+<!-- Meta line -->
+<div class="mrx-band mrx-metabar">
+  <span class="mrx-meta">HOUZZ PRO &middot; 3D FLOOR PLANS &middot; MOBILE</span>
 </div>
+
+<!-- Opener -->
+<header class="mrx-band mrx-opener">
+  <h1 class="mrx-title">Turning room-by-room scans into one connected floor plan</h1>
+  <p class="mrx-lead">Multi-Room Scan let renovation pros add rooms to the same floor plan on mobile, instead of creating a separate plan after every scan.</p>
+</header>
+
+<!-- Role bar -->
+<div class="mrx-band mrx-rolebar">
+  <hr class="mrx-rule">
+  <p class="mrx-role"><b>My Role</b> / Product Designer</p>
+</div>
+
+<!-- Hero illustration -->
+<div class="mrx-band mrx-heroillus">
+  <figure class="mrx-heroillus__box">
+    <img src="../media/multi-room/mr-hero-illus.png" alt="A pro walking through three connected rooms with a tablet, corner points marked along the walls" width="2036" height="873">
+  </figure>
+</div>
+
+<!-- Context -->
+<section class="mrx-band mrx-context">
+  <p class="mrx-label">Context</p>
+  <p>Houzz Pro's Room Scanner helps renovation professionals capture existing spaces on-site and turn them into editable floor plans using a phone or tablet. Instead of relying on manual measurements, sketches, and rebuilding the space later, pros can quickly document dimensions and room geometry, then continue refining the plan in 2D and 3D as part of the broader design workflow.</p>
+</section>
+
+<!-- User voices -->
+<section class="mrx-band mrx-voices">
+  <div class="mrx-voicespanel">
+    <div class="mrx-voicespanel__head">
+      <p class="mrx-voicespanel__label">User voices</p>
+      <h2 class="mrx-voicespanel__h">Pros needed one connected plan, not a list of rooms</h2>
+      <p class="mrx-voicespanel__sub">On site, they worked room by room, but mobile saved each scan separately and returned them to the list. Building one connected plan had to wait until they reached a computer.</p>
+    </div>
+    <div class="mrx-qcards">
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I rarely have time to scan the whole property in one go.</blockquote>
+      </figure>
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">Why do I have to go back to the list every time I finish a room?</blockquote>
+      </figure>
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I'm already on site with my phone...I shouldn't need a computer to keep building the plan</blockquote>
+      </figure>
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I need to see how the next room connects while I'm still in the space.</blockquote>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Users / JTBD -->
+<div class="mrx-band mrx-uj">
+  <div class="mrx-ujcard">
+    <p class="mrx-ujcard__label">Users</p>
+    <p class="mrx-ujcard__text">Renovation pros capturing existing spaces on site.</p>
+  </div>
+  <div class="mrx-ujcard">
+    <p class="mrx-ujcard__label">JtbD</p>
+    <p class="mrx-ujcard__text">Capture a property room by room and keep the whole project together as one floor plan.</p>
+  </div>
+</div>
+
+<!-- Before -->
+<section class="mrx-band mrx-before">
+  <div class="mrx-problem">
+    <p class="mrx-label">Problem 01</p>
+    <h2 class="mrx-problem__t">Before: one room at a time</h2>
+    <p class="mrx-problem__d">On mobile, each scan ended after one room and was saved as its own separate plan. Capturing another meant returning to the list and starting over.</p>
+    <div class="mrx-flow">
+      <div class="mrx-flowstep"><b>Scan a room</b><span>Mark its corners</span></div>
+      <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+      <div class="mrx-flowstep"><b>Complete the room</b><span>Close the shape</span></div>
+      <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+      <div class="mrx-flowstep"><b>Review and save</b><span>Create a one-room plan</span></div>
+      <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+      <div class="mrx-flowstep"><b>Return to the list</b><span>The scanning flow ends</span></div>
+    </div>
+    <img class="mrx-loop" src="../media/multi-room/mr-loop-arrow.svg" alt="" aria-hidden="true" width="816" height="14">
+  </div>
+
+  <div class="mrx-screenflow">
+    <figure><img src="../media/multi-room/floor-plans-list-clean.png" alt="The 3D Floor Plans list with a Start Scanning button" width="375" height="812"><figcaption class="mrx-cap">Start scanning</figcaption></figure>
+    <figure><img src="../media/multi-room/scan.png" alt="Camera view detecting the floor of the room" width="375" height="812"><figcaption class="mrx-cap">Detect the floor</figcaption></figure>
+    <figure><img src="../media/multi-room/place-corner-points.png" alt="Placing a corner point on the floor in camera view" width="375" height="812"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
+    <figure><img src="../media/multi-room/close-shape.png" alt="Closing the room shape back at the starting point" width="375" height="812"><figcaption class="mrx-cap">Close at the start point</figcaption></figure>
+    <figure><img src="../media/multi-room/ready-floor-plan.png" alt="The completed single-room plan with dimensions" width="375" height="812"><figcaption class="mrx-cap">Room complete</figcaption></figure>
+  </div>
+</section>
+
+<!-- Problem 02: one project became many plans -->
+<section class="mrx-band mrx-limit">
+  <div class="mrx-limit__text">
+    <p class="mrx-label">Problem 02</p>
+    <h3>One project became many separate floor plans</h3>
+    <p>Every room became a separate floor plan, scattering rooms from the same project across the mobile list.</p>
+  </div>
+  <figure class="mrx-evidence">
+    <img src="../media/multi-room/mr-scatter.png" alt="The mobile floor plans list with rooms from three different projects interleaved and annotated" width="1424" height="1329">
+  </figure>
+</section>
+
+<!-- Problem 03: completing the property required desktop -->
+<section class="mrx-band mrx-desktop">
+  <figure>
+    <img src="../media/multi-room/hero.png" alt="A phone showing a single scanned room, with a dashed arrow to the desktop editor holding the full plan" width="1637" height="567">
+  </figure>
+  <div class="mrx-desktop__text">
+    <p class="mrx-label">Problem 03</p>
+    <h3>Completing the property required desktop</h3>
+    <p>Mobile stopped after one room. Completing the property meant drawing the remaining rooms on desktop, or building the full plan there from the start.</p>
+  </div>
+</section>
+
+<!-- The goal -->
+<div class="mrx-band mrx-goalwrap">
+  <div class="mrx-goalcard">
+    <p class="mrx-label">The goal</p>
+    <p class="mrx-goalcard__text">Let pros move from room to room and build one connected floor plan directly on mobile.</p>
+  </div>
+</div>
+
+<!-- The challenge -->
+<section class="mrx-band mrx-challenge">
+  <div class="mrx-challenge__text">
+    <p class="mrx-label">The challenge</p>
+    <h2>Connecting the rooms was the hard part</h2>
+    <p>The app had to carry the scan from one room to the next and place every new room on the same shared map.</p>
+  </div>
+  <figure>
+    <img src="../media/multi-room/mr-challenge.png" alt="Sketch of a pro scanning three adjoining rooms in sequence" width="2128" height="540">
+  </figure>
+</section>
+
+<!-- The near-black friction section -->
+<div class="mrx-black">
+  <section class="mrx-band mrx-drift">
+    <div class="mrx-drift__text">
+      <p class="mrx-label">The technical constraint</p>
+      <h2>The rooms didn't line up</h2>
+      <p>We used the phone's location data to place each room on a shared map. When that reference drifted, the next room could land in the wrong position or break into a separate local scan.</p>
+    </div>
+    <figure>
+      <img src="../media/multi-room/mr-drift.png" alt="A defeated pro slumped over a desk, with a preview showing three rooms sitting at wrong angles to each other" width="1818" height="1640">
+    </figure>
+  </section>
+
+  <section class="mrx-band mrx-attempt1">
+    <p class="mrx-label">Attempt 01</p>
+    <h3>Death by dialogs</h3>
+    <p>While room placement was unreliable, our first approach used dialogs to guide every transition: finish the room, choose what came next, and save the plan. Each decision was clear, but the room-to-room flow became slow and fragmented.</p>
+    <div class="mrx-dialogs">
+      <figure><img src="../media/multi-room/feature-intro.png" alt="Onboarding card explaining back-to-back room scanning" width="375" height="812"><figcaption class="mrx-cap">Feature introduction</figcaption></figure>
+      <figure><img src="../media/multi-room/before-preview.png" alt="A Finalize Scan? confirmation dialog over the camera view" width="375" height="812"><figcaption class="mrx-cap">Before previewing the scan</figcaption></figure>
+      <figure><img src="../media/multi-room/whats-next.png" alt="A Saved and Ready to Go! dialog asking what comes next" width="375" height="812"><figcaption class="mrx-cap">What's next?</figcaption></figure>
+      <figure><img src="../media/multi-room/name-room.png" alt="A form for naming the room before continuing" width="375" height="812"><figcaption class="mrx-cap">Name the room</figcaption></figure>
+      <figure><img src="../media/multi-room/save-plan.png" alt="A Save Your Work screen for naming the finished floor plan" width="375" height="812"><figcaption class="mrx-cap">Save plan</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="mrx-band mrx-attempt2">
+    <div class="mrx-attempt2__text">
+      <p class="mrx-label">Attempt 02</p>
+      <h3>Letting pros position the rooms themselves</h3>
+      <p>To reduce the dialogs, we moved the correction into the plan. Pros could move, rotate, or remove rooms manually, with a short tutorial introducing the controls. It was more direct, but users were still compensating for a technical limitation.</p>
+    </div>
+    <figure class="mrx-tutorial">
+      <img src="../media/multi-room/tutorial-1.png" alt="Tutorial slide: how to move rooms" width="375" height="812">
+      <img src="../media/multi-room/tutorial-2.png" alt="Tutorial slide: how to rotate rooms" width="375" height="812">
+      <img src="../media/multi-room/tutorial-3.png" alt="Tutorial slide: how to delete rooms" width="375" height="812">
+    </figure>
+  </section>
+</div>
+
+<!-- After -->
+<section class="mrx-band mrx-after">
+  <p class="mrx-label">After</p>
+  <h3 class="mrx-after__t">One continuous flow</h3>
+  <p class="mrx-after__d">Choosing &ldquo;Scan Another Room&rdquo; started the next room inside the same session.</p>
+  <div class="mrx-flow">
+    <div class="mrx-flowstep"><b>Scan a room</b><span>Mark its corners</span></div>
+    <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+    <div class="mrx-flowstep"><b>Complete the room</b><span>Close the shape and add details</span></div>
+    <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+    <div class="mrx-flowstep mrx-flowstep--on"><b>Choose what's next</b><span>Scan another room or finish</span></div>
+    <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
+    <div class="mrx-flowstep"><b>Review and save</b><span>See one connected plan</span></div>
+  </div>
+</section>
+
+<!-- Turning point -->
+<section class="mrx-band mrx-turning">
+  <div class="mrx-turning__text">
+    <p class="mrx-label">Turning point</p>
+    <h2>Engineering solved room placement</h2>
+    <p>Once the system could position rooms reliably on the shared map, the compensating UI was no longer needed. We removed the manual correction flow and simplified the transition between rooms.</p>
+  </div>
+  <figure>
+    <img src="../media/multi-room/mr-turning.png" alt="Isometric diagram of two rooms snapping onto one shared map" width="880" height="808">
+  </figure>
+</section>
+
+<!-- Three parts of the experience -->
+<section class="mrx-band mrx-three">
+  <p class="mrx-three__intro">With room placement solved, I could focus on three parts of the experience:</p>
+  <div class="mrx-threecard">
+    <div class="mrx-threegrid">
+      <div class="mrx-threeitem">
+        <p class="mrx-threeitem__n">01</p>
+        <h3 class="mrx-threeitem__t">Guide without interrupting</h3>
+        <p class="mrx-threeitem__d">Keep guidance inside the scan.</p>
+      </div>
+      <div class="mrx-threeitem">
+        <p class="mrx-threeitem__n">02</p>
+        <h3 class="mrx-threeitem__t">Edit in place</h3>
+        <p class="mrx-threeitem__d">Let pros adjust details without leaving the flow.</p>
+      </div>
+      <div class="mrx-threeitem">
+        <p class="mrx-threeitem__n">03</p>
+        <h3 class="mrx-threeitem__t">Make the next step obvious</h3>
+        <p class="mrx-threeitem__d">Keep &ldquo;Next Room&rdquo; and &ldquo;Finish&rdquo; separate.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- The final experience -->
+<div class="mrx-band mrx-final">
+  <h2 class="mrx-final__h">The final experience</h2>
+</div>
+
+<!-- 01 Guidance built into the scan -->
+<div class="mrx-band mrx-step">
+  <div class="mrx-stepcard">
+    <div class="mrx-steptext">
+      <h3>Guidance built into the scan</h3>
+      <ol>
+        <li>The Point button became a contextual action bar, showing the relevant actions at each stage of the scan.</li>
+        <li>A system of markers and visual guides made edges, corners, and alignment easier to read, helping pros place each point more accurately.</li>
+      </ol>
+    </div>
+    <figure class="mrx-plate mrx-plate--2">
+      <figure><img src="../media/multi-room/original.png" alt="The original scan screen with a single Point button" width="375" height="812"><figcaption class="mrx-cap">Original</figcaption></figure>
+      <figure><img src="../media/multi-room/new-flow.png" alt="The new scan screen with teal alignment guides and an Undo / Add / Done action bar" width="375" height="812"><figcaption class="mrx-cap">New</figcaption></figure>
+    </figure>
+  </div>
+</div>
+
+<!-- 02 Editing doors and windows in place -->
+<div class="mrx-band mrx-step">
+  <div class="mrx-stepcard mrx-stepcard--flip">
+    <figure class="mrx-plate mrx-plate--3">
+      <figure><img src="../media/multi-room/added-window.png" alt="Adding a window in the camera view" width="375" height="812"><figcaption class="mrx-cap">Add a window</figcaption></figure>
+      <figure><img src="../media/multi-room/positioned-window.png" alt="Dragging the window into position" width="375" height="812"><figcaption class="mrx-cap">Position it</figcaption></figure>
+      <figure><img src="../media/multi-room/adjusted-dimensions.png" alt="Dragging the handles to change the window dimensions" width="375" height="812"><figcaption class="mrx-cap">Adjust dimensions</figcaption></figure>
+    </figure>
+    <div class="mrx-steptext">
+      <h3>Editing doors and windows in place</h3>
+      <p>Once a door or window was added, the action bar switched to editing controls, so pros could position, resize, duplicate, or delete it without leaving the scan.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 03 Next room or finish -->
+<div class="mrx-band mrx-step">
+  <div class="mrx-stepcard">
+    <div class="mrx-steptext">
+      <h3>Next room or finish</h3>
+      <p>After completing a room, Next Room and Finish were visible in the scan instead of being hidden behind a series of dialogs.</p>
+    </div>
+    <figure class="mrx-vs">
+      <figure class="mrx-vs__before">
+        <div class="mrx-vs__stack">
+          <img src="../media/multi-room/before-preview.png" alt="A Finalize Scan? dialog over the camera view" width="375" height="812">
+          <img src="../media/multi-room/whats-next.png" alt="A Saved and Ready to Go! dialog stacked behind it" width="375" height="812">
+        </div>
+        <figcaption class="mrx-vscap"><b>Before</b><span>Hidden behind dialogs</span></figcaption>
+      </figure>
+      <span class="mrx-vs__arrow" aria-hidden="true">&rarr;</span>
+      <figure class="mrx-vs__after">
+        <img src="../media/multi-room/next-room-dialog.png" alt="The scan view with Finish and Next Room buttons visible in the top bar" width="375" height="812">
+        <figcaption class="mrx-vscap"><b>After</b><span>Visible in the scan</span></figcaption>
+      </figure>
+    </figure>
+  </div>
+</div>
+
+<!-- 04 Before and after the scan -->
+<div class="mrx-band mrx-step">
+  <div class="mrx-stepcard">
+    <div class="mrx-steptext">
+      <h3>Before and after the scan</h3>
+      <p>Before scanning, a one-time introduction explained the flow. At the end, pros named the floor plan and saved it directly to a project.</p>
+    </div>
+    <figure class="mrx-plate mrx-plate--2c">
+      <figure><img src="../media/multi-room/mr-intro.png" alt="A one-time introduction listing the four steps of a room-by-room scan" width="528" height="1143"><figcaption class="mrx-cap">One-time introduction</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-save.png" alt="Naming the floor plan and picking a project to save it to" width="528" height="1143"><figcaption class="mrx-cap">Name and save to a project</figcaption></figure>
+    </figure>
+  </div>
+</div>
+
+<!-- 05 One continuous mobile flow -->
+<div class="mrx-band mrx-step">
+  <div class="mrx-stepcard mrx-stepcard--stack">
+    <h3 class="mrx-stepcard__h">One continuous mobile flow</h3>
+    <figure class="mrx-plate mrx-plate--5">
+      <figure><img src="../media/multi-room/mr-flow-1.png" alt="Aiming the device at each corner of the floor to place a point" width="528" height="1144"><figcaption class="mrx-cap">Scan a room</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-2.png" alt="Teal guides connecting the placed points into a closed room" width="528" height="1144"><figcaption class="mrx-cap">Complete the room</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-3.png" alt="A Finish Scanning? dialog offering to continue or end the session" width="528" height="1144"><figcaption class="mrx-cap">Continue / Finish</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-4.png" alt="A loading state adding measurements to the captured rooms" width="528" height="1143"><figcaption class="mrx-cap">Loading</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-5.png" alt="The finished multi-room plan in the 2D editor" width="528" height="1144"><figcaption class="mrx-cap">Review the plan</figcaption></figure>
+    </figure>
+  </div>
+</div>
+
+<!-- One project could finally stay together -->
+<div class="mrx-band mrx-wild">
+  <div class="mrx-wildcard">
+    <div class="mrx-wildcard__text">
+      <h3>One project could finally stay together</h3>
+      <p>Pros could keep scanning room by room and build one connected plan, without returning to the list or switching to desktop.</p>
+    </div>
+    <figure class="mrx-wildplate">
+      <img src="../media/multi-room/mr-list-final.png" alt="The floor plans list showing whole-project plans rather than single rooms" width="540" height="1155">
+    </figure>
+  </div>
+</div>
+
+<!-- Testing in real spaces -->
+<div class="mrx-band mrx-wild">
+  <div class="mrx-wildcard">
+    <div class="mrx-wildcard__text">
+      <p class="mrx-label">Testing in real spaces</p>
+      <p>Because the experience depended on physical rooms, I tested it repeatedly in real spaces throughout development. This surfaced edge cases early, while there was still time to work through them with the engineering team.</p>
+    </div>
+    <figure class="mrx-wildplate">
+      <img src="../media/multi-room/inthewild.png" alt="Scanning a real living room window with the editing controls visible" width="375" height="813">
+    </figure>
+  </div>
+</div>
+
+<!-- Impact -->
+<section class="mrx-band mrx-impact">
+  <div class="mrx-impact__head">
+    <p class="mrx-label">Impact</p>
+    <h2 class="mrx-impact__h">Multi-room scan became part of regular use</h2>
+    <p class="mrx-impact__d">As 3D Floor Plans grew, 22% of floor plans were created through multi-room scan, with around 230 room-to-room continuations each day.</p>
+  </div>
+  <div class="mrx-stats">
+    <div class="mrx-stat">
+      <p class="mrx-stat__n">10<small>&times;</small></p>
+      <p class="mrx-stat__d">3D Floor Plans monthly active users over four years</p>
+    </div>
+    <div class="mrx-stat">
+      <p class="mrx-stat__n">22%</p>
+      <p class="mrx-stat__d">of floor plans created through multi-room scan</p>
+    </div>
+    <div class="mrx-stat">
+      <p class="mrx-stat__n">~230<small>/day</small></p>
+      <p class="mrx-stat__d">room-to-room continuation events</p>
+    </div>
+  </div>
+</section>
+
+<!-- Learnings -->
+<section class="mrx-band mrx-learn">
+  <div class="mrx-learncard">
+    <div>
+      <h2 class="mrx-learncard__h">What I took forward</h2>
+      <p class="mrx-learncard__intro">Building Multi-Room Scan sharpened how I approach complex workflows:</p>
+    </div>
+    <div class="mrx-learngrid">
+      <div class="mrx-learnitem">
+        <p class="mrx-learnitem__n">01</p>
+        <h3 class="mrx-learnitem__t">Match the workflow to the job</h3>
+        <p class="mrx-learnitem__d">Users were capturing projects, not isolated rooms. The product needed to reflect that.</p>
+      </div>
+      <div class="mrx-learnitem">
+        <p class="mrx-learnitem__n">02</p>
+        <h3 class="mrx-learnitem__t">Fix the root cause</h3>
+        <p class="mrx-learnitem__d">The biggest UX improvement came from fixing alignment, not teaching users how to repair it.</p>
+      </div>
+      <div class="mrx-learnitem">
+        <p class="mrx-learnitem__n">03</p>
+        <h3 class="mrx-learnitem__t">Design the way out</h3>
+        <p class="mrx-learnitem__d">Good onboarding gives users enough confidence to continue without it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Next project -->
+<div class="mrx-band mrx-next">
+  <hr class="mrx-rule">
+  <a class="mrx-nextlink" href="floor-plan-onboarding.html">
+    <span class="mrx-nextlink__k">Next project</span>
+    <span class="mrx-nextlink__t">3D Floor Plans Onboarding &rarr;</span>
+  </a>
+</div>
+
+<!-- Footer -->
+<footer class="footer mrx-footwrap">
+  <div class="footer__inner">
+    <span class="footer__name">Roni Brot-Kolinkó</span>
+    <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+    <a href="#">LinkedIn</a>
+    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
+  </div>
+</footer>
 
 </body>
 </html>

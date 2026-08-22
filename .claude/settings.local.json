@@ -85,7 +85,8 @@
       "Bash(curl -sL -o ob-insightgoal.png \"https://www.figma.com/api/mcp/asset/0c4b3aab-ae27-456d-b805-93dc9b7ea47e.png\")",
       "Bash(curl -sL -o ob-learnings.png \"https://www.figma.com/api/mcp/asset/be50c710-52d4-4c1a-8143-ef0d8da331ba.png\")",
       "Bash(curl -sL -o ob-marker2.png \"https://www.figma.com/api/mcp/asset/f81286bc-5dc0-4657-8389-12fe45c042dd.png\")",
-      "Bash(git commit -q -m ' *)"
+      "Bash(git commit -q -m ' *)",
+      "Bash(curl -sL -o media/onboarding/hero-plate.png \"https://www.figma.com/api/mcp/asset/d8c73310-498b-4aec-af2e-bdf788649342.png\")"
     ]
   }
 }

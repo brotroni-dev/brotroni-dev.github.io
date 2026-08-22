@@ -3,83 +3,113 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About - Roni Brot-Kolinkó</title>
+<title>About me - Roni Brot-Kolinkó</title>
 <meta name="description" content="Roni Brot-Kolinkó - a senior product designer based in Tel Aviv, working across web and mobile.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=112">
-<link rel="stylesheet" href="../styles/main.css?v=112">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=127">
+<link rel="stylesheet" href="../styles/main.css?v=127">
 <style>
 /* ============================================================
-   About - a plain editorial page. Reuses the shared system;
-   ab- classes only for the back link, longer measure, and photo.
+   About (from Figma node 775:32851). Flat #f4f4f4 ground, one
+   white card holding the three sections. Prefixed abx- so it
+   stays scoped to this page.
    ============================================================ */
-.ab-back { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
-  color: var(--accent); text-decoration: none; }
-.ab-back:hover { text-decoration: underline; }
 
-/* Compact professional-context line beneath the heading (not an intro statement) */
-.ab-meta { font-family: var(--font-body); font-size: 15px; line-height: 1.6;
-  color: var(--muted); margin: 0; }
+body.abx { background: #f4f4f4;
+  /* The design pins the footer to the bottom of the frame */
+  min-height: 100vh; display: flex; flex-direction: column; }
 
-/* This page reads more like prose: a slightly larger, wider measure than the
-   compact 14px case-study body, matching the Figma design. */
-.reading.ab-copy h2.display { margin-bottom: var(--s5); }
-.reading.ab-copy p { max-width: 760px; font-size: 16px; line-height: 1.7;
-  color: var(--text); margin: 0 0 var(--s5); }
-.reading.ab-copy p:last-child { margin-bottom: 0; }
+/* Content locked to a 1016 column (72px sides at desktop) */
+.abx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.footer__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
 
-.ab-photo { margin: 0; }
-.ab-photo img { width: 100%; max-width: 420px; height: auto; aspect-ratio: 4 / 3;
-  display: block; border-radius: 8px; }
+
+/* --- Back bar --- */
+.abx-backbar { padding-block: 20px; line-height: 1.33; }
+.abx-back { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); text-decoration: none; }
+.abx-back:hover { color: var(--title); }
+
+/* --- Opener --- */
+.abx-opener { padding-top: 32px; }
+.abx-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title); margin: 0; }
+.abx-lead { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); max-width: 920px; margin: 12px 0 0; }
+
+/* --- The card. Its text column is 920 (the same measure as the lead above),
+   so the card itself hugs at 920 + 32px padding either side. --- */
+.abx-card { margin-top: 47px; max-width: 984px; background: #fff;
+  border: 1px solid var(--line); border-radius: 12px; padding: 32px;
+  display: flex; flex-direction: column; gap: 32px; }
+.abx-sec h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.08; color: var(--title); margin: 0 0 12px; }
+.abx-sec p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 0; }
+
+.abx-footwrap { margin-top: auto; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 700px) {
+  .abx-card { margin-top: 32px; padding: 24px; }
+  .abx-sec h2 { font-size: 21px; }
+}
+
 </style>
 </head>
-<body>
+<body class="abx">
 
 <!-- Nav -->
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="/about">About</a></span>
+    <span class="nav__links">
+      <a href="../index.html#work">Work</a>
+      <a href="/about" aria-current="page">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
   </div>
 </nav>
 
-<!-- Header -->
-<header class="reading" style="margin-top:var(--s7)">
-  <a class="ab-back" href="../index.html">&larr; Back</a>
-  <h1 class="display" style="margin-top:var(--s4)">About me</h1>
-  <p class="ab-meta" style="margin-top:var(--s4)">Senior Product Designer · Tel Aviv · Web &amp; Mobile</p>
-</header>
-
-<!-- How I got here -->
-<section class="reading ab-copy" style="margin-top:var(--s8)">
-  <h2 class="display">How I got here</h2>
-  <p>After studying textile design at Shenkar, I managed an artist's gallery, worked in social media, and later became a content editor.</p>
-  <p>Over time, I found myself more interested in how people understood and used things than in the visual layer alone. That led me to study UX/UI and join a design agency, where I worked across healthcare, banking, drone technology, and corporate training.</p>
-  <p>I eventually wanted to stay with products beyond launch and see how they evolved. I moved in-house and have since designed across a wide range of web and mobile products.</p>
-</section>
-
-<!-- Outside of work -->
-<section class="reading ab-copy" style="margin-top:var(--s7)">
-  <h2 class="display">Outside of work</h2>
-  <p>When I'm not working, I'm usually volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
-</section>
-
-<!-- Photo -->
-<div class="reading" style="margin-top:var(--s8)">
-  <figure class="ab-photo">
-    <img src="../media/about/sheeps.jpeg" alt="Roni sitting among a flock of sheep at an animal sanctuary">
-  </figure>
+<!-- Back -->
+<div class="abx-band abx-backbar">
+  <a class="abx-back" href="../index.html">&larr; Back</a>
 </div>
 
+<!-- Opener -->
+<main class="abx-band abx-opener">
+  <h1 class="abx-title">About me</h1>
+  <p class="abx-lead">I'm a senior product designer based in Tel Aviv, working across web and mobile.</p>
+
+  <div class="abx-card">
+    <section class="abx-sec">
+      <h2>How I got here</h2>
+      <p>After graduating from Shenkar School of Engineering &amp; Design, I managed an artist's gallery, worked in social media, and later worked as a content editor.</p>
+      <p>The projects I enjoyed most weren't purely visual. They also involved understanding people and figuring out how something should work.<br>That led me to study UX/UI and join a design agency, where I worked with clients in healthcare, banking, drone technology, and corporate training.</p>
+    </section>
+
+    <section class="abx-sec">
+      <h2>My work</h2>
+      <p>What I enjoy most about product design is getting dropped into a new problem and learning my way into it. I'm naturally curious, so I ask a lot of questions, pull in the right people, and try to understand the world around the problem before deciding where to go. I like working openly, sharing ideas early, getting feedback quickly, and bringing people along as the work takes shape. A big part of what I bring to a team is the human side of the job: communication, presentation, mentoring, and creating the kind of relationships that make it easier to do good work together.</p>
+    </section>
+
+    <section class="abx-sec">
+      <h2>Outside of work</h2>
+      <p>When I'm not working, I'm usually volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
+    </section>
+  </div>
+</main>
+
 <!-- Footer -->
-<footer class="footer" style="margin-top:var(--s10)">
+<footer class="footer abx-footwrap">
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
     <a href="#">LinkedIn</a>
-    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé &darr;</a>
+    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
 

@@ -4,12 +4,250 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Life-Sized Walkthroughs - Roni Brot-Kolinkó</title>
-<meta name="description" content="When the proposal enters the room - turning proposals into a spatial experience clients can stand inside.">
+<meta name="description" content="An AR experience that let clients walk through a proposal at full scale inside the space being renovated.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=114">
-<link rel="stylesheet" href="../styles/main.css?v=114">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=127">
+<link rel="stylesheet" href="../styles/main.css?v=127">
+<style>
+/* ============================================================
+   Life-Sized Walkthroughs - visual redesign (from Figma
+   node 167:213). Same system as the Floor Plan Onboarding page:
+   white ground, Fraunces headings, full-bleed gray/taupe bands,
+   white rounded cards per step. Prefixed lsw- so it stays
+   scoped to this page.
+   ============================================================ */
+
+/* --- Shared band: background runs full-bleed (side to side); content is
+   centered and locked to a 1016 column (72px sides at desktop) --- */
+.lsw-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+/* Align the shared nav to the same 1016 column */
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.footer__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+
+.lsw-band .lsw-label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  line-height: 1.3; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin: 0; }
+.lsw-meta, .lsw-role, .lsw-voicespanel__label, .lsw-ujcard__label { line-height: 1.3; }
+.lsw-rule { width: 100%; height: 1px; border: 0; background: var(--line); margin: 0; }
+
+/* --- Meta line (under the nav) --- */
+.lsw-metabar { padding-block: 20px; line-height: 1.33; }
+.lsw-meta { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); }
+
+/* --- Opener: Fraunces Light title + lead --- */
+.lsw-opener { padding-top: 64px; padding-bottom: 12px; }
+.lsw-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title);
+  max-width: 920px; margin: 0; }
+.lsw-lead { font-family: var(--font-body); font-weight: 400; font-size: 16px;
+  line-height: 1.6; color: var(--text); max-width: 920px; margin: 24px 0 0; }
+
+/* --- Role bar --- */
+.lsw-rolebar { padding-top: 20px; padding-bottom: 32px; line-height: 1.33;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.lsw-role { font-family: var(--font-mono); font-weight: 400; font-size: 12px;
+  letter-spacing: .04em; color: var(--muted); margin: 0; }
+.lsw-role b { color: var(--accent); font-weight: 500; }
+
+/* --- Hero video (white -> #f6f6f5 gradient band, 1016 x 540 player) --- */
+.lsw-video { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); }
+.lsw-videobox { position: relative; margin: 0; width: 100%; aspect-ratio: 1016 / 540;
+  border-radius: 12px; overflow: hidden; background: #17140F; }
+.lsw-videobox iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* --- Context (gray band) --- */
+.lsw-context { background: #f6f6f5; padding-block: 64px; }
+.lsw-context p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 12px 0 0; }
+
+/* --- User voices (gradient band, taupe panel + three quote cards) --- */
+.lsw-voices { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%);
+  padding-block: 72px 32px; }
+.lsw-voicespanel { background: #dcd7cf; border-radius: 16px; padding: 64px 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 40px; }
+.lsw-voicespanel__head { display: flex; flex-direction: column; align-items: center;
+  gap: 12px; text-align: center; }
+.lsw-voicespanel__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.lsw-voicespanel__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.lsw-voicespanel__sub { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); max-width: 560px; margin: 0; }
+.lsw-qcards { display: flex; gap: 20px; align-items: stretch; width: 100%; }
+.lsw-qcard { flex: 1 1 0; min-width: 0; background: #fff; border-radius: 12px;
+  padding: 32px 24px; display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.lsw-qcard__mark { font-family: var(--font-display); font-weight: 600; font-size: 56px;
+  line-height: .5; height: 19px; color: var(--accent); }
+.lsw-qcard__text { font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: 16px; line-height: 1.44; color: var(--title); margin: 0; }
+
+/* --- Users / JTBD --- */
+.lsw-uj { background: #f6f6f5; padding-block: 32px 72px; display: flex; gap: 24px;
+  align-items: stretch; }
+.lsw-ujcard { flex: 1 1 0; min-width: 0; background: #fff;
+  border-left: 1px solid var(--accent); border-radius: 0 12px 12px 0;
+  padding: 32px 32px 32px 33px; }
+.lsw-ujcard__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.lsw-ujcard__text { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.28; color: var(--title); margin: 12px 0 0; }
+
+/* --- The problem (text + 3D plan) --- */
+.lsw-problem { background: #f6f6f5; padding-top: 32px; display: flex; gap: 62px;
+  align-items: center; }
+.lsw-problem__text { flex: 0 1 578px; min-width: 0; }
+.lsw-problem__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 16px 0 0; }
+.lsw-problem__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 16px 0 0; }
+.lsw-problem__img { flex: 0 1 352px; min-width: 0; margin: 0; }
+.lsw-problem__img img { width: 100%; height: auto; display: block; }
+
+/* --- The goal (taupe card on a #f6f6f5 -> white gradient) --- */
+.lsw-goalwrap { background: linear-gradient(180deg, #F6F6F5 0%, #FFFFFF 100%);
+  padding-block: 72px 32px; }
+.lsw-goalcard { background: #dcd7cf; border-radius: 14px; padding: 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.lsw-goalcard__text { font-family: var(--font-display); font-weight: 300; font-size: 32px;
+  line-height: 1.28; color: var(--title); margin: 0; }
+
+/* --- The setup challenge: text + 2x2 marker explorations --- */
+.lsw-marker { padding-block: 64px 96px; display: flex; gap: 32px; align-items: center;
+  justify-content: space-between; }
+.lsw-marker__text { flex: 0 1 484px; min-width: 0; }
+.lsw-marker__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.lsw-marker__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 12px 0 0; }
+.lsw-markergrid { flex: 0 0 356px; display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px; align-items: start; }
+.lsw-markergrid figure { position: relative; margin: 0; }
+.lsw-markergrid img { width: 100%; height: auto; display: block; border-radius: 9px; }
+/* Chosen-option badge: sits over the top-right corner of the selected tile */
+.lsw-check { position: absolute; width: 22.02%; aspect-ratio: 1; border-radius: 50%;
+  background: #E1FF73; display: flex; align-items: center; justify-content: center; }
+.lsw-markergrid .lsw-check { right: -8.93%; top: -6.1%; }
+.lsw-check svg { width: 42%; height: auto; display: block; }
+
+/* --- How it works: full-bleed #f4f4f4 band with white step cards --- */
+.lsw-hiw { background: #f4f4f4; padding-top: 64px; }
+.lsw-hiw__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.lsw-step { background: #f4f4f4; padding-block: 32px 0; }
+.lsw-step--last { padding-block: 32px; }
+.lsw-stepcard { background: #fff; border-radius: 16px; padding: 32px;
+  display: flex; gap: 32px; align-items: flex-start; }
+.lsw-stepcard__text { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+.lsw-stephead { display: flex; align-items: baseline; gap: 12px;
+  font-family: var(--font-display); font-weight: 400; }
+.lsw-stepnum { font-size: 24px; color: var(--accent); }
+.lsw-steptitle { font-size: 18px; line-height: 1.2; color: var(--title); margin: 0; font-weight: 400; }
+.lsw-stepcard__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0; max-width: 458px; }
+
+/* Taupe plate the phone screenshots sit on */
+.lsw-shot { background: #dcd7cf; border-radius: 8px; padding: 8px 0; margin: 0;
+  display: flex; gap: 10px; align-items: center; justify-content: center; }
+.lsw-shot img { border: 1px solid var(--line); border-radius: 6px;
+  display: block; height: auto; }
+/* Plate widths + the phone width inside them, taken from the Figma slots */
+.lsw-shot--01 { flex: 0 0 373px; }
+.lsw-shot--01 img { width: 47.6%; }
+.lsw-shot--02, .lsw-shot--04 { flex: 1 1 0; min-width: 0; }
+.lsw-shot--02 img { width: 38.3%; }
+.lsw-shot--03 { flex: 0 0 484px; }
+.lsw-shot--03 img { width: 36.2%; }
+.lsw-shot--04 img { width: 38.2%; }
+
+/* Step 02: the lime testing note, tilted as in the design */
+.lsw-callout { margin: 40px 0 0; background: #E1FF73; padding: 24px;
+  transform: rotate(-3.6deg); }
+.lsw-callout p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0; }
+
+/* Colour explorations: translucent white card, text + three swatch screens */
+.lsw-colors { background: #f4f4f4; padding-block: 32px 0; }
+.lsw-colorcard { background: rgba(255, 255, 255, .6); border: 1px solid var(--line);
+  border-radius: 12px; padding: 32px; display: flex; gap: 32px; align-items: center; }
+.lsw-colorcard__text { flex: 1 1 0; min-width: 0; }
+.lsw-colorcard__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.lsw-colorcard__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--text); margin: 8px 0 0; max-width: 368px; }
+.lsw-swatches { flex: 0 0 auto; display: flex; gap: 35px; align-items: center; }
+.lsw-swatch { position: relative; width: 161px; margin: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 9px; }
+.lsw-swatch img { width: 100%; height: auto; display: block; border-radius: 8px; }
+.lsw-swatch figcaption { font-family: var(--font-mono); font-size: 11px; line-height: 1.4;
+  color: #8c8475; text-align: center; }
+.lsw-swatch .lsw-check { right: -9.25%; top: -3.11%; }
+
+/* --- Learnings (white card on the #f4f4f4 band) --- */
+.lsw-learn { background: #f4f4f4; padding-block: 72px; }
+.lsw-learncard { background: #fff; border: 1px solid var(--line); border-radius: 16px;
+  padding: 40px; display: flex; flex-direction: column; gap: 52px; }
+.lsw-learncard__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; }
+.lsw-learncard__intro { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 12px 0 0; max-width: 660px; }
+.lsw-learngrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.lsw-learnitem { border-top: 2px solid var(--accent); padding-top: 12px;
+  display: flex; flex-direction: column; gap: 8px; }
+.lsw-learnitem__n { font-family: var(--font-mono); font-weight: 500; font-size: 13px;
+  letter-spacing: .1em; color: var(--accent); margin: 0; }
+.lsw-learnitem__t { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.lsw-learnitem__d { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--text); margin: 0; }
+
+/* --- Next project --- */
+.lsw-next { padding-top: 32px; padding-bottom: 32px; }
+.lsw-nextlink { display: inline-flex; flex-direction: column; gap: 2px;
+  margin-top: 56px; line-height: 1.3; text-decoration: none; }
+.lsw-nextlink__k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
+  color: var(--muted); }
+.lsw-nextlink__t { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  color: var(--title); }
+.lsw-nextlink:hover .lsw-nextlink__t { color: var(--accent); }
+
+.lsw-footwrap { margin-top: 0; padding-top: 32px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  .lsw-colorcard { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .lsw-swatches { align-self: center; gap: 24px; }
+  .lsw-swatch { width: auto; flex: 1 1 0; min-width: 0; }
+}
+@media (max-width: 900px) {
+  /* Stacked: flex-basis would become a HEIGHT here, so hand sizing back to content */
+  .lsw-problem, .lsw-marker { flex-direction: column; align-items: flex-start;
+    justify-content: flex-start; gap: 32px; }
+  .lsw-problem > *, .lsw-marker > * { flex: 0 0 auto; width: 100%; }
+  .lsw-problem__img, .lsw-markergrid { align-self: center; max-width: 420px; }
+  .lsw-stepcard { flex-direction: column; }
+  .lsw-stepcard > * { width: 100%; flex: 0 0 auto; }
+  .lsw-stepcard--flip { flex-direction: column-reverse; }
+  .lsw-stepcard__text p { max-width: none; }
+  /* Stacked plates are much narrower, so the phone takes a bigger share of them */
+  .lsw-shot--01 img, .lsw-shot--02 img, .lsw-shot--04 img { width: 55%; }
+  .lsw-shot--03 img { width: 44%; }
+  .lsw-uj { flex-direction: column; }
+  .lsw-learngrid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 700px) {
+  .lsw-qcards { flex-direction: column; }
+  .lsw-goalcard__text { font-size: 24px; }
+  .lsw-voicespanel { padding: 40px 20px; gap: 32px; }
+  .lsw-voicespanel__h { font-size: 21px; }
+  .lsw-learncard, .lsw-stepcard, .lsw-colorcard { padding: 24px; }
+  .lsw-callout { transform: rotate(-2deg); }
+  .lsw-swatches { flex-wrap: wrap; justify-content: center; }
+  .lsw-swatch { flex: 0 0 132px; }
+}
+</style>
 </head>
 <body class="lsw">
 
@@ -17,327 +255,259 @@
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="#">About</a></span>
+    <span class="nav__links">
+      <a href="../index.html#work">Work</a>
+      <a href="/about">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
   </div>
 </nav>
 
-<!-- Hero (shared case-study structure): meta -> title -> lead -> divider -> role -> media -->
-<header class="cs-hero">
-  <div class="ctx-bar">
-    <span class="ctx-bar__meta">Houzz Pro &middot; 3D Floor Plans &middot; Mobile</span>
-    <a class="ctx-bar__link" href="houzz-3d-floor-plans.html">About Houzz Pro &amp; 3D Floor Plans &rarr;</a>
-  </div>
-  <h1 class="cs-hero__title">From floor plan to life-sized walkthrough</h1>
-  <p class="cs-hero__lead">Designing Life-Sized Walkthroughs, an AR experience that let pros place a proposed design at full scale inside the client's existing space.</p>
+<!-- Meta line -->
+<div class="lsw-band lsw-metabar">
+  <span class="lsw-meta">HOUZZ PRO &middot; 3D FLOOR PLANS &middot; MOBILE</span>
+</div>
+
+<!-- Opener: title + lead -->
+<header class="lsw-band lsw-opener">
+  <h1 class="lsw-title">From a 3D model to a life-sized walkthrough</h1>
+  <p class="lsw-lead">An AR experience that let clients walk through a proposal at full scale inside the space being renovated, so they could understand how it would feel before committing and pros could turn the vision into a yes.</p>
 </header>
-<div class="cs-ov">
-  <hr class="cs-ov__rule">
-  <p class="cs-ov__role"><b>My Role</b> / Product Designer</p>
-  <hr class="cs-ov__rule">
-</div>
-<div class="cs-heromedia">
-  <figure class="plate"><img src="../media/ar/hero.png" alt="A hand holding a phone that shows a proposed living room rendered in AR inside an empty real room"></figure>
+
+<!-- Role bar -->
+<div class="lsw-band lsw-rolebar">
+  <hr class="lsw-rule">
+  <p class="lsw-role"><b>My Role</b> / Product Designer</p>
 </div>
 
-<!-- 2 · The Insight -->
-<section class="reading section first-section" id="insight" data-toc="Insight">
-  <h2 class="display">Seeing the design was not the same as experiencing the space</h2>
-  <p style="margin-top:var(--sp-head)">Plans and renders helped clients understand how a project might look. What they could not show was scale: how the room would feel, how everything would fit together, and whether the proposal felt right in the actual space.</p>
-</section>
-<div class="wide section--tight" style="margin-top:var(--sp-tight)">
-  <div class="eyebrow" style="margin-bottom:var(--sp-head)"><span class="eyebrow__t">Selected client feedback</span></div>
-  <div class="voice-set">
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">I can see the design, but I still can't picture being inside it.</p>
-      </div>
-    </figure>
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">It's hard to commit when I can't see how everything comes together.</p>
-      </div>
-    </figure>
-    <figure class="voice">
-      <div class="voice__mark" aria-hidden="true">&ldquo;</div>
-      <div>
-        <p class="voice__text">The render looks great, but I still don't understand the scale.</p>
-      </div>
-    </figure>
-  </div>
-</div>
-<div class="wide section--tight" style="margin-top:var(--sp-tight)">
-  <figure class="plate plate--bare" style="max-width:266px;margin-inline:auto"><img src="../media/ar/arwalkthrough.png" alt="A pro showing a floor plan to a client while both try to imagine the finished living room pictured in a thought bubble above them"></figure>
-</div>
-
-<!-- 3 · Problem + Goal (two-card layout) -->
-<div class="wide section--tight" data-toc="Goal" style="margin-top:var(--sp-tight)">
-  <div class="ig-pair ig-pair--compact">
-    <div class="ig-card ig-card--insight">
-      <p class="ig-card__label">The problem</p>
-      <p class="ig-card__stmt">Plans showed the proposal. Clients still had to imagine its scale and how it would feel around them.</p>
-    </div>
-    <div class="ig-card ig-card--goal" id="goal">
-      <p class="ig-card__label">The goal</p>
-      <p class="ig-card__stmt">Help pros bring the proposal into the room so clients could experience it at full scale.</p>
-    </div>
-  </div>
-</div>
-
-<!-- Chapter 01 -->
-<section class="reading section chapter" style="margin-top:var(--sp-tight)">
-  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Launch from the floor plan list</span></div>
-  <p style="margin-top:var(--sp-step-intro)">Pros tapped the AR icon next to the floor plan they wanted to present. The walkthrough opened with that plan already selected.</p>
-</section>
-<div class="wide chapter-media">
-  <figure class="launch-shot">
-    <img src="../media/ar/floor-plans-list.png?v=3" alt="The 3D Floor Plans list, where each proposal has an AR entry point pros can open">
+<!-- Hero video -->
+<div class="lsw-band lsw-video">
+  <figure class="lsw-videobox">
+    <iframe src="https://www.youtube.com/embed/uX66wrFXuCE" title="Houzz Pro launch video: the AR walkthrough" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
   </figure>
 </div>
 
-<!-- Chapter 02 -->
-<section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Choose where the walkthrough begins</span></div>
-  <p style="margin-top:var(--sp-step-intro)">Before entering the camera view, pros placed themselves on the floor plan and oriented it to the room. Since the interaction was unfamiliar, we watched what people tried to do naturally.</p>
+<!-- Context -->
+<section class="lsw-band lsw-context">
+  <p class="lsw-label">Context</p>
+  <p>Built for renovation professionals, Houzz Pro's 3D Floor Planner is a simpler alternative to traditional CAD tools. It lets pros create and present 2D and 3D designs using real products from Houzz's catalog, with the long-term vision of turning those designs directly into project estimates.</p>
 </section>
-<!-- Core interaction (within step 02) -->
-<section class="reading" id="turning" style="margin-top:var(--sp-tight)">
-  <div class="eyebrow" style="margin-bottom:20px"><span class="eyebrow__t">The Core Interaction</span></div>
-  <h3 class="display" style="font-size:var(--fs-title);line-height:1.2">The user stayed fixed while the floor plan rotated around them</h3>
-  <p style="margin-top:30px">During testing, pros instinctively rotated the floor plan to align it with the room, much like orienting a map. They expected their position to remain anchored while the plan moved around them.</p>
-  <p style="margin-top:var(--sp-head)">Instead of correcting the gesture, I designed the setup around it. The fixed marker showed where the user was standing and facing, while rotating the plan let them choose how the virtual space would be positioned before entering AR.</p>
-</section>
-<div class="wide chapter-media">
-  <div class="screens screens--lg">
-    <figure><img src="../media/ar/set-starting-point.png" alt="Positioning on the floor plan: move and rotate the plan to choose where the walkthrough begins"></figure>
-  </div>
-  <figure class="fpr-figure" style="margin-top:var(--s7)">
-   <div class="fpr-phone" role="img"
-        aria-label="A phone showing the Summer house floor plan on a grid. The plan turns gently from side to side around a fixed user marker that keeps facing the same direction, the way you turn a map to match the direction you are facing.">
-    <!-- status bar -->
-    <div class="fpr-status">
-      <span class="fpr-status__l"><span class="fpr-dots">&#9679;&#9679;&#9679;&#9675;&#9675;</span>&nbsp;Houzz</span>
-      <span class="fpr-status__c">1:20 PM</span>
-      <span class="fpr-status__r">77% <span class="fpr-batt"></span></span>
-    </div>
-    <!-- header -->
-    <div class="fpr-header">
-      <span class="fpr-back"><svg viewBox="0 0 8 14" fill="none"><path d="M7 1 1 7l6 6" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      <span class="fpr-title">Summer house
-        <svg viewBox="0 0 14 14" fill="none"><path d="M9.5 1.5l3 3-7 7-3.5.5.5-3.5 7-7z" stroke="#727169" stroke-width="1.2" stroke-linejoin="round"/></svg>
-      </span>
-      <span class="fpr-next">Next</span>
-    </div>
-    <!-- screen: grid + animation + card -->
-    <div class="fpr-stage">
-      <svg class="fpr-anim" viewBox="-6 -6 244 352" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="fprMarkCone" x1="15.9176" y1="56.412" x2="33.6614" y2="6.63444" gradientUnits="userSpaceOnUse">
-          <stop/>
-          <stop offset="1" stop-opacity="0.01"/>
-        </linearGradient>
-        <filter id="fprMarkArrow" x="15.9634" y="2.75921" width="23.5327" height="47.5737" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-          <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="1.63318"/>
-          <feComposite in2="hardAlpha" operator="out"/>
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-          <feBlend mode="normal" in2="BackgroundImageFix" result="e1"/>
-          <feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
-        </filter>
-        <filter id="fprMarkHalo" x="6.13761" y="41.1404" width="22.8464" height="22.8464" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-          <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="0.816591"/>
-          <feComposite in2="hardAlpha" operator="out"/>
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-          <feBlend mode="normal" in2="BackgroundImageFix" result="e1"/>
-          <feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
-        </filter>
-        <filter id="fprMarkDot" x="8.00699" y="43.1456" width="19.6008" height="19.6008" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
-          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-          <feOffset dy="0.816591"/><feGaussianBlur stdDeviation="2.44977"/>
-          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.16 0"/>
-          <feBlend mode="normal" in2="BackgroundImageFix" result="e1"/>
-          <feBlend mode="normal" in="SourceGraphic" in2="e1" result="shape"/>
-        </filter>
-      </defs>
-      <!-- Rotating floor plan (exact artwork) -->
-      <g class="fpr-anim__plan">
-        <path d="M229.462 338.069H2.4502L2.4502 247.084L2.4502 162.471L2.4502 105.826H91.5072L92.265 2.4502L139.294 2.4502L229.462 2.4502V120.342V173.446V338.069Z" fill="#F8F6F2"/>
-        <path d="M2.4502 162.471L2.4502 105.826H94.7402M139.294 2.4502L92.265 2.4502L91.5072 105.826H2.4502M92.265 2.4502V71.4857M92.265 105.826V71.4857M92.265 71.4857H139.294V2.4502M139.294 2.4502L229.462 2.4502V120.342M139.294 173.446H193.041M229.462 173.446V338.069H2.4502L2.4502 247.084M229.462 173.446V120.342M229.462 173.446H193.041M229.462 120.342H193.041M139.294 120.342C160.284 120.342 172.052 120.342 193.041 120.342M193.041 120.342V173.446M2.4502 247.084H99.337V162.471H2.4502M2.4502 247.084L2.4502 162.471" stroke="black" stroke-width="4.89955" fill="none"/>
-        <path d="M139.638 71.8604V176.384" stroke="black" stroke-width="4.89955" fill="none"/>
-        <path d="M67.7773 106.155L67.7773 162.5" stroke="black" stroke-width="4.89955" fill="none"/>
-        <path d="M72.4844 163.345L72.4844 163.549L72.2802 163.549L72.2802 163.345L72.4844 163.345ZM72.4844 163.268L72.2802 163.267L72.6885 163.268L72.4844 163.268ZM72.4834 163.344L72.2793 163.344L72.2793 163.344L72.4834 163.344ZM96.209 187.069L96.4131 187.069L96.4131 187.273L96.209 187.273L96.209 187.069ZM96.209 163.345L96.209 163.141L96.4131 163.141L96.4131 163.345L96.209 163.345ZM72.4844 163.345L72.2802 163.345L72.2802 163.268L72.4844 163.268L72.6885 163.268L72.6885 163.345L72.4844 163.345ZM72.4844 163.268L72.6885 163.268C72.6885 163.283 72.6882 163.297 72.688 163.309C72.6877 163.322 72.6876 163.333 72.6875 163.344L72.4834 163.344L72.2793 163.344C72.2793 163.329 72.2795 163.314 72.2797 163.302C72.28 163.289 72.2802 163.278 72.2802 163.267L72.4844 163.268ZM72.4834 163.344L72.6875 163.344C72.6875 176.334 83.2185 186.865 96.209 186.865L96.209 187.069L96.209 187.273C82.993 187.273 72.2793 176.56 72.2793 163.344L72.4834 163.344ZM96.209 187.069L96.0048 187.069L96.0048 163.345L96.209 163.345L96.4131 163.345L96.4131 187.069L96.209 187.069ZM96.209 163.345L96.209 163.549L72.4844 163.549L72.4844 163.345L72.4844 163.141L96.209 163.141L96.209 163.345Z" fill="#222222"/>
-        <rect x="-0.204148" y="0.204148" width="27.9806" height="6.89171" rx="0.612443" transform="matrix(-1 -1.36411e-08 1.03966e-08 1 97.786 158.828)" fill="#F8F6F2" stroke="#222222" stroke-width="0.408295"/>
-        <rect x="-0.204148" y="0.204148" width="27.9806" height="6.89171" rx="0.612443" transform="matrix(-1 -1.36411e-08 1.03966e-08 1 179.737 116.521)" fill="#F8F6F2" stroke="#222222" stroke-width="0.408295"/>
-      </g>
-      <!-- Fixed user marker (exact artwork), placed at the pivot and rotated so its cone points straight up -->
-      <g transform="translate(116 150) rotate(-19.62) translate(-17.5613 -51.7446)">
-        <ellipse cx="17.5613" cy="51.7446" rx="4.89351" ry="4.89351" transform="rotate(-160.381 17.5613 51.7446)" fill="#00CFAD"/>
-        <!-- view cone, enlarged and spread a bit more around its base -->
-        <g transform="translate(15.9176 56.412) scale(1.32) translate(-15.9176 -56.412)">
-          <path opacity="0.9" d="M15.9176 56.412L19.3689 1.53924L33.6616 6.63405L47.9542 11.7289L15.9176 56.412Z" fill="url(#fprMarkCone)" fill-opacity="0.8"/>
-        </g>
-        <g filter="url(#fprMarkArrow)">
-          <path d="M34.5311 5.20886L27.3484 11.3177L36.2302 14.4837L34.5311 5.20886ZM19.9993 45.9756L20.7685 46.2498L21.2875 44.7938L20.5183 44.5196L19.7491 44.2454L19.2301 45.7014L19.9993 45.9756ZM21.5563 41.6077L22.3255 41.8819L23.3635 38.97L22.5943 38.6958L21.8251 38.4216L20.7871 41.3335L21.5563 41.6077ZM23.6323 35.7839L24.4014 36.0581L25.4394 33.1462L24.6702 32.872L23.9011 32.5978L22.8631 35.5097L23.6323 35.7839ZM25.7082 29.9601L26.4774 30.2343L27.5154 27.3224L26.7462 27.0482L25.977 26.774L24.9391 29.6859L25.7082 29.9601ZM27.7842 24.1363L28.5534 24.4105L29.5914 21.4985L28.8222 21.2244L28.053 20.9502L27.015 23.8621L27.7842 24.1363ZM29.8602 18.3125L30.6294 18.5866L31.6674 15.6747L30.8982 15.4005L30.129 15.1264L29.091 18.0383L29.8602 18.3125ZM31.9362 12.4886L32.7053 12.7628L33.7433 9.85091L32.9741 9.57672L32.205 9.30254L31.167 12.2144L31.9362 12.4886ZM34.5311 5.20886L27.3484 11.3177L36.2302 14.4837L34.5311 5.20886ZM19.9993 45.9756L20.7685 46.2498L21.2875 44.7938L20.5183 44.5196L19.7491 44.2454L19.2301 45.7014L19.9993 45.9756ZM21.5563 41.6077L22.3255 41.8819L23.3635 38.97L22.5943 38.6958L21.8251 38.4216L20.7871 41.3335L21.5563 41.6077ZM23.6323 35.7839L24.4014 36.0581L25.4394 33.1462L24.6702 32.872L23.9011 32.5978L22.8631 35.5097L23.6323 35.7839ZM25.7082 29.9601L26.4774 30.2343L27.5154 27.3224L26.7462 27.0482L25.977 26.774L24.9391 29.6859L25.7082 29.9601ZM27.7842 24.1363L28.5534 24.4105L29.5914 21.4985L28.8222 21.2244L28.053 20.9502L27.015 23.8621L27.7842 24.1363ZM29.8602 18.3125L30.6294 18.5866L31.6674 15.6747L30.8982 15.4005L30.129 15.1264L29.091 18.0383L29.8602 18.3125ZM31.9362 12.4886L32.7053 12.7628L33.7433 9.85091L32.9741 9.57672L32.205 9.30254L31.167 12.2144L31.9362 12.4886Z" fill="white"/>
-        </g>
-        <g opacity="0.8" filter="url(#fprMarkHalo)">
-          <ellipse cx="17.5608" cy="51.747" rx="9.78701" ry="9.78701" transform="rotate(-160.381 17.5608 51.747)" fill="#00CFAD"/>
-        </g>
-        <g filter="url(#fprMarkDot)">
-          <ellipse cx="17.8076" cy="52.1294" rx="4.89955" ry="4.89954" transform="rotate(-160.381 17.8076 52.1294)" fill="white"/>
-        </g>
-      </g>
-      </svg>
 
-      <!-- instruction card -->
-      <div class="fpr-card">
-        <svg viewBox="0 0 16 16" fill="none"><path d="M8 0.5c.4 3.2 1.9 4.7 5.1 5.1-3.2.4-4.7 1.9-5.1 5.1-.4-3.2-1.9-4.7-5.1-5.1C6.1 5.2 7.6 3.7 8 .5z" fill="#00CFAD"/><path d="M13.2 10.4c.2 1.4.9 2.1 2.3 2.3-1.4.2-2.1.9-2.3 2.3-.2-1.4-.9-2.1-2.3-2.3 1.4-.2 2.1-.9 2.3-2.3z" fill="#00CFAD"/></svg>
-        <p>Move and rotate your floor plan until the pointer is on the spot where you want to start your AR experience.</p>
-      </div>
+<!-- User voices -->
+<section class="lsw-band lsw-voices">
+  <div class="lsw-voicespanel">
+    <div class="lsw-voicespanel__head">
+      <p class="lsw-voicespanel__label">User voices</p>
+      <h2 class="lsw-voicespanel__h">Clients needed to see what they were saying yes to</h2>
+      <p class="lsw-voicespanel__sub">Pros shared that clients often struggled to grasp the scale of a design and understand what they were committing to.</p>
     </div>
-   </div>
+    <div class="lsw-qcards">
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">I can imagine what the finished space will look like, but it's hard to get the client to see the same thing.</blockquote>
+      </figure>
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">A 3D view can look great, but it still doesn't show what it will feel like to stand in the room.</blockquote>
+      </figure>
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">It's a big investment for the client...If I can't make the vision clear, I can lose the project.</blockquote>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- Users / JTBD -->
+<div class="lsw-band lsw-uj">
+  <div class="lsw-ujcard">
+    <p class="lsw-ujcard__label">Users</p>
+    <p class="lsw-ujcard__text">Renovation pros presenting 3D floor plans to clients.</p>
+  </div>
+  <div class="lsw-ujcard">
+    <p class="lsw-ujcard__label">JtbD</p>
+    <p class="lsw-ujcard__text">Communicate the vision clearly enough for clients to understand it and make decisions.</p>
+  </div>
+</div>
+
+<!-- The problem -->
+<section class="lsw-band lsw-problem">
+  <div class="lsw-problem__text">
+    <p class="lsw-label">The problem</p>
+    <h2>Clients could see the design, but not experience it in the room</h2>
+    <p>Pros could show clients the plan in 2D and 3D, but it was still a model viewed on a screen. That uncertainty made it harder for the clients to commit to an expensive project, and if the pro couldn't communicate the vision clearly, they risked losing it.</p>
+  </div>
+  <figure class="lsw-problem__img">
+    <img src="../media/ar/problem-plan.png" alt="A 3D floor plan of a furnished apartment, seen from above on a screen" width="1458" height="991">
   </figure>
-</div>
-
-<!-- Chapter 03 -->
-<section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Match the virtual room to the real one</span></div>
-  <p style="margin-top:var(--sp-step-intro)">In the camera view, pros scanned the room, adjusted the virtual walls until they lined up with the physical space, and confirmed the placement.</p>
 </section>
-<div class="wide chapter-media">
-  <div class="screens">
-    <figure><img src="../media/ar/scan-room.jpg" alt="The live camera view while scanning the floor of the real room"></figure>
-    <figure><img src="../media/ar/fit-walls.jpg" alt="The virtual walls overlaid on the camera view to match the physical space"></figure>
+
+<!-- The goal -->
+<div class="lsw-band lsw-goalwrap">
+  <div class="lsw-goalcard">
+    <p class="lsw-label">The goal</p>
+    <p class="lsw-goalcard__text">Bring the proposal off the screen and into the client's real space.</p>
   </div>
 </div>
 
-<!-- Chapter 04 -->
-<section class="reading section chapter">
-  <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Get the interface out of the way</span></div>
-  <p style="margin-top:var(--sp-step-intro)">Once the walkthrough started, nearly everything disappeared from the screen so people could focus on the room around them.</p>
-</section>
-<div class="wide chapter-media">
-  <div class="screens screens--xl">
+<!-- The setup challenge: marker explorations -->
+<section class="lsw-band lsw-marker">
+  <div class="lsw-marker__text">
+    <p class="lsw-label">The setup challenge</p>
+    <h2>Before entering AR, pros needed a clear sense of where they were standing and which way they were facing.</h2>
+    <p>We explored arrows, avatars, and navigation symbols before landing on a marker that combined position and direction in one simple form, while staying readable across both 2D and 3D views.</p>
+  </div>
+  <div class="lsw-markergrid">
+    <figure><img src="../media/ar/marker-01.png" alt="Marker exploration: a dot with a straight arrow pointing right" width="672" height="712"></figure>
+    <figure><img src="../media/ar/marker-02.png" alt="Marker exploration: an avatar badge with a direction cone" width="672" height="716"></figure>
+    <figure><img src="../media/ar/marker-03.png" alt="Marker exploration: a navigation arrow symbol" width="672" height="721"></figure>
     <figure>
-      <div class="screen-video">
-        <video src="../media/ar/ar-walkthrough.mp4" autoplay muted loop playsinline preload="metadata" aria-label="The AR walkthrough: the proposed space seen at full scale with the interface out of the way"></video>
-        <svg class="screen-video__chevron" viewBox="0 0 8 15" fill="none" aria-hidden="true"><path d="M6.9 1.1 1.1 7.5l5.8 6.4" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <img src="../media/ar/marker-04.png" alt="The chosen marker: a dot with a wide direction cone and a dashed sight line" width="672" height="733">
+      <span class="lsw-check" role="img" aria-label="Chosen direction">
+        <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8.4 6.2 12.6 14 3.6" stroke="#17140F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </figure>
+  </div>
+</section>
+
+<!-- How it works -->
+<div class="lsw-band lsw-hiw">
+  <h2 class="lsw-hiw__h">How it works</h2>
+</div>
+
+<!-- 01 -->
+<div class="lsw-band lsw-step">
+  <div class="lsw-stepcard">
+    <div class="lsw-stepcard__text">
+      <div class="lsw-stephead">
+        <span class="lsw-stepnum">01</span>
+        <h3 class="lsw-steptitle">Choose where the walkthrough begins</h3>
       </div>
+      <p>Pros tapped the AR icon beside the floor plan they wanted to present.</p>
+    </div>
+    <figure class="lsw-shot lsw-shot--01">
+      <img src="../media/ar/floor-plans-list.png" alt="The 3D Floor Plans list on mobile, each plan with an AR icon beside it" width="383" height="820">
     </figure>
   </div>
 </div>
 
-<!-- Validation -->
-<section class="reading section" id="validation" data-toc="Testing" style="margin-top:var(--sp-media-next)">
-  <div class="eyebrow"><span class="eyebrow__t">Validation</span></div>
-  <h2 class="display">What testing refined</h2>
-  <p style="margin-top:var(--sp-head)">Once the core interaction was in place, internal tests and live client demos helped us refine the details that made the setup feel clear and controlled: how quickly the plan responded, how readable the virtual surfaces remained over the camera feed, and how easily pros could understand their position and direction on the floor plan.</p>
-</section>
-
-<!-- Three findings, equal columns -->
-<div class="wide" style="margin-top:var(--sp-text-media)">
-  <div class="findings-3">
-    <div class="finding">
-      <p class="finding__n">01</p>
-      <h3 class="display">Slowing down the floor plan</h3>
-      <p>At first, the plan reacted too quickly to touch. Small gestures caused large movements, so we slowed it down until people could position it without fighting the interface.</p>
-    </div>
-    <div class="finding">
-      <p class="finding__n">02</p>
-      <h3 class="display">Making the overlays easy to read</h3>
-      <p>The wall and floor overlays had to be easy to see without covering the room underneath. We tested different colors and opacity levels until both surfaces stayed clear over the camera feed.</p>
-    </div>
-    <div class="finding">
-      <p class="finding__n">03</p>
-      <h3 class="display">Keeping the user visible</h3>
-      <p>The simple marker worked on the 2D plan, but it became harder to find once the plan included detailed furniture and materials. We tried several familiar patterns. Each solved part of the problem, but introduced a new one.</p>
+<!-- 02 -->
+<div class="lsw-band lsw-step">
+  <div class="lsw-stepcard lsw-stepcard--flip">
+    <figure class="lsw-shot lsw-shot--02">
+      <img src="../media/ar/set-starting-point.png" alt="The floor plan with a marker showing where the pro is standing, ready to be rotated" width="306" height="664">
+    </figure>
+    <div class="lsw-stepcard__text">
+      <div class="lsw-stephead">
+        <span class="lsw-stepnum">02</span>
+        <h3 class="lsw-steptitle">Choose where the walkthrough begins</h3>
+      </div>
+      <p>Pros moved the marker to where they were standing and rotated the plan to match the room. The user stayed fixed while the floor plan rotated.</p>
+      <div class="lsw-callout">
+        <p>In testing, pros naturally rotated the plan, so we shaped the interaction around that behavior.</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Marker exploration: separate wide visual block -->
-<section class="reading" id="marker" style="margin-top:var(--sp-media-next)">
-  <h3 class="display" style="font-size:var(--fs-title)">Finding the right user marker</h3>
-</section>
-<div class="wide" style="margin-top:var(--sp-text-media)">
-  <div class="marker-block">
-  <div class="marker-row">
-    <figure class="marker-item">
-      <img src="../media/ar/marker-dot-cone.png" alt="A dot with a view cone marking the user's position on a rendered floor plan">
-      <figcaption><b>Dot + view cone</b> It showed direction, but the marker got lost in the rendered plan.</figcaption>
-    </figure>
-    <figure class="marker-item">
-      <img src="../media/ar/marker-crosshair.png" alt="A crosshair marking the user's position on a rendered floor plan">
-      <figcaption><b>Crosshair</b> It stood out, but looked like a target rather than the user's position.</figcaption>
-    </figure>
-    <figure class="marker-item">
-      <img src="../media/ar/marker-pin.png" alt="A map pin marking the user's position on a rendered floor plan">
-      <figcaption><b>Map pin</b> It clearly marked a place, but not the direction the user was facing.</figcaption>
-    </figure>
-  </div>
-  <figure class="marker-final">
-    <img src="../media/ar/marker-final.png" alt="The final marker on the full rendered floor plan: a colored dot with white separation, a gradient view cone, and a directional arrow">
-    <figcaption><b>Final marker</b> The final version combined color, a white outline, a soft viewing cone, and an arrow. Together, they kept both position and direction clear on simple and rendered floor plans.</figcaption>
-  </figure>
-  </div>
-</div>
-
-<!-- Launch -->
-<section class="reading section" id="value" style="margin-top:var(--sp-section)">
-  <div class="eyebrow"><span class="eyebrow__t">Launch</span></div>
-  <h2 class="display">From looking at the proposal to walking through it</h2>
-  <p style="margin-top:var(--sp-head)">Life-Sized Walkthroughs launched in Houzz Pro, giving clients a way to experience proposals at full scale in the rooms they were planning to change.</p>
-</section>
-<div class="wide section--tight" style="margin-top:var(--sp-text-media)">
-  <figure class="video-ph">
-    <div class="video-ph__frame">
-      <iframe src="https://www.youtube.com/embed/uX66wrFXuCE" title="Life-Sized Walkthroughs video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<!-- 03 -->
+<div class="lsw-band lsw-step">
+  <div class="lsw-stepcard">
+    <div class="lsw-stepcard__text">
+      <div class="lsw-stephead">
+        <span class="lsw-stepnum">03</span>
+        <h3 class="lsw-steptitle">Match the virtual room to the real one</h3>
+      </div>
+      <p>In the camera view, pros used drag and pinch gestures to align the virtual floor and walls with the physical room, then confirmed the placement.</p>
     </div>
-    <figcaption>Official Houzz Pro launch video</figcaption>
-  </figure>
+    <figure class="lsw-shot lsw-shot--03">
+      <img src="../media/ar/scan-room.jpg" alt="Camera view prompting the pro to scan the floor by tilting the device" width="306" height="663">
+      <img src="../media/ar/fit-walls.jpg" alt="Camera view with the virtual walls being fitted to the real room" width="306" height="663">
+    </figure>
+  </div>
 </div>
 
-<!-- Outcome -->
-<section class="reading section" id="outcome" data-toc="Outcome" style="margin-top:var(--sp-media-next)">
-  <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
-  <h2 class="display">The conversation shifted from explaining the proposal to discussing the space</h2>
-  <div class="result" style="margin-top:var(--sp-head)">
-    <p class="result__stmt">Clients could respond to what they saw around them, while pros could talk through choices in context instead of asking clients to imagine the result.</p>
+<!-- Colour explorations -->
+<div class="lsw-band lsw-colors">
+  <div class="lsw-colorcard">
+    <div class="lsw-colorcard__text">
+      <h3>Finding colors that stayed readable</h3>
+      <p>We tested several color pairs and opacity levels so the floor and walls stayed visible without covering the room.</p>
+    </div>
+    <div class="lsw-swatches">
+      <figure class="lsw-swatch">
+        <img src="../media/ar/ar-color-blues.png" alt="Bedroom in AR with the virtual floor and walls tinted in tonal blues" width="644" height="944">
+        <figcaption>Tonal blues</figcaption>
+      </figure>
+      <figure class="lsw-swatch">
+        <img src="../media/ar/ar-color-purple.png" alt="Bedroom in AR with purple walls and a yellow floor" width="644" height="944">
+        <figcaption>Purple + yellow</figcaption>
+      </figure>
+      <figure class="lsw-swatch">
+        <img src="../media/ar/ar-color-teal.png" alt="Bedroom in AR with teal walls and an amber floor" width="641" height="944">
+        <span class="lsw-check" role="img" aria-label="Chosen direction">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8.4 6.2 12.6 14 3.6" stroke="#17140F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <figcaption>Teal + Amber</figcaption>
+      </figure>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- What stayed with me -->
-<section class="reading section" id="reflection" data-toc="Reflection" style="margin-top:var(--sp-media-next)">
-  <h2 class="display">What stayed with me</h2>
-  <p style="margin-top:var(--sp-head)">There was no playbook for this interaction. The most useful clues came from watching what people tried to do before we told them anything: rotate the plan, find themselves, and line the virtual room up with the real one.</p>
-  <p class="beat__stmt" style="margin-top:var(--s6)">When there was no pattern to follow, people's behavior showed us what the pattern should be.</p>
+<!-- 04 -->
+<div class="lsw-band lsw-step lsw-step--last">
+  <div class="lsw-stepcard lsw-stepcard--flip">
+    <figure class="lsw-shot lsw-shot--04">
+      <img src="../media/ar/ar-view.png" alt="The AR walkthrough on a phone: the proposed room seen at full scale with the controls faded away" width="718" height="1428">
+    </figure>
+    <div class="lsw-stepcard__text">
+      <div class="lsw-stephead">
+        <span class="lsw-stepnum">04</span>
+        <h3 class="lsw-steptitle">Get the interface out of the way</h3>
+      </div>
+      <p>Once placement was confirmed, the controls faded away so clients could focus on the design and explore it at full scale.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Learnings -->
+<section class="lsw-band lsw-learn">
+  <div class="lsw-learncard">
+    <div>
+      <h2 class="lsw-learncard__h">What I took forward</h2>
+      <p class="lsw-learncard__intro">This project changed how I think about designing with new technology. Three things from it have stayed with me:</p>
+    </div>
+    <div class="lsw-learngrid">
+      <div class="lsw-learnitem">
+        <p class="lsw-learnitem__n">01</p>
+        <h3 class="lsw-learnitem__t">Follow what feels natural</h3>
+        <p class="lsw-learnitem__d">Repeated behavior is a signal. Good interactions build on what people already expect.</p>
+      </div>
+      <div class="lsw-learnitem">
+        <p class="lsw-learnitem__n">02</p>
+        <h3 class="lsw-learnitem__t">Design for adjustment</h3>
+        <p class="lsw-learnitem__d">When precision is difficult, clear feedback and easy correction matter more than getting it right the first time.</p>
+      </div>
+      <div class="lsw-learnitem">
+        <p class="lsw-learnitem__n">03</p>
+        <h3 class="lsw-learnitem__t">Start with the human outcome</h3>
+        <p class="lsw-learnitem__d">New technology earns its place when it helps people understand and decide, not just when it feels impressive.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- Next project -->
-<div class="wide" style="margin-top:var(--sp-media-next)">
-  <hr class="rule">
-  <a class="next" href="multi-room-mobile-scan.html">
-    <svg class="signature" width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">
-      <path d="M25,80 L80,50 L80,10 L25,40 Z" fill="#F6F6F5" stroke="#17140F" stroke-width="0.9" stroke-linejoin="round"/>
-      <path d="M80,50 L135,80 L135,40 L80,10 Z" fill="none" stroke="#17140F" stroke-width="0.9" stroke-linejoin="round"/>
-      <path d="M80,50 L135,80 L80,110 L25,80 Z" fill="none" stroke="#17140F" stroke-width="0.8" stroke-linejoin="round"/>
-      <circle cx="84" cy="82" r="4" fill="#9E4E2C"/>
-      <path d="M84,82 L54,70" fill="none" stroke="#9E4E2C" stroke-width="1.5"/>
-      <path d="M54,70 L63,70 L59,76 Z" fill="#9E4E2C"/>
-    </svg>
-    <span>
-      <span class="mono">Next project</span><br>
-      <span class="display" style="font-size:var(--fs-title)">Multi-Room Scan →</span>
-    </span>
+<div class="lsw-band lsw-next">
+  <hr class="lsw-rule">
+  <a class="lsw-nextlink" href="multi-room-mobile-scan.html">
+    <span class="lsw-nextlink__k">Next project</span>
+    <span class="lsw-nextlink__t">Multi-Room Scan &rarr;</span>
   </a>
 </div>
 
 <!-- Footer -->
-<footer class="footer">
+<footer class="footer lsw-footwrap">
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
@@ -346,41 +516,5 @@
   </div>
 </footer>
 
-<!-- <script src="../scripts/site.js?v=5" defer></script> TOC disabled for now -->
-<script>
-// Walkthrough video: play only on screen, accessible play/pause, respect reduced motion
-(function () {
-  'use strict';
-  var v = document.querySelector('.screen-video video');
-  if (!v) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var userPaused = false;
-  var label = function () {
-    v.setAttribute('aria-label', (v.paused ? 'Play' : 'Pause') + ' the AR walkthrough video');
-  };
-  var toggle = function () {
-    if (v.paused) { userPaused = false; v.play().catch(function () {}); }
-    else { userPaused = true; v.pause(); }
-  };
-  v.setAttribute('tabindex', '0');
-  v.setAttribute('role', 'button');
-  v.addEventListener('click', toggle);
-  v.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-  });
-  v.addEventListener('play', label);
-  v.addEventListener('pause', label);
-  if (reduce) { v.autoplay = false; v.pause(); }
-  label();
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) { v.pause(); }
-        else if (!reduce && !userPaused) { v.play().catch(function () {}); }
-      });
-    }, { threshold: 0.25 }).observe(v);
-  }
-})();
-</script>
 </body>
 </html>

@@ -4,181 +4,388 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Roni Brot-Kolinkó - Product Designer</title>
-<meta name="description" content="Roni Brot-Kolinkó - a product designer who asks a lot of questions and cares deeply about how things feel.">
+<meta name="description" content="Hey! I'm Roni, a product designer, curious person, and someone who cares a lot about how things feel.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/tokens.css?v=38">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/tokens.css?v=130">
+<link rel="stylesheet" href="styles/main.css?v=130">
 <style>
-  /* ============================================================
-     Homepage - warm, editorial, minimal. A compact personal hero
-     followed immediately by the three Houzz Pro case studies as a
-     single, clearly labelled body of work. Shares the case-study
-     system (--media / --gutter / spacing tokens).
-     ============================================================ */
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.7;
-    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: hidden;
-  }
-  a { color: inherit; }
-  img { display: block; max-width: 100%; }
-  .bound { max-width: var(--media); margin-inline: auto; padding-inline: var(--gutter); }
+/* ============================================================
+   Homepage (from Figma node 875:1379 "Homepage + case study
+   hover"). Flat #f4f4f4 ground, one white card holding the
+   intro and the three project rows. The middle row in the
+   Figma frame is the HOVER state, reproduced here on :hover.
+   Prefixed hpx- so it stays scoped to this page.
+   ============================================================ */
 
-  /* --- Header (identical to the case-study .nav) --- */
-  .top { border-bottom: 1px solid var(--line); }
-  .top__inner { max-width: var(--media); margin-inline: auto; padding: 30px var(--gutter);
-    display: flex; justify-content: space-between; align-items: center; }
-  .top__name { font-family: var(--font-display); font-weight: 500; font-size: var(--fs-title); color: var(--title); text-decoration: none; }
-  .top__links a { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; margin-left: var(--s5); }
-  .top__links a:hover { color: var(--title); }
+body.hpx { background: #f4f4f4; }
 
-  /* --- Hero --- */
-  .hero { padding-top: 80px; }
-  .hero__line { font-family: var(--font-display); font-weight: 500; color: var(--title);
-    font-size: clamp(26px, 4.6vw, 48px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; max-width: 20ch; }
-  .hero__more { display: inline-block; margin-top: var(--s5);
-    font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
-    color: var(--accent); text-decoration: none; }
-  .hero__more:hover { text-decoration: underline; }
+/* Content locked to a 1016 column (72px sides at desktop) */
+.hpx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
 
-  /* --- Selected work: header directly on the page --------------- */
-  .work { margin-top: 56px; scroll-margin-top: var(--s6); }
-  .work__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
-    text-transform: uppercase; color: var(--muted); margin: 0 0 var(--s4); }
-  .work__h { font-family: var(--font-display); font-weight: 500; color: var(--title);
-    font-size: clamp(23px, 3vw, 31px); line-height: 1.2; margin: 0; max-width: 20ch; }
-  .work__intro { font-family: var(--font-body); font-size: 15px; color: var(--muted);
-    line-height: 1.6; margin: var(--s4) 0 var(--s4); max-width: 58ch; }
-  .work__ctx { display: inline-block; font-family: var(--font-mono); font-size: 13px;
-    letter-spacing: .04em; color: var(--accent); text-decoration: none; }
-  .work__ctx:hover { text-decoration: underline; }
 
-  /* --- Three projects as one labelled list --------------------- */
-  .proj-list { list-style: none; margin: var(--s7) 0 0; padding: 0; border-top: 1px solid var(--line); }
-  .proj-list li { border-bottom: 1px solid var(--line); }
-  .proj { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s5);
-    padding: clamp(24px, 3vw, 36px) 0; text-decoration: none;
-    transition: transform .24s cubic-bezier(.62,0,.34,1); }
-  .proj__body { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
-  .proj__kick { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
-  .proj__stage { font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em;
-    text-transform: uppercase; color: var(--accent); }
-  .proj__plat { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
-    text-transform: uppercase; color: var(--muted); }
-  .proj__title { font-family: var(--font-display); font-weight: 500; color: var(--title);
-    font-size: clamp(20px, 2.6vw, 27px); line-height: 1.22; transition: color .2s ease; }
-  .proj__desc { font-family: var(--font-body); font-size: 14px; color: var(--muted);
-    line-height: 1.55; max-width: 56ch; }
-  .proj__arrow { font-family: var(--font-body); font-size: 22px; color: var(--muted);
-    flex: 0 0 auto; transition: color .2s ease, transform .24s cubic-bezier(.62,0,.34,1); }
-  .proj:hover { transform: translateX(6px); }
-  .proj:hover .proj__title { color: var(--accent); }
-  .proj:hover .proj__arrow { color: var(--accent); transform: translateX(4px); }
-  @media (hover: none) { .proj:hover { transform: none; } }
+/* --- Hero --- */
+.hpx-hero { padding-top: 80px; }
+.hpx-hero h1 { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(34px, 5.4vw, 64px); line-height: 1.25; letter-spacing: -.01em;
+  color: var(--title); margin: 0; }
 
-  /* --- Closing: a warm, concise "Let's talk" ------------------- */
-  .close { margin-top: 96px; border-top: 1px solid var(--line); padding: 56px 0 64px; }
-  .close__h { font-family: var(--font-display); font-weight: 500; color: var(--title);
-    font-size: clamp(24px, 3.4vw, 34px); line-height: 1.15; margin: 0; }
-  .close__line { font-family: var(--font-body); font-size: 15px; color: var(--text);
-    line-height: 1.6; margin: var(--s4) 0 var(--s5); max-width: 46ch; }
-  .close__links { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); align-items: baseline; }
-  .close__links a { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
-    color: var(--muted); text-decoration: none; }
-  .close__links a:hover { color: var(--accent); }
+/* Small mono link with a travelling arrow */
+.hpx-arrowlink { display: inline-flex; align-items: baseline; gap: 6px;
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
+  color: var(--accent); text-decoration: none; margin-top: 24px;
+  transition: color 160ms ease; }
+.hpx-arrowlink i { font-style: normal; transition: transform 200ms cubic-bezier(.22, 1, .36, 1); }
+.hpx-arrowlink:hover, .hpx-arrowlink:focus-visible { color: var(--title); }
+.hpx-arrowlink:hover i, .hpx-arrowlink:focus-visible i { transform: translateX(4px); }
 
-  @media (max-width: 640px) {
-    .top__inner { padding: 22px var(--gutter); }
-    .hero { padding-top: 56px; }
-    .hero__line { font-size: clamp(23px, 6.4vw, 32px); }
-    .work { margin-top: 48px; }
-    .proj { grid-template-columns: 1fr; gap: var(--s3); }
-    .proj__arrow { display: none; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .proj, .proj__arrow { transition: none; }
-  }
+/* --- The work card --- */
+.hpx-card { margin-top: 68px; border: 1px solid var(--line); border-radius: 12px;
+  scroll-margin-top: 24px; }
+.hpx-intro { background: #fff; border-bottom: 1px solid var(--line);
+  border-radius: 12px 12px 0 0; padding: 48px 40px; }
+.hpx-intro h2 { font-family: var(--font-display); font-weight: 300; font-size: 32px;
+  line-height: 1.2; color: var(--title); margin: 0; max-width: 685px; }
+.hpx-intro p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 16px 0 0; max-width: 692px; }
+
+/* Outlined pill that fills in on hover */
+.hpx-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+  border: 1px solid var(--accent); border-radius: 4px; padding: 8px 12px;
+  font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
+  color: var(--accent); text-decoration: none;
+  transition: background-color 180ms ease, color 180ms ease; }
+.hpx-btn i { font-style: normal; transition: transform 200ms cubic-bezier(.22, 1, .36, 1); }
+.hpx-btn:hover, .hpx-btn:focus-visible { background: var(--accent); color: #fff; }
+.hpx-btn:hover i, .hpx-btn:focus-visible i { transform: translateX(3px); }
+
+/* --- Project rows --- */
+.hpx-list { background: #fff; border-radius: 0 0 12px 12px; padding: 0 40px 20px; }
+.hpx-proj { display: block; text-decoration: none; padding-block: 20px;
+  border-bottom: 1px solid var(--line); }
+.hpx-proj:last-child { border-bottom: 0; }
+/* The row itself carries the hover fill (Figma shows it on the middle project) */
+.hpx-projrow { padding: 12px 16px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  transition: background-color 200ms ease; }
+.hpx-proj:hover .hpx-projrow,
+.hpx-proj:focus-visible .hpx-projrow { background: #f8f6f2; }
+.hpx-proj:focus-visible { outline: none; }
+.hpx-proj:focus-visible .hpx-projrow { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.hpx-projbody { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 10px; }
+.hpx-kick { display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  font-family: var(--font-mono); text-transform: uppercase; }
+.hpx-kick b { font-weight: 400; font-size: 12px; letter-spacing: .1em; color: var(--accent); }
+.hpx-kick span { font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+.hpx-proj h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.22; color: var(--title); margin: 0; max-width: 599px;
+  transition: color 180ms ease; }
+.hpx-proj p { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  color: var(--text); margin: 0; }
+.hpx-arrow { flex: none; width: 32px; height: 32px; color: var(--title);
+  transition: transform 220ms cubic-bezier(.22, 1, .36, 1), color 180ms ease; }
+.hpx-proj:hover .hpx-arrow, .hpx-proj:focus-visible .hpx-arrow {
+  color: var(--accent); transform: translate(3px, -3px); }
+
+/* --- Let's talk --- */
+.hpx-close { margin-top: 68px; padding-bottom: 64px; }
+.hpx-close h2 { font-family: var(--font-display); font-weight: 300; font-size: 32px;
+  line-height: 1.15; color: var(--title); margin: 0; }
+.hpx-close > p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 16px 0 0; max-width: 440px; }
+.hpx-closelinks { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 24px; }
+.hpx-closelinks a { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
+  color: var(--muted); text-decoration: none; transition: color 160ms ease; }
+.hpx-closelinks a:hover, .hpx-closelinks a:focus-visible { color: var(--accent); }
+
+/* ============================================================
+   Editor's notes: five segments of the hero title reveal a
+   tilted note card on hover, over a warm accent overlay.
+   Geometry comes straight from the Figma hover frames - each
+   card is placed by its rotation-invariant CENTRE relative to
+   the title's top-left, then rotated, so the tilt lands exactly
+   where it does in the design.
+   ============================================================ */
+
+.hpx-titlewrap { position: relative; }
+
+/* The hoverable words */
+.hpx-seg { position: relative; cursor: help;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+  text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.hpx-seg.is-on { color: var(--accent); text-decoration-color: var(--accent); z-index: 45; }
+
+/* Warm wash over the page while a note is open */
+.hpx-overlay { position: fixed; inset: 0; background: rgba(158, 78, 44, .35);
+  opacity: 0; pointer-events: none; z-index: 40; transition: opacity 260ms ease; }
+body.hpx-dim .hpx-overlay { opacity: 1; }
+
+/* The cards themselves - decorative, so they never steal the hover */
+.hpx-notes { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
+.hpx-note { position: absolute; display: flex; align-items: stretch; overflow: hidden;
+  background: #fff; border: 1px solid var(--accent); border-radius: 8px;
+  box-shadow: 16px 16px 0 0 rgba(158, 78, 44, .3);
+  opacity: 0; visibility: hidden;
+  transform: translateY(-50%) rotate(var(--rot)) translateY(12px) scale(.97);
+  transition: opacity 240ms ease, transform 380ms cubic-bezier(.22, 1, .36, 1),
+              visibility 0s linear 240ms; }
+.hpx-note.is-on { opacity: 1; visibility: visible;
+  transform: translateY(-50%) rotate(var(--rot)) translateY(0) scale(1);
+  transition: opacity 240ms ease, transform 460ms cubic-bezier(.22, 1, .36, 1), visibility 0s; }
+
+/* Vertical "- Editor's Note -" rail */
+.hpx-note__rail { flex: none; width: 46px; display: flex; align-items: center;
+  justify-content: center; border-right: 1px dashed rgba(158, 78, 44, .4); }
+.hpx-note__rail span { writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--font-mono); font-size: var(--rail, 13px); line-height: 1.22;
+  letter-spacing: .11em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+
+.hpx-note__body { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column;
+  align-items: stretch; justify-content: center; gap: 12px; padding: 16px 24px; }
+.hpx-note__body img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.hpx-note__body p { font-family: var(--font-display); font-weight: 300; font-style: italic;
+  font-size: 20px; line-height: 1.22; color: var(--accent); margin: 0; text-align: left; }
+
+/* Placement: left = centre - half the width; top = the Figma centre Y, with the
+   card translated up by half its own height. min-height keeps the designed size
+   as a floor while letting real text push the card taller. */
+.hpx-note--hi       { --rot: -5.04deg; --rail: 12px; width: 336px; left: 161px; top: 297px; }
+
+.hpx-note--hi p     { font-size: 29px; }
+.hpx-note--designer { --rot: 6.78deg;  width: 360px; min-height: 227px; left: 543px; top: 208px; }
+.hpx-note--curious  { --rot: 4.97deg;  width: 507px; left: 4px;   top: 385px; }
+
+.hpx-note--curious img { border-radius: 6px; }
+.hpx-note--cares    { --rot: -5.04deg; width: 507px; min-height: 250px; left: -41px; top: 398px; }
+/* dropped below the Figma centre so the tilted top-left corner clears the
+   title line it belongs to, instead of covering the hovered words */
+.hpx-note--feel     { --rot: 5.10deg;  --rail: 12px; width: 431px; left: 574px; top: 482px; }
+
+/* The three cards with a photo hug their content and share one padding, so the
+   image sits exactly the same distance from the top on each of them */
+.hpx-note--hi .hpx-note__body,
+.hpx-note--curious .hpx-note__body,
+.hpx-note--feel .hpx-note__body { padding: 24px; }
+.hpx-note--feel img { border-radius: 0; }
+
+/* The card positions come from Figma's 1016px column with a 64px title.
+   Below that width the column narrows, so JS sets --hpx-k = column / 1016 and
+   we size the title in exact proportion - that keeps the line breaks identical
+   to the design - then scale the cards by the same k. One factor, so a card
+   stays locked over its words at every width. The class is only added once JS
+   has measured, so without JS the title keeps its normal responsive clamp. */
+body.hpx-scaled .hpx-hero h1 { font-size: calc(64px * var(--hpx-k)); }
+body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0 0; }
+
+/* Too narrow for the title to hold its shape, or no real pointer - stand down */
+@media (max-width: 759px), (hover: none), (pointer: coarse) {
+  .hpx-notes, .hpx-overlay { display: none; }
+  .hpx-seg { cursor: inherit; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hpx-note { transition: opacity 200ms ease, visibility 0s linear 200ms;
+    transform: translateY(-50%) rotate(var(--rot)); }
+  .hpx-note.is-on { transform: translateY(-50%) rotate(var(--rot));
+    transition: opacity 200ms ease, visibility 0s; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .hpx-intro { padding: 36px 24px; }
+  .hpx-list { padding: 0 24px 16px; }
+  .hpx-projrow { padding: 12px; }
+  .hpx-hero { padding-top: 56px; }
+  .hpx-card, .hpx-close { margin-top: 48px; }
+}
+@media (max-width: 560px) {
+  .hpx-projrow { align-items: flex-start; }
+  .hpx-arrow { width: 24px; height: 24px; }
+  .hpx-proj h3 { font-size: 20px; }
+  .hpx-close h2 { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hpx-arrowlink i, .hpx-btn i, .hpx-arrow, .hpx-projrow { transition: none; }
+  .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow { transform: none; }
+}
 </style>
 </head>
-<body>
+<body class="hpx">
 
-  <header class="top">
-    <div class="top__inner">
-      <a class="top__name" href="index.html">Roni Brot-Kolinkó</a>
-      <nav class="top__links"><a href="/about">About</a></nav>
-    </div>
-  </header>
+<div class="hpx-overlay" aria-hidden="true"></div>
 
-  <main>
-    <section class="hero bound">
-      <p class="hero__line">Hey! I'm Roni - a product designer, curious person, and someone who cares a lot about how things feel.</p>
-      <a class="hero__more" href="/about">More about me →</a>
-    </section>
+<!-- Nav -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a class="nav__name" href="index.html">Roni Brot-Kolinkó</a>
+    <span class="nav__links">
+      <a href="#work">Work</a>
+      <a href="/about">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
+  </div>
+</nav>
 
-    <section class="work bound" id="work" aria-label="Selected work">
-      <p class="work__label">Selected work</p>
-      <h2 class="work__h">Designing across the 3D Floor Plans journey</h2>
-      <p class="work__intro">Three projects from my work on Houzz Pro - from capturing a space to presenting it at full scale.</p>
-      <a class="work__ctx" href="work/houzz-3d-floor-plans.html">About Houzz Pro →</a>
+<main class="hpx-band">
 
-      <ul class="proj-list">
-        <li>
-          <a class="proj" href="work/multi-room-mobile-scan.html">
-            <span class="proj__body">
-              <span class="proj__kick">
-                <span class="proj__stage">01 · Capture</span>
-                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Mobile</span>
-              </span>
-              <span class="proj__title">Turning room-by-room scans into one connected floor plan</span>
-              <span class="proj__desc">Mobile capture, in-scan interactions, and a connected multi-room flow.</span>
-            </span>
-            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj" href="work/floor-plan-onboarding.html">
-            <span class="proj__body">
-              <span class="proj__kick">
-                <span class="proj__stage">02 · Build &amp; Refine</span>
-                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Web</span>
-              </span>
-              <span class="proj__title">Guiding users through a complex floor-planning workspace</span>
-              <span class="proj__desc">Onboarding that teaches the tools by doing, toward a first finished plan.</span>
-            </span>
-            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-        <li>
-          <a class="proj" href="work/ar-walkthrough.html">
-            <span class="proj__body">
-              <span class="proj__kick">
-                <span class="proj__stage">03 · Present</span>
-                <span class="proj__plat">Houzz Pro · 3D Floor Plans · Mobile AR</span>
-              </span>
-              <span class="proj__title">From floor plan to life-sized walkthrough</span>
-              <span class="proj__desc">An AR experience that places the proposal in the room at full scale.</span>
-            </span>
-            <span class="proj__arrow" aria-hidden="true">&rarr;</span>
-          </a>
-        </li>
-      </ul>
-    </section>
+  <!-- Hero -->
+  <section class="hpx-hero">
+    <div class="hpx-titlewrap">
+      <h1>Hey! <span class="hpx-seg" data-note="hi">I'm Roni</span>, a <span class="hpx-seg" data-note="designer">product designer</span>, <span class="hpx-seg" data-note="curious">curious person</span>, and someone who <span class="hpx-seg" data-note="cares">cares a lot</span> about <span class="hpx-seg" data-note="feel">how things feel.</span></h1>
 
-    <section class="close bound">
-      <h2 class="close__h">Let's talk</h2>
-      <p class="close__line">Always happy to talk about design, products, or the questions behind them.</p>
-      <div class="close__links">
-        <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
-        <a href="#">LinkedIn</a>
-        <a href="assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
+      <div class="hpx-notes">
+        <figure class="hpx-note hpx-note--hi" data-note="hi">
+          <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
+          <span class="hpx-note__body">
+            <img src="media/notes/note-hi.png" alt="Roni at her desk, leaning back in the chair with a cat curled up underneath" width="778" height="1024">
+            <p>Hi &#128075;</p>
+          </span>
+        </figure>
+
+        <figure class="hpx-note hpx-note--designer" data-note="designer">
+          <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
+          <span class="hpx-note__body">
+            <p>Product design is mostly complicated problems and people who see them differently. Conveniently, I like both.</p>
+          </span>
+        </figure>
+
+        <figure class="hpx-note hpx-note--curious" data-note="curious">
+          <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
+          <span class="hpx-note__body">
+            <img src="media/notes/note-oils.png" alt="Bottles of essential oils beside handwritten aromatherapy notes" width="1024" height="683">
+            <p>There's probably an oil for that.<br>I probably have it.</p>
+          </span>
+        </figure>
+
+        <figure class="hpx-note hpx-note--cares" data-note="cares">
+          <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
+          <span class="hpx-note__body">
+            <p>I have strong opinions about horror movies, DOS games, synthesizers, and vacuuming as therapy.<br>I also take karaoke very seriously.</p>
+          </span>
+        </figure>
+
+        <figure class="hpx-note hpx-note--feel" data-note="feel">
+          <span class="hpx-note__rail"><span>- Editor's Note -</span></span>
+          <span class="hpx-note__body">
+            <img src="media/notes/note-sheep.png" alt="Roni crouching among a flock of sheep at an animal sanctuary" width="1024" height="768">
+            <p>I get attached easily - to people and to animals. This is, in my humble opinion, the correct sheep-to-person ratio.</p>
+          </span>
+        </figure>
       </div>
-    </section>
-  </main>
+    </div>
+
+    <a class="hpx-arrowlink" href="/about">More about me <i aria-hidden="true">&rarr;</i></a>
+  </section>
+
+  <!-- Selected work -->
+  <section class="hpx-card" id="work" aria-label="Selected work">
+    <div class="hpx-intro">
+      <h2>Designing across the 3D Floor Plans journey</h2>
+      <p>Three projects from my work on Houzz Pro - from capturing a space to presenting it at full scale.</p>
+      <a class="hpx-btn" href="work/houzz-3d-floor-plans.html">About Houzz Pro <i aria-hidden="true">&rarr;</i></a>
+    </div>
+
+    <div class="hpx-list">
+      <a class="hpx-proj" href="work/multi-room-mobile-scan.html">
+        <span class="hpx-projrow">
+          <span class="hpx-projbody">
+            <span class="hpx-kick"><b>01 Capture</b><span>Houzz Pro &middot; 3D Floor Plans &middot; Mobile</span></span>
+            <h3>Turning room-by-room scans into one connected floor plan</h3>
+            <p>Mobile capture, in-scan interactions, and a connected multi-room flow.</p>
+          </span>
+          <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="hpx-proj" href="work/floor-plan-onboarding.html">
+        <span class="hpx-projrow">
+          <span class="hpx-projbody">
+            <span class="hpx-kick"><b>02 Build &amp; Refine</b><span>Houzz Pro &middot; 3D Floor Plans &middot; Web</span></span>
+            <h3>Guiding users through a complex floor-planning workspace</h3>
+            <p>Onboarding that teaches the tools by doing, toward a first finished plan.</p>
+          </span>
+          <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+
+      <a class="hpx-proj" href="work/ar-walkthrough.html">
+        <span class="hpx-projrow">
+          <span class="hpx-projbody">
+            <span class="hpx-kick"><b>03 Present</b><span>Houzz Pro &middot; 3D Floor Plans &middot; Mobile AR</span></span>
+            <h3>From floor plan to life-sized walkthrough</h3>
+            <p>An AR experience that places the proposal in the room at full scale.</p>
+          </span>
+          <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Let's talk -->
+  <section class="hpx-close">
+    <h2>Let's talk</h2>
+    <p>Always happy to talk about design, products, or the questions behind them.</p>
+    <div class="hpx-closelinks">
+      <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
+      <a href="#">LinkedIn</a>
+      <a href="assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+// Hovering a title segment reveals its editor's note over a warm overlay.
+// Only where there is a real pointer and the desktop title layout, since the
+// cards are positioned against that exact line-breaking.
+(function () {
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var wide = window.matchMedia('(min-width: 760px)');
+  var segs = document.querySelectorAll('.hpx-seg');
+  var wrap = document.querySelector('.hpx-titlewrap');
+  var open = null;
+
+  var close = function () {
+    if (!open) return;
+    open.seg.classList.remove('is-on');
+    open.note.classList.remove('is-on');
+    document.body.classList.remove('hpx-dim');
+    open = null;
+  };
+
+  Array.prototype.forEach.call(segs, function (seg) {
+    var note = document.querySelector('.hpx-note[data-note="' + seg.dataset.note + '"]');
+    if (!note) return;
+    seg.addEventListener('mouseenter', function () {
+      if (!wide.matches) return;
+      close();
+      seg.classList.add('is-on');
+      note.classList.add('is-on');
+      document.body.classList.add('hpx-dim');
+      open = { seg: seg, note: note };
+    });
+    seg.addEventListener('mouseleave', close);
+  });
+
+  // Keep the title and the cards on one shared scale factor
+  function sync() {
+    if (!wide.matches) { document.body.classList.remove('hpx-scaled'); close(); return; }
+    document.body.classList.add('hpx-scaled');
+    // the wrapper is a block, so its width is the column width regardless of font-size
+    var k = Math.min(1, wrap.getBoundingClientRect().width / 1016);
+    document.body.style.setProperty('--hpx-k', k.toFixed(4));
+  }
+  sync();
+  window.addEventListener('resize', sync);
+  wide.addEventListener('change', sync);
+
+  // Never leave a note stranded if the pointer leaves the window mid-hover
+  window.addEventListener('blur', close);
+})();
+</script>
 
 </body>
 </html>

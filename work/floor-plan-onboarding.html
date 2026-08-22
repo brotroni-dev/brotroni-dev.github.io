@@ -7,9 +7,171 @@
 <meta name="description" content="From first step to confident planning - helping first-time users learn the 3D Floor Plans workspace through guided practice.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=114">
-<link rel="stylesheet" href="../styles/main.css?v=114">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=127">
+<link rel="stylesheet" href="../styles/main.css?v=127">
+<style>
+/* ============================================================
+   Floor Plan Onboarding - visual redesign (from Figma).
+   New system on this page: white ground, Fraunces Light headings,
+   full-bleed gray/taupe bands, white rounded cards per chapter,
+   and the existing animated tutorial composites reused inside.
+   Prefixed obx- so it stays scoped to this page.
+   ============================================================ */
+
+/* --- Shared band: background runs full-bleed (side to side); content is
+   centered and locked to a 1016 column (72px sides at desktop) --- */
+.obx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+/* Align the shared nav to the same 1016 column */
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.obx-band .obx-label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+
+/* Top meta line (under the nav) */
+.obx-metabar { padding-block: 20px; }
+.obx-meta { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); }
+
+/* Opener: Fraunces Light title + lead */
+.obx-opener { padding-top: 32px; padding-bottom: 12px; }
+.obx-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title); max-width: 920px; margin: 0; }
+.obx-lead { font-family: var(--font-body); font-weight: 400; font-size: 16px;
+  line-height: 1.6; color: var(--text); max-width: 920px; margin: 24px 0 0; }
+
+/* Role bar */
+.obx-rolebar { padding-top: 20px; padding-bottom: 32px;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.obx-rule { width: 100%; height: 1px; border: 0; background: var(--line); margin: 0; }
+.obx-role { font-family: var(--font-mono); font-weight: 400; font-size: 12px;
+  letter-spacing: .04em; color: var(--muted); margin: 0; }
+.obx-role b { color: var(--accent); font-weight: 500; }
+
+/* Hero plate on the section's white -> #f6f6f5 gradient */
+.obx-hero { margin: 0; background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 0; }
+.obx-hero img { display: block; width: 100%; height: auto; }
+
+/* Context (gray band) */
+.obx-context { background: #f6f6f5; padding-block: 64px; }
+.obx-context__text { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); margin: 12px 0 0; }
+
+/* User voices (gradient wrapper white -> #f6f6f5, taupe panel + quote cards) */
+.obx-voices { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 72px 32px; }
+.obx-voicespanel { background: #dcd7cf; border-radius: 16px; padding: 64px 32px 32px;
+  display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.obx-voicespanel__head { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.obx-voicespanel__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.obx-voicespanel__h { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 0; }
+.obx-voicespanel__sub { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); max-width: 560px; margin: 0; }
+.obx-qcards { display: flex; gap: 20px; align-items: stretch; width: 100%; }
+.obx-qcard { flex: 1 1 0; background: #fff; border-radius: 12px; padding: 32px 24px;
+  display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.obx-qcard__mark { font-family: var(--font-display); font-weight: 600; font-size: 56px; line-height: .5; height: 22px; color: var(--accent); }
+.obx-qcard__text { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 16px; line-height: 1.5; color: var(--title); margin: 0; }
+
+/* Users / JTBD */
+.obx-uj { background: #f6f6f5; padding-block: 32px 72px; display: flex; gap: 24px; align-items: stretch; }
+.obx-ujcard { flex: 1 1 0; background: #fff; border-left: 1px solid var(--accent); border-radius: 0 12px 12px 0; padding: 32px 32px 32px 33px; }
+.obx-ujcard__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.obx-ujcard__text { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.28; color: var(--title); margin: 12px 0 0; }
+
+/* The problem (text + workspace) */
+.obx-problem { background: #f6f6f5; padding-block: 0 121px; display: flex; gap: 64px; align-items: center; }
+.obx-problem__text { flex: 0 0 369px; }
+.obx-problem__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 16px 0 0; }
+.obx-problem__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); margin: 16px 0 0; }
+.obx-problem__img { flex: 1 1 0; min-width: 0; }
+.obx-problem__img img { width: 100%; height: auto; display: block; border: 1px solid #e6e6e6; border-radius: 8px; }
+
+/* The goal (taupe card, overlapping up into the problem band) */
+.obx-goalwrap { margin-top: -47px; padding-bottom: 64px; position: relative; }
+.obx-goalcard { background: #dcd7cf; border-radius: 14px; padding: 32px; }
+.obx-goalcard__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.obx-goalcard__text { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.28; color: var(--title); margin: 12px 0 0; }
+
+/* Explorations (gradient band, label + title + description + 3 comparison cards) */
+.obx-explore { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 32px; }
+.obx-explore__head { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.obx-explore__h { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 0; }
+.obx-explore__desc { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 16px 0 0; max-width: 660px; }
+.obx-lmgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+.obx-lmcard { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.obx-lmcard__t { font-family: var(--font-display); font-weight: 400; font-size: 18px; line-height: 1.2; color: var(--title); margin: 0; }
+.obx-lmcard__d { font-family: var(--font-body); font-size: 16px; line-height: 1.45; color: var(--text); margin: 0; }
+.obx-lmcard__img { width: 100%; aspect-ratio: 296 / 189; overflow: hidden; border-radius: 4px; margin-top: auto; }
+.obx-lmcard__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Chosen direction (gray band, text + workspace image) */
+.obx-chosen { background: #f6f6f5; padding-block: 72px; display: flex; gap: 64px; align-items: center; }
+.obx-chosen__text { flex: 1 1 0; min-width: 0; }
+.obx-chosen__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.obx-chosen__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 12px 0 0; max-width: 520px; }
+.obx-chosen__img { flex: 0 0 468px; max-width: 50%; }
+.obx-chosen__img img { width: 100%; height: auto; display: block; border: 1px solid #e6e6e6; border-radius: 6px; }
+
+/* Chapters: full-bleed gray band -> white card -> header + intro + workspace panel */
+.obx-chapter { background: #f4f4f4; padding-block: 16px; }
+.obx-card { background: #fff; border-radius: 16px; padding: 32px; }
+.obx-chead { display: flex; align-items: baseline; gap: 12px; margin: 0 0 6px; }
+.obx-cnum { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1; color: var(--accent); }
+.obx-ctitle { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.2; color: var(--title); margin: 0; }
+.obx-cintro { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 8px 0 0; max-width: 820px; }
+/* Chapter design panel: the Figma taupe workspace image sits inside the HTML
+   card (header/intro stay real text); the GIF overlays only the demo box */
+.obx-chapfig { position: relative; margin: 24px 0 0; line-height: 0; }
+.obx-chapimg { display: block; width: 100%; height: auto; }
+.obx-gif { position: absolute; display: block; object-fit: fill; border: 0; }
+.obx-panel { background: #dcd7cf; border-radius: 12px; padding: 32px; margin-top: 24px; }
+.obx-prow { display: flex; gap: 32px; align-items: center; }
+.obx-prow + .obx-prow { margin-top: 32px; }
+.obx-pcap { flex: 0 0 210px; font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--text); margin: 0; }
+.obx-pvis { flex: 1 1 0; min-width: 0; }
+
+/* Between sessions opener */
+.obx-between { padding-block: 64px 24px; }
+.obx-between h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 12px 0 0; }
+.obx-between p { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 12px 0 0; max-width: 640px; }
+
+/* Leaving / Returning taupe panel */
+.obx-lr { padding-bottom: 16px; }
+.obx-lrpanel { background: #dcd7cf; border-radius: 16px; padding: 32px; display: flex; gap: 32px; }
+.obx-lrcol { flex: 1 1 0; min-width: 0; }
+.obx-lrcol h3 { font-family: var(--font-display); font-weight: 400; font-size: 18px; line-height: 1.2; color: var(--title); margin: 0 0 8px; }
+.obx-lrcol p { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); margin: 0 0 16px; }
+.obx-lrcol img { width: 100%; height: auto; display: block; border-radius: 8px; }
+
+/* Completion (framed final workspace with the Tutorial-complete panel) */
+.obx-complete { padding-block: 32px 0; }
+.obx-completeframe { margin: 0; position: relative; line-height: 0; }
+.obx-completeframe > img { display: block; width: 100%; height: auto; }
+
+/* Outcome (gradient band, result with rust left border) */
+.obx-outcome { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 72px 32px; }
+.obx-outcome__result { border-left: 3px solid var(--accent); padding-left: 24px; margin-top: 10px; }
+.obx-outcome__h { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.32; color: var(--title); margin: 0 0 16px; max-width: 640px; }
+.obx-outcome__result p { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 0; max-width: 780px; }
+.obx-outcome__result p + p { margin-top: 6px; }
+
+/* Learnings (gray band -> white card, 3 columns) */
+.obx-learn { background: #f4f4f4; padding-block: 72px; }
+.obx-learncard { background: #fff; border-radius: 16px; padding: 40px; }
+.obx-learncard__h { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 0; }
+.obx-learncard__intro { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 12px 0 0; max-width: 700px; }
+.obx-learngrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+.obx-learnitem { border-top: 1px solid var(--accent); padding-top: 12px; }
+.obx-learnitem__n { font-family: var(--font-mono); font-size: 13px; color: var(--accent); margin: 0 0 6px; }
+.obx-learnitem__t { font-family: var(--font-display); font-weight: 400; font-size: 18px; line-height: 1.2; color: var(--title); margin: 0 0 8px; }
+.obx-learnitem__d { font-family: var(--font-body); font-size: 16px; line-height: 1.55; color: var(--text); margin: 0; }
+
+@media (max-width: 720px) {
+  .obx-qcards, .obx-uj { flex-direction: column; }
+  .obx-problem, .obx-chosen, .obx-prow, .obx-lrpanel { flex-direction: column; align-items: stretch; gap: 24px; }
+  .obx-problem { padding-bottom: 72px; }
+  .obx-problem__text, .obx-chosen__img { flex: 1 1 auto; max-width: 100%; }
+  .obx-learngrid, .obx-lmgrid { grid-template-columns: 1fr; gap: 24px; }
+}
+</style>
 </head>
 <body>
 
@@ -17,367 +179,246 @@
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="#">About</a></span>
+    <span class="nav__links">
+      <a href="../index.html#work">Work</a>
+      <a href="/about">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
   </div>
 </nav>
 
-<!-- Hero (shared case-study structure): meta -> title -> lead -> divider -> role -> media -->
-<header class="cs-hero">
-  <div class="ctx-bar">
-    <span class="ctx-bar__meta">Houzz Pro &middot; 3D Floor Plans &middot; Web</span>
-    <a class="ctx-bar__link" href="houzz-3d-floor-plans.html">About Houzz Pro &amp; 3D Floor Plans &rarr;</a>
-  </div>
-  <h1 class="cs-hero__title">Helping users get started with 3D Floor Plans</h1>
-  <p class="cs-hero__lead">3D Floor Plans offered a powerful set of tools, but for a first-time user, the blank workspace made it difficult to know where to begin. Onboarding mattered because users needed more than an introduction to individual features - they needed a clear path to completing a first plan and enough confidence to continue working on their own.</p>
+<!-- Meta line -->
+<div class="obx-band obx-metabar">
+  <span class="obx-meta">HOUZZ PRO &middot; 3D FLOOR PLANS &middot; WEB</span>
+</div>
+
+<!-- Opener: title + lead -->
+<header class="obx-band obx-opener">
+  <h1 class="obx-title">Helping users get started with 3D Floor Plans</h1>
+  <p class="obx-lead">3D Floor Plans Onboarding let renovation pros learn the core tools inside a ready-made plan, so they could practice with guidance and continue on their own.</p>
 </header>
-<div class="cs-ov">
-  <hr class="cs-ov__rule">
-  <p class="cs-ov__role"><b>My Role</b> / Product Designer</p>
-  <hr class="cs-ov__rule">
-</div>
-<div class="cs-heromedia">
-  <figure class="hero-shot"><img src="../media/onboarding/complete-hero.png" alt="The completed onboarding in the Houzz Pro workspace: a Congratulations modal beside the finished 3D dollhouse floor plan"></figure>
+
+<!-- Role bar -->
+<div class="obx-band obx-rolebar">
+  <hr class="obx-rule">
+  <p class="obx-role"><b>My Role</b> / Product Designer</p>
 </div>
 
-<!-- Problem & Goal - native cards in the site type system -->
-<!-- 1 · Context & problem -->
-<section class="reading section first-section" id="problem" data-toc="Problem">
-  <h2 class="display">Powerful tools, no clear first step</h2>
-  <p style="margin-top:var(--s4)">3D Floor Plans gave pros a powerful set of tools. But for a first-time user, the blank workspace made it hard to know where to begin - they could see every feature and still not know which action to start with, how the tools connected, or whether they were doing it right.</p>
+<!-- Hero plate -->
+<div class="obx-band obx-hero">
+  <img src="../media/onboarding/hero-plate.png" alt="The 3D Floor Plans onboarding tutorial: a series of guided tooltip cards leading a first-time user from adding items to viewing the finished plan in 3D">
+</div>
+
+<!-- Context -->
+<section class="obx-band obx-context">
+  <p class="obx-label">Context</p>
+  <p class="obx-context__text">Built for renovation professionals, Houzz Pro's 3D Floor Planner is a simpler alternative to traditional CAD tools. It lets pros create and present 2D and 3D designs using real products from Houzz's catalog, with the long-term vision of turning those designs directly into project estimates.</p>
 </section>
 
-<!-- 2 · What users needed (the research) -->
-<div class="wide" id="needs" data-toc="User voices" style="margin-top:var(--s4)">
-  <div class="needs-panel">
-    <p class="needs-panel__label">User voices</p>
-    <h2 class="display">Where first-time users got stuck</h2>
-    <p class="needs-panel__sub">Watching first-time users, the same needs kept surfacing: a clear first step, a safe way to practice, and confidence that each action led somewhere.</p>
-    <div class="fan">
-      <figure class="qcard">
-        <div class="qcard__mark" aria-hidden="true">&ldquo;</div>
-        <p class="qcard__text">I can see all the tools, but I don't know what I'm supposed to do first.</p>
-      </figure>
-      <figure class="qcard">
-        <div class="qcard__mark" aria-hidden="true">&ldquo;</div>
-        <p class="qcard__text">I don't know if I'm learning the right thing, or just clicking around.</p>
-      </figure>
-      <figure class="qcard">
-        <div class="qcard__mark" aria-hidden="true">&ldquo;</div>
-        <p class="qcard__text">I want to try it without feeling like I might mess up a real plan.</p>
-      </figure>
+<!-- User voices -->
+<div class="obx-band obx-voices" id="needs" data-toc="User voices">
+  <div class="obx-voicespanel">
+    <div class="obx-voicespanel__head">
+      <p class="obx-voicespanel__label">User voices</p>
+      <p class="obx-voicespanel__h">Where first-time users got stuck</p>
+      <p class="obx-voicespanel__sub">Watching first-time users, the same needs kept surfacing: a clear first step, a safe way to practice, and confidence that each action led somewhere.</p>
+    </div>
+    <div class="obx-qcards">
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I can see all the tools...I don't know what I'm supposed to do first.</p></figure>
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I want to try it without feeling like I might mess up a real plan.</p></figure>
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">...I'm not sure if I'm doing the right thing or just clicking around.</p></figure>
     </div>
   </div>
 </div>
 
-<!-- 3 · Insight + Goal (paired colour cards, tight to the panel above) -->
-<div class="wide" id="insight" data-toc="Insight &amp; goal" style="margin-top:var(--s5)">
-  <div class="ig-pair">
-    <div class="ig-card ig-card--insight">
-      <p class="ig-card__label">The insight</p>
-      <p class="ig-card__stmt">The challenge wasn't finding a tool. It was knowing what came next.</p>
-      <p class="ig-card__note">The friction wasn't feature discovery. Users needed a sequence - where to begin, what to do next, and whether they were on the right track.</p>
+<!-- Users / JTBD -->
+<section class="obx-band obx-uj" id="insight" data-toc="Users &amp; goal">
+  <div class="obx-ujcard">
+    <p class="obx-ujcard__label">Users</p>
+    <p class="obx-ujcard__text">Renovation professionals who are experts in their craft but may be unfamiliar with 3D tools, leaving them unsure where to begin.</p>
+  </div>
+  <div class="obx-ujcard">
+    <p class="obx-ujcard__label">JTBD</p>
+    <p class="obx-ujcard__text">When I enter the Floor Planner, help me learn the core workflow by building something, so I can confidently create a real plan on my own.</p>
+  </div>
+</section>
+
+<!-- The problem -->
+<section class="obx-band obx-problem">
+  <div class="obx-problem__text">
+    <p class="obx-label">The problem</p>
+    <h2>Powerful tools were easy to miss</h2>
+    <p>The Floor Planner was designed as an accessible alternative to complex CAD software, but its first-use experience left users facing a blank canvas, with key tools spread across menus and no clear path to creating a plan.</p>
+  </div>
+  <div class="obx-problem__img">
+    <img src="../media/onboarding/problem-workspace.png" alt="The Floor Planner opening on an empty room outline, with tools spread across the toolbar and side panels">
+  </div>
+</section>
+
+<!-- The goal -->
+<div class="obx-band obx-goalwrap" id="goal">
+  <div class="obx-goalcard">
+    <p class="obx-goalcard__label">The goal</p>
+    <p class="obx-goalcard__text">Increase Floor Planner adoption by helping pros practice the core workflow so they could continue independently.</p>
+  </div>
+</div>
+
+<!-- Explorations (learning-model comparison) -->
+<section class="obx-band obx-explore" id="exploration" data-toc="Explorations">
+  <div class="obx-explore__head">
+    <p class="obx-label">Explorations</p>
+    <h2 class="obx-explore__h">Finding the right kind of guidance</h2>
+  </div>
+  <p class="obx-explore__desc">Houzz already had several onboarding patterns implemented across the product, but none suited the Floor Planner's open-ended canvas. We compared four approaches against three criteria: guidance had to stay close to the canvas, let users learn by doing, and leave room for exploration.</p>
+  <div class="obx-lmgrid">
+    <div class="obx-lmcard">
+      <p class="obx-lmcard__t">Tooltip Walkthrough</p>
+      <p class="obx-lmcard__d">Easy to build with existing components, but tied to fixed UI and unable to guide actions performed directly on the canvas.</p>
+      <div class="obx-lmcard__img"><img src="../media/onboarding/lm-tooltip.png" alt="A tooltip anchored to a fixed UI element, unable to point directly at the canvas"></div>
     </div>
-    <div class="ig-card ig-card--goal" id="goal">
-      <p class="ig-card__label">The goal</p>
-      <p class="ig-card__stmt">A clear path to a finished plan</p>
-      <p class="ig-card__note">Help first-time users practice the core workflow, complete a first plan, and build enough confidence to continue on their own.</p>
+    <div class="obx-lmcard">
+      <p class="obx-lmcard__t">Step by step wizard</p>
+      <p class="obx-lmcard__d">Provided a clear sequence, but felt rigid and took users out of the workspace instead of letting them practice in context.</p>
+      <div class="obx-lmcard__img"><img src="../media/onboarding/lm-wizard.png" alt="A step-by-step wizard modal sitting over the workspace"></div>
+    </div>
+    <div class="obx-lmcard">
+      <p class="obx-lmcard__t">Wiki page</p>
+      <p class="obx-lmcard__d">Kept each task in one scrollable flow, but only supported 2D and presented too much information before users could begin.</p>
+      <div class="obx-lmcard__img"><img src="../media/onboarding/lm-wiki.png" alt="A documentation-style page with a long scroll of instructions"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Chosen direction -->
+<section class="obx-band obx-chosen" id="design" data-toc="The design">
+  <div class="obx-chosen__text">
+    <p class="obx-label">Chosen direction</p>
+    <h2>A place to try things out</h2>
+    <p>We chose a hands-on flow built around a ready-made plan and divided it into four stages: navigating the canvas, using Select and Draw, adding products, and reviewing the result in 3D.</p>
+  </div>
+  <div class="obx-chosen__img">
+    <img src="../media/onboarding/chosen-workspace.png" alt="The Floor Plan mode workspace with a furnished sample plan, ready to practice on">
+  </div>
+</section>
+
+<!-- Chapter 01 -->
+<section class="obx-band obx-chapter" style="padding-top:32px" id="stages" data-toc="The stages">
+  <div class="obx-card">
+    <div class="obx-chead"><span class="obx-cnum">01</span><h2 class="obx-ctitle">Get comfortable with the canvas</h2></div>
+    <p class="obx-cintro">Starting with a ready-made plan removed the pressure of an empty canvas, especially for less tech-savvy users. Users could build confidence through simple actions before being asked to draw or make bigger changes.</p>
+    <div class="obx-panel">
+      <div class="obx-prow">
+        <p class="obx-pcap">Users first practiced zooming and moving around a furnished sample plan instead of starting from scratch.</p>
+        <div class="obx-pvis">
+          <figure class="obx-chapfig" style="margin:0">
+            <img class="obx-chapimg" src="../media/onboarding/ch01-nav1.png" alt="Navigation tutorial (1 of 2): zoom controls to explore the floor plan">
+          </figure>
+        </div>
+      </div>
+      <div class="obx-prow">
+        <p class="obx-pcap">They then selected an existing item and moved it, introducing direct canvas interaction without asking them to create anything yet.</p>
+        <div class="obx-pvis">
+          <figure class="obx-chapfig" style="margin:0">
+            <img class="obx-chapimg" src="../media/onboarding/ch01-nav2.png" alt="Navigation tutorial (2 of 2): use the Selection Tool to choose an item and drag it to a new position">
+            <img class="obx-gif" style="left:5.5%;top:46.2%;width:34.9%;height:34.9%" src="../media/onboarding/move-chair.gif" alt="Selecting an item and dragging it to a new position">
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chapter 02 -->
+<section class="obx-band obx-chapter">
+  <div class="obx-card">
+    <div class="obx-chead"><span class="obx-cnum">02</span><h2 class="obx-ctitle">Draw a room</h2></div>
+    <p class="obx-cintro">Next, users tried the Pen tool by drawing a room point by point.</p>
+    <figure class="obx-chapfig">
+      <img class="obx-chapimg" src="../media/onboarding/ch02-design.png" alt="The Pen Tool tutorial card beside the floor plan">
+      <img class="obx-gif" style="left:25.33%;top:50.99%;width:18.47%;height:24.88%" src="../media/onboarding/draw-room.gif" alt="Drawing a room point to point">
+    </figure>
+  </div>
+</section>
+
+<!-- Chapter 03 -->
+<section class="obx-band obx-chapter">
+  <div class="obx-card">
+    <div class="obx-chead"><span class="obx-cnum">03</span><h2 class="obx-ctitle">Find and add items</h2></div>
+    <p class="obx-cintro">Users added a door, a generic product, and a marketplace item, learning where to find each one as they worked. Items needed to sit fully inside the room, so the tutorial pointed out when something needed adjusting. We later added snapping as a temporary solution, making precise placement less demanding.</p>
+    <figure class="obx-chapfig">
+      <img class="obx-chapimg" src="../media/onboarding/ch03-design.png" alt="The Adding Items tutorial card beside the floor plan and the Baths product panel">
+      <img class="obx-gif" style="left:16.34%;top:50.45%;width:15.23%;height:14.18%" src="../media/onboarding/drag-bath.gif" alt="Placing an item inside the room">
+    </figure>
+  </div>
+</section>
+
+<!-- Chapter 04 -->
+<section class="obx-band obx-chapter">
+  <div class="obx-card">
+    <div class="obx-chead"><span class="obx-cnum">04</span><h2 class="obx-ctitle">Explore in 3D</h2></div>
+    <p class="obx-cintro">We saved the Dollhouse view for the end, where users could explore the space, resize items, change wall colors, and try different flooring.</p>
+    <figure class="obx-chapfig">
+      <img class="obx-chapimg" src="../media/onboarding/ch04-design.png" alt="The Viewing in 3D tutorial card beside the Dollhouse view and the Materials panel">
+    </figure>
+  </div>
+</section>
+
+<!-- Between sessions -->
+<section class="obx-band obx-between">
+  <p class="obx-label">Between sessions</p>
+  <h2>Users could stop and come back</h2>
+  <p>Progress was saved automatically, so users could leave at any point and return to the next unfinished step.</p>
+</section>
+
+<!-- Leaving / Returning -->
+<div class="obx-band obx-lr">
+  <div class="obx-lrpanel">
+    <div class="obx-lrcol">
+      <h3>Leaving</h3>
+      <p>If users wanted to leave midway, we reassured them that their progress was saved and they could return to complete the tutorial at any time.</p>
+      <img src="../media/onboarding/bs-leaving.png" alt="A Need to go? prompt over the workspace, reassuring the user their progress is saved and they can return any time">
+    </div>
+    <div class="obx-lrcol">
+      <h3>Returning</h3>
+      <p>The sample plan was saved to their Floor Plans dashboard, with their tutorial progress shown at the top so they could pick up where they left off.</p>
+      <img src="../media/onboarding/bs-returning.png" alt="The Floor Plans dashboard showing the saved Sample Floor Plan, with a banner reading 3 of 4 tutorial steps completed">
     </div>
   </div>
 </div>
 
-<!-- Where onboarding should live -->
-<section class="reading section" id="exploration" data-toc="Exploration">
-  <div class="eyebrow"><span class="eyebrow__t">Exploration</span></div>
-  <h2 class="display">Choosing the learning model</h2>
-  <p style="margin-top:var(--s4)">I explored four ways to introduce the workspace. The question wasn't just which pattern could explain the tools - it was which one could teach the workflow while users were still doing the work.</p>
-</section>
-<div class="wide section--tight">
-  <div class="lm-grid">
-    <div class="lm-card">
-      <h3 class="lm-card__name">Tooltip</h3>
-      <div class="lm-media">
-        <div class="lm-body">
-          <p class="lm-line"><span class="lm-k">Good for</span>Quick feature hints</p>
-          <p class="lm-line lm-line--miss"><span class="lm-k">Fell short</span>Didn't teach a sequence</p>
-        </div>
-        <div class="lm-illo" aria-hidden="true">
-          <svg viewBox="0 0 320 180" role="img" aria-label="A tooltip anchored to a feature on a dark canvas">
-            <rect width="320" height="180" rx="8" fill="#17140F"/>
-            <rect x="26" y="30" width="66" height="6" rx="3" fill="#4A463F"/>
-            <rect x="26" y="44" width="44" height="6" rx="3" fill="#3E3A34"/>
-            <rect x="72" y="74" width="116" height="58" rx="8" fill="#FFFFFF"/>
-            <rect x="88" y="90" width="72" height="7" rx="3.5" fill="#C9C7C3"/>
-            <rect x="88" y="103" width="52" height="6" rx="3" fill="#E4E3E1"/>
-            <rect x="128" y="114" width="44" height="12" rx="4" fill="#9E4E2C"/>
-            <path d="M188 100 l12 6 -12 6 z" fill="#FFFFFF"/>
-            <circle cx="224" cy="106" r="20" fill="#9E4E2C" opacity="0.18"/>
-            <circle cx="224" cy="106" r="9" fill="#9E4E2C"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="lm-card">
-      <h3 class="lm-card__name">Wizard</h3>
-      <div class="lm-media">
-        <div class="lm-body">
-          <p class="lm-line"><span class="lm-k">Good for</span>Structured progression</p>
-          <p class="lm-line lm-line--miss"><span class="lm-k">Fell short</span>Separated learning from the canvas</p>
-        </div>
-        <div class="lm-illo" aria-hidden="true">
-          <svg viewBox="0 0 320 180" role="img" aria-label="A modal dialog centered over a dark canvas">
-            <rect width="320" height="180" rx="8" fill="#17140F"/>
-            <rect x="84" y="40" width="152" height="100" rx="9" fill="#FFFFFF"/>
-            <rect x="104" y="60" width="88" height="8" rx="4" fill="#C9C7C3"/>
-            <rect x="104" y="76" width="112" height="6" rx="3" fill="#E4E3E1"/>
-            <rect x="104" y="88" width="96" height="6" rx="3" fill="#E4E3E1"/>
-            <rect x="104" y="106" width="112" height="6" rx="3" fill="#E4E3E1"/>
-            <rect x="104" y="106" width="56" height="6" rx="3" fill="#9E4E2C"/>
-            <rect x="160" y="118" width="56" height="14" rx="4" fill="#9E4E2C"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-    <div class="lm-card">
-      <h3 class="lm-card__name">One-pager</h3>
-      <div class="lm-media">
-        <div class="lm-body">
-          <p class="lm-line"><span class="lm-k">Good for</span>Persistent reference</p>
-          <p class="lm-line lm-line--miss"><span class="lm-k">Fell short</span>Pulled users away from the work</p>
-        </div>
-        <div class="lm-illo" aria-hidden="true">
-          <svg viewBox="0 0 320 180" role="img" aria-label="A help page with a numbered steps list beside content blocks">
-            <rect width="320" height="180" rx="8" fill="#F6F6F5"/>
-            <rect x="24" y="20" width="80" height="8" rx="4" fill="#76726B"/>
-            <line x1="38" y1="56" x2="38" y2="130" stroke="#ABA8A2" stroke-width="2"/>
-            <circle cx="38" cy="56" r="7" fill="#9E4E2C"/>
-            <rect x="54" y="52" width="72" height="7" rx="3.5" fill="#76726B"/>
-            <circle cx="38" cy="93" r="7" fill="#9B9891"/>
-            <rect x="54" y="89" width="58" height="7" rx="3.5" fill="#ABA8A2"/>
-            <circle cx="38" cy="130" r="7" fill="#9B9891"/>
-            <rect x="54" y="126" width="66" height="7" rx="3.5" fill="#ABA8A2"/>
-            <rect x="182" y="40" width="112" height="46" rx="6" fill="#FFFFFF" stroke="#C9C7C3" stroke-width="1.2"/>
-            <rect x="204" y="53" width="68" height="20" rx="3" fill="none" stroke="#9B9891" stroke-width="1.6"/>
-            <rect x="182" y="96" width="112" height="46" rx="6" fill="#FFFFFF" stroke="#C9C7C3" stroke-width="1.2"/>
-            <rect x="204" y="109" width="68" height="20" rx="3" fill="none" stroke="#9B9891" stroke-width="1.6"/>
-          </svg>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="lm-selected">
-    <div class="lm-selected__text">
-      <div class="lm-selected__head">
-        <h3 class="lm-selected__name">Sidebar</h3>
-        <span class="lm-badge">Selected</span>
-      </div>
-      <p>Guidance stayed beside the canvas, so users could read an instruction and immediately try it in the same workspace.</p>
-      <p class="lm-tradeoff"><span class="lm-k">Tradeoff</span>It added persistent UI to an already dense product, and took more investment to design well.</p>
-    </div>
-    <div class="lm-selected__illo" aria-hidden="true">
-      <svg viewBox="0 0 320 180" role="img" aria-label="A persistent sidebar beside the plan on the canvas">
-        <rect width="320" height="180" rx="8" fill="#FFFFFF"/>
-        <rect x="16" y="18" width="92" height="144" rx="7" fill="#F6F6F5"/>
-        <rect x="30" y="34" width="44" height="11" rx="4" fill="#9E4E2C"/>
-        <rect x="30" y="54" width="62" height="6" rx="3" fill="#9B9891"/>
-        <rect x="30" y="66" width="50" height="6" rx="3" fill="#C9C7C3"/>
-        <rect x="30" y="78" width="58" height="6" rx="3" fill="#C9C7C3"/>
-        <rect x="30" y="132" width="40" height="15" rx="4" fill="#9E4E2C"/>
-        <rect x="130" y="44" width="160" height="92" rx="4" fill="#F6F6F5"/>
-        <rect x="150" y="60" width="120" height="60" rx="3" fill="none" stroke="#76726B" stroke-width="2.5"/>
-      </svg>
-    </div>
-  </div>
-</div>
-<section class="reading section--tight" style="margin-top:var(--s5)">
-  <p>With the sidebar chosen, the next question became what users should learn first.</p>
-</section>
-
-<!-- The design: a guided practice space (compact solution overview + bridge) -->
-<section class="reading section" id="design" data-toc="The design">
-  <div class="eyebrow"><span class="eyebrow__t">The design</span></div>
-  <h2 class="display">A guided practice space inside the workspace</h2>
-  <p style="margin-top:var(--s4)">The sidebar became a small practice environment inside the real product: clear enough to give users a first action, but close enough to the canvas that every step translated directly into real work.</p>
-</section>
-<div class="wide" style="margin-top:var(--s6)">
-  <div class="flow">
-    <div class="flow__step"><span class="flow__num">01</span><div class="flow__name">Orient</div><p class="flow__desc">Find your way</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">02</span><div class="flow__name">Create</div><p class="flow__desc">Draw a room</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">03</span><div class="flow__name">Add items</div><p class="flow__desc">Add objects</p></div>
-    <span class="flow__arrow">→</span>
-    <div class="flow__step"><span class="flow__num">04</span><div class="flow__name">Review</div><p class="flow__desc">See it in 3D</p></div>
-  </div>
-</div>
-<!-- The onboarding flow -->
-<section class="reading section" id="flow">
-  <div class="eyebrow"><span class="eyebrow__t">The flow</span></div>
-  <h2 class="display">The experience, step by step</h2>
-  <p style="margin-top:var(--s4)">The complete path a first-time user moved through - from entry, through three guided stages, to a finished plan and back into real work.</p>
-</section>
-<div class="wide section--tight">
-  <div class="uflow">
-    <div class="uflow__lane">
-      <span class="uflow__node">Pro enters the dashboard</span>
-      <span class="uflow__arrow">&rarr;</span>
-      <span class="uflow__node uflow__node--key">Onboarding</span>
-      <span class="uflow__arrow">&rarr;</span>
-      <span class="uflow__node">Greeting + short intro</span>
-    </div>
-    <div class="uflow__stage">
-      <div class="uflow__stagehead"><span class="uflow__num">01</span> Navigation</div>
-      <div class="uflow__lane">
-        <span class="uflow__node">Floorplan mode</span><span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node">Dollhouse mode</span><span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node">Walkthrough mode</span>
-      </div>
-    </div>
-    <div class="uflow__stage">
-      <div class="uflow__stagehead"><span class="uflow__num">02</span> Tools</div>
-      <div class="uflow__lane">
-        <span class="uflow__node">Selection tool &middot; move items</span><span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node">Pen tool &middot; build a room</span>
-      </div>
-    </div>
-    <div class="uflow__stage">
-      <div class="uflow__stagehead"><span class="uflow__num">03</span> Adding items</div>
-      <div class="uflow__lane">
-        <span class="uflow__node">Structures &middot; add a door</span><span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node">Products &middot; generic item</span><span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node">Source &middot; marketplace item</span>
-      </div>
-    </div>
-    <div class="uflow__stage">
-      <div class="uflow__lane">
-        <span class="uflow__node uflow__node--done">Onboarding complete</span>
-        <span class="uflow__arrow">&rarr;</span>
-        <span class="uflow__node uflow__node--out">Continue this plan</span>
-        <span class="uflow__node uflow__node--out">New floor plan</span>
-        <span class="uflow__node uflow__node--out">Help resources</span>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- The four stages -->
-<section class="reading section" id="stages" data-toc="The stages">
-  <div class="eyebrow"><span class="eyebrow__t">The sequence</span></div>
-  <h2 class="display">The four stages</h2>
-  <p style="margin-top:var(--s4)">The sequence builds confidence one layer at a time. Users first learn to move around the workspace, select objects, and recover if they get lost - only then does it make sense to create a room. With structure in place, adding items has a clear context instead of feeling like another disconnected tool.</p>
-  <p>The tutorial ends in 3D because Review is both validation and payoff: users see that the actions they just learned produced a coherent, spatial result. Each stage prepares the next - control, creation, detail, and finally the complete plan.</p>
-</section>
-
-<!-- Stage 1 - Orient -->
-<div class="wide section">
-  <div class="stage__head"><span class="stage__num">01</span><span class="stage__name">Orient - establish control</span></div>
-  <p>Before asking users to build anything, we gave them a low-risk way to move, zoom, and orient, then to select and move an existing object. These actions were reversible by design - room to get comfortable before creating or changing the plan.</p>
-  <figure class="plate" style="margin-top:var(--s4)"><img src="../media/onboarding/navigation.png" alt="Navigation tutorial: zoom to center, zoom in, and zoom out; for mouse navigation, scroll to zoom and drag to move around the canvas"></figure>
-  <figure style="margin-top:var(--s4); --mleft:3.3%;--mtop:26.3%;--mw:24%; --gleft:5.1%;--gtop:49%;--gw:20.5%;--gh:19.5%;--gfit:cover;--gpos:center; --px:31.2%;--py:59.2%;--pw:5.5%">
-    <div class="fp-stage">
-      <img class="fp-base" src="../media/onboarding/selection-base.png" alt="">
-      <div class="fp-modal"><img src="../media/onboarding/selection-modal.png" alt="Selection Tool tutorial: pick elements and move them around"></div>
-      <img class="fp-gif" src="../media/onboarding/move-chair.gif" alt="Selecting and moving a chair in the tutorial preview">
-      <span class="fp-marker"></span>
-    </div>
+<!-- Completion -->
+<section class="obx-band obx-complete" id="outcome-lead">
+  <figure class="obx-completeframe">
+    <img src="../media/onboarding/completion-workspace.png" alt="Tutorial complete: a Congratulations message beside the finished 3D floor plan in Dollhouse view, inviting the user to start a new plan or keep practicing">
+    <img class="obx-gif" style="left:2%;top:40%;width:26%;height:30%;object-fit:contain" src="../media/onboarding/confetti.gif" alt="">
   </figure>
-</div>
-
-<!-- Stage 2 - Create -->
-<div class="wide section">
-  <div class="stage__head"><span class="stage__num">02</span><span class="stage__name">Create - draw a room</span></div>
-  <p>Once users could navigate and manipulate the canvas, the tutorial introduced the pen tool and asked them to create a room point by point.</p>
-  <figure style="margin-top:var(--s4); --mleft:3.4%;--mtop:24.2%;--mw:23.9%; --gleft:6.8%;--gtop:51%;--gw:17%;--gh:19.5%;--gfit:contain;--gpos:center; --px:39.9%;--py:29.7%;--pw:5.5%">
-    <div class="fp-stage">
-      <img class="fp-base" src="../media/onboarding/pen-tool-base.png" alt="">
-      <div class="fp-modal"><img src="../media/onboarding/pen-tool-modal.png" alt="Pen Tool tutorial: draw a room point to point"></div>
-      <img class="fp-gif" src="../media/onboarding/draw-room.gif" alt="Drawing a room point to point in the tutorial preview">
-      <span class="fp-marker"></span>
-    </div>
-  </figure>
-  <div class="principle-callout">
-    <p class="principle-callout__label">Design principle</p>
-    <p class="principle-callout__text">Control first. Creation second.</p>
-  </div>
-</div>
-
-<!-- Stage 3 - Add items -->
-<div class="wide section">
-  <div class="stage__head"><span class="stage__num">03</span><span class="stage__name">Add items - structures, products, source</span></div>
-  <p>The side menu unfolded in sequence: Structures for the shell, Products for quick placeholders, Source for real marketplace items. Feedback, not failure states - a misplaced item suggested a correction without blocking the user from continuing.</p>
-  <figure style="margin-top:var(--s4); --mleft:3.3%;--mtop:26.8%;--mw:24%; --gleft:8.3%;--gtop:51.6%;--gw:14%;--gh:17%;--gfit:cover;--gpos:center">
-    <div class="fp-stage">
-      <img class="fp-base" src="../media/onboarding/add-items-base.png" alt="">
-      <div class="fp-modal"><img src="../media/onboarding/add-items-modal.png" alt="Adding Items tutorial: open the Products tab, choose a bath, and place it in the room"></div>
-      <img class="fp-gif" src="../media/onboarding/drag-bath.gif" alt="Selecting and placing a bath in the tutorial preview">
-    </div>
-  </figure>
-</div>
-
-<!-- Stage 4 - Review -->
-<div class="wide section">
-  <div class="stage__head"><span class="stage__num">04</span><span class="stage__name">Review - see it in 3D</span></div>
-  <p>After users learned the core planning actions, the tutorial introduced Dollhouse mode - turning the plan from a flat workspace into a spatial environment they could inspect and refine.</p>
-  <figure style="margin-top:var(--s4); --mleft:2.5%;--mtop:23%;--mw:26%">
-    <div class="fp-stage">
-      <img class="fp-base" src="../media/onboarding/dollhouse-base.png" alt="">
-      <div class="fp-modal"><img src="../media/onboarding/dollhouse-modal.png" alt="Viewing in 3D tutorial: resize items, paint walls, and change flooring"></div>
-    </div>
-    <figcaption class="plate-cap">The spatial payoff - explore and refine the plan in 3D.</figcaption>
-  </figure>
-  <div class="principle-callout">
-    <p class="principle-callout__label">Design principle</p>
-    <p class="principle-callout__text">Reveal the payoff after users understand the fundamentals.</p>
-  </div>
-</div>
-
-<!-- Built for real working sessions -->
-<section class="reading section" id="sessions">
-  <div class="eyebrow"><span class="eyebrow__t">In practice</span></div>
-  <h2 class="display">Built for real working sessions</h2>
-  <p style="margin-top:var(--s4)">Onboarding had to fit around real work - users could pause, return, and finish without losing progress, then move from practice into the product.</p>
-  <p><strong>Stop-and-resume.</strong> Few users finished in one session, so progress saved automatically and resurfaced on return - leave without losing progress, resume from the exact spot.</p>
-  <p><strong>Completing the onboarding.</strong> The final step kept momentum: start a new floor plan, or keep practicing in the same workspace.</p>
 </section>
-<div class="wide section--tight">
-  <figure class="plate"><img src="../media/onboarding/exit-flow.png" alt="Leave without losing progress"><figcaption class="plate-cap">Leave without losing progress.</figcaption></figure>
-  <figure class="plate" style="margin-top:var(--s6)"><img src="../media/onboarding/resume-dashboard.png" alt="The dashboard brings users back to their spot"><figcaption class="plate-cap">Return to the exact spot.</figcaption></figure>
-  <figure style="margin-top:var(--s6); --dl:33%;--dt:38%;--dw:41%; --cl:35%;--ct:28%;--cw:36%">
-    <div class="fp-stage">
-      <img class="fp-base" src="../media/onboarding/complete-base.png" alt="Completion - start a new plan or keep practicing">
-      <img class="fp-dollhouse" src="../media/onboarding/complete-dollhouse.png" alt="">
-      <img class="fp-confetti" src="../media/onboarding/confetti.gif" alt="">
-    </div>
-    <figcaption class="plate-cap">Completion that leads back into real work.</figcaption>
-  </figure>
-</div>
 
 <!-- Outcome -->
-<section class="reading section" id="outcome" data-toc="Outcome">
-  <div class="eyebrow"><span class="eyebrow__t">Outcome</span></div>
-  <h2 class="display">The onboarding made the canvas feel learnable</h2>
-  <p style="margin-top:var(--s4)">The tutorial taught a workflow, not a list of features - gain control, create, add detail, and review the result in 3D.</p>
-  <div class="result" style="margin-top:var(--s5)">
-    <p class="result__stmt">Following the rollout, more first-time users reached a completed floor plan.</p>
-    <p>The result suggested the onboarding was supporting users through the early learning curve - giving them a structured path to practice the core workflow before applying it in their own work.</p>
+<section class="obx-band obx-outcome" id="outcome" data-toc="Outcome">
+  <p class="obx-label">Impact</p>
+  <div class="obx-outcome__result">
+    <h2 class="obx-outcome__h">A clearer entry point increased adoption</h2>
+    <p>After launch, more users entered the Floor Planner and engaged with its core workflow. Since floor plans have no single finished state, success meant getting started, practicing key actions, and continuing independently.</p>
+    <p>The results showed that reducing the effort of getting started helped users approach a product that had previously felt intimidating.</p>
   </div>
 </section>
 
 <!-- Learnings -->
-<section class="reading section" id="learnings" data-toc="Learnings">
-  <div class="eyebrow"><span class="eyebrow__t">Learnings</span></div>
-  <h2 class="display">What the onboarding taught me</h2>
-  <p style="margin-top:var(--s4)">Onboarding a complex tool isn't about explaining everything it can do - it's about giving people a clear path to one meaningful result.</p>
-</section>
-<div class="wide section--tight">
-  <div class="mini-cards">
-    <div class="mini-card"><p class="mini-card__n">01</p><h3 class="mini-card__t">Lead with a sequence</h3><p>Onboarding shouldn't begin by explaining everything a tool can do; it should give a clear sequence of actions that leads to one meaningful result.</p></div>
-    <div class="mini-card"><p class="mini-card__n">02</p><h3 class="mini-card__t">Confidence comes from doing</h3><p>People build confidence by doing the work in context, seeing the effect of each action, and understanding how one step prepares them for the next.</p></div>
-    <div class="mini-card"><p class="mini-card__n">03</p><h3 class="mini-card__t">Teach the shape of the workflow</h3><p>Good onboarding teaches the shape of the workflow, not just the location of the tools - so users can keep working once the guidance ends.</p></div>
+<section class="obx-band obx-learn" id="learnings" data-toc="Learnings">
+  <div class="obx-learncard">
+    <h2 class="obx-learncard__h">What I took forward</h2>
+    <p class="obx-learncard__intro">This project changed how I think about helping people into a new product. Three things from it have stayed with me:</p>
+    <div class="obx-learngrid">
+      <div class="obx-learnitem"><p class="obx-learnitem__n">01</p><h3 class="obx-learnitem__t">Make starting feel safe</h3><p class="obx-learnitem__d">A first experience should reduce uncertainty before asking users to create from scratch.</p></div>
+      <div class="obx-learnitem"><p class="obx-learnitem__n">02</p><h3 class="obx-learnitem__t">Teach in context</h3><p class="obx-learnitem__d">Guidance works better when people can try it immediately, where the real work happens.</p></div>
+      <div class="obx-learnitem"><p class="obx-learnitem__n">03</p><h3 class="obx-learnitem__t">Design the way out</h3><p class="obx-learnitem__d">Good onboarding gives users enough confidence to continue without it.</p></div>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- Next project -->
-<div class="wide">
+<div class="wide" style="margin-top:var(--s8)">
   <hr class="rule">
   <a class="next" href="ar-walkthrough.html">
     <svg class="signature" width="74" viewBox="0 0 160 125" aria-hidden="true" style="flex-shrink:0">
@@ -405,6 +446,5 @@
   </div>
 </footer>
 
-<!-- <script src="../scripts/site.js?v=5" defer></script> TOC disabled for now -->
 </body>
 </html>

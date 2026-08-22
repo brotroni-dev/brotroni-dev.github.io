@@ -3,176 +3,331 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Houzz Pro: 3D Floor Plans - Roni Brot-Kolinkó</title>
+<title>A little context - Roni Brot-Kolinkó</title>
 <meta name="description" content="Context on Houzz, Houzz Pro, and 3D Floor Plans - the product these case studies are part of.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=108">
-<link rel="stylesheet" href="../styles/main.css?v=108">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles/tokens.css?v=127">
+<link rel="stylesheet" href="../styles/main.css?v=127">
 <style>
 /* ============================================================
-   Houzz Pro: 3D Floor Plans - context / hub page.
-   Reuses the shared system; hz- classes for the bespoke bits.
+   Houzz context - "A little context" (from Figma node 870:4891).
+   Sits on a flat #f4f4f4 ground with white cards. Prefixed hzx-
+   so it stays scoped to this page.
    ============================================================ */
-.hz-back { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em;
-  color: var(--accent); text-decoration: none; }
-.hz-back:hover { text-decoration: underline; }
 
-/* --- Overview: text + hierarchy diagram --- */
-.hz-split { display: grid; grid-template-columns: 1fr 500px; gap: var(--s8); align-items: start; }
-.hz-split__text > .eyebrow { margin-bottom: var(--s5); }
-.hz-split__text p { max-width: 440px; margin: 0 0 var(--s5); }
-.hz-split__text p:last-child { margin-bottom: 0; }
+body.hzx { background: #f4f4f4; }
 
-.hz-hierarchy { position: relative; display: flex; flex-direction: column; }
-.hz-card { display: flex; align-items: center; gap: var(--s4); width: 82%;
-  background: #fff; border: 1.5px solid var(--title); border-radius: 14px;
-  box-shadow: 4px 5px 0 var(--title); padding: 20px 22px; box-sizing: border-box; }
-.hz-card--1 { align-self: flex-end; z-index: 3; }
-.hz-card--2 { align-self: flex-start; margin-top: 26px; z-index: 2; }
-.hz-card--3 { align-self: flex-end; margin-top: 26px; z-index: 1; }
-.hz-card__body { flex: 1 1 auto; }
-.hz-card__t { font-family: var(--font-body); font-weight: 600; font-size: 15px;
-  letter-spacing: .02em; color: var(--title); }
-.hz-card__d { font-family: var(--font-body); font-size: 14px; line-height: 1.4;
-  color: var(--text); margin-top: 3px; }
-.hz-card__logo { width: 46px; height: 46px; object-fit: contain; flex: 0 0 auto; }
-.hz-card--3 .hz-card__logo { width: 60px; height: 46px; }
-/* dashed connector between card 2 and card 3 */
-.hz-hier-link { position: absolute; left: 12%; top: 46%; width: 40px; height: 90px;
-  pointer-events: none; }
+/* Content locked to a 1016 column (72px sides at desktop) */
+.hzx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+.footer__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
 
-/* --- Audience: 60 / 30 / 10 staircase --- */
-.hz-audience { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4);
-  align-items: end; }
-.hz-aud { border-radius: 14px; padding: 22px 22px 26px; box-sizing: border-box; }
-.hz-aud--1 { background: #F4C64F; min-height: 340px; }
-.hz-aud--2 { background: #F8E1AC; min-height: 190px; }
-.hz-aud--3 { background: #FBF0DA; min-height: 118px; }
-.hz-aud__t { font-family: var(--font-body); font-weight: 600; font-size: 16px;
-  color: var(--title); margin: 0 0 var(--s2); }
-.hz-aud__d { font-family: var(--font-body); font-size: 13px; line-height: 1.5;
-  color: var(--title); margin: 0; opacity: .82; }
+.hzx-band .hzx-label { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  line-height: 1.3; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin: 0; }
 
-/* --- Workflow --- */
-.hz-illo { margin: 0; }
-.hz-illo img { width: 100%; max-width: 1016px; height: auto; display: block; margin-inline: auto; }
-.hz-arrow { text-align: center; color: var(--accent); font-size: 22px; line-height: 1;
-  margin: var(--s2) 0 var(--s6); }
-.hz-steps { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
-  gap: var(--s5); }
-.hz-step { margin: 0; display: flex; flex-direction: column; }
-.hz-step img { height: 248px; width: auto; max-width: 100%; display: block;
-  border-radius: 10px; border: 1px solid var(--line); }
-.hz-step figcaption { display: flex; align-items: center; gap: var(--s2); margin-top: var(--s3);
-  font-family: var(--font-body); font-size: 14px; color: var(--title); }
-.hz-step__n { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
-  background: var(--title); color: #fff; font-family: var(--font-mono); font-size: 12px;
-  display: inline-flex; align-items: center; justify-content: center; }
+/* --- Back bar --- */
+.hzx-backbar { padding-block: 20px; line-height: 1.33; }
+.hzx-back { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); text-decoration: none; }
+.hzx-back:hover { color: var(--title); }
 
-@media (max-width: 860px) {
-  .hz-split { grid-template-columns: 1fr; gap: var(--s7); }
-  .hz-hierarchy { max-width: 460px; }
-  .hz-card { width: 88%; }
-  .hz-audience { grid-template-columns: 1fr; align-items: stretch; }
-  .hz-aud { min-height: 0 !important; }
-  .hz-step img { height: 240px; }
+/* --- Opener --- */
+.hzx-opener { padding-bottom: 32px; }
+.hzx-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(38px, 6vw, 64px); line-height: 1.4; letter-spacing: -.01em;
+  color: var(--title); max-width: 920px; margin: 0; }
+.hzx-openerbody { margin-top: 52px; display: flex; flex-direction: column; gap: 52px; }
+
+.hzx-about { display: flex; gap: 40px; align-items: flex-start; justify-content: space-between; }
+.hzx-about__text { flex: 0 1 651px; min-width: 0; }
+.hzx-prose { font-family: var(--font-body); font-size: 20px; line-height: 1.6;
+  color: var(--text); margin: 12px 0 0; }
+.hzx-prose + .hzx-prose { margin-top: 0; }
+
+/* --- Brand map: two labelled cards joined by a dashed arrow --- */
+.hzx-brandpanel { flex: 0 0 326px; height: 298px; background: rgba(255, 255, 255, .6);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.hzx-brandmap { position: relative; width: 257px; height: 135px; flex: none; }
+.hzx-bcard { position: absolute; background: #fff; border: .364px solid #000;
+  border-radius: 2.183px; box-shadow: 1.456px 1.456px 0 #000;
+  padding: 11.644px; display: flex; align-items: center; }
+.hzx-bcard--1 { left: 81.15px; top: 0; width: 175.76px; height: 59.68px; gap: 14.919px; }
+.hzx-bcard--2 { left: 0; top: 73.14px; width: 165.57px; height: 61.3px; justify-content: space-between; }
+.hzx-bcard p { font-family: var(--font-body); font-size: 8.005px; line-height: 1.5;
+  letter-spacing: -.1761px; color: #000; margin: 0; width: 103.343px; }
+.hzx-bcard p b { font-weight: 700; display: block; }
+.hzx-bcard img { flex: none; display: block; }
+.hzx-bcard--1 img { width: 34.205px; height: 36.389px; object-fit: contain; }
+.hzx-bcard--2 img { width: 34.205px; height: 38.012px; }
+.hzx-bcurve { position: absolute; left: 173.66px; top: 70.47px; width: 41.119px;
+  height: 32.75px; transform: rotate(180deg) scaleY(-1); }
+
+/* --- Houzz users card + the bar chart --- */
+.hzx-users { padding-bottom: 0; }
+.hzx-userscard { background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  padding: 32px 48px; display: flex; flex-direction: column; gap: 32px; }
+.hzx-userscard__head { border-bottom: 1px solid #e6e6e6; padding-bottom: 24px;
+  display: flex; flex-direction: column; gap: 12px; }
+.hzx-userscard__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.5; letter-spacing: -.022em; color: var(--title); margin: 0; }
+
+/* Three columns; inside each, the bar sits on a shared 151px baseline so all
+   three bottoms line up, with its caption directly underneath. */
+.hzx-chart { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 106px; }
+.hzx-col { display: flex; flex-direction: column; min-width: 0; }
+.hzx-barwrap { height: 151px; margin-bottom: 12px; display: flex; align-items: flex-end; }
+.hzx-bar { width: 49px; box-sizing: border-box;
+  border-radius: 4px; padding: 10px; overflow: hidden; }
+.hzx-bar span { font-family: var(--font-mono); font-size: 16px; line-height: 1.28;
+  color: var(--title); display: block; white-space: nowrap; }
+.hzx-bar--1 { height: 151px; background: rgba(81, 149, 111, .6); }
+.hzx-bar--2 { height: 77px;  background: rgba(233, 190, 172, .6); }
+.hzx-bar--3 { height: 41px;  background: #9cc8ed; }
+.hzx-seg h3 { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.28; color: var(--title); margin: 0; }
+.hzx-seg p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 7px 0 0; }
+
+/* Grow the bars once, the first time the chart scrolls into view. The class is
+   added by JS, so with no JS the bars are simply already full. The 151px
+   .hzx-barwrap track holds the space, so the card never changes height.
+   Each bar starts only after the one before it has nearly settled. */
+.hzx-chart--anim .hzx-bar { height: 0; }
+.hzx-chart--anim .hzx-bar span { opacity: 0; }
+.hzx-chart--anim.is-in .hzx-bar {
+  transition: height 1100ms cubic-bezier(.16, 1, .3, 1); }
+.hzx-chart--anim.is-in .hzx-bar span {
+  opacity: 1; transition: opacity 400ms ease; }
+.hzx-chart--anim.is-in .hzx-bar--1 { height: 151px; transition-delay: 0ms; }
+.hzx-chart--anim.is-in .hzx-bar--2 { height: 77px;  transition-delay: 480ms; }
+.hzx-chart--anim.is-in .hzx-bar--3 { height: 41px;  transition-delay: 960ms; }
+.hzx-chart--anim.is-in .hzx-bar--1 span { transition-delay: 700ms; }
+.hzx-chart--anim.is-in .hzx-bar--2 span { transition-delay: 1180ms; }
+.hzx-chart--anim.is-in .hzx-bar--3 span { transition-delay: 1660ms; }
+
+/* --- The workflow --- */
+.hzx-workflow { padding-top: 40px; padding-bottom: 30px; }
+.hzx-workflow__head { padding-top: 16px; display: flex; flex-direction: column; gap: 12px; }
+.hzx-workflow__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.5; letter-spacing: -.022em; color: var(--title); margin: 0; }
+.hzx-cards { position: relative; margin-top: 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 22px; }
+/* The dashed run that ties the three steps together. It draws OVER the cards
+   (Figma z-index 3); pointer-events:none keeps the cards clickable through it. */
+.hzx-connector { position: absolute; left: 203px; top: 133px; width: 595px; height: 171px;
+  z-index: 3; pointer-events: none; }
+.hzx-card { flex: 0 1 324px; min-width: 0; background: #fff; border: 1px solid var(--line);
+  border-radius: 12px; overflow: hidden; text-decoration: none; display: flex;
+  flex-direction: column; position: relative; z-index: 1; will-change: transform;
+  transition: transform 220ms cubic-bezier(.22, 1, .36, 1),
+              box-shadow 220ms cubic-bezier(.22, 1, .36, 1),
+              border-color 180ms ease; }
+.hzx-card:hover, .hzx-card:focus-visible {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 18px 34px -10px rgba(23, 20, 15, .18), 0 4px 10px -4px rgba(23, 20, 15, .10); }
+.hzx-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hzx-card:active { transform: translateY(-2px); transition-duration: 90ms; }
+.hzx-card__fig { height: 357px; padding: 16px; margin: 0;
+  display: flex; align-items: center; justify-content: center; }
+.hzx-card__fig img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block;
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1); }
+.hzx-card:hover .hzx-card__fig img, .hzx-card:focus-visible .hzx-card__fig img { transform: scale(1.035); }
+.hzx-card__foot { border-top: 1px solid var(--line); padding: 12px 16px;
+  display: flex; align-items: center; gap: 4px; }
+.hzx-card__txt { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.hzx-card__k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent); margin: 0; }
+.hzx-card__t { font-family: var(--font-display); font-weight: 400; font-size: 18px;
+  line-height: 1.5; letter-spacing: -.022em; color: var(--title); margin: 0; }
+.hzx-card__arrow { flex: none; width: 32px; height: 32px; color: var(--title);
+  transition: transform 220ms cubic-bezier(.22, 1, .36, 1), color 180ms ease; }
+.hzx-card:hover .hzx-card__arrow, .hzx-card:focus-visible .hzx-card__arrow {
+  color: var(--accent); transform: translate(3px, -3px); }
+.hzx-card__t { transition: color 180ms ease; }
+.hzx-card:hover .hzx-card__t, .hzx-card:focus-visible .hzx-card__t { color: var(--accent); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hzx-card, .hzx-card__fig img, .hzx-card__arrow { transition: none; }
+  .hzx-card:hover, .hzx-card:focus-visible { transform: none; }
+  .hzx-card:hover .hzx-card__fig img, .hzx-card:focus-visible .hzx-card__fig img { transform: none; }
+}
+
+.hzx-footwrap { margin-top: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1000px) {
+  /* The dashed run is positioned for the 1016 desktop track only */
+  .hzx-connector { display: none; }
+  .hzx-chart { column-gap: 40px; }
+}
+@media (max-width: 900px) {
+  /* Stacked: a flex-basis would turn into a HEIGHT here */
+  .hzx-about { flex-direction: column; align-items: stretch; gap: 32px; }
+  .hzx-about > * { flex: 0 0 auto; width: 100%; }
+  .hzx-brandpanel { align-self: center; max-width: 326px; }
+  .hzx-title { line-height: 1.2; }
+  .hzx-prose { font-size: 17px; }
+  .hzx-userscard { padding: 24px; }
+  .hzx-cards { flex-direction: column; align-items: stretch; }
+  .hzx-card { flex: 0 0 auto; width: 100%; }
+  .hzx-card__fig { height: 300px; }
+}
+@media (max-width: 700px) {
+  /* One column: each bar stays directly above its own caption. Stacked, the
+     bars no longer share a baseline, so each track hugs its own bar - still a
+     fixed height, so the card does not resize while they animate. */
+  .hzx-chart { grid-template-columns: 1fr; row-gap: 28px; }
+  .hzx-barwrap { margin-bottom: 8px; }
+  .hzx-col:nth-child(1) .hzx-barwrap { height: 151px; }
+  .hzx-col:nth-child(2) .hzx-barwrap { height: 77px; }
+  .hzx-col:nth-child(3) .hzx-barwrap { height: 41px; }
 }
 </style>
 </head>
-<body>
+<body class="hzx">
 
 <!-- Nav -->
 <nav class="nav">
   <div class="nav__inner">
     <a class="nav__name" href="../index.html">Roni Brot-Kolinkó</a>
-    <span class="nav__links"><a href="/about">About</a></span>
+    <span class="nav__links">
+      <a href="../index.html#work">Work</a>
+      <a href="/about">About</a>
+      <a href="mailto:brotroni@gmail.com">Contact</a>
+    </span>
   </div>
 </nav>
 
-<!-- Header -->
-<header class="reading" style="margin-top:var(--s7)">
-  <a class="hz-back" href="../index.html">&larr; Back</a>
-  <h1 class="display" style="margin-top:var(--s4)">Houzz Pro: 3D Floor Plans</h1>
-  <p class="lead" style="margin-top:var(--s4)">3D Floor Plans helps renovation professionals capture real spaces, refine floor plans, and present proposals to clients.</p>
+<!-- Back -->
+<div class="hzx-band hzx-backbar">
+  <a class="hzx-back" href="../index.html">&larr; Back</a>
+</div>
+
+<!-- Opener -->
+<header class="hzx-band hzx-opener">
+  <h1 class="hzx-title">A little context</h1>
+
+  <div class="hzx-openerbody">
+    <div class="hzx-about">
+      <div class="hzx-about__text">
+        <p class="hzx-label">About houzz</p>
+        <p class="hzx-prose">Houzz brings homeowners, inspiration, products, and professionals together around home renovation and design. Houzz Pro supports the professional side of that journey, helping contractors and designers manage projects, clients, and their day-to-day work.</p>
+      </div>
+
+      <div class="hzx-brandpanel">
+        <div class="hzx-brandmap">
+          <div class="hzx-bcard hzx-bcard--1">
+            <p><b>HOUZZ</b>Inspiration and marketplace</p>
+            <img src="../media/context/logo-houzz.png" alt="" width="396" height="396">
+          </div>
+          <div class="hzx-bcard hzx-bcard--2">
+            <p><b>HOUZZ PRO</b>Business tools for renovation pros</p>
+            <img src="../media/context/logo-houzzpro.png" alt="" width="378" height="384">
+          </div>
+          <img class="hzx-bcurve" src="../media/context/hz-arrow-curve.svg" alt="" aria-hidden="true" width="42" height="33">
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="hzx-label">My work at houzz</p>
+      <p class="hzx-prose">During my time at Houzz, I worked across a wide range of Houzz Pro areas, including project management, timelines, product libraries, budgets, and reporting. I also contributed to the design system and rebrand, which gave me a broader view of how the product fit together.</p>
+      <p class="hzx-prose">3D Floor Plans became the area I loved most. It brought together complex technology, the physical world, and tools that let users be creative too. Pros could shape spaces, explore ideas, and help clients see what they imagined.</p>
+    </div>
+  </div>
 </header>
 
-<!-- Overview -->
-<section class="wide hz-split" style="margin-top:var(--s9)">
-  <div class="hz-split__text">
-    <div class="eyebrow"><span class="eyebrow__t">Overview</span></div>
-    <p>Houzz connects homeowners with renovation professionals, products, and design inspiration.</p>
-    <p>Houzz Pro is the professional workspace within Houzz, helping contractors, designers, and architects manage renovation projects from lead to completion.</p>
-    <p>Within Houzz Pro, 3D Floor Plans helps pros turn real spaces into plans they can refine, share, and present to clients.</p>
-  </div>
-  <div class="hz-hierarchy">
-    <svg class="hz-hier-link" viewBox="0 0 40 90" aria-hidden="true" fill="none">
-      <path d="M8 4 C 2 40, 2 55, 30 84" stroke="#17140F" stroke-width="1.4" stroke-dasharray="4 5" stroke-linecap="round"/>
-    </svg>
-    <div class="hz-card hz-card--1">
-      <div class="hz-card__body"><div class="hz-card__t">HOUZZ</div><div class="hz-card__d">Inspiration and marketplace</div></div>
-      <img class="hz-card__logo" src="../media/context/logo-houzz.png" alt="Houzz logo">
+<!-- Houzz users -->
+<section class="hzx-band hzx-users">
+  <div class="hzx-userscard">
+    <div class="hzx-userscard__head">
+      <p class="hzx-label">Houzz users</p>
+      <h2 class="hzx-userscard__h">3D Floor Plans supported renovation professionals across site visits, planning, and client conversations.</h2>
     </div>
-    <div class="hz-card hz-card--2">
-      <div class="hz-card__body"><div class="hz-card__t">HOUZZ PRO</div><div class="hz-card__d">Business tools for renovation pros</div></div>
-      <img class="hz-card__logo" src="../media/context/logo-houzzpro.png" alt="Houzz Pro logo">
-    </div>
-    <div class="hz-card hz-card--3">
-      <div class="hz-card__body"><div class="hz-card__t">3D FLOOR PLANS</div><div class="hz-card__d">Scan &rarr; Refine &rarr; Present</div></div>
-      <img class="hz-card__logo" src="../media/context/icon-3dfloorplans.png" alt="3D Floor Plans icon">
-    </div>
-  </div>
-</section>
 
-<!-- Audience -->
-<section class="reading" style="margin-top:var(--s10)">
-  <div class="eyebrow"><span class="eyebrow__t">Audience</span></div>
-  <p style="margin-top:var(--s5)">3D Floor Plans supported renovation professionals across site visits, planning, and client conversations. Contractors made up the largest share of users, followed by designers and architects.</p>
-</section>
-<div class="wide" style="margin-top:var(--s7)">
-  <div class="hz-audience">
-    <div class="hz-aud hz-aud--1">
-      <p class="hz-aud__t">Contractors 60%</p>
-      <p class="hz-aud__d">Measure spaces, communicate with clients, and use the broadest range of Houzz Pro tools.</p>
-    </div>
-    <div class="hz-aud hz-aud--2">
-      <p class="hz-aud__t">Designers 30%</p>
-      <p class="hz-aud__d">Plan layouts, add room details, use product libraries, and communicate design intent.</p>
-    </div>
-    <div class="hz-aud hz-aud--3">
-      <p class="hz-aud__t">Architects 10%</p>
-      <p class="hz-aud__d">Validate dimensions, structure, accuracy, and the floor plans themselves.</p>
+    <div class="hzx-chart" id="hzx-chart">
+      <div class="hzx-col">
+        <div class="hzx-barwrap"><div class="hzx-bar hzx-bar--1"><span>62%</span></div></div>
+        <div class="hzx-seg">
+          <h3>Contractors</h3>
+          <p>Measure spaces, work with clients, and use a broad range of tools.</p>
+        </div>
+      </div>
+      <div class="hzx-col">
+        <div class="hzx-barwrap"><div class="hzx-bar hzx-bar--2"><span>25%</span></div></div>
+        <div class="hzx-seg">
+          <h3>Designers</h3>
+          <p>Plan layouts, add room details, use product libraries, and communicate design intent.</p>
+        </div>
+      </div>
+      <div class="hzx-col">
+        <div class="hzx-barwrap"><div class="hzx-bar hzx-bar--3"><span>13%</span></div></div>
+        <div class="hzx-seg">
+          <h3>Architects</h3>
+          <p>Review dimensions, structure, and overall floor plan accuracy.</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- The workflow -->
-<section class="reading" style="margin-top:var(--s10)">
-  <div class="eyebrow"><span class="eyebrow__t">The workflow</span></div>
-  <p style="margin-top:var(--s5)">Pros move between site visits, office planning, and client conversations. 3D Floor Plans helps carry spatial information across those moments - from capture, to refinement, to presentation.</p>
-</section>
-<div class="wide" style="margin-top:var(--s7)">
-  <figure class="hz-illo"><img src="../media/context/workflow-illustration.png" alt="A pro scanning a room on site with a tablet, a designer refining the plan at a desk, and pros presenting the plan to clients"></figure>
-  <div class="hz-arrow" aria-hidden="true">&darr;</div>
-  <div class="hz-steps">
-    <figure class="hz-step">
-      <img src="../media/context/ctx-scan.jpg" alt="Scanning a room in AR on a phone">
-      <figcaption><span class="hz-step__n">1</span> Scan the space</figcaption>
-    </figure>
-    <figure class="hz-step">
-      <img src="../media/context/ctx-build.jpg" alt="Building and refining the 3D floor plan in the workspace">
-      <figcaption><span class="hz-step__n">2</span> Build and refine</figcaption>
-    </figure>
-    <figure class="hz-step">
-      <img src="../media/context/ctx-present.jpg" alt="Presenting the plan at full scale in AR on a tablet">
-      <figcaption><span class="hz-step__n">3</span> Present with AR</figcaption>
-    </figure>
+<section class="hzx-band hzx-workflow">
+  <div class="hzx-workflow__head">
+    <p class="hzx-label">The workflow</p>
+    <h2 class="hzx-workflow__h">One floor plan, from the first scan to the client conversation</h2>
   </div>
-</div>
+
+  <div class="hzx-cards">
+    <img class="hzx-connector" src="../media/context/hz-connector.svg" alt="" aria-hidden="true" width="595" height="171">
+
+    <a class="hzx-card" href="multi-room-mobile-scan.html">
+      <figure class="hzx-card__fig">
+        <img src="../media/context/hz-capture.png" alt="A contractor scanning a room with a tablet" width="966" height="1071">
+      </figure>
+      <div class="hzx-card__foot">
+        <div class="hzx-card__txt">
+          <p class="hzx-card__k">01 Capture</p>
+          <p class="hzx-card__t">Multi Room Scan</p>
+        </div>
+        <svg class="hzx-card__arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+
+    <a class="hzx-card" href="floor-plan-onboarding.html">
+      <figure class="hzx-card__fig">
+        <img src="../media/context/hz-build.png" alt="A designer refining a floor plan on a desktop screen" width="966" height="1071">
+      </figure>
+      <div class="hzx-card__foot">
+        <div class="hzx-card__txt">
+          <p class="hzx-card__k">02 Build and refine</p>
+          <p class="hzx-card__t">3D Floor Plans Onboarding</p>
+        </div>
+        <svg class="hzx-card__arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+
+    <a class="hzx-card" href="ar-walkthrough.html">
+      <figure class="hzx-card__fig">
+        <img src="../media/context/hz-present.png" alt="A pro showing a plan on a tablet to two clients at a table" width="966" height="1071">
+      </figure>
+      <div class="hzx-card__foot">
+        <div class="hzx-card__txt">
+          <p class="hzx-card__k">03 Present</p>
+          <p class="hzx-card__t">Life-Sized Walkthroughs</p>
+        </div>
+        <svg class="hzx-card__arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
 
 <!-- Footer -->
-<footer class="footer" style="margin-top:var(--s10)">
+<footer class="footer hzx-footwrap">
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
@@ -180,6 +335,28 @@
     <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
+
+<script>
+// Grow the user bars once, the first time the chart scrolls into view.
+(function () {
+  var chart = document.getElementById('hzx-chart');
+  if (!chart) return;
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  // Collapse them only now, so a browser without JS still shows the full chart
+  chart.classList.add('hzx-chart--anim');
+
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      chart.classList.add('is-in');
+      io.disconnect();          // first time only
+    });
+  }, { threshold: 0.35 });
+  io.observe(chart);
+})();
+</script>
 
 </body>
 </html>
