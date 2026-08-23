@@ -123,6 +123,16 @@ body.hpx { background: #f4f4f4; }
   transition: color 180ms ease; }
 .hpx-proj p { font-family: var(--font-body); font-size: 16px; line-height: 1.55;
   color: var(--text); margin: 0; }
+/* The same three illustrations as the context page, cropped to a landscape
+   thumbnail. object-position is set per image because each subject sits at a
+   different height in its square source - a plain centre crop beheads the
+   contractor. */
+.hpx-projthumb { flex: none; width: 240px; height: 150px; overflow: hidden;
+  border-radius: 6px; background: #fff; }
+.hpx-projthumb img { display: block; width: 100%; height: 100%; object-fit: cover;
+  transition: transform 420ms cubic-bezier(.33, 1, .68, 1); }
+.hpx-proj:hover .hpx-projthumb img,
+.hpx-proj:focus-visible .hpx-projthumb img { transform: scale(1.04); }
 .hpx-arrow { flex: none; width: 32px; height: 32px; color: var(--title);
   transition: transform 220ms cubic-bezier(.22, 1, .36, 1), color 180ms ease; }
 .hpx-proj:hover .hpx-arrow, .hpx-proj:focus-visible .hpx-arrow {
@@ -252,10 +262,13 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
   .hpx-intro { padding: 36px 24px; }
   .hpx-list { padding: 16px 24px; }
   .hpx-projrow { padding: 12px; }
+  .hpx-projthumb { width: 168px; height: 105px; }
   .hpx-hero { padding-top: 40px; }
   .hpx-card, .hpx-close { margin-top: 48px; }
 }
 @media (max-width: 560px) {
+  /* No room for both the copy and a thumbnail - the copy wins */
+  .hpx-projthumb { display: none; }
   .hpx-projrow { align-items: flex-start; }
   .hpx-arrow { width: 24px; height: 24px; }
   .hpx-proj h3 { font-size: 20px; }
@@ -263,9 +276,11 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 }
 @media (prefers-reduced-motion: reduce) {
   .hpx-arrowlink i, .hpx-btn i, .hpx-arrow, .hpx-projrow { transition: none; }
+  .hpx-projthumb img { transition: none; }
   .hpx-btn__t--on { transition: none; }
   .hpx-btn { animation: none; }
-  .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow { transform: none; }
+  .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow,
+  .hpx-proj:hover .hpx-projthumb img { transform: none; }
 }
 </style>
 </head>
@@ -351,6 +366,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
             <h3>Turning room-by-room scans into one connected floor plan</h3>
             <p>Mobile capture, in-scan interactions, and a connected multi-room flow.</p>
           </span>
+          <span class="hpx-projthumb"><img src="media/context/hz-capture-thumb.png?v=1" alt="" aria-hidden="true" width="535" height="560" loading="lazy" style="object-position: 50% 30%"></span>
           <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
@@ -362,6 +378,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
             <h3>Guiding users through a complex floor-planning workspace</h3>
             <p>Onboarding that teaches the tools by doing, toward a first finished plan.</p>
           </span>
+          <span class="hpx-projthumb"><img src="media/context/hz-build-thumb.png?v=1" alt="" aria-hidden="true" width="560" height="547" loading="lazy" style="object-position: 50% 45%"></span>
           <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
@@ -373,6 +390,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
             <h3>From floor plan to life-sized walkthrough</h3>
             <p>An AR experience that places the proposal in the room at full scale.</p>
           </span>
+          <span class="hpx-projthumb"><img src="media/context/hz-present-thumb.png?v=1" alt="" aria-hidden="true" width="535" height="560" loading="lazy" style="object-position: 50% 75%"></span>
           <svg class="hpx-arrow" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M10.5 21.5 21.5 10.5M12.6 10.5h8.9v8.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </span>
       </a>
