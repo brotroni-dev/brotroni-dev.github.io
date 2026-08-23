@@ -157,7 +157,8 @@ body.hpx { background: #f4f4f4; }
 
 /* The hoverable words */
 .hpx-seg { position: relative; cursor: help;
-  transition: color 320ms ease, text-decoration-color 320ms ease;
+  transition: color 420ms cubic-bezier(.45, .05, .55, .95),
+              text-decoration-color 420ms cubic-bezier(.45, .05, .55, .95);
   text-decoration: underline; text-decoration-color: transparent;
   text-decoration-thickness: 2px; text-underline-offset: 8px; }
 .hpx-seg.is-on { color: var(--accent); text-decoration-color: var(--accent); z-index: 45; }
@@ -165,7 +166,7 @@ body.hpx { background: #f4f4f4; }
 /* Warm wash over the page while a note is open */
 .hpx-overlay { position: fixed; inset: 0; background: rgba(158, 78, 44, .35);
   opacity: 0; pointer-events: none; z-index: 40;
-  transition: opacity 460ms cubic-bezier(.33, 1, .68, 1); }
+  transition: opacity 600ms cubic-bezier(.45, .05, .55, .95); }
 body.hpx-dim .hpx-overlay { opacity: 1; }
 
 /* The cards themselves - decorative, so they never steal the hover */
@@ -177,14 +178,17 @@ body.hpx-dim .hpx-overlay { opacity: 1; }
   transform: translateY(-50%) rotate(var(--rot)) translateY(16px) scale(.96);
   /* Leaving is a touch quicker than arriving, so moving between two words
      doesn't feel like waiting for the first card to finish going. */
-  transition: opacity 300ms cubic-bezier(.33, 1, .68, 1),
+  transition: opacity 360ms cubic-bezier(.45, .05, .55, .95),
               transform 420ms cubic-bezier(.33, 1, .68, 1),
-              visibility 0s linear 300ms; }
+              visibility 0s linear 360ms; }
 .hpx-note.is-on { opacity: 1; visibility: visible;
   transform: translateY(-50%) rotate(var(--rot)) translateY(0) scale(1);
   /* easeOutCubic rather than easeOutQuint: the quint curve was ~98% done in
-     the first quarter of its duration, so a longer time never read as slower. */
-  transition: opacity 440ms cubic-bezier(.33, 1, .68, 1),
+     the first quarter of its duration, so a longer time never read as slower.
+     The fade gets a symmetric ease-in-out instead - an ease-out fade is already
+     at 40% after 90ms, which reads as the card popping in and then drifting.
+     Here it stays faint through the first third and lands with the movement. */
+  transition: opacity 640ms cubic-bezier(.45, .05, .55, .95),
               transform 700ms cubic-bezier(.33, 1, .68, 1), visibility 0s; }
 
 /* Vertical "- Editor's Note -" rail */
