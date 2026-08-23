@@ -57,14 +57,14 @@ body.hpx { background: #f4f4f4; }
 /* Primary button: a warm gradient drifting across it at rest, a lighter one
    flooding in on hover. Only the background is doing anything here - the
    shape, size and mono type are untouched.
-   The stops alternate warm and cool, and light and dark, so each transition
-   actually reads: hue jumps of 28/174/42/144 degrees, against 0/12/44/99 when
-   they all sat in the terracotta family. Every stop still carries white text,
+   The cycle runs between the site's oranges and deep burgundy/purple, ordered
+   so each transition is a real jump: 100/101/37/62 degrees of hue and up to
+   7.66 of contrast between neighbours. Every stop still carries white text,
    worst case 4.58:1. */
 .hpx-btn { position: relative; display: inline-flex; margin-top: 24px;
   border: 0; border-radius: 4px;
   color: #fff;
-  background-image: linear-gradient(-45deg, #B85B33, #6E2F3A, #17827A, #3B4A63, #5E6B34);
+  background-image: linear-gradient(-45deg, #B85B33, #452A55, #A85630, #7A2E45, #6B4080);
   background-size: 400% 400%;
   animation: hpxBtnGradient 12s ease infinite;
   font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
@@ -85,7 +85,7 @@ body.hpx { background: #f4f4f4; }
 .hpx-btn__t--on {
   position: absolute; inset: 0; box-sizing: border-box;
   color: #fff;
-  background-image: linear-gradient(-45deg, #17827A, #B85B33, #3B4A63, #5E6B34, #6E2F3A);
+  background-image: linear-gradient(-45deg, #6B4080, #B85B33, #7A2E45, #452A55, #A85630);
   background-size: 400% 400%;
   animation: hpxBtnGradient 12s ease infinite;
   clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
