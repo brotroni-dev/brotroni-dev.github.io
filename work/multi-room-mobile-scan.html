@@ -72,11 +72,9 @@
   background-image:
     linear-gradient(#ECEBE8 1px, transparent 1px),
     linear-gradient(90deg, #ECEBE8 1px, transparent 1px);
+  /* no background-colour of its own: the band's gradient shows through
+     between the squares */
   background-size: 26px 26px; }
-/* the graph paper fades out at the edges so the field has no hard border */
-.mrx-heroillus__box::after { content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 76% 80% at 50% 50%,
-              rgba(252,252,251,0) 52%, rgba(252,252,251,.96) 100%); }
 
 .mrx-room { position: absolute; left: 0; top: 0; will-change: transform; overflow: visible; }
 .mrx-room__ghost { fill: none; stroke: #C9C7C2; stroke-width: 1; }
@@ -86,7 +84,7 @@
 .mrx-dim::before, .mrx-dim::after { content: ""; position: absolute; background: #8E8B85; }
 .mrx-dim__line { position: absolute; background: #8E8B85; }
 .mrx-dim__t { position: relative; font-family: var(--font-body); font-size: var(--dim, 10px);
-  font-weight: 500; color: #4A4741; background: #FBFBFA; padding: 0 4px;
+  font-weight: 500; color: #4A4741; padding: 0 4px;
   white-space: nowrap; line-height: 1; }
 .mrx-dim--top { left: 0; right: 0; top: -18px; height: 12px; }
 .mrx-dim--top .mrx-dim__line { left: 0; right: 0; top: 50%; height: 1px; }
@@ -108,7 +106,7 @@
 .mrx-dim--left .mrx-dim__t { transform: rotate(-90deg); }
 
 /* --- Context --- */
-.mrx-context { background: #f6f6f5; padding-bottom: 64px; }
+.mrx-context { background: #f6f6f5; padding-block: 32px 64px; }
 .mrx-context p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
   color: var(--text); margin: 12px 0 0; }
 
@@ -871,7 +869,10 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var COUNT = 9, WALL = 5, MIN = 74, MAX = 158;
+  var PAD = 30;      // the strings hang ~18px past the walls; bounce before that clips
+  var NUDGE = 118;   // how close the pointer gets before a room shifts away
   var rooms = [], W = 0, H = 0;
+  var ptr = { x: 0, y: 0, on: false };
 
   /* 26px of stage is one foot, so the labels read like the real thing */
   function feet(px) {
@@ -954,8 +955,8 @@
 
       rooms.push({
         el: el, w: w, h: h,
-        x: w / 2 + Math.random() * Math.max(1, W - w),
-        y: h / 2 + Math.random() * Math.max(1, H - h),
+        x: PAD + w / 2 + Math.random() * Math.max(1, W - w - PAD * 2),
+        y: PAD + h / 2 + Math.random() * Math.max(1, H - h - PAD * 2),
         vx: (Math.random() - 0.5) * 0.42, vy: (Math.random() - 0.5) * 0.42,
         a: Math.random() * 360, va: (Math.random() - 0.5) * 0.20,
         m: w * h
@@ -1010,11 +1011,22 @@
     for (var i = 0; i < rooms.length; i++) {
       var o = rooms[i];
       o.x += o.vx; o.y += o.vy; o.a += o.va;
-      var hx = reach(o, [1, 0]), hy = reach(o, [0, 1]);
+      var hx = reach(o, [1, 0]) + PAD, hy = reach(o, [0, 1]) + PAD;
       if (o.x - hx < 0) { o.x = hx;     o.vx = Math.abs(o.vx); }
       if (o.x + hx > W) { o.x = W - hx; o.vx = -Math.abs(o.vx); }
       if (o.y - hy < 0) { o.y = hy;     o.vy = Math.abs(o.vy); }
       if (o.y + hy > H) { o.y = H - hy; o.vy = -Math.abs(o.vy); }
+
+      // 4. the pointer shoulders rooms aside as it passes over them
+      if (ptr.on) {
+        var mx = o.x - ptr.x, my = o.y - ptr.y, md = Math.hypot(mx, my);
+        if (md < NUDGE && md > 0.01) {
+          var f = (1 - md / NUDGE) * 0.09;
+          o.vx += (mx / md) * f;
+          o.vy += (my / md) * f;
+          o.va += (mx / md) * 0.012;   // and sets them turning a little
+        }
+      }
     }
     for (var a = 0; a < rooms.length; a++)
       for (var b = a + 1; b < rooms.length; b++) {
@@ -1043,6 +1055,12 @@
 
   build();
   if (!reduce) requestAnimationFrame(step);
+
+  stage.addEventListener('pointermove', function (e) {
+    var r = stage.getBoundingClientRect();
+    ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top; ptr.on = true;
+  });
+  stage.addEventListener('pointerleave', function () { ptr.on = false; });
 
   var t;
   window.addEventListener('resize', function () {
