@@ -78,16 +78,14 @@ body.hpx { background: #f4f4f4; }
   padding: 9px 13px; white-space: nowrap; }
 /* The hover appearance sits in one layer stacked exactly over the resting one,
    revealed by a circle that grows from wherever the pointer crossed the edge.
-   #B85B33 is the lightest lift that still clears 4.5:1 against white text
-   (4.58:1); anything lighter reads better but fails contrast.
+   Hover drops the gradient for one flat highlighter yellow; the dark title
+   ink on it clears 4.5:1 many times over.
    --x/--y come from the script at the end of the page; without JS the circle
    simply opens from the centre. */
 .hpx-btn__t--on {
   position: absolute; inset: 0; box-sizing: border-box;
-  color: #fff;
-  background-image: linear-gradient(-45deg, #6B4080, #B85B33, #7A2E45, #452A55, #A85630);
-  background-size: 400% 400%;
-  animation: hpxBtnGradient 12s ease infinite;
+  color: var(--title);
+  background: #F0FF1E;
   clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
   /* An even curve, not a front-loaded one: cubic-bezier(.22,1,.36,1) was
      98% done after 120ms, so the fill read as instant however long the
@@ -255,7 +253,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 @media (prefers-reduced-motion: reduce) {
   .hpx-arrowlink i, .hpx-btn i, .hpx-arrow, .hpx-projrow { transition: none; }
   .hpx-btn__t--on { transition: none; }
-  .hpx-btn, .hpx-btn__t--on { animation: none; }
+  .hpx-btn { animation: none; }
   .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow { transform: none; }
 }
 </style>
