@@ -119,10 +119,6 @@ body.hzx { background: #f4f4f4; }
   line-height: 1.5; letter-spacing: -.022em; color: var(--title); margin: 0; }
 .hzx-cards { position: relative; margin-top: 22px;
   display: flex; align-items: center; justify-content: space-between; gap: 22px; }
-/* The dashed run that ties the three steps together. It draws OVER the cards
-   (Figma z-index 3); pointer-events:none keeps the cards clickable through it. */
-.hzx-connector { position: absolute; left: 203px; top: 133px; width: 595px; height: 171px;
-  z-index: 3; pointer-events: none; display: block; overflow: visible; }
 
 .hzx-card { flex: 0 1 324px; min-width: 0; background: #fff; border: 1px solid var(--line);
   border-radius: 12px; overflow: hidden; text-decoration: none; display: flex;
@@ -138,9 +134,24 @@ body.hzx { background: #f4f4f4; }
 .hzx-card:active { transform: translateY(-2px); transition-duration: 90ms; }
 .hzx-card__fig { height: 357px; padding: 16px; margin: 0;
   display: flex; align-items: center; justify-content: center; }
-.hzx-card__fig img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block;
+/* The illustration and its light layer share one box, so the glow stays pinned
+   to the screen it belongs to at any card width, and both scale together. */
+.hzx-card__art { position: relative; display: block; width: 100%;
   transition: transform 320ms cubic-bezier(.22, 1, .36, 1); }
-.hzx-card:hover .hzx-card__fig img, .hzx-card:focus-visible .hzx-card__fig img { transform: scale(1.035); }
+.hzx-card__illus { display: block; width: 100%; height: auto; }
+/* Positions come from the Figma frame, measured as a share of each
+   illustration's own box - see media/context/glow-*.svg */
+.hzx-card__glow { position: absolute; pointer-events: none;
+  /* Comes up slowly and eases off a little quicker, so it reads as light
+     warming rather than a layer switching on. */
+  opacity: 0; transition: opacity 380ms ease; }
+.hzx-card:hover .hzx-card__glow, .hzx-card:focus-visible .hzx-card__glow {
+  transition: opacity 900ms cubic-bezier(.33, .68, .31, 1); }
+.hzx-card:hover .hzx-card__art, .hzx-card:focus-visible .hzx-card__art { transform: scale(1.035); }
+.hzx-card:hover .hzx-card__glow, .hzx-card:focus-visible .hzx-card__glow { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hzx-card__art, .hzx-card__glow { transition: none; }
+}
 .hzx-card__foot { border-top: 1px solid var(--line); padding: 12px 16px;
   display: flex; align-items: center; gap: 4px; }
 .hzx-card__txt { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
@@ -166,7 +177,6 @@ body.hzx { background: #f4f4f4; }
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
   /* The dashed run is positioned for the 1016 desktop track only */
-  .hzx-connector { display: none; }
   .hzx-chart { column-gap: 40px; }
 }
 @media (max-width: 900px) {
@@ -287,31 +297,10 @@ body.hzx { background: #f4f4f4; }
   </div>
 
   <div class="hzx-cards">
-    <!-- Inlined so the stroke can carry an animated gradient; same path as
-         media/context/hz-connector.svg -->
-    <svg class="hzx-connector" aria-hidden="true" focusable="false"
-         width="595" height="171" viewBox="0 0 595.887 172.988"
-         preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Grey run with one warm pool in it. The script below slides the pool
-             along the line, and parks it over whichever card is hovered.
-             x1/x2 are the pool's edges; without JS it sits softly centred. -->
-        <linearGradient id="hzxFlow" gradientUnits="userSpaceOnUse" x1="148" y1="0" x2="448" y2="0">
-          <stop offset="0"    stop-color="#CBC7C0"/>
-          <stop offset="0.18" stop-color="#C08A62"/>
-          <stop offset="0.36" stop-color="#9E4E2C"/>
-          <stop offset="0.64" stop-color="#9E4E2C"/>
-          <stop offset="0.82" stop-color="#C08A62"/>
-          <stop offset="1"    stop-color="#CBC7C0"/>
-        </linearGradient>
-      </defs>
-      <path d="M595.157 108.253C578.889 125.617 433.273 242.545 257.52 108.253C173.901 44.361 79.8994 13.7028 0.157466 0.987524"
-            stroke="url(#hzxFlow)" stroke-width="2" stroke-dasharray="4.59 4.59"/>
-    </svg>
 
     <a class="hzx-card" href="multi-room-mobile-scan.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-capture.png?v=2" alt="A contractor scanning a room with a tablet" width="966" height="1071">
+        <span class="hzx-card__art"><img class="hzx-card__illus" src="../media/context/hz-capture.png?v=3" alt="A contractor scanning a room with a tablet" width="777" height="813"><img class="hzx-card__glow" src="../media/context/glow-capture.svg" alt="" aria-hidden="true" style="left:49.98%;top:32.14%;width:45.19%;height:55.50%"></span>
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -324,7 +313,7 @@ body.hzx { background: #f4f4f4; }
 
     <a class="hzx-card" href="floor-plan-onboarding.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-build.png?v=2" alt="A designer refining a floor plan on a desktop screen" width="966" height="1071">
+        <span class="hzx-card__art"><img class="hzx-card__illus" src="../media/context/hz-build.png?v=3" alt="A designer refining a floor plan on a desktop screen" width="756" height="738"><img class="hzx-card__glow" src="../media/context/glow-build.svg" alt="" aria-hidden="true" style="left:26.19%;top:5.28%;width:71.43%;height:62.20%"></span>
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -337,7 +326,7 @@ body.hzx { background: #f4f4f4; }
 
     <a class="hzx-card" href="ar-walkthrough.html">
       <figure class="hzx-card__fig">
-        <img src="../media/context/hz-present.png?v=2" alt="A pro showing a plan on a tablet to two clients at a table" width="966" height="1071">
+        <span class="hzx-card__art"><img class="hzx-card__illus" src="../media/context/hz-present.png?v=3" alt="A pro showing a plan on a tablet to two clients at a table" width="708" height="741"><img class="hzx-card__glow" src="../media/context/glow-present.svg" alt="" aria-hidden="true" style="left:23.94%;top:39.98%;width:54.24%;height:51.01%"></span>
       </figure>
       <div class="hzx-card__foot">
         <div class="hzx-card__txt">
@@ -359,78 +348,6 @@ body.hzx { background: #f4f4f4; }
     <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
-
-<script>
-/* The warm pool in the connector follows the pointer: hovering a card parks it
-   over that card, and with nothing hovered it drifts gently along the run.
-   The gradient's x1/x2 are plain SVG attributes, so this is driven per frame
-   rather than by CSS. */
-(function () {
-  var svg = document.querySelector('svg.hzx-connector');
-  var cards = Array.prototype.slice.call(document.querySelectorAll('.hzx-card'));
-  if (!svg || !cards.length) return;
-  var grad = svg.querySelector('#hzxFlow');
-  if (!grad) return;
-
-  var VB = 595.887;   // the connector's viewBox width
-  var BAND = 300;     // how wide the warm pool is, in those units
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function place(x) {
-    grad.setAttribute('x1', (x - BAND / 2).toFixed(1));
-    grad.setAttribute('x2', (x + BAND / 2).toFixed(1));
-  }
-
-  /* Where the pool should sit for a given card. The line is narrower than the
-     card row - it runs from inside card 1 to inside card 3 - so a card's own
-     centre can fall outside it. Use the middle of the stretch of line the card
-     actually covers, which keeps the pool on the line for all three. */
-  function centreOf(card) {
-    var c = svg.getBoundingClientRect();
-    if (!c.width) return VB / 2;
-    var r = card.getBoundingClientRect();
-    var l = Math.max(r.left, c.left);
-    var rt = Math.min(r.right, c.right);
-    var mid = (rt > l) ? (l + rt) / 2 : (r.left < c.left ? c.left : c.right);
-    return (mid - c.left) * (VB / c.width);
-  }
-
-  var hovered = null;
-  cards.forEach(function (card) {
-    function on()  { hovered = card; if (reduce) place(centreOf(card)); }
-    function off() { if (hovered === card) { hovered = null; if (reduce) place(VB / 2); } }
-    card.addEventListener('mouseenter', on);
-    card.addEventListener('mouseleave', off);
-    card.addEventListener('focus', on);
-    card.addEventListener('blur', off);
-  });
-
-  // Reduced motion: the pool still answers hover, it just never drifts on its own
-  if (reduce) { place(VB / 2); return; }
-
-  var pos = VB / 2, phase = 0, last = 0;
-  place(pos);
-
-  function frame(now) {
-    var dt = last ? Math.min(now - last, 50) : 16;
-    last = now;
-
-    var target;
-    if (hovered) {
-      target = centreOf(hovered);
-    } else {
-      phase += (dt / 7000) * Math.PI * 2;              // 7s round trip
-      target = VB / 2 + Math.sin(phase) * (VB / 2);
-    }
-
-    // frame-rate independent easing, ~180ms to settle
-    pos += (target - pos) * (1 - Math.exp(-dt / 180));
-    place(pos);
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-})();
-</script>
 
 <script>
 // Grow the user bars once, the first time the chart scrolls into view.
