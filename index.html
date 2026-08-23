@@ -54,14 +54,24 @@ body.hpx { background: #f4f4f4; }
   color: var(--text); margin: 16px 0 0; max-width: 760px; }
 
 /* Outlined pill that fills in on hover */
-/* Primary button: filled accent at rest, a lighter accent floods in on hover.
-   The border is gone and its 1px folded into the padding, so the size is
-   unchanged and the fill has no ring around it. */
+/* Primary button: a warm gradient drifting across it at rest, a lighter one
+   flooding in on hover. Only the background is doing anything here - the
+   shape, size and mono type are untouched.
+   Every stop is dark enough to clear 4.5:1 against the white label; the
+   lightest, #B85B33, sits at 4.58:1, which is the ceiling for this family. */
 .hpx-btn { position: relative; display: inline-flex; margin-top: 24px;
   border: 0; border-radius: 4px;
-  background: var(--accent); color: #fff;
+  color: #fff;
+  background-image: linear-gradient(-45deg, #7E3A20, #9E4E2C, #B85B33, #8A5A2B);
+  background-size: 400% 400%;
+  animation: hpxBtnGradient 12s ease infinite;
   font-family: var(--font-mono); font-size: 13px; letter-spacing: .04em;
   text-decoration: none; overflow: hidden; }
+@keyframes hpxBtnGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 .hpx-btn__t { display: inline-flex; align-items: center; gap: 6px;
   padding: 9px 13px; white-space: nowrap; }
 /* The hover appearance sits in one layer stacked exactly over the resting one,
@@ -72,7 +82,10 @@ body.hpx { background: #f4f4f4; }
    simply opens from the centre. */
 .hpx-btn__t--on {
   position: absolute; inset: 0; box-sizing: border-box;
-  background: #B85B33; color: #fff;
+  color: #fff;
+  background-image: linear-gradient(-45deg, #8E4527, #A85630, #B85B33, #9A6234);
+  background-size: 400% 400%;
+  animation: hpxBtnGradient 12s ease infinite;
   clip-path: circle(0 at var(--x, 50%) var(--y, 50%));
   /* An even curve, not a front-loaded one: cubic-bezier(.22,1,.36,1) was
      98% done after 120ms, so the fill read as instant however long the
@@ -240,6 +253,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 @media (prefers-reduced-motion: reduce) {
   .hpx-arrowlink i, .hpx-btn i, .hpx-arrow, .hpx-projrow { transition: none; }
   .hpx-btn__t--on { transition: none; }
+  .hpx-btn, .hpx-btn__t--on { animation: none; }
   .hpx-arrowlink:hover i, .hpx-btn:hover i, .hpx-proj:hover .hpx-arrow { transform: none; }
 }
 </style>
