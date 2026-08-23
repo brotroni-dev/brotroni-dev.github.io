@@ -61,10 +61,51 @@
 .mrx-role b { color: var(--accent); font-weight: 500; }
 
 /* --- Hero illustration: full-width drawing, clipped top and bottom as in Figma --- */
+/* --- Hero: a field of single-room plans that never join up ---------------
+   Each room is drawn the way the product draws one: heavy walls, a pale floor,
+   dimension strings on all four sides, and the ghost of the previous shape
+   behind it. They turn, drift and bounce off each other, and never once snap
+   together - which is the problem this project set out to fix. */
 .mrx-heroillus { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); }
 .mrx-heroillus__box { position: relative; width: 100%; aspect-ratio: 1016 / 372;
-  overflow: hidden; margin: 0; }
-.mrx-heroillus__box img { position: absolute; left: 0; top: -8.6%; width: 100%; height: auto; display: block; }
+  overflow: hidden; margin: 0;
+  background-image:
+    linear-gradient(#ECEBE8 1px, transparent 1px),
+    linear-gradient(90deg, #ECEBE8 1px, transparent 1px);
+  background-size: 26px 26px; }
+/* the graph paper fades out at the edges so the field has no hard border */
+.mrx-heroillus__box::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 76% 80% at 50% 50%,
+              rgba(252,252,251,0) 52%, rgba(252,252,251,.96) 100%); }
+
+.mrx-room { position: absolute; left: 0; top: 0; will-change: transform; overflow: visible; }
+.mrx-room__ghost { fill: none; stroke: #C9C7C2; stroke-width: 1; }
+.mrx-room__walls { fill: #F6F5F1; stroke: #171614; stroke-linejoin: miter; }
+
+.mrx-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
+.mrx-dim::before, .mrx-dim::after { content: ""; position: absolute; background: #8E8B85; }
+.mrx-dim__line { position: absolute; background: #8E8B85; }
+.mrx-dim__t { position: relative; font-family: var(--font-body); font-size: var(--dim, 10px);
+  font-weight: 500; color: #4A4741; background: #FBFBFA; padding: 0 4px;
+  white-space: nowrap; line-height: 1; }
+.mrx-dim--top { left: 0; right: 0; top: -18px; height: 12px; }
+.mrx-dim--top .mrx-dim__line { left: 0; right: 0; top: 50%; height: 1px; }
+.mrx-dim--top::before { left: 0;  top: 1px; width: 1px; height: 10px; }
+.mrx-dim--top::after  { right: 0; top: 1px; width: 1px; height: 10px; }
+.mrx-dim--bottom { left: 0; right: 0; bottom: -18px; height: 12px; }
+.mrx-dim--bottom .mrx-dim__line { left: 0; right: 0; top: 50%; height: 1px; }
+.mrx-dim--bottom::before { left: 0;  top: 1px; width: 1px; height: 10px; }
+.mrx-dim--bottom::after  { right: 0; top: 1px; width: 1px; height: 10px; }
+.mrx-dim--right { top: 0; bottom: 0; right: -18px; width: 12px; }
+.mrx-dim--right .mrx-dim__line { top: 0; bottom: 0; left: 50%; width: 1px; }
+.mrx-dim--right::before { top: 0;    left: 1px; height: 1px; width: 10px; }
+.mrx-dim--right::after  { bottom: 0; left: 1px; height: 1px; width: 10px; }
+.mrx-dim--right .mrx-dim__t { transform: rotate(90deg); }
+.mrx-dim--left { top: 0; bottom: 0; left: -18px; width: 12px; }
+.mrx-dim--left .mrx-dim__line { top: 0; bottom: 0; left: 50%; width: 1px; }
+.mrx-dim--left::before { top: 0;    left: 1px; height: 1px; width: 10px; }
+.mrx-dim--left::after  { bottom: 0; left: 1px; height: 1px; width: 10px; }
+.mrx-dim--left .mrx-dim__t { transform: rotate(-90deg); }
 
 /* --- Context --- */
 .mrx-context { background: #f6f6f5; padding-bottom: 64px; }
@@ -423,9 +464,8 @@
 
 <!-- Hero illustration -->
 <div class="mrx-band mrx-heroillus">
-  <figure class="mrx-heroillus__box">
-    <img src="../media/multi-room/mr-hero-illus.png?v=2" alt="A pro walking through three connected rooms with a tablet, corner points marked along the walls" width="2036" height="807">
-  </figure>
+  <figure class="mrx-heroillus__box" id="mrx-rooms" role="img"
+          aria-label="A field of single-room floor plans, each with its own dimensions, drifting and turning and bouncing off one another without ever joining into a single plan."></figure>
 </div>
 
 <!-- Context -->
@@ -820,6 +860,196 @@
     <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
   </div>
 </footer>
+
+<script>
+/* Hero: rooms that never connect. See the .mrx-heroillus block in the styles
+   above for what each room is made of. Collision is a separating-axis test on
+   each room's rotated box, so corners cannot slide under a neighbour. */
+(function () {
+  var stage = document.getElementById('mrx-rooms');
+  if (!stage) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var COUNT = 9, WALL = 5, MIN = 74, MAX = 158;
+  var rooms = [], W = 0, H = 0;
+
+  /* 26px of stage is one foot, so the labels read like the real thing */
+  function feet(px) {
+    var total = px / 26 * 12;
+    return Math.floor(total / 12) + "' " + Math.round(total % 12) + '"';
+  }
+
+  /* The shapes a real scan throws up: plain rooms, a corner taken out for a
+     closet or chimney, an alcove, a narrow neck, a stepped wall. */
+  function shape(w, h) {
+    var pick = Math.random();
+    var cw = w * (0.3 + Math.random() * 0.28), ch = h * (0.3 + Math.random() * 0.28);
+    if (pick < 0.40) return [[0,0],[w,0],[w,h],[0,h]];
+    if (pick < 0.66) {
+      var c = Math.floor(Math.random() * 4);
+      if (c === 0) return [[cw,0],[w,0],[w,h],[0,h],[0,ch],[cw,ch]];
+      if (c === 1) return [[0,0],[w-cw,0],[w-cw,ch],[w,ch],[w,h],[0,h]];
+      if (c === 2) return [[0,0],[w,0],[w,h-ch],[w-cw,h-ch],[w-cw,h],[0,h]];
+      return [[0,0],[w,0],[w,h],[cw,h],[cw,h-ch],[0,h-ch]];
+    }
+    if (pick < 0.80) {
+      var a = w * 0.3, b = w * 0.68, d = h * 0.26;
+      return Math.random() < 0.5
+        ? [[0,0],[a,0],[a,-d],[b,-d],[b,0],[w,0],[w,h],[0,h]]
+        : [[0,0],[w,0],[w,h],[b,h],[b,h+d],[a,h+d],[a,h],[0,h]];
+    }
+    if (pick < 0.92) {
+      var nx = w * 0.28, nw = w * 0.44, nh = h * 0.42;
+      return [[nx,0],[nx+nw,0],[nx+nw,nh],[w,nh],[w,h],[0,h],[0,nh],[nx,nh]];
+    }
+    var s1 = w * 0.45, s2 = h * 0.42;
+    return [[0,0],[s1,0],[s1,s2],[w,s2],[w,h],[0,h]];
+  }
+
+  /* fit a shape back into the box it was drawn in, so the strings stay honest */
+  function fit(pts, w, h) {
+    var xs = pts.map(function (p) { return p[0]; }), ys = pts.map(function (p) { return p[1]; });
+    var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs);
+    var y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+    var sx = w / (x1 - x0), sy = h / (y1 - y0);
+    return pts.map(function (p) {
+      return [ +((p[0] - x0) * sx).toFixed(2), +((p[1] - y0) * sy).toFixed(2) ];
+    });
+  }
+
+  function dim(side, txt) {
+    return '<span class="mrx-dim mrx-dim--' + side + '"><span class="mrx-dim__line"></span>' +
+           '<span class="mrx-dim__t">' + txt + '</span></span>';
+  }
+
+  function build() {
+    stage.innerHTML = '';
+    rooms = [];
+    var r = stage.getBoundingClientRect();
+    W = r.width; H = r.height;
+    if (!W || !H) return;
+    var k = Math.min(1, W / 1016);
+
+    for (var i = 0; i < COUNT; i++) {
+      var w = (MIN + Math.random() * (MAX - MIN)) * k;
+      var h = w * (0.55 + Math.random() * 0.85);
+      var pts = fit(shape(w, h), w, h);
+      var el = document.createElement('div');
+      el.className = 'mrx-room';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+      el.style.setProperty('--dim', Math.max(8, Math.round(9 * k)) + 'px');
+      var poly  = pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
+      var ghost = pts.map(function (p) { return (p[0] - 7) + ',' + (p[1] - 7); }).join(' ');
+      el.innerHTML =
+        '<svg style="position:absolute;left:' + (-WALL) + 'px;top:' + (-WALL) + 'px;width:' +
+          (w + WALL * 2) + 'px;height:' + (h + WALL * 2) + 'px;overflow:visible" viewBox="' +
+          (-WALL) + ' ' + (-WALL) + ' ' + (w + WALL * 2) + ' ' + (h + WALL * 2) + '">' +
+          '<polygon class="mrx-room__ghost" points="' + ghost + '"/>' +
+          '<polygon class="mrx-room__walls" points="' + poly + '" stroke-width="' + WALL + '"/>' +
+        '</svg>' +
+        dim('top', feet(w)) + dim('bottom', feet(w)) +
+        dim('left', feet(h)) + dim('right', feet(h));
+      stage.appendChild(el);
+
+      rooms.push({
+        el: el, w: w, h: h,
+        x: w / 2 + Math.random() * Math.max(1, W - w),
+        y: h / 2 + Math.random() * Math.max(1, H - h),
+        vx: (Math.random() - 0.5) * 0.42, vy: (Math.random() - 0.5) * 0.42,
+        a: Math.random() * 360, va: (Math.random() - 0.5) * 0.20,
+        m: w * h
+      });
+    }
+    for (var pass = 0; pass < 70; pass++) separate();
+    draw();
+  }
+
+  function boxAxes(o) {
+    var t = o.a * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
+    return [[c, s], [-s, c]];
+  }
+  function reach(o, ax) {
+    var t = o.a * Math.PI / 180, c = Math.cos(t), s = Math.sin(t);
+    return Math.abs(c * ax[0] + s * ax[1]) * (o.w / 2) +
+           Math.abs(-s * ax[0] + c * ax[1]) * (o.h / 2);
+  }
+  function hit(p, q) {
+    var dx = q.x - p.x, dy = q.y - p.y;
+    var axs = boxAxes(p).concat(boxAxes(q));
+    var best = Infinity, n = null;
+    for (var i = 0; i < axs.length; i++) {
+      var ax = axs[i];
+      var over = reach(p, ax) + reach(q, ax) - Math.abs(dx * ax[0] + dy * ax[1]);
+      if (over <= 0) return null;
+      if (over < best) {
+        best = over;
+        n = (dx * ax[0] + dy * ax[1]) < 0 ? [-ax[0], -ax[1]] : ax;
+      }
+    }
+    return { n: n, d: best };
+  }
+  function separate() {
+    for (var i = 0; i < rooms.length; i++)
+      for (var j = i + 1; j < rooms.length; j++) {
+        var a = rooms[i], b = rooms[j], c = hit(a, b);
+        if (c) {
+          a.x -= c.n[0] * c.d / 2; a.y -= c.n[1] * c.d / 2;
+          b.x += c.n[0] * c.d / 2; b.y += c.n[1] * c.d / 2;
+        }
+      }
+  }
+  function draw() {
+    for (var i = 0; i < rooms.length; i++) {
+      var o = rooms[i];
+      o.el.style.transform =
+        'translate(' + (o.x - o.w / 2) + 'px,' + (o.y - o.h / 2) + 'px) rotate(' + o.a + 'deg)';
+    }
+  }
+  function step() {
+    for (var i = 0; i < rooms.length; i++) {
+      var o = rooms[i];
+      o.x += o.vx; o.y += o.vy; o.a += o.va;
+      var hx = reach(o, [1, 0]), hy = reach(o, [0, 1]);
+      if (o.x - hx < 0) { o.x = hx;     o.vx = Math.abs(o.vx); }
+      if (o.x + hx > W) { o.x = W - hx; o.vx = -Math.abs(o.vx); }
+      if (o.y - hy < 0) { o.y = hy;     o.vy = Math.abs(o.vy); }
+      if (o.y + hy > H) { o.y = H - hy; o.vy = -Math.abs(o.vy); }
+    }
+    for (var a = 0; a < rooms.length; a++)
+      for (var b = a + 1; b < rooms.length; b++) {
+        var p = rooms[a], q = rooms[b], c = hit(p, q);
+        if (!c) continue;
+        var nx = c.n[0], ny = c.n[1];
+        p.x -= nx * c.d / 2; p.y -= ny * c.d / 2;
+        q.x += nx * c.d / 2; q.y += ny * c.d / 2;
+        var rel = (q.vx - p.vx) * nx + (q.vy - p.vy) * ny;
+        if (rel < 0) {
+          var tot = p.m + q.m, imp = -1.9 * rel / tot;
+          p.vx -= imp * q.m * nx; p.vy -= imp * q.m * ny;
+          q.vx += imp * p.m * nx; q.vy += imp * p.m * ny;
+          p.va -= rel * 0.012; q.va += rel * 0.012;
+        }
+      }
+    for (var k = 0; k < rooms.length; k++) {
+      var o2 = rooms[k], sp = Math.hypot(o2.vx, o2.vy);
+      if (sp > 0.55) { o2.vx *= 0.55 / sp; o2.vy *= 0.55 / sp; }
+      if (sp < 0.12) { o2.vx *= 1.03; o2.vy *= 1.03; }
+      if (Math.abs(o2.va) > 0.30) o2.va *= 0.9;
+    }
+    draw();
+    requestAnimationFrame(step);
+  }
+
+  build();
+  if (!reduce) requestAnimationFrame(step);
+
+  var t;
+  window.addEventListener('resize', function () {
+    clearTimeout(t); t = setTimeout(build, 200);
+  });
+})();
+</script>
 
 </body>
 </html>
