@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=127">
-<link rel="stylesheet" href="../styles/main.css?v=127">
+<link rel="stylesheet" href="../styles/tokens.css?v=131">
+<link rel="stylesheet" href="../styles/main.css?v=131">
 <style>
 /* ============================================================
    Floor Plan Onboarding - visual redesign (from Figma).
@@ -194,6 +194,31 @@
   .obx-problem { padding-bottom: 72px; }
   .obx-problem__text, .obx-chosen__img { flex: 1 1 auto; max-width: 100%; }
   .obx-learngrid, .obx-lmgrid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+/* ---------- Mobile vertical rhythm ----------
+   Every band above is spaced for the 1016 column, where the eye crosses a
+   lot of horizontal distance between sections. Stacked on a phone those same
+   paddings read as dead scroll, so the section spacing is scaled back here.
+   The problem/goal pair is left alone: the goal card is pulled up over the
+   problem's bottom padding, so the two numbers have to stay in step.
+   Nothing in this block applies above 720px. */
+@media (max-width: 720px) {
+  .obx-opener { padding-top: 24px; }
+  .obx-rolebar { padding-bottom: 24px; }
+  .obx-context { padding-block: 36px; }
+  .obx-voices { padding-block: 40px 24px; }
+  .obx-uj { padding-block: 24px 40px; }
+  .obx-goalwrap { padding-bottom: 40px; }
+  .obx-explore { padding-block: 24px; }
+  .obx-chosen { padding-block: 40px; }
+  .obx-between { padding-block: 36px 16px; }
+  .obx-complete { padding-block: 24px 0; }
+  .obx-outcome { padding-block: 40px 24px; }
+  .obx-learn { padding-block: 40px; }
+  .obx-learncard { padding: 24px; }
+  .obx-nextlink { margin: 32px 0 24px; }
+  .obx-next { padding-bottom: 24px; }
 }
 </style>
 </head>

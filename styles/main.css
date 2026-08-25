@@ -487,6 +487,8 @@ a:focus-visible, button:focus-visible, video:focus-visible, iframe:focus-visible
   .flow__step { flex-basis: 100%; }
   .move, .move--right { flex-direction: column; align-items: stretch; }
   .move__illo { flex-basis: auto; max-width: 260px; margin-inline: auto; }
+  /* 96px of empty page under the footer links is a lot of thumb on a phone */
+  .footer { padding-bottom: var(--s7); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

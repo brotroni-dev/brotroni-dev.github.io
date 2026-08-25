@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=127">
-<link rel="stylesheet" href="../styles/main.css?v=127">
+<link rel="stylesheet" href="../styles/tokens.css?v=131">
+<link rel="stylesheet" href="../styles/main.css?v=131">
 <style>
 /* ============================================================
    Multi-Room Mobile Scan - visual redesign (from Figma
@@ -404,6 +404,11 @@
   .mrx-desktop, .mrx-challenge, .mrx-after, .mrx-tutorial { min-height: 0; }
   .mrx-stepcard--flip { flex-direction: column-reverse; }
   .mrx-challenge figure, .mrx-turning figure, .mrx-desktop figure { align-self: center; max-width: 460px; }
+  /* `.mrx-x figure` out-ranks the `.mrx-x > *` reset above, so the desktop
+     flex-basis survived into the stacked column and became a HEIGHT - which
+     left holes of 300-560px under these images on a phone. Reset by name. */
+  .mrx-desktop figure, .mrx-challenge figure, .mrx-drift figure,
+  .mrx-turning figure, .mrx-limit figure { flex: 0 0 auto; }
   .mrx-flow { flex-wrap: wrap; }
   .mrx-flowstep { flex: 1 1 40%; }
   .mrx-flowarrow { display: none; }
@@ -427,6 +432,37 @@
   .mrx-vs__arrow { transform: rotate(90deg); }
   .mrx-tutorial { padding: 16px 0; }
   .mrx-plate--5 { flex-wrap: wrap; }
+}
+
+/* ---------- Mobile vertical rhythm ----------
+   Every band above is spaced for the 1016 column, where the eye crosses a
+   lot of horizontal distance between sections. Stacked on a phone those same
+   paddings read as dead scroll, so the section spacing is scaled back here.
+   Nothing in this block applies above 700px. */
+@media (max-width: 700px) {
+  .mrx-rolebar { padding-bottom: 24px; }
+  .mrx-context { padding-block: 24px 36px; }
+  .mrx-voices { padding-block: 40px; }
+  .mrx-uj { padding-bottom: 40px; }
+  .mrx-before { padding-block: 36px 0; }
+  .mrx-screenflow { margin-top: 36px; }
+  .mrx-limit { padding-block: 36px; }
+  .mrx-desktop, .mrx-goalwrap, .mrx-challenge { padding-block: 24px; }
+  .mrx-drift { padding-top: 32px; }
+  .mrx-attempt1 { padding-block: 32px 24px; }
+  .mrx-attempt2 { padding-block: 24px; }
+  .mrx-after { padding-block: 36px; }
+  .mrx-turning { padding-block: 24px; }
+  .mrx-three { padding-block: 32px 36px; }
+  .mrx-final { padding-block: 36px 24px; }
+  .mrx-step { padding-bottom: 24px; }
+  .mrx-wild { padding-bottom: 24px; }
+  .mrx-wild--last { padding-bottom: 36px; }
+  .mrx-impact { padding-block: 36px 24px; }
+  .mrx-learn { padding-block: 24px 40px; }
+  .mrx-learncard { gap: 32px; }
+  .mrx-nextlink { margin: 32px 0 24px; }
+  .mrx-next { padding-bottom: 24px; }
 }
 </style>
 </head>

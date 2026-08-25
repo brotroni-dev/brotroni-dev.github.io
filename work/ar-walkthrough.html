@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=127">
-<link rel="stylesheet" href="../styles/main.css?v=127">
+<link rel="stylesheet" href="../styles/tokens.css?v=131">
+<link rel="stylesheet" href="../styles/main.css?v=131">
 <style>
 /* ============================================================
    Life-Sized Walkthroughs - visual redesign (from Figma
@@ -371,6 +371,30 @@
   .lsw-callout { transform: rotate(-2deg); }
   .lsw-swatches { flex-wrap: wrap; justify-content: center; }
   .lsw-swatch { flex: 0 0 132px; }
+}
+
+/* ---------- Mobile vertical rhythm ----------
+   Every band above is spaced for the 1016 column, where the eye crosses a
+   lot of horizontal distance between sections. Stacked on a phone those same
+   paddings read as dead scroll, so the section spacing is scaled back here.
+   Nothing in this block applies above 700px. */
+@media (max-width: 700px) {
+  .lsw-opener { padding-top: 40px; }
+  .lsw-rolebar { padding-bottom: 24px; }
+  .lsw-context { padding-block: 36px; }
+  .lsw-voices { padding-block: 40px 24px; }
+  .lsw-uj { padding-block: 24px 40px; }
+  .lsw-problem { padding-top: 24px; }
+  .lsw-goalwrap { padding-block: 40px 24px; }
+  .lsw-marker { padding-block: 36px 48px; }
+  .lsw-hiw { padding-top: 36px; }
+  .lsw-step { padding-block: 20px 0; }
+  .lsw-step--last { padding-block: 20px; }
+  .lsw-colors { padding-block: 20px 0; }
+  .lsw-learn { padding-block: 40px; }
+  .lsw-learncard { gap: 32px; }
+  .lsw-nextlink { margin: 32px 0 24px; }
+  .lsw-next { padding-bottom: 24px; }
 }
 </style>
 </head>
