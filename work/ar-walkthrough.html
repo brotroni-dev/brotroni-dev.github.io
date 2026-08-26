@@ -326,6 +326,33 @@
   color: #8c8475; text-align: center; }
 .lsw-swatch .lsw-check { right: -9.25%; top: -3.11%; }
 
+/* --- Impact ---
+   Sits between the last step and the learnings, on the plain white ground. */
+.lsw-impact { padding-block: 72px 56px; display: flex; flex-direction: column;
+  align-items: flex-start; gap: 16px; }
+.lsw-impact__h { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.16; color: var(--title); margin: 0; max-width: 660px; }
+.lsw-impact__p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0; max-width: 660px; }
+
+/* Named, sourced, and from after launch - so unlike the anonymous voice cards
+   at the top of the page this one carries an attribution and a link anyone
+   can follow. An accent rule rather than a box, so it reads as a citation
+   and not as another one of the cards. */
+.lsw-cite { margin: 8px 0 0; max-width: 660px; border-left: 2px solid var(--accent);
+  padding: 2px 0 2px 24px; display: flex; flex-direction: column; gap: 12px; }
+.lsw-cite__text { font-family: var(--font-display); font-style: italic; font-weight: 400;
+  font-size: 20px; line-height: 1.45; color: var(--title); margin: 0; }
+.lsw-cite__who { font-family: var(--font-mono); font-size: 12px; line-height: 1.55;
+  letter-spacing: .02em; color: var(--muted); }
+.lsw-cite__who a { color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid transparent; transition: border-color 160ms ease; }
+.lsw-cite__who a:hover, .lsw-cite__who a:focus-visible { border-bottom-color: var(--accent); }
+@media (max-width: 640px) {
+  .lsw-impact { padding-block: 48px 40px; }
+  .lsw-cite__text { font-size: 18px; }
+}
+
 /* --- Learnings (white card on the #f4f4f4 band) --- */
 .lsw-learn { background: #f4f4f4; padding-block: 72px; }
 .lsw-learncard { background: #fff; border: 1px solid var(--line); border-radius: 16px;
@@ -725,6 +752,18 @@
     </div>
   </div>
 </div>
+
+<!-- Impact -->
+<section class="lsw-band lsw-impact">
+  <p class="lsw-label">Impact</p>
+  <h2 class="lsw-impact__h">Shipped in 2022, and still in the pitch</h2>
+  <p class="lsw-impact__p">Life-Sized Walkthrough launched in March 2022. Houzz Pro still puts it in front of prospective clients, and pros describe it the way we hoped they&nbsp;would.</p>
+
+  <figure class="lsw-cite">
+    <blockquote class="lsw-cite__text">You see their eyes get excited. It builds trust right away.</blockquote>
+    <figcaption class="lsw-cite__who">Ryan Gifford, COO, Brown Design &amp; Construction &middot; <a href="https://pro.houzz.com/pro-learn/blog/3-ways-houzz-pro-3d-floor-plans-sell-more-projects" target="_blank" rel="noopener">Houzz Pro Learn <i aria-hidden="true">&nearr;</i></a></figcaption>
+  </figure>
+</section>
 
 <!-- Learnings -->
 <section class="lsw-band lsw-learn">
