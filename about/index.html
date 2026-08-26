@@ -24,61 +24,233 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=136">
-<link rel="stylesheet" href="../styles/main.css?v=136">
+<link rel="stylesheet" href="../styles/tokens.css?v=138">
+<link rel="stylesheet" href="../styles/main.css?v=138">
 <style>
+:root { --edge: 64px; }   /* the one gap: lead to stack, stack to footer */
+
 /* ============================================================
-   About (from Figma node 775:32851). Flat #f4f4f4 ground, one
-   white card holding the three sections. Prefixed abx- so it
-   stays scoped to this page.
+   About - stacking cards.
+   Cards from Figma 1141:28626, covered states from 1138:28167
+   and 1141:28672.
+
+   The body, the 1016 band, the back bar, the opener, the h2/p pair
+   inside a card and the footer all come from the .abx- rules in
+   main.css, shared with the rest of the site. What is below is only
+   what the stacking itself needs.
+
+   The mechanic: the three cards are siblings in one tall column,
+   each position:sticky and parked 30px below the one before it.
+   Scrolling parks card 1, slides card 2 up over it, then card 3
+   over that, and all three stay parked. Because each card is
+   inset further than the last, the left rail of every parked card
+   stays uncovered, so you can always read where you are.
    ============================================================ */
 
-body.abx { background: #f4f4f4;
-  /* The design pins the footer to the bottom of the frame */
-  min-height: 100vh; display: flex; flex-direction: column; }
+/* --- Sticky head ------------------------------------------ */
+/* The back link, the title and the lead stay put while the cards travel
+   under them, so you never lose the page you are on. It needs an opaque
+   ground of its own, otherwise the cards would show through.
+   The nav's usual tuck-on-scroll is switched off here: with a second bar
+   parked under it, tucking would leave a hole where the nav had been. */
+/* One number for the air around the stack: below the lead, and under the last
+   card before the footer's rule. The head's padding IS the top gap, so the
+   card parks flush against the head rather than 32px below it - otherwise the
+   two would add up and the top would read twice as open as the bottom. */
+.abd-head { position: sticky; top: 69px; z-index: 20; background: #f4f4f4;
+  padding-bottom: var(--edge); }
+body.abx .nav--tucked { transform: none; }
 
-/* Content locked to a 1016 column (72px sides at desktop) */
-.abx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
-.nav__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
-.footer__inner { max-width: none; padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+/* --- Footer, the last thing up ----------------------------- */
+/* It keeps the ordinary end-of-page footer it has everywhere else, padding
+   and all. It is only lifted above the cards (25 against their 10-12) and
+   pulled up by the stack's trailing gap, so that once the last card has
+   parked the footer is what climbs the screen, over the parked stack, and
+   the page ends when it lands. */
+body.abd-stacking .footer { position: relative; z-index: 25; background: #f4f4f4;
+  /* the 32px spacer at the end of the stack is the separation now; the 64 it
+     inherits would only add scroll that squeezes the parked cards */
+  margin-top: 0;
+  /* The 96px under the links is there so a footer can sit at the end of a long
+     page with air beneath it. This one comes to rest against the bottom of the
+     window instead, so that air is just a tall empty bar. It gets the same 32
+     above and below the links as the cards get from the head and the footer,
+     so every gap on the page is the same one. */
+  padding-bottom: var(--s6); }
+/* main.css gives every footer link 12px of padding-block, which is a touch
+   target for a thumb. This footer only exists on a wide window with a mouse,
+   and those 24px of height come straight out of the cards, so they go. The
+   footer gets shorter and the card gets the room back. */
+body.abd-stacking .footer a { padding-block: 0; }
+
+/* --- The stack -------------------------------------------- */
+/* --park is where card 1 comes to rest, clear of the 69px nav.
+   --step is how far each following card parks below the last, and it is
+   the only number deciding how much rail stays readable.
+   --dwell is how long a parked card holds the screen on its own before
+   the next one arrives, which is what makes each card properly visible. */
+.abd-stack {
+  /* set from the measured head height by the script, this is just a floor */
+  --park: 104px;
+  --step: 30px;
+  /* The Figma sets the cards 32 apart, and that is what you see before any
+     scrolling. It does not shorten the run between one card parking and the
+     next arriving - that distance is the card's own height plus this. */
+  --dwell: 32px;
+  /* No margin here. The head's padding-bottom is already the gap, and 40px on
+     top of it meant card one started 40 below its parking place and slid up to
+     meet it - a jump before you had scrolled anywhere. It starts parked. */
+}
+
+/* --card-h is measured by the script: the height that lets the last card sit
+   fully between the head and the footer. Every card takes it, so none of them
+   is ever cut off by the bottom of the window. */
+.abd-card {
+  /* Sticky only once the script has confirmed the window can hold the stack.
+     Left pinned without a height it piles up instead of falling back. */
+  position: static;
+  z-index: calc(10 + var(--i));
+  background: #fff;
+  border: 1px solid var(--accent);
+  /* 16 / 12 / 8 outwards to inwards. Not the concentric rule - at a 53px inset
+     that would need 118 on the outer card - but the same idea read small: each
+     card sitting inside the last is rounded a little tighter. */
+  border-radius: calc(16px - var(--i) * 4px);
+  display: flex;
+  align-items: stretch;
+  gap: 32px;
+  padding-right: 32px;
+  overflow: hidden;          /* keeps the veil inside the rounded corner */
+}
+/* The room between cards is a real element, not a margin. A margin belongs to
+   the sticky box's own margin box and shortens the range it may travel, which
+   let the first two cards come unstuck long before the third had parked. */
+.abd-gap { height: var(--dwell); }
+/* The trailing room is what keeps the three parked while the footer travels
+   over them. The footer is pulled back up by exactly this much, so the room
+   is scrolling distance rather than empty page. */
+.abd-gap--end { height: var(--end-gap, 0px); }
+
+body.abd-stacking .abd-card {
+  position: sticky;
+  height: var(--card-h, auto);
+  top: calc(var(--park) + var(--i) * var(--step));
+}
 
 
-/* --- Back bar --- */
-.abx-backbar { padding-block: 20px; line-height: 1.33; }
-.abx-back { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
-  letter-spacing: .04em; color: var(--accent); text-decoration: none; }
-.abx-back:hover { color: var(--title); }
+/* Figma insets the first card by 32 inside the 1016 column and steps the
+   next two in by 53 each. Pulling the first one flush with the page column
+   and keeping that 53 step gives 0 / 53 / 107, held as ratios so the nesting
+   survives any width. */
+.abd-card--1 { --i: 0; margin-inline: 0; }
+.abd-card--2 { --i: 1; margin-inline: 5.22%; }
+.abd-card--3 { --i: 2; margin-inline: 10.53%; }
 
-/* --- Opener --- */
-/* The footer is pinned with margin-top: auto, which overrides the rule's
-   usual 64px top margin, so the gap above it lives here instead. */
-.abx-opener { padding-top: 32px; padding-bottom: var(--s8); }
-.abx-title { font-family: var(--font-display); font-weight: 300;
-  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title); margin: 0; }
-.abx-lead { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
-  color: var(--text); max-width: 920px; margin: 12px 0 0; }
+/* --- Rail ------------------------------------------------- */
+/* Above the veil, so a parked card still says what it is. Once a card is
+   covered the rail is ALL that is left of it, so it carries the card's own
+   title rather than a stage name - three parked cards then read as their three
+   titles down the left edge. The treatment is the Figma's: mono, uppercase,
+   tracked, in the accent, dashes either side. */
+.abd-rail { position: relative; z-index: 2; flex: none; width: 46px;
+  border-right: 1px dashed rgba(158, 78, 44, .4);
+  display: flex; align-items: center; justify-content: center; }
+.abd-rail span { writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--font-mono); font-weight: 400; font-size: 14px;
+  line-height: 1.22; letter-spacing: 1.54px; text-transform: uppercase;
+  color: var(--accent); white-space: nowrap; }
 
-/* --- The card. Its text column is 920 (the same measure as the lead above),
-   so the card itself hugs at 920 + 32px padding either side. --- */
-.abx-card { margin-top: 47px; max-width: 984px; background: #fff;
-  border: 1px solid var(--line); border-radius: 12px; padding: 32px;
-  display: flex; flex-direction: column; gap: 32px; }
-.abx-sec h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
-  line-height: 1.08; color: var(--title); margin: 0 0 12px; }
-.abx-sec p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
-  color: var(--text); margin: 0; }
+/* --- Copy ------------------------------------------------- */
+/* .abx-sec already sets the h2 and p; this only handles the column */
+.abd-body { flex: 1 1 0; min-width: 0; padding-block: 32px; align-self: flex-start; }
+.abd-body p + p { margin-top: 12px; }
+.abd-card--2 .abd-body { padding-right: 32px; }
 
+/* --- Photographs ------------------------------------------ */
+/* Two columns beside the copy, the taller one centred against them, exactly
+   as the Figma frame has it. The sizes are the frame's own: this is as large
+   as they go before the third card, which is only 738 wide, runs out of room
+   for a readable measure. */
+.abd-shots { flex: none; display: flex; align-items: center; gap: 20px;
+  padding-left: 32px; padding-block: 20px;
+  border-left: 1px dashed rgba(158, 78, 44, .4); }
+/* Figma has 34 here. With 64px of air above and below the stack, a 900px
+   window leaves the card 416 and the content wants 422. The difference comes
+   out of the spacing inside the photograph cluster rather than out of the air
+   you asked for or the photographs themselves - it is the one measure here
+   nobody will count. */
+.abd-shots__col { display: flex; flex-direction: column; gap: 16px; }
+/* The photographs go to plain black and white, and the warmth is a wash of the
+   site's own accent laid over them - so the orange in them is literally the
+   orange everywhere else, and its strength is one number.
+   The three values are solved against Figma's own render of the same files:
+   five sampled colours, about 7/255 per channel.
+   isolation keeps the multiply talking to the photograph and nothing else. */
+.abd-shot { position: relative; display: block; isolation: isolate;
+  border-radius: 8px; overflow: hidden; line-height: 0; }
+.abd-shot img { display: block;
+  filter: grayscale(1) contrast(.85) brightness(1.35); }
+.abd-shot::after { content: ""; position: absolute; inset: 0;
+  background: var(--accent); opacity: .23; mix-blend-mode: multiply;
+  pointer-events: none; }
 
-.abx-footwrap { margin-top: auto; }
+/* --- The veil --------------------------------------------- */
+/* The same overlay the home page uses over its editor's notes:
+   rgba(158, 78, 44, .35), the accent itself at low alpha rather than a colour
+   mixed beforehand. One rung of alpha per card further back, so the stack
+   reads as planes at different depths instead of two flat plates.
+   --cover is written by the script: 0 while this is the card you are reading,
+   1 once the next card has slid fully over it. */
+.abd-veil { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  --veil-base: .25;      /* the home page's .35, lightened a rung */
+  --veil-step: .1;       /* one rung deeper for each card behind it */
+  background: rgba(158, 78, 44, calc(var(--veil-base) + (1 - var(--i)) * var(--veil-step)));
+  opacity: var(--cover, 0); }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 700px) {
-  .abx-card { margin-top: 32px; padding: 24px; }
-  .abx-sec h2 { font-size: 21px; }
+/* --- Narrow screens --------------------------------------- */
+/* A card is around 420px tall on a wide window, and taller again once the copy
+   and the photographs stack, which is most of a phone screen on its own.
+   Parking three of those would leave nothing to read, so below this width the
+   cards simply follow one another and everything the stacking needed switches
+   off. body.abd-stacking is never set here either, so the footer keeps the
+   ordinary end-of-page treatment it has on every other page. */
+@media (max-width: 1000px) {
+  :root { --edge: 40px; }              /* less air to give away on a phone */
+
+  .abd-head { position: static; }      /* its padding-bottom is still the gap */
+  .abd-gap { height: 20px; }
+  .abd-gap--end { display: none; }
+  .abd-veil { display: none; }
+
+  /* one plain card after another: no nesting, so one radius for all three */
+  .abd-card { position: static; height: auto; margin-inline: 0;
+    flex-direction: column; gap: 0; padding-right: 0; border-radius: 12px; }
+
+  /* the rail turns into a heading strip across the top of the card */
+  .abd-rail { width: auto; height: auto; padding: 14px 20px;
+    justify-content: flex-start;
+    border-right: 0; border-bottom: 1px dashed rgba(158, 78, 44, .4); }
+  .abd-rail span { writing-mode: horizontal-tb; transform: none;
+    font-size: 12px; letter-spacing: 1.2px; }
+
+  .abd-body { padding: 24px 20px; align-self: auto; }
+  .abd-card--2 .abd-body { padding-right: 20px; }
+
+  .abd-shots { border-left: 0; border-top: 1px dashed rgba(158, 78, 44, .4);
+    padding: 20px; gap: 12px; justify-content: center; align-items: flex-start; }
+  .abd-shots__col { gap: 12px; }
+}
+
+/* Three photographs at their desktop size need 333px of a 375px screen once
+   the card's padding is off it. Scaling them here keeps the cluster off both
+   edges instead of pressing against them. */
+@media (max-width: 560px) {
+  .abd-shots { padding: 16px; gap: 10px; }
+  .abd-shots__col { gap: 10px; }
+  .abd-shot img { width: 132px; height: auto; }
 }
 
 </style>
-<script src="../scripts/nav.js?v=3" defer></script>
 </head>
 <body class="abx">
 
@@ -93,66 +265,184 @@ body.abx { background: #f4f4f4;
   </div>
 </nav>
 
-<!-- Back -->
-<div class="abx-band abx-backbar">
-  <a class="abx-back" href="../index.html" data-back>&larr; Back</a>
-</div>
-
-<!-- Opener -->
-<main class="abx-band abx-opener">
-  <h1 class="abx-title">About me</h1>
-  <p class="abx-lead">I'm a senior product designer based in Tel Aviv, working across web and mobile.</p>
-
-  <div class="abx-card">
-    <section class="abx-sec">
-      <h2>How I got here</h2>
-      <p>After graduating from Shenkar, I worked in gallery management, social media, and content editing. Through those roles, I realized that what I enjoyed most was combining creativity with understanding people.</p>
-      <p>That led me to study UX/UI and join an agency, where I worked on projects in healthcare, banking, drone technology, and corporate training. I then moved into product design, and that's been my focus ever since.</p>
-    </section>
-
-    <section class="abx-sec">
-      <h2>My work</h2>
-      <p>What I enjoy most about product design is getting dropped into a new problem and learning my way into it. I'm naturally curious, so I ask a lot of questions, pull in the right people, and try to understand the world around the problem before deciding where to go.</p>
-      <p>I like working openly, sharing ideas early, and staying close to the details all the way to launch. A big part of what I bring to a team is the human side of the job: communication, presentation, mentoring, and creating the kind of relationships that make it easier to do good work together.</p>
-    </section>
-
-    <section class="abx-sec">
-      <h2>Outside of work</h2>
-      <p>When I'm not working, I'm volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
-    </section>
+<main>
+  <!-- Back + opener, parked under the nav -->
+  <div class="abd-head">
+    <div class="abx-band abx-backbar">
+      <a class="abx-back" href="../index.html" data-back>&larr; Back</a>
+    </div>
+    <div class="abx-band">
+      <h1 class="abx-title">About me</h1>
+      <p class="abx-lead">I'm a senior product designer based in Tel Aviv, working across web and mobile.</p>
+    </div>
   </div>
-</main>
+
+  <div class="abx-band abd-stack">
+
+    <!-- 01 -->
+    <section class="abd-card abd-card--1">
+      <div class="abd-rail"><span>- How I got here -</span></div>
+      <div class="abx-sec abd-body">
+        <h2>How I got here</h2>
+        <p>After graduating from Shenkar School of Engineering &amp; Design, I managed an artist's gallery, worked in social media, and later worked as a content editor.</p>
+        <p>The projects I enjoyed most weren't purely visual. They also involved understanding people and figuring out how something should work.<br>That led me to study UX/UI and join a design agency, where I worked with clients in healthcare, banking, drone technology, and corporate training.</p>
+      </div>
+      <div class="abd-shots">
+        <div class="abd-shots__col">
+          <span class="abd-shot"><img src="../media/about/art.webp" alt="An ink drawing, dense black linework filling the sheet" width="160" height="140"></span>
+          <span class="abd-shot"><img src="../media/about/gallery.webp" alt="Two people talking in front of framed work at a gallery" width="160" height="157"></span>
+        </div>
+        <span class="abd-shot"><img src="../media/about/garment.webp" alt="A printed garment shown on a stand" width="161" height="222"></span>
+      </div>
+      <div class="abd-veil" aria-hidden="true"></div>
+    </section>
+    <div class="abd-gap"></div>
+
+    <!-- 02 -->
+    <section class="abd-card abd-card--2">
+      <div class="abd-rail"><span>- My work -</span></div>
+      <div class="abx-sec abd-body">
+        <h2>My work</h2>
+        <p>What I enjoy most about product design is getting dropped into a new problem and learning my way into it. I'm naturally curious, so I ask a lot of questions, pull in the right people, and try to understand the world around the problem before deciding where to go. I like working openly, sharing ideas early, getting feedback quickly, and bringing people along as the work takes shape. A big part of what I bring to a team is the human side of the job: communication, presentation, mentoring, and creating the kind of relationships that make it easier to do good work together.</p>
+      </div>
+      <div class="abd-veil" aria-hidden="true"></div>
+    </section>
+    <div class="abd-gap"></div>
+
+    <!-- 03 -->
+    <section class="abd-card abd-card--3">
+      <div class="abd-rail"><span>- Outside of work -</span></div>
+      <div class="abx-sec abd-body">
+        <h2>Outside of work</h2>
+        <p>When I'm not working, I'm usually volunteering at an animal sanctuary, drawing, or making natural products as a certified aromatherapist.</p>
+      </div>
+      <div class="abd-shots">
+        <div class="abd-shots__col">
+          <span class="abd-shot"><img src="../media/about/sanctuary.webp" alt="Lying down nose to nose with a dog" width="160" height="215"></span>
+          <span class="abd-shot"><img src="../media/about/studio.webp" alt="Two people working together at a desk" width="161" height="133"></span>
+        </div>
+        <span class="abd-shot"><img src="../media/about/outdoors.webp" alt="Two people outdoors under an open sky" width="160" height="215"></span>
+      </div>
+      <div class="abd-veil" aria-hidden="true"></div>
+    </section>
+    <div class="abd-gap abd-gap--end"></div>
+
+  </div>
+
+  </main>
 
 <!-- Footer -->
-<footer class="footer abx-footwrap">
+<footer class="footer abd-foot">
   <div class="footer__inner">
     <span class="footer__name">Roni Brot-Kolinkó</span>
     <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
     <a href="https://www.linkedin.com/in/roni-brot-kolink%C3%B3/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé ↓</a>
+    <a href="../assets/Roni-Brot-Kolinko-CV.pdf" download>Résumé &darr;</a>
   </div>
 </footer>
 
 <script>
-/* The Back link behaves like the browser's own Back button, so arriving here
-   from a case study returns you to that case study rather than to the home
-   page. The href stays as the fallback for a direct visit, a new tab, or a
-   visitor coming from outside the site. */
+/* Three jobs, all off one measure-then-write pass so scrolling never waits
+   on layout:
+   1. park   - where card 1 rests, which follows the head's real height
+   2. equal  - one height for all three, taken from the tallest
+   3. veil   - how far the next card has covered this one
+*/
 (function () {
-  var back = document.querySelector('[data-back]');
-  if (!back) return;
-  var internal = false;
-  try {
-    internal = !!document.referrer &&
-               new URL(document.referrer).origin === location.origin;
-  } catch (e) {}
-  if (!internal || history.length < 2) return;
-  back.addEventListener('click', function (e) {
-    /* leave modifier-clicks alone so "open in new tab" still works */
-    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    e.preventDefault();
-    history.back();
-  });
+  var stack = document.querySelector('.abd-stack');
+  var head  = document.querySelector('.abd-head');
+  var nav   = document.querySelector('.nav');
+  if (!stack) return;
+  var cards = [].slice.call(stack.querySelectorAll('.abd-card'));
+  if (cards.length < 2) return;
+
+  var stacking = window.matchMedia('(min-width: 1001px)');
+  var queued = false;
+
+  /* Where card 1 comes to rest has to follow the head, which changes height
+     with the window: the title is a clamp() and the lead can wrap. */
+  function setPark() {
+    if (!head || !stacking.matches) { stack.style.removeProperty('--park'); return; }
+    var h = head.getBoundingClientRect().height +
+            (nav ? nav.getBoundingClientRect().height : 0);
+    /* flush with the head: its own padding-bottom is the gap you see */
+    stack.style.setProperty('--park', Math.round(h) + 'px');
+  }
+
+  /* One height for all three, and that height is whatever fits between the
+     parked head and the pinned footer. Sizing to the window rather than to the
+     copy is what stops the last card being clipped, and it is also what makes
+     the page end exactly when that card parks. If what fits is less than the
+     copy needs, stacking is off and the cards simply follow one another. */
+  var MIN_CARD = 330;
+  function equalise() {
+    var footer = document.querySelector('.footer');
+    cards.forEach(function (c) { c.style.height = ''; });
+    stack.style.removeProperty('--card-h');
+    document.documentElement.style.removeProperty('--end-gap');
+    document.body.classList.remove('abd-stacking');
+    if (!stacking.matches) return;
+
+    var park = parseFloat(getComputedStyle(stack).getPropertyValue('--park')) || 104;
+    var step = parseFloat(getComputedStyle(stack).getPropertyValue('--step')) || 30;
+    var natural = cards.reduce(function (m, c) { return Math.max(m, c.offsetHeight); }, 0);
+
+    document.body.classList.add('abd-stacking');
+    var footH = footer ? footer.getBoundingClientRect().height : 0;
+    /* The footer is no longer parked at the bottom, so the whole window below
+       the last card's resting place is the card's to use. */
+    /* At rest the last card must clear the footer by the same 32 the first one
+       clears the head by, so the stack never runs under either of them. */
+    var edge = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--edge')) || 32;
+    var room = window.innerHeight - footH - edge - park - step * (cards.length - 1);
+
+    if (room < Math.max(MIN_CARD, natural)) {        /* not enough window: no stacking */
+      document.body.classList.remove('abd-stacking');
+      return;
+    }
+    stack.style.setProperty('--card-h', Math.round(room) + 'px');
+    /* How far the footer climbs, and equally how much trailing room the stack
+       needs so the cards are still parked when it lands. Solve for "card 1 has
+       not reached its container floor at maximum scroll" and you get exactly
+       this: footer + park + card - window. Too little and the three come
+       unstuck and slide up as one, which is the state to avoid. */
+    /* Solving "the last card can still reach its park at maximum scroll" with
+       the footer in ordinary flow gives exactly the bottom clearance. Which is
+       tidy: the room under the stack is the same 32 you see under the last
+       card when everything has come to rest. */
+    document.documentElement.style.setProperty('--end-gap', edge + 'px');
+  }
+
+  /* Driven by how far the NEXT card has covered this one, not by raw scroll
+     position, so it stays right at any viewport height. */
+  function update() {
+    queued = false;
+    if (!stacking.matches) {
+      cards.forEach(function (c) { c.style.setProperty('--cover', 0); });
+      return;
+    }
+    var step = parseFloat(getComputedStyle(stack).getPropertyValue('--step')) || 30;
+    for (var i = 0; i < cards.length; i++) {
+      var next = cards[i + 1];
+      if (!next) { cards[i].style.setProperty('--cover', 0); continue; }
+      var a = cards[i].getBoundingClientRect();
+      var b = next.getBoundingClientRect();
+      var span = a.height - step;
+      var cover = span > 0 ? (a.bottom - b.top) / span : 0;
+      cards[i].style.setProperty('--cover', Math.max(0, Math.min(1, cover)).toFixed(3));
+    }
+  }
+
+  function relayout() { setPark(); equalise(); update(); }
+
+  addEventListener('scroll', function () {
+    if (!queued) { queued = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  addEventListener('resize', relayout, { passive: true });
+
+  relayout();
+  /* the webfonts land after first paint and change how the copy wraps */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout);
 })();
 </script>
 
