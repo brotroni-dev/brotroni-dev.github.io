@@ -99,9 +99,14 @@
 .mrx-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
 .mrx-dim::before, .mrx-dim::after { content: ""; position: absolute; background: #8E8B85; }
 .mrx-dim__line { position: absolute; background: #8E8B85; }
+/* The figure sits ABOVE its dimension line, the way it does on a real
+   drawing, so the line runs unbroken underneath instead of striking through
+   the digits. Offset in em, so it follows --dim at any size: half the text
+   height clears the line, the rest is the gap. Rotated sides get the same
+   shift inside their own rotation, which pushes the figure outward. */
 .mrx-dim__t { position: relative; font-family: var(--font-body); font-size: var(--dim, 10px);
   font-weight: 500; color: #4A4741; padding: 0 4px;
-  white-space: nowrap; line-height: 1; }
+  white-space: nowrap; line-height: 1; transform: translateY(-0.78em); }
 .mrx-dim--top { left: 0; right: 0; top: -18px; height: 12px; }
 .mrx-dim--top .mrx-dim__line { left: 0; right: 0; top: 50%; height: 1px; }
 .mrx-dim--top::before { left: 0;  top: 1px; width: 1px; height: 10px; }
@@ -114,12 +119,12 @@
 .mrx-dim--right .mrx-dim__line { top: 0; bottom: 0; left: 50%; width: 1px; }
 .mrx-dim--right::before { top: 0;    left: 1px; height: 1px; width: 10px; }
 .mrx-dim--right::after  { bottom: 0; left: 1px; height: 1px; width: 10px; }
-.mrx-dim--right .mrx-dim__t { transform: rotate(90deg); }
+.mrx-dim--right .mrx-dim__t { transform: rotate(90deg) translateY(-0.78em); }
 .mrx-dim--left { top: 0; bottom: 0; left: -18px; width: 12px; }
 .mrx-dim--left .mrx-dim__line { top: 0; bottom: 0; left: 50%; width: 1px; }
 .mrx-dim--left::before { top: 0;    left: 1px; height: 1px; width: 10px; }
 .mrx-dim--left::after  { bottom: 0; left: 1px; height: 1px; width: 10px; }
-.mrx-dim--left .mrx-dim__t { transform: rotate(-90deg); }
+.mrx-dim--left .mrx-dim__t { transform: rotate(-90deg) translateY(-0.78em); }
 
 /* --- Context --- */
 .mrx-context { background: #f6f6f5; padding-block: 32px 64px; }
@@ -530,7 +535,7 @@
 <!-- Role bar -->
 <div class="mrx-band mrx-rolebar">
   <hr class="mrx-rule">
-  <p class="mrx-role"><b>My Role</b> / Product Designer</p>
+  <p class="mrx-role"><b>My Role</b> / Product Designer &middot; Sole designer, with two engineers and a PM</p>
 </div>
 
 <!-- Hero illustration -->
@@ -945,7 +950,8 @@
 <script>
 /* Hero: rooms that never connect. See the .mrx-heroillus block in the styles
    above for what each room is made of. Collision is a separating-axis test on
-   each room's rotated box, so corners cannot slide under a neighbour. */
+   each room's rotated box, so corners cannot slide under a neighbour, and the
+   pointer draws them in without ever letting them join. */
 (function () {
   var stage = document.getElementById('mrx-rooms');
   if (!stage) return;
@@ -953,14 +959,29 @@
 
   var COUNT = 9, WALL = 5, MIN = 74, MAX = 158;
   var PAD = 30;      // the strings hang ~18px past the walls; bounce before that clips
-  var NUDGE = 118;   // how close the pointer gets before a room shifts away
+  /* The pointer gathers the rooms in. Past CORE they are drawn toward it,
+     inside CORE they are eased back out, so they crowd around the cursor and
+     jostle rather than stacking on top of it. Which is the point of the
+     drawing: you can pull them together, they still will not join. */
+  /* A finger drawn through water. Nothing is attracted to the pointer: what
+     moves the rooms is the pointer's own MOTION, handed to whatever is near
+     it and falling off with distance. Hold the pointer still and the water
+     goes flat again, which is why the wake decays every frame. */
+  var WAKE = 200;         // how far the disturbance carries
+  var DRAG = 0.13;        // how much of the pointer's motion a room takes on
+  var FADE = 0.86;        // the wake dying away once you stop moving
+  var DRIFT_MAX = 0.55;   // the resting speed cap: a slow, aimless drift
+  var WAKE_MAX = 1.15;    // brief headroom while the water is still moving
   var rooms = [], W = 0, H = 0;
-  var ptr = { x: 0, y: 0, on: false };
+  var ptr = { x: 0, y: 0, vx: 0, vy: 0, on: false };
 
   /* 26px of stage is one foot, so the labels read like the real thing */
   function feet(px) {
-    var total = px / 26 * 12;
-    return Math.floor(total / 12) + "' " + Math.round(total % 12) + '"';
+    /* Round to whole inches FIRST, then split. Rounding the remainder on its
+       own lets 11.6" round up to 12" and print things like 3' 12", which no
+       tape measure has ever said - and this page is about measuring rooms. */
+    var inches = Math.round(px / 26 * 12);
+    return Math.floor(inches / 12) + "' " + (inches % 12) + '"';
   }
 
   /* The shapes a real scan throws up: plain rooms, a corner taken out for a
@@ -1091,6 +1112,7 @@
     }
   }
   function step() {
+    var wake = Math.hypot(ptr.vx, ptr.vy);
     for (var i = 0; i < rooms.length; i++) {
       var o = rooms[i];
       o.x += o.vx; o.y += o.vy; o.a += o.va;
@@ -1100,14 +1122,16 @@
       if (o.y - hy < 0) { o.y = hy;     o.vy = Math.abs(o.vy); }
       if (o.y + hy > H) { o.y = H - hy; o.vy = -Math.abs(o.vy); }
 
-      // 4. the pointer shoulders rooms aside as it passes over them
-      if (ptr.on) {
+      // 4. anything inside the wake takes on a little of the pointer's motion
+      if (ptr.on && wake > 0.04) {
         var mx = o.x - ptr.x, my = o.y - ptr.y, md = Math.hypot(mx, my);
-        if (md < NUDGE && md > 0.01) {
-          var f = (1 - md / NUDGE) * 0.09;
-          o.vx += (mx / md) * f;
-          o.vy += (my / md) * f;
-          o.va += (mx / md) * 0.012;   // and sets them turning a little
+        if (md < WAKE) {
+          var fall = 1 - md / WAKE;
+          fall *= fall;                 // soft at the edge, strongest under the finger
+          o.vx += ptr.vx * fall * DRAG;
+          o.vy += ptr.vy * fall * DRAG;
+          // the shear across the room turns it, the way a chip of wood turns
+          o.va += (mx * ptr.vy - my * ptr.vx) / (md || 1) * fall * 0.004;
         }
       }
     }
@@ -1128,10 +1152,14 @@
       }
     for (var k = 0; k < rooms.length; k++) {
       var o2 = rooms[k], sp = Math.hypot(o2.vx, o2.vy);
-      if (sp > 0.55) { o2.vx *= 0.55 / sp; o2.vy *= 0.55 / sp; }
+      /* Headroom only while the water is moving. Once the wake dies the cap
+         drops back and everything eases into the resting drift on its own. */
+      var cap = wake > 0.04 ? WAKE_MAX : DRIFT_MAX;
+      if (sp > cap) { o2.vx *= cap / sp; o2.vy *= cap / sp; }
       if (sp < 0.12) { o2.vx *= 1.03; o2.vy *= 1.03; }
       if (Math.abs(o2.va) > 0.30) o2.va *= 0.9;
     }
+    ptr.vx *= FADE; ptr.vy *= FADE;   // a still finger leaves still water
     draw();
     requestAnimationFrame(step);
   }
@@ -1141,9 +1169,17 @@
 
   stage.addEventListener('pointermove', function (e) {
     var r = stage.getBoundingClientRect();
-    ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top; ptr.on = true;
+    var nx = e.clientX - r.left, ny = e.clientY - r.top;
+    if (ptr.on) {
+      /* Capped, so one enormous jump of the mouse cannot fling the rooms */
+      ptr.vx = Math.max(-22, Math.min(22, nx - ptr.x));
+      ptr.vy = Math.max(-22, Math.min(22, ny - ptr.y));
+    }
+    ptr.x = nx; ptr.y = ny; ptr.on = true;
   });
-  stage.addEventListener('pointerleave', function () { ptr.on = false; });
+  stage.addEventListener('pointerleave', function () {
+    ptr.on = false; ptr.vx = 0; ptr.vy = 0;
+  });
 
   var t;
   window.addEventListener('resize', function () {
