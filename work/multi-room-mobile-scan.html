@@ -24,8 +24,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../styles/tokens.css?v=131">
-<link rel="stylesheet" href="../styles/main.css?v=131">
+<link rel="stylesheet" href="../styles/tokens.css?v=136">
+<link rel="stylesheet" href="../styles/main.css?v=136">
 <style>
 /* ============================================================
    Multi-Room Mobile Scan - visual redesign (from Figma
@@ -481,6 +481,7 @@
   .mrx-next { padding-bottom: 24px; }
 }
 </style>
+<script src="../scripts/nav.js?v=3" defer></script>
 </head>
 <body class="mrx">
 
@@ -584,11 +585,11 @@
   </div>
 
   <div class="mrx-screenflow">
-    <figure><img src="../media/multi-room/floor-plans-list-clean.png" alt="The 3D Floor Plans list with a Start Scanning button" width="375" height="812"><figcaption class="mrx-cap">Start scanning</figcaption></figure>
-    <figure><img src="../media/multi-room/scan.png?v=3" alt="Camera view prompting the pro to tilt the device slowly to scan the floor" width="375" height="812"><figcaption class="mrx-cap">Detect the floor</figcaption></figure>
-    <figure><img src="../media/multi-room/place-corner-points.png" alt="Placing a corner point on the floor in camera view" width="375" height="812"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
-    <figure><img src="../media/multi-room/close-shape.png?v=2" alt="The closed room shape with its wall dimensions shown over the camera view" width="375" height="812"><figcaption class="mrx-cap">Close at the start point</figcaption></figure>
-    <figure><img src="../media/multi-room/ready-floor-plan.png" alt="The completed single-room plan with dimensions" width="375" height="812"><figcaption class="mrx-cap">Room complete</figcaption></figure>
+    <figure><img src="../media/multi-room/floor-plans-list-clean.webp" alt="The 3D Floor Plans list with a Start Scanning button" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Start scanning</figcaption></figure>
+    <figure><img src="../media/multi-room/scan.webp" alt="Camera view prompting the pro to tilt the device slowly to scan the floor" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Detect the floor</figcaption></figure>
+    <figure><img src="../media/multi-room/place-corner-points.webp" alt="Placing a corner point on the floor in camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
+    <figure><img src="../media/multi-room/close-shape.webp" alt="The closed room shape with its wall dimensions shown over the camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Close at the start point</figcaption></figure>
+    <figure><img src="../media/multi-room/ready-floor-plan.webp" alt="The completed single-room plan with dimensions" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Room complete</figcaption></figure>
   </div>
 </section>
 
@@ -600,14 +601,14 @@
     <p>Every room became a separate floor plan, scattering rooms from the same project across the mobile list.</p>
   </div>
   <figure class="mrx-evidence">
-    <img src="../media/multi-room/mr-scatter.png" alt="The mobile floor plans list with rooms from three different projects interleaved and annotated" width="1424" height="1329">
+    <img src="../media/multi-room/mr-scatter.webp" alt="The mobile floor plans list with rooms from three different projects interleaved and annotated" width="1424" height="1329" loading="lazy" decoding="async">
   </figure>
 </section>
 
 <!-- Problem 03: completing the property required desktop -->
 <section class="mrx-band mrx-desktop">
   <figure>
-    <img src="../media/multi-room/hero.png" alt="A phone showing a single scanned room, with a dashed arrow to the desktop editor holding the full plan" width="1637" height="567">
+    <img src="../media/multi-room/hero.webp" alt="A phone showing a single scanned room, with a dashed arrow to the desktop editor holding the full plan" width="1637" height="567" loading="lazy" decoding="async">
   </figure>
   <div class="mrx-desktop__text">
     <p class="mrx-label">Problem 03</p>
@@ -632,7 +633,7 @@
     <p>The app had to carry the scan from one room to the next and place every new room on the same shared map.</p>
   </div>
   <figure>
-    <img src="../media/multi-room/mr-challenge.png" alt="Sketch of a pro scanning three adjoining rooms in sequence" width="2128" height="540">
+    <img src="../media/multi-room/mr-challenge.webp" alt="Sketch of a pro scanning three adjoining rooms in sequence" width="2128" height="540" loading="lazy" decoding="async">
   </figure>
 </section>
 
@@ -645,7 +646,7 @@
       <p>We used the phone's location data to place each room on a shared map. When that reference drifted, the next room could land in the wrong position or break into a separate local scan.</p>
     </div>
     <figure>
-      <img src="../media/multi-room/mr-drift.png" alt="A defeated pro slumped over a desk, with a preview showing three rooms sitting at wrong angles to each other" width="1818" height="1640">
+      <img src="../media/multi-room/mr-drift.webp" alt="A defeated pro slumped over a desk, with a preview showing three rooms sitting at wrong angles to each other" width="1818" height="1640" loading="lazy" decoding="async">
     </figure>
   </section>
 
@@ -654,11 +655,11 @@
     <h3>Death by dialogs</h3>
     <p>While room placement was unreliable, our first approach used dialogs to guide every transition: finish the room, choose what came next, and save the plan. Each decision was clear, but the room-to-room flow became slow and fragmented.</p>
     <div class="mrx-dialogs">
-      <figure><img src="../media/multi-room/feature-intro.png" alt="Onboarding card explaining back-to-back room scanning" width="375" height="812"><figcaption class="mrx-cap">Feature introduction</figcaption></figure>
-      <figure><img src="../media/multi-room/before-preview.png?v=7" alt="A Finalize Scan? confirmation dialog over the camera view" width="1044" height="2260"><figcaption class="mrx-cap">Before previewing the scan</figcaption></figure>
-      <figure><img src="../media/multi-room/whats-next.png" alt="A Saved and Ready to Go! dialog asking what comes next" width="375" height="812"><figcaption class="mrx-cap">What's next?</figcaption></figure>
-      <figure><img src="../media/multi-room/name-room.png" alt="A form for naming the room before continuing" width="375" height="812"><figcaption class="mrx-cap">Name the room</figcaption></figure>
-      <figure><img src="../media/multi-room/save-plan.png" alt="A Save Your Work screen for naming the finished floor plan" width="375" height="812"><figcaption class="mrx-cap">Save plan</figcaption></figure>
+      <figure><img src="../media/multi-room/feature-intro.webp" alt="Onboarding card explaining back-to-back room scanning" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Feature introduction</figcaption></figure>
+      <figure><img src="../media/multi-room/before-preview.webp" alt="A Finalize Scan? confirmation dialog over the camera view" width="1044" height="2260" loading="lazy" decoding="async"><figcaption class="mrx-cap">Before previewing the scan</figcaption></figure>
+      <figure><img src="../media/multi-room/whats-next.webp" alt="A Saved and Ready to Go! dialog asking what comes next" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">What's next?</figcaption></figure>
+      <figure><img src="../media/multi-room/name-room.webp" alt="A form for naming the room before continuing" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Name the room</figcaption></figure>
+      <figure><img src="../media/multi-room/save-plan.webp" alt="A Save Your Work screen for naming the finished floor plan" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Save plan</figcaption></figure>
     </div>
   </section>
 
@@ -669,9 +670,9 @@
       <p>To reduce the dialogs, we moved the correction into the plan. Pros could move, rotate, or remove rooms manually, with a short tutorial introducing the controls. It was more direct, but users were still compensating for a technical limitation.</p>
     </div>
     <figure class="mrx-tutorial">
-      <img src="../media/multi-room/tutorial-1.png" alt="Tutorial slide: how to move rooms" width="375" height="812">
-      <img src="../media/multi-room/tutorial-2.png" alt="Tutorial slide: how to rotate rooms" width="375" height="812">
-      <img src="../media/multi-room/tutorial-3.png" alt="Tutorial slide: how to delete rooms" width="375" height="812">
+      <img src="../media/multi-room/tutorial-1.webp" alt="Tutorial slide: how to move rooms" width="375" height="812" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-2.webp" alt="Tutorial slide: how to rotate rooms" width="375" height="812" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-3.webp" alt="Tutorial slide: how to delete rooms" width="375" height="812" loading="lazy" decoding="async">
     </figure>
   </section>
 </div>
@@ -700,7 +701,7 @@
     <p>Once the system could position rooms reliably on the shared map, the compensating UI was no longer needed. We removed the manual correction flow and simplified the transition between rooms.</p>
   </div>
   <figure>
-    <img src="../media/multi-room/mr-turning.png" alt="Isometric diagram of two rooms snapping onto one shared map" width="880" height="808">
+    <img src="../media/multi-room/mr-turning.webp" alt="Isometric diagram of two rooms snapping onto one shared map" width="880" height="808" loading="lazy" decoding="async">
   </figure>
 </section>
 
@@ -744,8 +745,8 @@
       </ol>
     </div>
     <figure class="mrx-plate mrx-plate--2">
-      <figure><img src="../media/multi-room/original.png" alt="The original scan screen with a single Point button" width="375" height="812"><figcaption class="mrx-cap">Original</figcaption></figure>
-      <figure><img src="../media/multi-room/new-flow.png" alt="The new scan screen with teal alignment guides and an Undo / Add / Done action bar" width="375" height="812"><figcaption class="mrx-cap">New</figcaption></figure>
+      <figure><img src="../media/multi-room/original.webp" alt="The original scan screen with a single Point button" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Original</figcaption></figure>
+      <figure><img src="../media/multi-room/new-flow.webp" alt="The new scan screen with teal alignment guides and an Undo / Add / Done action bar" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">New</figcaption></figure>
     </figure>
   </div>
 </div>
@@ -754,9 +755,9 @@
 <div class="mrx-band mrx-step">
   <div class="mrx-stepcard mrx-stepcard--flip">
     <figure class="mrx-plate mrx-plate--3">
-      <figure><img src="../media/multi-room/added-window.png" alt="Adding a window in the camera view" width="375" height="812"><figcaption class="mrx-cap">Add a window</figcaption></figure>
-      <figure><img src="../media/multi-room/positioned-window.png" alt="Dragging the window into position" width="375" height="812"><figcaption class="mrx-cap">Position it</figcaption></figure>
-      <figure><img src="../media/multi-room/adjusted-dimensions.png" alt="Dragging the handles to change the window dimensions" width="375" height="812"><figcaption class="mrx-cap">Adjust dimensions</figcaption></figure>
+      <figure><img src="../media/multi-room/added-window.webp" alt="Adding a window in the camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Add a window</figcaption></figure>
+      <figure><img src="../media/multi-room/positioned-window.webp" alt="Dragging the window into position" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Position it</figcaption></figure>
+      <figure><img src="../media/multi-room/adjusted-dimensions.webp" alt="Dragging the handles to change the window dimensions" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Adjust dimensions</figcaption></figure>
     </figure>
     <div class="mrx-steptext">
       <h3>Editing doors and windows in place</h3>
@@ -775,14 +776,14 @@
     <figure class="mrx-vs">
       <figure class="mrx-vs__before">
         <div class="mrx-vs__stack">
-          <img src="../media/multi-room/before-preview.png?v=7" alt="A Finalize Scan? dialog over the camera view" width="1044" height="2260">
-          <img src="../media/multi-room/whats-next.png" alt="A Saved and Ready to Go! dialog stacked behind it" width="375" height="812">
+          <img src="../media/multi-room/before-preview.webp" alt="A Finalize Scan? dialog over the camera view" width="1044" height="2260" loading="lazy" decoding="async">
+          <img src="../media/multi-room/whats-next.webp" alt="A Saved and Ready to Go! dialog stacked behind it" width="375" height="812" loading="lazy" decoding="async">
         </div>
         <figcaption class="mrx-vscap"><b>Before</b><span>Hidden behind dialogs</span></figcaption>
       </figure>
       <span class="mrx-vs__arrow" aria-hidden="true">&rarr;</span>
       <figure class="mrx-vs__after">
-        <img src="../media/multi-room/next-room-dialog.png" alt="The scan view with Finish and Next Room buttons visible in the top bar" width="375" height="812">
+        <img src="../media/multi-room/next-room-dialog.webp" alt="The scan view with Finish and Next Room buttons visible in the top bar" width="375" height="812" loading="lazy" decoding="async">
         <figcaption class="mrx-vscap"><b>After</b><span>Visible in the scan</span></figcaption>
       </figure>
     </figure>
@@ -797,8 +798,8 @@
       <p>Before scanning, a one-time introduction explained the flow. At the end, pros named the floor plan and saved it directly to a project.</p>
     </div>
     <figure class="mrx-plate mrx-plate--2c">
-      <figure><img src="../media/multi-room/mr-intro.png" alt="A one-time introduction listing the four steps of a room-by-room scan" width="528" height="1143"><figcaption class="mrx-cap">One-time introduction</figcaption></figure>
-      <figure><img src="../media/multi-room/mr-save.png" alt="Naming the floor plan and picking a project to save it to" width="528" height="1143"><figcaption class="mrx-cap">Name and save to a project</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-intro.webp" alt="A one-time introduction listing the four steps of a room-by-room scan" width="528" height="1143" loading="lazy" decoding="async"><figcaption class="mrx-cap">One-time introduction</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-save.webp" alt="Naming the floor plan and picking a project to save it to" width="528" height="1143" loading="lazy" decoding="async"><figcaption class="mrx-cap">Name and save to a project</figcaption></figure>
     </figure>
   </div>
 </div>
@@ -808,11 +809,11 @@
   <div class="mrx-stepcard mrx-stepcard--stack">
     <h3 class="mrx-stepcard__h">One continuous mobile flow</h3>
     <figure class="mrx-plate mrx-plate--5">
-      <figure><img src="../media/multi-room/mr-flow-1.png" alt="Aiming the device at each corner of the floor to place a point" width="528" height="1144"><figcaption class="mrx-cap">Scan a room</figcaption></figure>
-      <figure><img src="../media/multi-room/mr-flow-2.png" alt="Teal guides connecting the placed points into a closed room" width="528" height="1144"><figcaption class="mrx-cap">Complete the room</figcaption></figure>
-      <figure><img src="../media/multi-room/mr-flow-3.png" alt="A Finish Scanning? dialog offering to continue or end the session" width="528" height="1144"><figcaption class="mrx-cap">Continue / Finish</figcaption></figure>
-      <figure><img src="../media/multi-room/mr-flow-4.png" alt="A loading state adding measurements to the captured rooms" width="528" height="1143"><figcaption class="mrx-cap">Loading</figcaption></figure>
-      <figure><img src="../media/multi-room/mr-flow-5.png" alt="The finished multi-room plan in the 2D editor" width="528" height="1144"><figcaption class="mrx-cap">Review the plan</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-1.webp" alt="Aiming the device at each corner of the floor to place a point" width="528" height="1144" loading="lazy" decoding="async"><figcaption class="mrx-cap">Scan a room</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-2.webp" alt="Teal guides connecting the placed points into a closed room" width="528" height="1144" loading="lazy" decoding="async"><figcaption class="mrx-cap">Complete the room</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-3.webp" alt="A Finish Scanning? dialog offering to continue or end the session" width="528" height="1144" loading="lazy" decoding="async"><figcaption class="mrx-cap">Continue / Finish</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-4.webp" alt="A loading state adding measurements to the captured rooms" width="528" height="1143" loading="lazy" decoding="async"><figcaption class="mrx-cap">Loading</figcaption></figure>
+      <figure><img src="../media/multi-room/mr-flow-5.webp" alt="The finished multi-room plan in the 2D editor" width="528" height="1144" loading="lazy" decoding="async"><figcaption class="mrx-cap">Review the plan</figcaption></figure>
     </figure>
   </div>
 </div>
@@ -825,7 +826,7 @@
       <p>Pros could keep scanning room by room and build one connected plan, without returning to the list or switching to desktop.</p>
     </div>
     <figure class="mrx-wildplate">
-      <img src="../media/multi-room/mr-list-final.png" alt="The floor plans list showing whole-project plans rather than single rooms" width="540" height="1155">
+      <img src="../media/multi-room/mr-list-final.webp" alt="The floor plans list showing whole-project plans rather than single rooms" width="540" height="1155" loading="lazy" decoding="async">
     </figure>
   </div>
 </div>
@@ -838,7 +839,7 @@
       <p>Because the experience depended on physical rooms, I tested it repeatedly in real spaces throughout development. This surfaced edge cases early, while there was still time to work through them with the engineering team.</p>
     </div>
     <figure class="mrx-wildplate">
-      <img src="../media/multi-room/inthewild.png" alt="Scanning a real living room window with the editing controls visible" width="375" height="813">
+      <img src="../media/multi-room/inthewild.webp" alt="Scanning a real living room window with the editing controls visible" width="375" height="813" loading="lazy" decoding="async">
     </figure>
   </div>
 </div>
