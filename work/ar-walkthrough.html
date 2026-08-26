@@ -529,7 +529,7 @@
     <div class="lsw-stepcard__text">
       <div class="lsw-stephead">
         <span class="lsw-stepnum">01</span>
-        <h3 class="lsw-steptitle">Choose where the walkthrough begins</h3>
+        <h3 class="lsw-steptitle">Launch the walkthrough</h3>
       </div>
       <p>Pros tapped the AR icon beside the floor plan they wanted to present.</p>
     </div>
@@ -692,9 +692,9 @@
     <figure class="lsw-shot lsw-shot--04">
       <span class="lsw-arview">
         <video class="lsw-arview__v" muted loop playsinline preload="none"
-               poster="../media/ar/ar-view-poster.jpg?v=1"
+               poster="../media/ar/ar-view-poster.jpg?v=3"
                aria-label="The AR walkthrough on a phone: the proposed room seen at full scale with the controls faded away">
-          <source src="../media/ar/ar-walkthrough.mp4?v=1" type="video/mp4">
+          <source src="../media/ar/ar-walkthrough.mp4?v=3" type="video/mp4">
         </video>
         <svg class="lsw-arview__back" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 5 8 12l6.5 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
@@ -776,23 +776,20 @@
   }
 })();
 
-/* The clip is 1.5MB, so it is not fetched until step 04 is actually on screen,
+/* The clip is ~1MB, so it is not fetched until step 04 is actually on screen,
    and it stops again once it leaves. Reduced motion keeps the poster frame.
-   It also runs a touch faster than real time - the walkthrough was recorded at
-   a browsing pace, which reads as slow in a small phone frame on the page. */
+   The 1.6x speed-up is encoded into the file rather than set with playbackRate:
+   the walkthrough was recorded at a browsing pace, which reads as a drifting
+   still in a 153px phone frame, and a baked file cannot be clamped or reset by
+   the browser the way the property can. */
 (function () {
   var v = document.querySelector('.lsw-arview__v');
   if (!v || !window.IntersectionObserver) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var RATE = 1.35;
-  var rate = function () { try { v.playbackRate = RATE; } catch (e) {} };
-  v.addEventListener('loadedmetadata', rate);
-  v.addEventListener('play', rate);
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
       if (e.isIntersecting) {
         if (v.preload === 'none') { v.preload = 'auto'; v.load(); }
-        rate();
         var p = v.play();
         if (p && p.catch) { p.catch(function () {}); }
       } else {
