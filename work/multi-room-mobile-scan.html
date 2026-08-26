@@ -374,6 +374,26 @@
 .mrx-stat__d { font-family: var(--font-body); font-size: 16px; line-height: 1.4;
   color: var(--text); margin: 0; }
 
+/* --- Also on capture: a short coda, not a second case study, so it stays a
+   single measure of text with a rule rather than a card that would compete
+   with the impact stats above it. --- */
+.mrx-also { background: #f4f4f4; padding-block: 48px 8px; }
+.mrx-also__inner { max-width: 660px; border-left: 2px solid var(--accent);
+  padding-left: 24px; display: flex; flex-direction: column; align-items: flex-start;
+  gap: 12px; }
+.mrx-also__h { font-family: var(--font-display); font-weight: 400; font-size: 22px;
+  line-height: 1.2; color: var(--title); margin: 0; }
+.mrx-also__p { font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  color: var(--text); margin: 0; }
+.mrx-also__link { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em;
+  color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent;
+  transition: border-color 160ms ease; }
+.mrx-also__link:hover, .mrx-also__link:focus-visible { border-bottom-color: var(--accent); }
+@media (max-width: 640px) {
+  .mrx-also { padding-block: 32px 8px; }
+  .mrx-also__inner { padding-left: 18px; }
+}
+
 /* --- Learnings --- */
 .mrx-learn { background: #f4f4f4; padding-block: 32px 72px; }
 .mrx-learncard { background: #fff; border: 1px solid var(--line); border-radius: 16px;
@@ -864,6 +884,16 @@
       <p class="mrx-stat__n">~230<small>/day</small></p>
       <p class="mrx-stat__d">room-to-room continuation events</p>
     </div>
+  </div>
+</section>
+
+<!-- Also on capture -->
+<section class="mrx-band mrx-also">
+  <div class="mrx-also__inner">
+    <p class="mrx-label">Also on capture</p>
+    <h2 class="mrx-also__h">Two ways into the same floor plan</h2>
+    <p class="mrx-also__p">Houzz Pro also added LiDAR scanning on the devices that supported it. Apple's framework handled the scan itself. My part was everything around it: where it started, what pros saw while the walls were built, and how a finished scan landed in the same floor plan they would go on to edit. Devices without LiDAR stayed on the manual flow, so both routes had to arrive at the same&nbsp;place.</p>
+    <a class="mrx-also__link" href="https://www.youtube.com/watch?v=zNArx_JXOho" target="_blank" rel="noopener">How to scan a room with LiDAR, Houzz Pro <i aria-hidden="true">&nearr;</i></a>
   </div>
 </section>
 
