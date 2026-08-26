@@ -94,6 +94,41 @@ li::marker { color: var(--accent); }
   .nav__links a { font-size: 11px; letter-spacing: .05em; }
 }
 
+/* --- About-page furniture ---------------------------------
+   The chrome the About page shares with the rest of the site: the ground, the
+   1016 band, the back bar, the opener and the h2/p pair inside a card. It
+   lived inline in that page until a second copy was needed; keeping one
+   version here is what stops the two drifting apart. */
+body.abx { background: #f4f4f4;
+  /* The design pins the footer to the bottom of the frame */
+  min-height: 100vh; display: flex; flex-direction: column; }
+
+/* Content locked to a 1016 column (72px sides at desktop) */
+.abx-band { padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+body.abx .nav__inner,
+body.abx .footer__inner { max-width: none;
+  padding-inline: max(var(--gutter), calc((100% - 1016px) / 2)); }
+
+.abx-backbar { padding-block: 20px; line-height: 1.33; }
+.abx-back { font-family: var(--font-mono); font-weight: 500; font-size: 12px;
+  letter-spacing: .04em; color: var(--accent); text-decoration: none; }
+.abx-back:hover, .abx-back:focus-visible { color: var(--title); }
+
+/* The footer is pinned with margin-top: auto, which overrides the rule's
+   usual 64px top margin, so the gap above it lives here instead. */
+.abx-opener { padding-top: 32px; padding-bottom: var(--s8); }
+.abx-title { font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(30px, 5vw, 42px); line-height: 1.08; color: var(--title); margin: 0; }
+.abx-lead { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); max-width: 920px; margin: 12px 0 0; }
+
+.abx-sec h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
+  line-height: 1.08; color: var(--title); margin: 0 0 12px; }
+.abx-sec p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  color: var(--text); margin: 0; }
+
+.abx-footwrap { margin-top: auto; }
+
 /* --- Overview bar ----------------------------------------- */
 .overview { display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
 .overview__item { font-family: var(--font-mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
