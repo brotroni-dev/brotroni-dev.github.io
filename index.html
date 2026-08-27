@@ -28,8 +28,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles/tokens.css?v=138">
-<link rel="stylesheet" href="styles/main.css?v=138">
+<link rel="stylesheet" href="styles/tokens.css?v=139">
+<link rel="stylesheet" href="styles/main.css?v=139">
 <style>
 /* ============================================================
    Homepage (from Figma node 875:1379 "Homepage + case study
@@ -152,8 +152,10 @@ body.hpx { background: #f4f4f4; }
 .hpx-close { margin-top: 68px; padding-bottom: 64px; }
 .hpx-close h2 { font-family: var(--font-display); font-weight: 300; font-size: 32px;
   line-height: 1.15; color: var(--title); margin: 0; }
+/* 480 keeps the measure in check but clears the 474px this line needs, so it
+   sits on one line instead of dropping "games." on its own. */
 .hpx-close > p { font-family: var(--font-body); font-size: 16px; line-height: 1.6;
-  color: var(--text); margin: 16px 0 0; max-width: 440px; }
+  color: var(--text); margin: 16px 0 0; max-width: 480px; }
 .hpx-closelinks { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 24px; }
 .hpx-closelinks a { font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
   color: var(--muted); text-decoration: none; transition: color 160ms ease; }
@@ -403,7 +405,7 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
   <!-- Let's talk -->
   <section class="hpx-close">
     <h2>Let's talk</h2>
-    <p>Always happy to talk about design, products, or an unnecessarily specific opinion.</p>
+    <p>Always happy to talk about design, sheep, or retro PC games.</p>
     <div class="hpx-closelinks">
       <a href="mailto:brotroni@gmail.com">brotroni@gmail.com</a>
       <a href="https://www.linkedin.com/in/roni-brot-kolink%C3%B3/" target="_blank" rel="noopener">LinkedIn</a>
