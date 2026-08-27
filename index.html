@@ -258,9 +258,41 @@ body.hpx-scaled .hpx-hero h1 { font-size: calc(64px * var(--hpx-k)); }
 body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0 0; }
 
 /* Too narrow for the title to hold its shape, or no real pointer - stand down */
+/* --- Touch: the same notes, tapped instead of hovered ------
+   The cards' desktop geometry is measured against a 64px title in a 1016
+   column, and neither exists on a phone, so here they are not placed over
+   their words - each one opens as a panel in the middle of the screen over
+   the same warm overlay. Same cards, same content, same overlay; only where
+   they land differs. Nothing in this block can reach a pointer device. */
 @media (max-width: 759px), (hover: none), (pointer: coarse) {
-  .hpx-notes, .hpx-overlay { display: none; }
-  .hpx-seg { cursor: inherit; }
+  /* The sentence itself is left completely alone - black Fraunces, no rule, no
+     colour - and each phrase gets a small raised numeral after it instead.
+     Colouring the words put 77 of the sentence's 99 characters in terracotta,
+     and a dotted rule under most of a line is what every browser draws under a
+     misspelling. A footnote numeral is the printed convention for exactly this,
+     it is what the cards already call themselves, and mono numerals are
+     already the site's own language for 01 / 02 / 03. */
+  .hpx-hero h1 { counter-reset: hpxnote; }
+  .hpx-seg { cursor: pointer; counter-increment: hpxnote; }
+  .hpx-seg::after { content: counter(hpxnote);
+    font-family: var(--font-mono); font-size: .46em; font-weight: 500;
+    letter-spacing: 0; color: var(--accent);
+    /* raised by hand rather than with vertical-align: super, which lifts by a
+       fraction of the numeral's own size and so shrinks as the numeral grows */
+    position: relative; top: -.62em; margin-left: .12em; }
+  .hpx-seg.is-on { color: var(--accent); }
+  .hpx-seg:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px;
+    border-radius: 2px; }
+
+  .hpx-notes { display: block; position: fixed; inset: 0; z-index: 50; }
+  .hpx-note { position: fixed; left: 50%; top: 50%; right: auto; bottom: auto;
+    --rot: 0deg; width: min(86vw, 380px); max-height: 78vh; overflow: auto;
+    transform: translate(-50%, -50%) scale(.96); }
+  .hpx-note.is-on { transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto; }
+  .hpx-note__rail { width: 38px; }
+  .hpx-note--hi p, .hpx-note--curious p, .hpx-note--feel p,
+  .hpx-note--designer p, .hpx-note--cares p { font-size: 17px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .hpx-note { transition: opacity 200ms ease, visibility 0s linear 200ms;
@@ -481,6 +513,66 @@ body.hpx-scaled .hpx-notes { transform: scale(var(--hpx-k)); transform-origin: 0
 
   // Never leave a note stranded if the pointer leaves the window mid-hover
   window.addEventListener('blur', close);
+})();
+</script>
+
+<script>
+/* Touch: tapping a marked phrase opens its note. The hover script above
+   returns early on these devices, so the two never both run. */
+(function () {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var segs = [].slice.call(document.querySelectorAll('.hpx-seg'));
+  var notes = {};
+  [].slice.call(document.querySelectorAll('.hpx-note')).forEach(function (n) {
+    notes[n.getAttribute('data-note')] = n;
+  });
+  if (!segs.length) return;
+
+  var open = null;
+
+  function close() {
+    if (!open) return;
+    open.seg.classList.remove('is-on');
+    open.seg.setAttribute('aria-expanded', 'false');
+    open.note.classList.remove('is-on');
+    document.body.classList.remove('hpx-dim');
+    open = null;
+  }
+
+  segs.forEach(function (seg) {
+    var note = notes[seg.getAttribute('data-note')];
+    if (!note) return;
+    seg.setAttribute('role', 'button');
+    seg.setAttribute('tabindex', '0');
+    seg.setAttribute('aria-expanded', 'false');
+
+    function toggle(e) {
+      e.preventDefault();
+      var same = open && open.seg === seg;
+      close();
+      if (same) return;                 /* a second tap closes it */
+      seg.classList.add('is-on');
+      seg.setAttribute('aria-expanded', 'true');
+      note.classList.add('is-on');
+      document.body.classList.add('hpx-dim');
+      open = { seg: seg, note: note };
+    }
+
+    seg.addEventListener('click', toggle);
+    seg.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') toggle(e);
+    });
+  });
+
+  /* anywhere off the phrase and off the note closes it, which is what the
+     dimmed page is inviting you to do */
+  document.addEventListener('click', function (e) {
+    if (!open) return;
+    if (e.target.closest('.hpx-seg') || e.target.closest('.hpx-note')) return;
+    close();
+  });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
 })();
 </script>
 
