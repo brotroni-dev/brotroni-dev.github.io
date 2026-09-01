@@ -691,9 +691,9 @@
   </section>
 
   <section class="mrx-band mrx-attempt1">
-    <p class="mrx-label">First version</p>
-    <h3>Getting the rooms into one scan</h3>
-    <p>We first used dialogs to guide pros from one room to the next. It got all the rooms into the same scan, but every transition added another decision, making the flow feel slow and interrupted.</p>
+    <p class="mrx-label">Spatial data</p>
+    <h3>Bringing the rooms into one plan</h3>
+    <p>We added a series of dialogs to guide pros from one room to the next while preserving the phone&rsquo;s spatial data between scans. This gave the system the context it needed to position the rooms relative to one another, but every transition added another prompt, making the flow slow and interrupted.</p>
     <div class="mrx-dialogs">
       <figure><img src="../media/multi-room/feature-intro.webp" alt="Onboarding card explaining back-to-back room scanning" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Feature introduction</figcaption></figure>
       <figure><img src="../media/multi-room/before-preview.webp" alt="A Finalize Scan? confirmation dialog over the camera view" width="1044" height="2260" loading="lazy" decoding="async"><figcaption class="mrx-cap">Before previewing the scan</figcaption></figure>
@@ -711,30 +711,41 @@
     <div class="mrx-scattered__text">
       <p class="mrx-label">The result</p>
       <h3>One plan, but the rooms sat apart</h3>
-      <p>You could see it in the list. A plan that used to hold a single room now held several, each sitting where the phone thought it was, none of them joined into a floor plan.</p>
+      <p>The rooms now appeared in the same plan, but their positions were only approximate. Instead of connecting at shared walls and openings, they were scattered across the plan.</p>
     </div>
   </section>
 
   <section class="mrx-band mrx-attempt2">
     <div class="mrx-attempt2__text">
-      <p class="mrx-label">Next iteration</p>
+      <p class="mrx-label">Manual controls</p>
       <h3>Letting pros connect the rooms</h3>
-      <p>The rooms were now in the same scan, but they didn't connect into a floor plan. We gave pros a way to move and rotate them into place themselves, or remove a room when needed.</p>
+      <p>To make the layout usable, we gave pros controls to move, rotate, or remove each room, with a short tutorial showing them how to assemble the floor plan themselves.</p>
     </div>
     <figure class="mrx-tutorial">
       <img src="../media/multi-room/tutorial-1.webp?v=2" alt="Tutorial slide: how to move rooms" width="750" height="1624" loading="lazy" decoding="async">
       <img src="../media/multi-room/room-rotated.webp" alt="A selected room turned away from the one below it, with the rotation control at the top right" width="750" height="1624" loading="lazy" decoding="async">
       <img src="../media/multi-room/rooms-joined.webp" alt="Two rooms brought together, with the wall they share highlighted" width="750" height="1624" loading="lazy" decoding="async">
-      <img src="../media/multi-room/tutorial-3.webp?v=2" alt="Tutorial slide: how to delete rooms" width="750" height="1624" loading="lazy" decoding="async">
     </figure>
   </section>
 </div>
 
 <!-- After -->
+<section class="mrx-band mrx-turning">
+  <div class="mrx-turning__text">
+    <p class="mrx-label">Turning point</p>
+    <h2>Engineering solved room placement</h2>
+    <p>Once engineering made room positioning reliable, the rooms could align and connect automatically. This allowed us to remove the manual correction flow and tutorial.</p>
+  </div>
+  <figure>
+    <img src="../media/multi-room/mr-turning.webp" alt="Isometric diagram of two rooms snapping onto one shared map" width="880" height="808" loading="lazy" decoding="async">
+  </figure>
+</section>
+
+<!-- Turning point -->
 <section class="mrx-band mrx-after">
   <p class="mrx-label">After</p>
   <h3 class="mrx-after__t">One continuous flow</h3>
-  <p class="mrx-after__d">Choosing &ldquo;Scan Another Room&rdquo; started the next room inside the same session.</p>
+  <p class="mrx-after__d">With the rooms now connecting automatically, pros only had to decide whether to scan another room or finish. One clear choice replaced the earlier chain of dialogs.</p>
   <div class="mrx-flow">
     <div class="mrx-flowstep"><b>Scan a room</b><span>Mark its corners</span></div>
     <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
@@ -744,18 +755,6 @@
     <span class="mrx-flowarrow" aria-hidden="true">&rarr;</span>
     <div class="mrx-flowstep"><b>Review and save</b><span>See one connected plan</span></div>
   </div>
-</section>
-
-<!-- Turning point -->
-<section class="mrx-band mrx-turning">
-  <div class="mrx-turning__text">
-    <p class="mrx-label">Turning point</p>
-    <h2>Engineering solved room placement</h2>
-    <p>Once the system could position rooms reliably on the shared map, the compensating UI was no longer needed. We removed the manual correction flow and simplified the transition between rooms.</p>
-  </div>
-  <figure>
-    <img src="../media/multi-room/mr-turning.webp" alt="Isometric diagram of two rooms snapping onto one shared map" width="880" height="808" loading="lazy" decoding="async">
-  </figure>
 </section>
 
 <!-- Three parts of the experience -->
