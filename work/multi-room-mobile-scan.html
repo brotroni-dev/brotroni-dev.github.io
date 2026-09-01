@@ -263,11 +263,12 @@
 .mrx-scattered__text { flex: 0 1 432px; min-width: 0; }
 .mrx-scattered__text p { font-size: 16px; }
 
-/* Attempt 02: intro, then the screens on their own row */
-.mrx-attempt2 { padding-block: 32px; }
-.mrx-attempt2__text p { font-size: 16px; max-width: 1016px; }
-.mrx-tutorial { margin: 34px 0 0; padding: 0;
-  display: flex; justify-content: space-between; gap: 24px; }
+/* Attempt 02: intro beside the three screens */
+.mrx-attempt2 { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
+.mrx-attempt2__text { flex: 0 1 432px; min-width: 0; }
+.mrx-attempt2__text p { font-size: 16px; }
+.mrx-tutorial { flex: 0 1 552px; min-width: 0; margin: 0; padding: 0;
+  display: flex; align-items: center; justify-content: center; gap: 12px; }
 .mrx-tutorial img { flex: 1 1 0; min-width: 0; width: auto; height: auto;
   display: block; border-radius: 6px; }
 
@@ -443,11 +444,11 @@
 }
 @media (max-width: 900px) {
   /* Stacked: flex-basis would become a HEIGHT here, so hand sizing back to content */
-  .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-turning,
+  .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-attempt2, .mrx-turning,
   .mrx-scattered,
   .mrx-uj, .mrx-stepcard, .mrx-wildcard {
     flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 24px; }
-  .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *,
+  .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *, .mrx-attempt2 > *,
   .mrx-scattered > *,
   .mrx-turning > *, .mrx-uj > *, .mrx-stepcard > *, .mrx-wildcard > * {
     flex: 0 0 auto; width: 100%; }
