@@ -254,6 +254,15 @@
   display: flex; flex-direction: column; gap: 12px; }
 .mrx-dialogs img { width: 100%; height: auto; display: block; border-radius: 6px; }
 
+/* The first version's result: the scattered-rooms list beside the read-out */
+.mrx-scattered { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
+.mrx-scattered figure { flex: 0 1 552px; min-width: 0; margin: 0;
+  display: flex; justify-content: center; }
+.mrx-scattered img { width: 264px; max-width: 100%; height: auto;
+  display: block; border-radius: 6px; }
+.mrx-scattered__text { flex: 0 1 432px; min-width: 0; }
+.mrx-scattered__text p { font-size: 16px; }
+
 /* Attempt 02: text + the three tutorial screens */
 .mrx-attempt2 { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
 .mrx-attempt2__text { flex: 0 1 432px; min-width: 0; }
@@ -436,9 +445,11 @@
 @media (max-width: 900px) {
   /* Stacked: flex-basis would become a HEIGHT here, so hand sizing back to content */
   .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-attempt2, .mrx-turning,
+  .mrx-scattered,
   .mrx-uj, .mrx-stepcard, .mrx-wildcard {
     flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 24px; }
   .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *, .mrx-attempt2 > *,
+  .mrx-scattered > *,
   .mrx-turning > *, .mrx-uj > *, .mrx-stepcard > *, .mrx-wildcard > * {
     flex: 0 0 auto; width: 100%; }
   .mrx-drift__text, .mrx-turning__text { padding-top: 0; }
@@ -449,7 +460,7 @@
      flex-basis survived into the stacked column and became a HEIGHT - which
      left holes of 300-560px under these images on a phone. Reset by name. */
   .mrx-desktop figure, .mrx-challenge figure, .mrx-drift figure,
-  .mrx-turning figure, .mrx-limit figure { flex: 0 0 auto; }
+  .mrx-turning figure, .mrx-limit figure, .mrx-scattered figure { flex: 0 0 auto; }
   .mrx-flow { flex-wrap: wrap; }
   .mrx-flowstep { flex: 1 1 40%; }
   .mrx-flowarrow { display: none; }
@@ -688,6 +699,18 @@
     </div>
   </section>
 
+  <!-- The result of the first version: rooms in one plan, but unconnected -->
+  <section class="mrx-band mrx-scattered">
+    <figure>
+      <img src="../media/multi-room/scattered-rooms.webp" alt="The floor plans list, where each plan's thumbnail is now several disconnected room shapes" width="750" height="1586" loading="lazy" decoding="async">
+    </figure>
+    <div class="mrx-scattered__text">
+      <p class="mrx-label">The result</p>
+      <h3>One plan, but the rooms sat apart</h3>
+      <p>You could see it in the list. A plan that used to hold a single room now held several, each sitting where the phone thought it was, none of them joined into a floor plan.</p>
+    </div>
+  </section>
+
   <section class="mrx-band mrx-attempt2">
     <div class="mrx-attempt2__text">
       <p class="mrx-label">Next iteration</p>
@@ -695,9 +718,9 @@
       <p>The rooms were now in the same scan, but they didn't connect into a floor plan. We gave pros a way to move and rotate them into place themselves, or remove a room when needed.</p>
     </div>
     <figure class="mrx-tutorial">
-      <img src="../media/multi-room/tutorial-1.webp" alt="Tutorial slide: how to move rooms" width="375" height="812" loading="lazy" decoding="async">
-      <img src="../media/multi-room/tutorial-2.webp" alt="Tutorial slide: how to rotate rooms" width="375" height="812" loading="lazy" decoding="async">
-      <img src="../media/multi-room/tutorial-3.webp" alt="Tutorial slide: how to delete rooms" width="375" height="812" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-1.webp?v=2" alt="Tutorial slide: how to move rooms" width="750" height="1624" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-2.webp?v=2" alt="Tutorial slide: how to rotate rooms" width="750" height="1624" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-3.webp?v=2" alt="Tutorial slide: how to delete rooms" width="750" height="1624" loading="lazy" decoding="async">
       <img src="../media/multi-room/tutorial-4.webp?v=2" alt="The controls in use: a room turned on its rotation handle to line up with the one below it" width="375" height="812" loading="lazy" decoding="async">
     </figure>
   </section>
