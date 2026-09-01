@@ -263,13 +263,12 @@
 .mrx-scattered__text { flex: 0 1 432px; min-width: 0; }
 .mrx-scattered__text p { font-size: 16px; }
 
-/* Attempt 02: text + the three tutorial screens */
-.mrx-attempt2 { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
-.mrx-attempt2__text { flex: 0 1 432px; min-width: 0; }
-.mrx-attempt2__text p { font-size: 16px; }
-.mrx-tutorial { flex: 0 1 552px; min-width: 0; margin: 0; padding: 32px; min-height: 422px;
-  border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.mrx-tutorial img { flex: 0 1 148px; min-width: 0; width: 148px; height: auto;
+/* Attempt 02: intro, then the screens on their own row */
+.mrx-attempt2 { padding-block: 32px; }
+.mrx-attempt2__text p { font-size: 16px; max-width: 1016px; }
+.mrx-tutorial { margin: 34px 0 0; padding: 0;
+  display: flex; justify-content: space-between; gap: 24px; }
+.mrx-tutorial img { flex: 0 1 160px; min-width: 0; width: auto; height: auto;
   display: block; border-radius: 6px; }
 
 /* --- After: the same flow, one step highlighted --- */
@@ -444,11 +443,11 @@
 }
 @media (max-width: 900px) {
   /* Stacked: flex-basis would become a HEIGHT here, so hand sizing back to content */
-  .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-attempt2, .mrx-turning,
+  .mrx-limit, .mrx-desktop, .mrx-challenge, .mrx-drift, .mrx-turning,
   .mrx-scattered,
   .mrx-uj, .mrx-stepcard, .mrx-wildcard {
     flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 24px; }
-  .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *, .mrx-attempt2 > *,
+  .mrx-limit > *, .mrx-desktop > *, .mrx-challenge > *, .mrx-drift > *,
   .mrx-scattered > *,
   .mrx-turning > *, .mrx-uj > *, .mrx-stepcard > *, .mrx-wildcard > * {
     flex: 0 0 auto; width: 100%; }
@@ -478,10 +477,15 @@
   .mrx-stats { flex-direction: column; }
   .mrx-flowstep { flex: 1 1 100%; }
   .mrx-vs { flex-direction: column; align-items: center; }
-  /* Two screenshots per row rather than a single narrow column */
-  .mrx-screenflow figure, .mrx-dialogs figure, .mrx-plate--5 figure { flex: 0 1 calc(50% - 8px); }
+  /* Two screenshots per row rather than a single narrow column. The 16px gap
+     has to match the basis: 2 x (50% - 8px) + 16px is exactly 100%. At the
+     desktop gap of 24px the pair overflows and every screenshot drops to its
+     own row, which is what used to happen here. */
+  .mrx-screenflow, .mrx-dialogs, .mrx-tutorial { gap: 16px; }
+  .mrx-screenflow figure, .mrx-dialogs figure, .mrx-plate--5 figure,
+  .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
   .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
-  .mrx-tutorial img { flex: 0 1 calc(50% - 5px); width: auto; }
+  .mrx-tutorial img { width: auto; }
   .mrx-vs__arrow { transform: rotate(90deg); }
   .mrx-plate--5 { flex-wrap: wrap; }
 }
@@ -719,9 +723,10 @@
     </div>
     <figure class="mrx-tutorial">
       <img src="../media/multi-room/tutorial-1.webp?v=2" alt="Tutorial slide: how to move rooms" width="750" height="1624" loading="lazy" decoding="async">
-      <img src="../media/multi-room/tutorial-2.webp?v=2" alt="Tutorial slide: how to rotate rooms" width="750" height="1624" loading="lazy" decoding="async">
+      <img src="../media/multi-room/rooms-joined.webp" alt="Two rooms brought together, with the wall they share highlighted" width="750" height="1624" loading="lazy" decoding="async">
+      <img src="../media/multi-room/room-rotated.webp" alt="A selected room turned away from the one below it, with the rotation control at the top right" width="750" height="1624" loading="lazy" decoding="async">
       <img src="../media/multi-room/tutorial-3.webp?v=2" alt="Tutorial slide: how to delete rooms" width="750" height="1624" loading="lazy" decoding="async">
-      <img src="../media/multi-room/tutorial-4.webp?v=2" alt="The controls in use: a room turned on its rotation handle to line up with the one below it" width="375" height="812" loading="lazy" decoding="async">
+      <img src="../media/multi-room/tutorial-4.webp?v=2" alt="The tutorial's spotlight over the plan, on a room being turned into place" width="750" height="1624" loading="lazy" decoding="async">
     </figure>
   </section>
 </div>
