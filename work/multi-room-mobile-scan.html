@@ -469,10 +469,11 @@
   .mrx-plate--2, .mrx-plate--3, .mrx-plate--2c, .mrx-vs { padding-inline: 12px; }
 }
 @media (max-width: 700px) {
-  /* The rooms shrink to a third here, and 36 figures at 8px stop being
-     readable long before they stop being loud. The rules and ticks stay, so
-     it still reads as a measured drawing. */
-  .mrx-dim__t { display: none; }
+  /* The rooms shrink to a third here, so the dimension strings stop being
+     readable long before they stop being loud. Shapes only. The script reads
+     the same breakpoint and drops to six rooms with a tighter margin, since
+     nothing hangs past the walls any more. */
+  .mrx-dim { display: none; }
   .mrx-qcard { flex: 1 1 100%; }
   .mrx-voicespanel { padding: 40px 20px; gap: 32px; }
   .mrx-voicespanel__h { font-size: 21px; }
@@ -990,6 +991,7 @@
 
   var COUNT = 9, WALL = 5, MIN = 74, MAX = 158;
   var PAD = 30;      // the strings hang ~18px past the walls; bounce before that clips
+  var BARE = '(max-width: 700px)';   // where the CSS drops the strings; see .mrx-dim above
   /* The pointer gathers the rooms in. Past CORE they are drawn toward it,
      inside CORE they are eased back out, so they crowd around the cursor and
      jostle rather than stacking on top of it. Which is the point of the
@@ -1065,9 +1067,16 @@
     W = r.width; H = r.height;
     if (!W || !H) return;
     var k = Math.min(1, W / 1016);
+    var bare = window.matchMedia(BARE).matches;
+    var count = bare ? 6 : COUNT;
+    PAD = bare ? 12 : 30;
 
-    for (var i = 0; i < COUNT; i++) {
-      var w = (MIN + Math.random() * (MAX - MIN)) * k;
+    for (var i = 0; i < count; i++) {
+      /* Six rooms leave nowhere for a runt to hide, and with no strings to
+         clear they can afford to be bigger, so the phone gets a narrower,
+         higher range. */
+      var lo = bare ? 108 : MIN, hi = bare ? 168 : MAX;
+      var w = (lo + Math.random() * (hi - lo)) * k;
       var h = w * (0.55 + Math.random() * 0.85);
       var pts = fit(shape(w, h), w, h);
       /* k shrinks the rooms on a narrow screen; the wall has to come with them
@@ -1092,7 +1101,13 @@
 
       rooms.push({
         el: el, w: w, h: h,
-        x: PAD + w / 2 + Math.random() * Math.max(1, W - w - PAD * 2),
+        /* Six rooms seeded at random land in a clump about as often as not.
+           Give each one its own column of the band, jittered inside it, so the
+           drawing reads evenly across the width on every load. Nine spread
+           themselves well enough, so the wide layout keeps its free scatter. */
+        x: bare
+             ? PAD + w / 2 + Math.max(1, W - w - PAD * 2) * ((i + 0.15 + Math.random() * 0.7) / count)
+             : PAD + w / 2 + Math.random() * Math.max(1, W - w - PAD * 2),
         y: PAD + h / 2 + Math.random() * Math.max(1, H - h - PAD * 2),
         vx: (Math.random() - 0.5) * 0.42, vy: (Math.random() - 0.5) * 0.42,
         a: Math.random() * 360, va: (Math.random() - 0.5) * 0.20,
