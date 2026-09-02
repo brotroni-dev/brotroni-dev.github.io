@@ -471,6 +471,10 @@
      left holes of 300-560px under these images on a phone. Reset by name. */
   .mrx-desktop figure, .mrx-challenge figure, .mrx-drift figure,
   .mrx-turning figure, .mrx-limit figure, .mrx-scattered figure { flex: 0 0 auto; }
+  /* Same trap, one level deeper: .mrx-wildcard--pair .mrx-wildcard__text
+     out-ranks the `> *` reset above, so its 344px basis became a 344px hole
+     under the text. */
+  .mrx-wildcard--pair .mrx-wildcard__text { flex: 0 0 auto; }
   .mrx-flow { flex-wrap: wrap; }
   .mrx-flowstep { flex: 1 1 40%; }
   .mrx-flowarrow { display: none; }
@@ -502,7 +506,9 @@
   .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
   .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
   .mrx-tutorial img { width: auto; }
-  .mrx-vs__arrow { transform: rotate(90deg); }
+  /* Only the .mrx-vs pair stacks on a phone, so only its arrow turns down.
+     The closing list's before and after stay side by side. */
+  .mrx-vs .mrx-vs__arrow { transform: rotate(90deg); }
   .mrx-plate--5 { flex-wrap: wrap; }
 }
 
