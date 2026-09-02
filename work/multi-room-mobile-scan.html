@@ -371,6 +371,14 @@
 .mrx-wildplate { flex: 0 0 339px; background: #dcd7cf; border-radius: 8px; margin: 0;
   padding: 24px 0; display: flex; justify-content: center; }
 .mrx-wildplate img { width: 176px; max-width: 52%; height: auto; display: block; border-radius: 6px; }
+/* The closing card carries the before and after of the same list, so its
+   plate holds two screens and an arrow instead of one screen. */
+.mrx-wildcard--pair .mrx-wildcard__text { flex: 0 1 344px; }
+.mrx-wildplate--pair { flex: 0 1 512px; padding: 24px 20px;
+  align-items: flex-start; gap: 14px; }
+.mrx-wildplate--pair > figure { flex: 0 1 190px; min-width: 0; margin: 0; }
+.mrx-wildplate--pair img { width: 100%; max-width: none; }
+.mrx-wildplate--pair .mrx-vs__arrow { align-self: center; margin-top: -28px; font-size: 24px; }
 
 /* --- Impact --- */
 .mrx-impact { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 64px 32px; }
@@ -880,13 +888,21 @@
 
 <!-- One project could finally stay together -->
 <div class="mrx-band mrx-wild">
-  <div class="mrx-wildcard">
+  <div class="mrx-wildcard mrx-wildcard--pair">
     <div class="mrx-wildcard__text">
       <h3>One project could finally stay together</h3>
       <p>Pros could keep scanning room by room and build one connected plan, without returning to the list or switching to desktop.</p>
     </div>
-    <figure class="mrx-wildplate">
-      <img src="../media/multi-room/mr-list-final.webp?v=2" alt="The floor plans list, where each entry is now a whole floor divided into rooms rather than a single room" width="540" height="1155" loading="lazy" decoding="async">
+    <figure class="mrx-wildplate mrx-wildplate--pair">
+      <figure>
+        <img src="../media/multi-room/mr-list-before.webp" alt="The floor plans list before, where every entry is a single room" width="614" height="1329" loading="lazy" decoding="async">
+        <figcaption class="mrx-vscap"><b>Before</b><span>One room per plan</span></figcaption>
+      </figure>
+      <span class="mrx-vs__arrow" aria-hidden="true">&rarr;</span>
+      <figure>
+        <img src="../media/multi-room/mr-list-final.webp?v=2" alt="The floor plans list after, where each entry is a whole floor divided into rooms" width="540" height="1155" loading="lazy" decoding="async">
+        <figcaption class="mrx-vscap"><b>After</b><span>One plan per floor</span></figcaption>
+      </figure>
     </figure>
   </div>
 </div>
