@@ -469,6 +469,10 @@
   .mrx-plate--2, .mrx-plate--3, .mrx-plate--2c, .mrx-vs { padding-inline: 12px; }
 }
 @media (max-width: 700px) {
+  /* The rooms shrink to a third here, and 36 figures at 8px stop being
+     readable long before they stop being loud. The rules and ticks stay, so
+     it still reads as a measured drawing. */
+  .mrx-dim__t { display: none; }
   .mrx-qcard { flex: 1 1 100%; }
   .mrx-voicespanel { padding: 40px 20px; gap: 32px; }
   .mrx-voicespanel__h { font-size: 21px; }
@@ -807,13 +811,13 @@
 <div class="mrx-band mrx-step">
   <div class="mrx-stepcard mrx-stepcard--flip">
     <figure class="mrx-plate mrx-plate--3">
-      <figure><img src="../media/multi-room/added-window.webp" alt="Adding a window in the camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Add a window</figcaption></figure>
-      <figure><img src="../media/multi-room/positioned-window.webp" alt="Dragging the window into position" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Position it</figcaption></figure>
-      <figure><img src="../media/multi-room/adjusted-dimensions.webp" alt="Dragging the handles to change the window dimensions" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Adjust dimensions</figcaption></figure>
+      <figure><img src="../media/multi-room/window-aim.webp" alt="The camera aimed at a window, with Door and Window in the action bar" width="750" height="1624" loading="lazy" decoding="async"><figcaption class="mrx-cap">Aim at a window</figcaption></figure>
+      <figure><img src="../media/multi-room/window-place.webp" alt="The window outline placed on the wall, ready to be tapped into position" width="750" height="1624" loading="lazy" decoding="async"><figcaption class="mrx-cap">Place it</figcaption></figure>
+      <figure><img src="../media/multi-room/window-added.webp" alt="Dragging the dots to resize the window before adding it" width="750" height="1624" loading="lazy" decoding="async"><figcaption class="mrx-cap">Resize and add</figcaption></figure>
     </figure>
     <div class="mrx-steptext">
-      <h3>Editing doors and windows in place</h3>
-      <p>Once a door or window was added, the action bar switched to editing controls, so pros could position, resize, duplicate, or delete it without leaving the scan.</p>
+      <h3>A clearer flow for doors and windows</h3>
+      <p>The existing flow for adding doors and windows was hard to discover and confusing to use. Based on user feedback, we made the entry point more visible and simplified the interaction, so pros could add, position, and edit openings without leaving the scan.</p>
     </div>
   </div>
 </div>
