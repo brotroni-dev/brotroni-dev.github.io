@@ -507,7 +507,19 @@
   /* Three across a phone leaves each screen 78px wide, which is not enough
      to read a camera view. One under the other instead. */
   .mrx-plate--3 { flex-direction: column; align-items: center; gap: 16px; padding: 16px 12px; }
-  .mrx-plate--3 figure { flex: 0 0 auto; width: 100%; max-width: 260px; }
+  .mrx-plate--3 figure { flex: 0 0 auto; width: 100%; }
+  /* A picture of a phone, shown on a phone, should read as a picture rather
+     than try to be the screen. Standing alone these came out around 68% of
+     the width and, being 2.17 times as tall as they are wide, about 68% of
+     the viewport HEIGHT - so the screenshot and the sentence explaining it
+     never shared a glance. Capped to roughly half the height instead. */
+  .mrx-scattered img,
+  .mrx-plate--3 figure,
+  .mrx-vs__after { max-width: 210px; }
+  /* The before stack's 280px basis turns into a height in this column, which
+     left its width to fall out of the aspect ratio at 139px - half the after
+     beside it. Sized like the after so the two read as a pair. */
+  .mrx-vs__before { flex: 0 0 auto; width: 100%; max-width: 210px; }
   .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
   .mrx-tutorial img { width: auto; }
   /* Only the .mrx-vs pair stacks on a phone, so only its arrow turns down.
