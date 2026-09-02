@@ -78,10 +78,10 @@
 
 /* --- Hero illustration: full-width drawing, clipped top and bottom as in Figma --- */
 /* --- Hero: a field of single-room plans that never join up ---------------
-   Each room is drawn the way the product draws one: heavy walls, a pale floor,
-   dimension strings on all four sides, and the ghost of the previous shape
-   behind it. They turn, drift and bounce off each other, and never once snap
-   together - which is the problem this project set out to fix. */
+   Each room is drawn the way the product draws one: heavy walls, a pale floor
+   and dimension strings on all four sides. They turn, drift and bounce off
+   each other, and never once snap together - which is the problem this
+   project set out to fix. */
 .mrx-heroillus { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); }
 .mrx-heroillus__box { position: relative; width: 100%; aspect-ratio: 1016 / 372;
   overflow: hidden; margin: 0;
@@ -93,7 +93,6 @@
   background-size: 26px 26px; }
 
 .mrx-room { position: absolute; left: 0; top: 0; will-change: transform; overflow: visible; }
-.mrx-room__ghost { fill: none; stroke: #C9C7C2; stroke-width: 1; }
 .mrx-room__walls { fill: #F6F5F1; stroke: #171614; stroke-linejoin: miter; }
 
 .mrx-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
@@ -1067,19 +1066,21 @@
       var w = (MIN + Math.random() * (MAX - MIN)) * k;
       var h = w * (0.55 + Math.random() * 0.85);
       var pts = fit(shape(w, h), w, h);
+      /* k shrinks the rooms on a narrow screen; the wall has to come with them
+         or a 25px room ends up carrying a 5px wall. Floored at 2 so it still
+         reads as a wall. */
+      var wall = Math.max(2, Math.round(WALL * k * 10) / 10);
       var el = document.createElement('div');
       el.className = 'mrx-room';
       el.style.width = w + 'px';
       el.style.height = h + 'px';
       el.style.setProperty('--dim', Math.max(8, Math.round(9 * k)) + 'px');
       var poly  = pts.map(function (p) { return p[0] + ',' + p[1]; }).join(' ');
-      var ghost = pts.map(function (p) { return (p[0] - 7) + ',' + (p[1] - 7); }).join(' ');
       el.innerHTML =
-        '<svg style="position:absolute;left:' + (-WALL) + 'px;top:' + (-WALL) + 'px;width:' +
-          (w + WALL * 2) + 'px;height:' + (h + WALL * 2) + 'px;overflow:visible" viewBox="' +
-          (-WALL) + ' ' + (-WALL) + ' ' + (w + WALL * 2) + ' ' + (h + WALL * 2) + '">' +
-          '<polygon class="mrx-room__ghost" points="' + ghost + '"/>' +
-          '<polygon class="mrx-room__walls" points="' + poly + '" stroke-width="' + WALL + '"/>' +
+        '<svg style="position:absolute;left:' + (-wall) + 'px;top:' + (-wall) + 'px;width:' +
+          (w + wall * 2) + 'px;height:' + (h + wall * 2) + 'px;overflow:visible" viewBox="' +
+          (-wall) + ' ' + (-wall) + ' ' + (w + wall * 2) + ' ' + (h + wall * 2) + '">' +
+          '<polygon class="mrx-room__walls" points="' + poly + '" stroke-width="' + wall + '"/>' +
         '</svg>' +
         dim('top', feet(w)) + dim('bottom', feet(w)) +
         dim('left', feet(h)) + dim('right', feet(h));
