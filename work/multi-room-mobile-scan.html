@@ -98,11 +98,13 @@
 .mrx-dim { position: absolute; display: flex; align-items: center; justify-content: center; }
 .mrx-dim::before, .mrx-dim::after { content: ""; position: absolute; background: #8E8B85; }
 .mrx-dim__line { position: absolute; background: #8E8B85; }
-/* The figure sits ABOVE its dimension line, the way it does on a real
-   drawing, so the line runs unbroken underneath instead of striking through
-   the digits. Offset in em, so it follows --dim at any size: half the text
-   height clears the line, the rest is the gap. Rotated sides get the same
-   shift inside their own rotation, which pushes the figure outward. */
+/* The figure sits on the OUTER side of its dimension line, away from the
+   room, so the line runs unbroken between the two instead of striking
+   through the digits and the digits never crowd the wall. Offset in em, so
+   it follows --dim at any size: half the text height clears the line, the
+   rest is the gap. Each side pushes outward in its own direction, which for
+   the rotated sides falls out of the rotation itself; the bottom is the one
+   that has to reverse the sign, since down is away from the room there. */
 .mrx-dim__t { position: relative; font-family: var(--font-body); font-size: var(--dim, 10px);
   font-weight: 500; color: #4A4741; padding: 0 4px;
   white-space: nowrap; line-height: 1; transform: translateY(-0.78em); }
@@ -114,6 +116,7 @@
 .mrx-dim--bottom .mrx-dim__line { left: 0; right: 0; top: 50%; height: 1px; }
 .mrx-dim--bottom::before { left: 0;  top: 1px; width: 1px; height: 10px; }
 .mrx-dim--bottom::after  { right: 0; top: 1px; width: 1px; height: 10px; }
+.mrx-dim--bottom .mrx-dim__t { transform: translateY(0.78em); }
 .mrx-dim--right { top: 0; bottom: 0; right: -18px; width: 12px; }
 .mrx-dim--right .mrx-dim__line { top: 0; bottom: 0; left: 50%; width: 1px; }
 .mrx-dim--right::before { top: 0;    left: 1px; height: 1px; width: 10px; }
