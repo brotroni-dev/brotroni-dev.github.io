@@ -504,6 +504,10 @@
   .mrx-screenflow, .mrx-dialogs, .mrx-tutorial { gap: 16px; }
   .mrx-screenflow figure, .mrx-dialogs figure, .mrx-plate--5 figure,
   .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
+  /* Three across a phone leaves each screen 78px wide, which is not enough
+     to read a camera view. One under the other instead. */
+  .mrx-plate--3 { flex-direction: column; align-items: center; gap: 16px; padding: 16px 12px; }
+  .mrx-plate--3 figure { flex: 0 0 auto; width: 100%; max-width: 260px; }
   .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
   .mrx-tutorial img { width: auto; }
   /* Only the .mrx-vs pair stacks on a phone, so only its arrow turns down.
@@ -1034,11 +1038,17 @@
   var ptr = { x: 0, y: 0, vx: 0, vy: 0, on: false };
 
   /* 26px of stage is one foot, so the labels read like the real thing */
+  var PPF = 7.5;   /* pixels per foot, at the drawing's full 1016px width */
   function feet(px) {
+    /* px is the room's size BEFORE k shrinks it for the viewport. Measuring
+       the drawn size instead made the same room read 15' on a laptop and 5'
+       on a phone, and at 26px to the foot it called a bedroom 3' 10", which
+       on a page about measuring rooms is the one thing it cannot say.
+       At 7.5 a typical room lands near 15' square. */
     /* Round to whole inches FIRST, then split. Rounding the remainder on its
        own lets 11.6" round up to 12" and print things like 3' 12", which no
-       tape measure has ever said - and this page is about measuring rooms. */
-    var inches = Math.round(px / 26 * 12);
+       tape measure has ever said. */
+    var inches = Math.round(px / PPF * 12);
     return Math.floor(inches / 12) + "' " + (inches % 12) + '"';
   }
 
@@ -1101,8 +1111,9 @@
          clear they can afford to be bigger, so the phone gets a narrower,
          higher range. */
       var lo = bare ? 108 : MIN, hi = bare ? 168 : MAX;
-      var w = (lo + Math.random() * (hi - lo)) * k;
-      var h = w * (0.55 + Math.random() * 0.85);
+      var w0 = lo + Math.random() * (hi - lo);      // the room's real size
+      var h0 = w0 * (0.55 + Math.random() * 0.85);
+      var w = w0 * k, h = h0 * k;                  // and the size it is drawn at
       var pts = fit(shape(w, h), w, h);
       /* k shrinks the rooms on a narrow screen; the wall has to come with them
          or a 25px room ends up carrying a 5px wall. Floored at 2 so it still
@@ -1120,8 +1131,8 @@
           (-wall) + ' ' + (-wall) + ' ' + (w + wall * 2) + ' ' + (h + wall * 2) + '">' +
           '<polygon class="mrx-room__walls" points="' + poly + '" stroke-width="' + wall + '"/>' +
         '</svg>' +
-        dim('top', feet(w)) + dim('bottom', feet(w)) +
-        dim('left', feet(h)) + dim('right', feet(h));
+        dim('top', feet(w0)) + dim('bottom', feet(w0)) +
+        dim('left', feet(h0)) + dim('right', feet(h0));
       stage.appendChild(el);
 
       rooms.push({
