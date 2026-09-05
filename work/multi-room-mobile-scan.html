@@ -213,6 +213,10 @@
 .mrx-desktop figure { flex: 0 1 676px; min-width: 0; margin: 0; }
 .mrx-desktop img { width: 100%; height: auto; display: block; border-radius: 6px; }
 .mrx-desktop__text { flex: 0 1 300px; min-width: 0; }
+/* The wide artwork carries its own arrow. On a phone it is replaced by the
+   capture group, and the editor and the arrow are laid out here instead, so
+   the arrow is the page's actual glyph rather than a drawn one. */
+.mrx-art__arrow, .mrx-art__editor { display: none; }
 .mrx-desktop__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
   line-height: 1.16; color: var(--title); margin: 12px 0 0; }
 .mrx-desktop__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
@@ -583,6 +587,17 @@
   .mrx-before { padding-block: 36px 0; }
   .mrx-screenflow { margin-top: 36px; }
   .mrx-limit { padding-block: 36px; }
+  /* The voices read better once the three problems have been laid out, so on a
+     phone they move to the end of this run. Source order is unchanged, which
+     keeps the desktop sequence and means the section is never duplicated. */
+  .mrx-order { display: flex; flex-direction: column; }
+  .mrx-order > .mrx-voices { order: 1; }
+  .mrx-art { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .mrx-art picture { display: block; width: 73%; }
+  .mrx-art picture img { width: 100%; height: auto; display: block; }
+  .mrx-art__arrow { display: block; font-family: var(--font-mono); font-weight: 500;
+    font-size: 28px; line-height: 1; color: var(--accent); }
+  .mrx-art__editor { display: block; width: 98%; height: auto; }
   /* The plate's 32px inset was spending a fifth of a 342px card on padding
      around a drawing that needed the room. The drawing's own background is
      246,246,246 against the plate's #f6f6f5 - one unit apart in blue, so it
@@ -651,6 +666,9 @@
 </section>
 
 <!-- User voices -->
+<!-- Voices through Problem 03. On a phone the voices move to the end of this
+     run, so they land after Problem 03 and before the goal. -->
+<div class="mrx-order">
 <section class="mrx-band mrx-voices">
   <div class="mrx-voicespanel">
     <div class="mrx-voicespanel__head">
@@ -742,13 +760,15 @@
 
 <!-- Problem 03: completing the property required desktop -->
 <section class="mrx-band mrx-desktop">
-  <figure>
+  <figure class="mrx-art">
     <picture>
-      <!-- Phones get the same three elements stacked: the capture group, the
-           accent arrow turned down, then the desktop editor. -->
-      <source media="(max-width: 700px)" srcset="../media/multi-room/hero-mobile.webp?v=2" width="1026" height="1380">
+      <!-- On a phone the wide artwork becomes the capture group alone, with the
+           editor and a real down arrow stacked under it below. -->
+      <source media="(max-width: 700px)" srcset="../media/multi-room/hero-capture.webp" width="749" height="606">
       <img src="../media/multi-room/hero.webp" alt="A phone showing a single scanned room, with an arrow to the desktop editor holding the full plan" width="1637" height="567" loading="lazy" decoding="async">
     </picture>
+    <span class="mrx-art__arrow" aria-hidden="true">&darr;</span>
+    <img class="mrx-art__editor" src="../media/multi-room/hero-editor.webp" alt="" width="1005" height="594" loading="lazy" decoding="async">
   </figure>
   <div class="mrx-desktop__text">
     <p class="mrx-label">Problem 03</p>
@@ -756,6 +776,7 @@
     <p>Mobile stopped after one room. Completing the property meant drawing the remaining rooms on desktop, or building the full plan there from the start.</p>
   </div>
 </section>
+</div><!-- /.mrx-order -->
 
 <!-- The goal -->
 <div class="mrx-band mrx-goalwrap">
