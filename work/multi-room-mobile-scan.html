@@ -502,30 +502,48 @@
      desktop gap of 24px the pair overflows and every screenshot drops to its
      own row, which is what used to happen here. */
   .mrx-screenflow, .mrx-dialogs, .mrx-tutorial { gap: 16px; }
-  .mrx-screenflow figure, .mrx-dialogs figure, .mrx-plate--5 figure,
+  .mrx-screenflow figure, .mrx-dialogs figure,
   .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
-  /* Three across a phone leaves each screen 78px wide, which is not enough
-     to read a camera view. One under the other instead. */
-  .mrx-plate--3 { flex-direction: column; align-items: center; gap: 16px; padding: 16px 12px; }
-  .mrx-plate--3 figure { flex: 0 0 auto; width: 100%; }
-  /* A picture of a phone, shown on a phone, should read as a picture rather
-     than try to be the screen. Standing alone these came out around 68% of
-     the width and, being 2.17 times as tall as they are wide, about 68% of
-     the viewport HEIGHT - so the screenshot and the sentence explaining it
-     never shared a glance. Capped to roughly half the height instead. */
-  .mrx-scattered img,
-  .mrx-plate--3 figure,
-  .mrx-vs__after { max-width: 210px; }
+
+  /* ---- One screen per row -----------------------------------------------
+     Pairs and triples squeezed across a 342px card came out at 78 to 137px,
+     too small to read a camera view. Everything that carries screen content
+     is now a single column at 212px, which is 62% of the card and, at a
+     phone's 2.17 aspect, about half the viewport height - so the screenshot
+     and the sentence explaining it still share a glance.
+     The dialog chain and the Before flow are deliberately left alone: they
+     are there to show a chain of interruptions, not what is on each screen. */
+  .mrx-plate--2, .mrx-plate--2c, .mrx-plate--3 {
+    flex-direction: column; align-items: center; gap: 24px; padding: 16px 12px; }
+  .mrx-plate--2 > figure, .mrx-plate--2c > figure, .mrx-plate--3 > figure {
+    flex: 0 0 auto; width: 212px; max-width: 100%; }
+  .mrx-scattered img, .mrx-vs__after, .mrx-vs__before { max-width: 212px; }
+  .mrx-vs { gap: 24px; }
+
+  /* ---- The five-step flow: a swipe rather than a grid --------------------
+     Five screens will not fit legibly on a phone in any arrangement, and the
+     row is a sequence, so it reads better swiped than wrapped. One screen
+     at a time with the next peeking in at 90px, snapping as you go. */
+  .mrx-plate--5 { flex-wrap: nowrap; justify-content: flex-start;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory; scroll-padding-inline: 12px;
+    gap: 16px; padding: 16px 12px; scrollbar-width: none; }
+  .mrx-plate--5::-webkit-scrollbar { display: none; }
+  .mrx-plate--5 > figure { flex: 0 0 212px; scroll-snap-align: start; }
+
+  /* ---- The closing list: the comparison is the point, so give it room ---- */
+  .mrx-wildplate--pair { flex-direction: column; align-items: center; gap: 24px; }
+  .mrx-wildplate--pair > figure { flex: 0 0 auto; width: 100%; max-width: none; }
+  .mrx-wildplate--pair .mrx-vs__arrow { transform: rotate(90deg); }
   /* The before stack's 280px basis turns into a height in this column, which
      left its width to fall out of the aspect ratio at 139px - half the after
      beside it. Sized like the after so the two read as a pair. */
-  .mrx-vs__before { flex: 0 0 auto; width: 100%; max-width: 210px; }
+  .mrx-vs__before { flex: 0 0 auto; width: 100%; }
   .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
   .mrx-tutorial img { width: auto; }
   /* Only the .mrx-vs pair stacks on a phone, so only its arrow turns down.
      The closing list's before and after stay side by side. */
   .mrx-vs .mrx-vs__arrow { transform: rotate(90deg); }
-  .mrx-plate--5 { flex-wrap: wrap; }
 }
 
 /* ---------- Mobile vertical rhythm ----------
