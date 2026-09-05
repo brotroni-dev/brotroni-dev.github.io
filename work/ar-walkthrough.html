@@ -399,9 +399,17 @@
   .lsw-stepcard > * { width: 100%; flex: 0 0 auto; }
   .lsw-stepcard--flip { flex-direction: column-reverse; }
   .lsw-stepcard__text p { max-width: none; }
-  /* Stacked plates are much narrower, so the phone takes a bigger share of them */
-  .lsw-shot--01 img, .lsw-shot--02 img, .lsw-shot--04 .lsw-arview, .lsw-ph-phone { width: 55%; }
-  .lsw-shot--03 img { width: 44%; }
+  /* Stacked, the plate was a 294px card holding a 188px phone, which read as a
+     box too big for the thing in it. It becomes the card's foot instead: taupe
+     running the card's full width, its own corners given up for the card's.
+     The phone lands at 213px, the same 54% of a phone's height the rest of the
+     site settles at. */
+  .lsw-shot { width: calc(100% + 48px);    /* the `> *` reset above pins it to 100%, which
+       the negative margins would only shift. `auto` collapses step 02, whose phone is
+       built in HTML at a percentage width and so offers nothing to size from. */
+    margin: 0 -24px -24px; border-radius: 0 0 16px 16px; padding: 20px 0; }
+  .lsw-shot--01 img, .lsw-shot--02 img, .lsw-shot--04 .lsw-arview, .lsw-ph-phone { width: 62%; }
+  .lsw-shot--03 img { width: 40%; }
   .lsw-uj { flex-direction: column; }
   .lsw-learngrid { grid-template-columns: 1fr; gap: 32px; }
 }
