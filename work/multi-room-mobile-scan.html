@@ -191,6 +191,10 @@
 .mrx-screenflow figure { flex: 0 1 166px; min-width: 0; margin: 0;
   display: flex; flex-direction: column; gap: 12px; }
 .mrx-screenflow img { width: 100%; height: auto; display: block; border-radius: 6px; }
+/* Where the old flow stopped. Desktop says this with the four steps and the
+   loop arrow curling back to the start; on a phone both of those are hidden,
+   so it is said here instead. */
+.mrx-endpoint { display: none; }
 
 /* --- The limit: text + annotated evidence panel --- */
 .mrx-limit { padding-block: 64px; display: flex; gap: 32px; align-items: center; }
@@ -501,6 +505,26 @@
      has to match the basis: 2 x (50% - 8px) + 16px is exactly 100%. At the
      desktop gap of 24px the pair overflows and every screenshot drops to its
      own row, which is what used to happen here. */
+  /* The four step cards repeat what the five captions below them already say,
+     and they only worked on desktop because the arrows and the loop turned
+     them into a diagram - both of which are hidden here. Out, and the one
+     beat the screenshots cannot show is stated after them instead. */
+  .mrx-before .mrx-flow { display: none; }
+  .mrx-endpoint { display: block; flex: 0 0 100%; position: relative;
+    margin-top: 44px; padding: 20px 22px; border-radius: 16px;
+    background: rgba(158, 78, 44, .055); border: 1px solid rgba(158, 78, 44, .22); }
+  /* The connector rises to the last screenshot, which sits alone on the final
+     row and is centred there by the row's justify-content, not left-aligned. */
+  .mrx-endpoint::before { content: ""; position: absolute;
+    left: 50%; margin-left: -1px; top: -52px; width: 2px; height: 46px; background: var(--accent); }
+  .mrx-endpoint::after { content: ""; position: absolute;
+    left: 50%; margin-left: -5px; top: -13px; width: 10px; height: 10px;
+    border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
+    transform: rotate(45deg); }
+  .mrx-endpoint h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px;
+    line-height: 1.2; color: var(--title); margin: 6px 0 0; }
+  .mrx-endpoint p:last-child { font-family: var(--font-body); font-size: 16px;
+    line-height: 1.55; color: var(--text); margin: 8px 0 0; }
   .mrx-screenflow, .mrx-dialogs, .mrx-tutorial { gap: 16px; }
   .mrx-screenflow figure, .mrx-dialogs figure,
   .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
@@ -686,6 +710,11 @@
     <figure><img src="../media/multi-room/place-corner-points.webp" alt="Placing a corner point on the floor in camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
     <figure><img src="../media/multi-room/close-shape.webp" alt="The closed room shape with its wall dimensions shown over the camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Close at the start point</figcaption></figure>
     <figure><img src="../media/multi-room/ready-floor-plan.webp" alt="The completed single-room plan with dimensions" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Room complete</figcaption></figure>
+    <div class="mrx-endpoint">
+      <p class="mrx-label">The flow ended here</p>
+      <h3>Back to the floor plans list</h3>
+      <p>To scan another room, pros had to start over.</p>
+    </div>
   </div>
 </section>
 
