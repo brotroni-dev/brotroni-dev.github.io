@@ -513,14 +513,14 @@
   .mrx-endpoint { display: block; flex: 0 0 100%; position: relative;
     margin-top: 44px; padding: 20px 22px; border-radius: 16px;
     background: rgba(158, 78, 44, .055); border: 1px solid rgba(158, 78, 44, .22); }
-  /* The connector rises to the last screenshot, which sits alone on the final
-     row and is centred there by the row's justify-content, not left-aligned. */
-  .mrx-endpoint::before { content: ""; position: absolute;
-    left: 50%; margin-left: -1px; top: -52px; width: 2px; height: 46px; background: var(--accent); }
-  .mrx-endpoint::after { content: ""; position: absolute;
-    left: 50%; margin-left: -5px; top: -13px; width: 10px; height: 10px;
-    border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent);
-    transform: rotate(45deg); }
+  /* The same arrow the flow steps and the before/after pairs use, turned down.
+     Everywhere else on this page "and then" is a mono glyph in the accent, so
+     a drawn rule and a chevron read as a different hand. Centred, because the
+     last screenshot sits alone on its final row and the row centres it. */
+  .mrx-endpoint::before { content: "\2192"; position: absolute;
+    left: 0; right: 0; top: -46px; text-align: center;
+    font-family: var(--font-mono); font-weight: 500; font-size: 28px; line-height: 1;
+    color: var(--accent); transform: rotate(90deg); }
   .mrx-endpoint h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px;
     line-height: 1.2; color: var(--title); margin: 6px 0 0; }
   .mrx-endpoint p:last-child { font-family: var(--font-body); font-size: 16px;
