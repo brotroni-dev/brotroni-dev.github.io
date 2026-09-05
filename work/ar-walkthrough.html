@@ -424,8 +424,13 @@
   .lsw-voicespanel__h { font-size: 21px; }
   .lsw-learncard, .lsw-stepcard, .lsw-colorcard { padding: 24px; }
   .lsw-callout { transform: rotate(-2deg); }
-  .lsw-swatches { flex-wrap: wrap; justify-content: center; }
-  .lsw-swatch { flex: 0 0 132px; }
+  /* Three swatches at 132px wrapped 2 + 1, leaving an orphan, and a colour
+     pair cannot be judged at that size - which is what the section is for.
+     One per row at the same width as the screens above. */
+  .lsw-swatches { flex-direction: column; align-items: center; gap: 32px; }
+  /* px, not %: .lsw-swatches is centred and so shrinks to its content, which
+     makes a percentage here circular - it resolved back to the 161px base. */
+  .lsw-swatch { flex: 0 0 auto; width: 212px; max-width: 100%; }
 }
 
 /* ---------- Mobile vertical rhythm ----------
@@ -590,7 +595,7 @@
       <p>Pros tapped the AR icon beside the floor plan they wanted to present.</p>
     </div>
     <figure class="lsw-shot lsw-shot--01">
-      <img src="../media/ar/floor-plans-list.webp" alt="The 3D Floor Plans list on mobile, each plan with an AR icon beside it" width="383" height="820" loading="lazy" decoding="async">
+      <img src="../media/ar/floor-plans-list.webp?v=2" alt="The 3D Floor Plans list on mobile, each plan with an AR icon beside it" width="383" height="820" loading="lazy" decoding="async">
     </figure>
   </div>
 </div>
