@@ -743,7 +743,12 @@
 <!-- Problem 03: completing the property required desktop -->
 <section class="mrx-band mrx-desktop">
   <figure>
-    <img src="../media/multi-room/hero.webp" alt="A phone showing a single scanned room, with a dashed arrow to the desktop editor holding the full plan" width="1637" height="567" loading="lazy" decoding="async">
+    <picture>
+      <!-- Phones get the same three elements stacked: the capture group, the
+           accent arrow turned down, then the desktop editor. -->
+      <source media="(max-width: 700px)" srcset="../media/multi-room/hero-mobile.webp" width="1026" height="1506">
+      <img src="../media/multi-room/hero.webp" alt="A phone showing a single scanned room, with an arrow to the desktop editor holding the full plan" width="1637" height="567" loading="lazy" decoding="async">
+    </picture>
   </figure>
   <div class="mrx-desktop__text">
     <p class="mrx-label">Problem 03</p>
