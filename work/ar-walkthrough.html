@@ -409,7 +409,11 @@
        built in HTML at a percentage width and so offers nothing to size from. */
     margin: 0 -24px -24px; border-radius: 0 0 16px 16px; padding: 20px 0; }
   .lsw-shot--01 img, .lsw-shot--02 img, .lsw-shot--04 .lsw-arview, .lsw-ph-phone { width: 62%; }
-  .lsw-shot--03 img { width: 40%; }
+  /* Step 03 is the only plate with two screens. Side by side they came out at
+     137px each, half the size of the single screens above. Stacked instead,
+     each one matches them. */
+  .lsw-shot--03 { flex-direction: column; gap: 24px; }
+  .lsw-shot--03 img { width: 62%; max-width: 260px; }
   .lsw-uj { flex-direction: column; }
   .lsw-learngrid { grid-template-columns: 1fr; gap: 32px; }
 }
