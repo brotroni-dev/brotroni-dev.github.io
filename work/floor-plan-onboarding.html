@@ -156,6 +156,18 @@
    live in a box that is always the whole screenshot - which lets the phone
    crop the figure around it without moving a single GIF or marker. */
 .obx-chapinner { position: relative; line-height: 0; }
+/* Chapter 01's two exports carry their taupe on one side only - a 29px and a
+   12px strip down the left, nothing on the right or top - which reads as a
+   botched paste rather than a margin. The strip is trimmed here, at every
+   width, so the screenshot runs edge to edge and the taupe around it comes
+   from the panel instead. The band left along their bottom is the tutorial
+   card overhanging the app frame, and it matches the panel exactly, so it
+   stays. --cx/--cy/--cw/--ch are the window in the file's own pixels. */
+.obx-chapfig--trim { overflow: hidden; aspect-ratio: var(--cw) / var(--ch); }
+.obx-chapfig--trim > .obx-chapinner { position: absolute; top: 0; left: 0;
+  width: calc(100% * var(--iw) / var(--cw));
+  transform: translate(calc(-100% * var(--cx) / var(--iw)),
+                       calc(-100% * var(--cy) / var(--ih))); }
 .obx-chapimg { display: block; width: 100%; height: auto; }
 /* cover, not fill: fill stretches the clip to the slot's dimensions, which was
    squashing drag-bath by 40%. cover keeps every shape true and crops instead. */
@@ -413,7 +425,7 @@
       <div class="obx-prow">
         <p class="obx-pcap">Users first practiced zooming and moving around a furnished sample plan instead of starting from scratch.</p>
         <div class="obx-pvis">
-          <figure class="obx-chapfig" style="margin:0">
+          <figure class="obx-chapfig obx-chapfig--trim" style="margin:0;--iw:1272;--ih:966;--cx:29;--cy:0;--cw:1243;--ch:966">
             <div class="obx-chapinner">
               <img class="obx-chapimg" src="../media/onboarding/ch01-nav1.webp" alt="Navigation tutorial (1 of 2): zoom controls to explore the floor plan" loading="lazy" decoding="async">
             </div>
@@ -423,7 +435,7 @@
       <div class="obx-prow">
         <p class="obx-pcap">They then selected an existing item and moved it, introducing direct canvas interaction without asking them to create anything yet.</p>
         <div class="obx-pvis">
-          <figure class="obx-chapfig" style="margin:0">
+          <figure class="obx-chapfig obx-chapfig--trim" style="margin:0;--iw:1262;--ih:962;--cx:12;--cy:0;--cw:1250;--ch:962">
             <div class="obx-chapinner">
               <img class="obx-chapimg" src="../media/onboarding/ch01-nav2.webp" alt="Navigation tutorial (2 of 2): use the Selection Tool to choose an item and drag it to a new position" loading="lazy" decoding="async">
               <img class="obx-gif" style="left:5.5%;top:46.2%;width:34.9%;height:34.9%" src="../media/onboarding/move-chair.gif" alt="Selecting an item and dragging it to a new position" loading="lazy" decoding="async">
