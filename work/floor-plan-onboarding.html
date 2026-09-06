@@ -83,7 +83,10 @@
 .obx-context__text { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); margin: 12px 0 0; }
 
 /* User voices (gradient wrapper white -> #f6f6f5, taupe panel + quote cards) */
-.obx-voices { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%); padding-block: 72px 32px; }
+/* Solid grey, not a gradient: this band sits inside the grey run now, and its
+   bottom is the edge the goal card straddles. The 121px bottom is the goal
+   card's -79px pull plus the air under it - the two numbers move together. */
+.obx-voices { background: #f6f6f5; padding-block: 72px 121px; }
 .obx-voicespanel { background: #dcd7cf; border-radius: 16px; padding: 64px 32px 32px;
   display: flex; flex-direction: column; align-items: center; gap: 32px; }
 .obx-voicespanel__head { display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
@@ -98,13 +101,13 @@
 .obx-qcard__text { font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: 16px; line-height: 1.5; color: var(--title); margin: 0; }
 
 /* Users / JTBD */
-.obx-uj { background: #f6f6f5; padding-block: 32px 72px; display: flex; gap: 24px; align-items: stretch; }
+.obx-uj { background: #f6f6f5; padding-block: 72px 72px; display: flex; gap: 24px; align-items: stretch; }
 .obx-ujcard { flex: 1 1 0; background: #fff; border-left: 1px solid var(--accent); border-radius: 0 12px 12px 0; padding: 32px 32px 32px 33px; }
 .obx-ujcard__label { font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0; }
 .obx-ujcard__text { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.28; color: var(--title); margin: 12px 0 0; }
 
 /* The problem (text + workspace) */
-.obx-problem { background: #f6f6f5; padding-block: 0 121px; display: flex; gap: 64px; align-items: center; }
+.obx-problem { background: #f6f6f5; padding-block: 0 72px; display: flex; gap: 64px; align-items: center; }
 .obx-problem__text { flex: 0 0 369px; }
 .obx-problem__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.16; color: var(--title); margin: 16px 0 0; }
 .obx-problem__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.6; color: var(--text); margin: 16px 0 0; }
@@ -207,7 +210,7 @@
 @media (max-width: 720px) {
   .obx-qcards, .obx-uj { flex-direction: column; }
   .obx-problem, .obx-chosen, .obx-prow, .obx-lrpanel { flex-direction: column; align-items: stretch; gap: 24px; }
-  .obx-problem { padding-bottom: 72px; }
+  .obx-problem { padding-bottom: 40px; }
   .obx-problem__text, .obx-chosen__img { flex: 1 1 auto; max-width: 100%; }
   .obx-learngrid, .obx-lmgrid { grid-template-columns: 1fr; gap: 24px; }
 }
@@ -216,15 +219,15 @@
    Every band above is spaced for the 1016 column, where the eye crosses a
    lot of horizontal distance between sections. Stacked on a phone those same
    paddings read as dead scroll, so the section spacing is scaled back here.
-   The problem/goal pair is left alone: the goal card is pulled up over the
-   problem's bottom padding, so the two numbers have to stay in step.
+   The voices/goal pair is left alone: the goal card is pulled up over the
+   voices band's bottom padding, so the two numbers have to stay in step.
    Nothing in this block applies above 720px. */
 @media (max-width: 720px) {
   .obx-opener { padding-top: 24px; }
   .obx-rolebar { padding-bottom: 24px; }
   .obx-context { padding-block: 36px; }
-  .obx-voices { padding-block: 40px 24px; }
-  .obx-uj { padding-block: 24px 40px; }
+  .obx-voices { padding-block: 40px 72px; }
+  .obx-uj { padding-block: 40px 40px; }
   .obx-goalwrap { padding-bottom: 40px; }
   .obx-explore { padding-block: 24px; }
   .obx-chosen { padding-block: 40px; }
@@ -280,22 +283,6 @@
   <p class="obx-context__text">Built for renovation professionals, Houzz Pro's 3D Floor Planner is a simpler alternative to traditional CAD tools. It lets pros create and present 2D and 3D designs using real products from Houzz's catalog, with the long-term vision of turning those designs directly into project estimates.</p>
 </section>
 
-<!-- User voices -->
-<div class="obx-band obx-voices" id="needs" data-toc="User voices">
-  <div class="obx-voicespanel">
-    <div class="obx-voicespanel__head">
-      <p class="obx-voicespanel__label">User voices</p>
-      <p class="obx-voicespanel__h">Where first-time users got stuck</p>
-      <p class="obx-voicespanel__sub">Watching first-time users, the same needs kept surfacing: a clear first step, a safe way to practice, and confidence that each action led somewhere.</p>
-    </div>
-    <div class="obx-qcards">
-      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I can see all the tools...I don't know what I'm supposed to do first.</p></figure>
-      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I want to try it without feeling like I might mess up a real plan.</p></figure>
-      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">...I'm not sure if I'm doing the right thing or just clicking around.</p></figure>
-    </div>
-  </div>
-</div>
-
 <!-- Users / JTBD -->
 <section class="obx-band obx-uj" id="insight" data-toc="Users &amp; goal">
   <div class="obx-ujcard">
@@ -313,12 +300,28 @@
   <div class="obx-problem__text">
     <p class="obx-label">The problem</p>
     <h2>Powerful tools were easy to miss</h2>
-    <p>The Floor Planner was designed as an accessible alternative to complex CAD software, but its first-use experience left users facing a blank canvas, with key tools spread across menus and no clear path to creating a plan.</p>
+    <p>The first-use experience left users facing a blank canvas, with key tools spread across menus and no clear path to creating a plan.</p>
   </div>
   <div class="obx-problem__img">
-    <img src="../media/onboarding/problem-workspace.webp" alt="The Floor Planner opening on an empty room outline, with tools spread across the toolbar and side panels" loading="lazy" decoding="async">
+    <img src="../media/onboarding/problem-workspace.webp" alt="The Floor Planner opening on an empty room outline, with tools spread across the toolbar and side panels" width="1181" height="695" loading="lazy" decoding="async">
   </div>
 </section>
+
+<!-- User voices -->
+<div class="obx-band obx-voices" id="needs" data-toc="User voices">
+  <div class="obx-voicespanel">
+    <div class="obx-voicespanel__head">
+      <p class="obx-voicespanel__label">User voices</p>
+      <p class="obx-voicespanel__h">What first-time users needed</p>
+      <p class="obx-voicespanel__sub">Each of these names something the blank canvas did not give them: a clear first step, a safe place to practice, and some sign that an action had worked.</p>
+    </div>
+    <div class="obx-qcards">
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I can see all the tools...I don't know what I'm supposed to do first.</p></figure>
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">I want to try it without feeling like I might mess up a real plan.</p></figure>
+      <figure class="obx-qcard"><span class="obx-qcard__mark" aria-hidden="true">&ldquo;</span><p class="obx-qcard__text">...I'm not sure if I'm doing the right thing or just clicking around.</p></figure>
+    </div>
+  </div>
+</div>
 
 <!-- The goal -->
 <div class="obx-band obx-goalwrap" id="goal">
