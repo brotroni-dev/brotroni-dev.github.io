@@ -216,10 +216,13 @@
 /* The wide artwork carries its own arrow. On a phone it is replaced by the
    capture group, and the editor and the arrow are laid out here instead, so
    the arrow is the page's actual glyph rather than a drawn one. */
-/* Scoped past `.mrx-desktop img`, which sets display:block and outranks a
-   lone class - which is why the single-room editor was showing up under the
-   wide composition on desktop. */
-.mrx-desktop .mrx-art__arrow, .mrx-desktop .mrx-art__editor { display: none; }
+/* The two halves and the arrow between them: a row here, a column on phones.
+   The flex ratios are the widths the two had inside the old wide artwork. */
+.mrx-art { display: flex; align-items: center; gap: 14px; }
+.mrx-art__capture { flex: 277 1 0; min-width: 0; }
+.mrx-art__editor  { flex: 371 1 0; min-width: 0; }
+.mrx-art__arrow { flex: none; font-family: var(--font-mono); font-weight: 500;
+  font-size: 28px; line-height: 1; color: var(--accent); }
 .mrx-desktop__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
   line-height: 1.16; color: var(--title); margin: 12px 0 0; }
 .mrx-desktop__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
@@ -594,11 +597,12 @@
   .mrx-art { display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .mrx-art picture { display: block; width: 73%; }
   .mrx-art picture img { width: 100%; height: auto; display: block; }
-  /* Same specificity as the rule that hides these above 700px, or that one wins
-     here too and the stack loses its arrow and its editor. */
-  .mrx-desktop .mrx-art__arrow { display: block; font-family: var(--font-mono);
-    font-weight: 500; font-size: 28px; line-height: 1; color: var(--accent); }
-  .mrx-desktop .mrx-art__editor { display: block; width: 98%; height: auto; }
+  /* Two classes, so these beat `.mrx-desktop img { width: 100% }` - one class
+     plus an element loses to two classes. */
+  .mrx-art { flex-direction: column; gap: 20px; }
+  .mrx-art .mrx-art__capture { flex: 0 0 auto; width: 73%; }
+  .mrx-art .mrx-art__editor  { flex: 0 0 auto; width: 98%; }
+  .mrx-art__arrow { transform: rotate(90deg); }
   /* The plate's 32px inset was spending a fifth of a 342px card on padding
      around a drawing that needed the room. The drawing's own background is
      246,246,246 against the plate's #f6f6f5 - one unit apart in blue, so it
@@ -727,14 +731,9 @@
 <!-- Problem 03: completing the property required desktop -->
 <section class="mrx-band mrx-desktop">
   <figure class="mrx-art">
-    <picture>
-      <!-- On a phone the wide artwork becomes the capture group alone, with the
-           editor and a real down arrow stacked under it below. -->
-      <source media="(max-width: 700px)" srcset="../media/multi-room/hero-capture.webp" width="749" height="606">
-      <img src="../media/multi-room/hero.webp" alt="A phone showing a single scanned room, with an arrow to the desktop editor holding the full plan" width="1637" height="567" loading="lazy" decoding="async">
-    </picture>
-    <span class="mrx-art__arrow" aria-hidden="true">&darr;</span>
-    <img class="mrx-art__editor" src="../media/multi-room/hero-editor.webp" alt="" width="1005" height="594" loading="lazy" decoding="async">
+    <img class="mrx-art__capture" src="../media/multi-room/hero-capture.webp" alt="A phone capturing a room, with the finished single-room plan beside it" width="749" height="606" loading="lazy" decoding="async">
+    <span class="mrx-art__arrow" aria-hidden="true">&rarr;</span>
+    <img class="mrx-art__editor" src="../media/multi-room/hero-editor.webp" alt="The same plan opened in the desktop editor" width="1005" height="594" loading="lazy" decoding="async">
   </figure>
   <div class="mrx-desktop__text">
     <p class="mrx-label">Problem 03</p>
