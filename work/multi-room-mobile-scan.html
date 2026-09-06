@@ -541,17 +541,11 @@
      them into a diagram - both of which are hidden here. Out, and the one
      beat the screenshots cannot show is stated after them instead. */
   .mrx-before .mrx-flow { display: none; }
+  /* 44px of the old margin was headroom for an arrow that pointed at this
+     callout; without it the gap is just a gap. */
   .mrx-endpoint { display: block; flex: 0 0 100%; position: relative;
-    margin-top: 44px; padding: 20px 22px; border-radius: 16px;
+    margin-top: 32px; padding: 20px 22px; border-radius: 16px;
     background: rgba(158, 78, 44, .055); border: 1px solid rgba(158, 78, 44, .22); }
-  /* The same arrow the flow steps and the before/after pairs use, turned down.
-     Everywhere else on this page "and then" is a mono glyph in the accent, so
-     a drawn rule and a chevron read as a different hand. Centred on the
-     callout it points at, which runs the full width of the card. */
-  .mrx-endpoint::before { content: "\2192"; position: absolute;
-    left: 0; right: 0; top: -46px; text-align: center;
-    font-family: var(--font-mono); font-weight: 500; font-size: 28px; line-height: 1;
-    color: var(--accent); transform: rotate(90deg); }
   .mrx-endpoint h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px;
     line-height: 1.2; color: var(--title); margin: 6px 0 0; }
   .mrx-endpoint p:last-child { font-family: var(--font-body); font-size: 16px;
