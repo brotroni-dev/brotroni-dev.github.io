@@ -186,6 +186,9 @@
 .mrx-loop { display: block; width: 79.9%; margin: 5px 0 0 10.04%; height: auto; }
 
 /* Five-screen flow panel */
+/* The wrapper exists only so the phone can scroll the five screens without
+   dragging the endpoint callout along. Above 700px it is not there at all. */
+.mrx-swipe { display: contents; }
 .mrx-screenflow { background: #f6f6f5; border-radius: 16px; padding: 32px; margin: 64px 0 0;
   display: flex; justify-content: space-between; gap: 16px; }
 .mrx-screenflow figure { flex: 0 1 166px; min-width: 0; margin: 0;
@@ -263,21 +266,31 @@
 .mrx-drift img { width: 100%; height: auto; display: block; }
 
 /* Attempt 01: intro + five dialog screens */
-.mrx-attempt1 { padding-block: 48px 32px; }
+.mrx-attempt1 { padding-block: 48px 0; }
 .mrx-attempt1 p { max-width: 1016px; }
 .mrx-dialogs { display: flex; justify-content: space-between; gap: 24px; margin-top: 34px; }
 .mrx-dialogs figure { flex: 0 1 160px; min-width: 0; margin: 0;
   display: flex; flex-direction: column; gap: 12px; }
 .mrx-dialogs img { width: 100%; height: auto; display: block; border-radius: 6px; }
 
-/* The first version's result: the scattered-rooms list beside the read-out */
-.mrx-scattered { padding-block: 64px; display: flex; gap: 32px; align-items: center; }
-.mrx-scattered figure { flex: 0 1 552px; min-width: 0; margin: 0;
-  display: flex; justify-content: center; }
-.mrx-scattered img { width: 264px; max-width: 100%; height: auto;
-  display: block; border-radius: 6px; }
-.mrx-scattered__text { flex: 0 1 432px; min-width: 0; }
-.mrx-scattered__text p { font-size: 16px; }
+/* The end of the flow, and the beat before its result. The 96px of black
+   between the two sections was two paddings meeting; they hand that space to
+   the arrow instead, so the run reads 30 - arrow - 30. Same glyph, size and
+   rotation as the arrow under Problem 03. */
+.mrx-flowend { display: flex; justify-content: center; margin-top: 30px; }
+.mrx-flowend span { font-family: var(--font-mono); font-weight: 500; font-size: 28px;
+  line-height: 1; color: var(--accent); transform: rotate(90deg); }
+
+/* The first version's result: three list rows beside the read-out. The export
+   is already cropped to the rows - no status bar, no header, no button - so it
+   is placed as it is rather than windowed in CSS. */
+.mrx-scattered { padding-block: 30px 64px; display: flex; gap: 40px; align-items: center; }
+.mrx-scattered figure { flex: 0 0 34%; min-width: 0; margin: 0; }
+.mrx-scattered img { width: 100%; height: auto; display: block; border-radius: 6px; }
+/* The text column takes what the smaller image gives back, but the paragraph
+   is capped - a 630px measure at 16px is too long a line to read comfortably. */
+.mrx-scattered__text { flex: 1 1 auto; min-width: 0; }
+.mrx-scattered__text p { font-size: 16px; max-width: 470px; }
 
 /* Attempt 02: intro beside the three screens */
 .mrx-attempt2 { padding-block: 32px; display: flex; gap: 32px; align-items: center; }
@@ -486,6 +499,13 @@
      left holes of 300-560px under these images on a phone. Reset by name. */
   .mrx-desktop figure, .mrx-challenge figure, .mrx-drift figure,
   .mrx-turning figure, .mrx-limit figure, .mrx-scattered figure { flex: 0 0 auto; }
+  /* Stacked, the order flips: the arrow lands on the read-out, and the list
+     follows as its evidence. */
+  .mrx-scattered { flex-direction: column-reverse; gap: 36px; }
+  /* A shade wider than the screen width the rest of the phone layout uses -
+     it is a landscape crop of three rows, not a phone screen, so it carries
+     the extra width rather than turning tall. */
+  .mrx-scattered figure { width: 75%; max-width: 360px; margin-inline: auto; }
   /* Same trap, one level deeper: .mrx-wildcard--pair .mrx-wildcard__text
      out-ranks the `> *` reset above, so its 344px basis became a 344px hole
      under the text. */
@@ -526,8 +546,8 @@
     background: rgba(158, 78, 44, .055); border: 1px solid rgba(158, 78, 44, .22); }
   /* The same arrow the flow steps and the before/after pairs use, turned down.
      Everywhere else on this page "and then" is a mono glyph in the accent, so
-     a drawn rule and a chevron read as a different hand. Centred, because the
-     last screenshot sits alone on its final row and the row centres it. */
+     a drawn rule and a chevron read as a different hand. Centred on the
+     callout it points at, which runs the full width of the card. */
   .mrx-endpoint::before { content: "\2192"; position: absolute;
     left: 0; right: 0; top: -46px; text-align: center;
     font-family: var(--font-mono); font-weight: 500; font-size: 28px; line-height: 1;
@@ -536,9 +556,6 @@
     line-height: 1.2; color: var(--title); margin: 6px 0 0; }
   .mrx-endpoint p:last-child { font-family: var(--font-body); font-size: 16px;
     line-height: 1.55; color: var(--text); margin: 8px 0 0; }
-  .mrx-screenflow, .mrx-dialogs, .mrx-tutorial { gap: 16px; }
-  .mrx-screenflow figure, .mrx-dialogs figure,
-  .mrx-tutorial img { flex: 0 1 calc(50% - 8px); }
 
   /* ---- One screen per row -----------------------------------------------
      Pairs and triples squeezed across a 342px card came out at 78 to 137px,
@@ -548,23 +565,63 @@
      and the sentence explaining it still share a glance.
      The dialog chain and the Before flow are deliberately left alone: they
      are there to show a chain of interruptions, not what is on each screen. */
-  .mrx-plate--2, .mrx-plate--2c, .mrx-plate--3 {
+  .mrx-plate--2, .mrx-plate--2c {
     flex-direction: column; align-items: center; gap: 24px; padding: 16px 12px; }
-  .mrx-plate--2 > figure, .mrx-plate--2c > figure, .mrx-plate--3 > figure {
+  .mrx-plate--2 > figure, .mrx-plate--2c > figure {
     flex: 0 0 auto; width: 212px; max-width: 100%; }
-  .mrx-scattered img, .mrx-vs__after, .mrx-vs__before { max-width: 212px; }
+  .mrx-vs__after, .mrx-vs__before { max-width: 212px; }
   .mrx-vs { gap: 24px; }
 
-  /* ---- The five-step flow: a swipe rather than a grid --------------------
-     Five screens will not fit legibly on a phone in any arrangement, and the
-     row is a sequence, so it reads better swiped than wrapped. One screen
-     at a time with the next peeking in at 90px, snapping as you go. */
-  .mrx-plate--5 { flex-wrap: nowrap; justify-content: flex-start;
+  /* ---- Screen rows swipe rather than wrap --------------------------------
+     Three or five screens will not fit legibly on a phone in any arrangement,
+     and every one of these rows is a sequence, so it reads better swiped than
+     wrapped. One screen at a time at 212px with the next peeking in, snapping
+     as you go. The two plates scroll inside their taupe inset; the rows that
+     sit straight on a band scroll inside the band's own column, so the first
+     screen still lines up with the sentence above it. */
+  .mrx-plate--5, .mrx-plate--3, .mrx-swipe, .mrx-dialogs, .mrx-tutorial {
+    display: flex; flex-wrap: nowrap; justify-content: flex-start; align-items: flex-start;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory; scroll-padding-inline: 12px;
-    gap: 16px; padding: 16px 12px; scrollbar-width: none; }
-  .mrx-plate--5::-webkit-scrollbar { display: none; }
-  .mrx-plate--5 > figure { flex: 0 0 212px; scroll-snap-align: start; }
+    scroll-snap-type: x mandatory; gap: 16px; scrollbar-width: none; }
+  .mrx-plate--5::-webkit-scrollbar, .mrx-plate--3::-webkit-scrollbar,
+  .mrx-swipe::-webkit-scrollbar, .mrx-dialogs::-webkit-scrollbar,
+  .mrx-tutorial::-webkit-scrollbar { display: none; }
+  /* The slide is a share of its own scroller, never a fixed width. A fixed
+     212px is right inside a 279px plate and wrong in a 375px band, where it
+     leaves 123px of the next screen showing - not a peek, half a second
+     screen, which reads as a cut-off image rather than as "there is more".
+     And on a 320px phone the same 212px fills the plate and the peek is gone
+     altogether. As shares, every row keeps its sliver at every width.
+     87% is the width the result crop uses, so the rows that sit on a band
+     line up with it exactly; 83% is the plate equivalent, its inset being
+     narrower. Both land on the same 18% sliver. */
+  .mrx-plate--5 > figure, .mrx-plate--3 > figure, .mrx-swipe > figure,
+  .mrx-dialogs > figure, .mrx-tutorial > img {
+    flex: 0 0 83%; width: 83%; scroll-snap-align: start; }
+  /* One screen width for the whole phone layout - the width the stacked plate
+     screens ("Original", "Improved") already use, 212px at 375. Each scroller
+     states it as a share of its own inset, so it holds at any width:
+     65% of a full-bleed band column, 76% of the Before card, 83% of a plate. */
+  .mrx-dialogs > figure, .mrx-tutorial > img { flex-basis: 65%; width: 65%; }
+  .mrx-swipe > figure { flex-basis: 76%; width: 76%; }
+  .mrx-plate--5, .mrx-plate--3 { padding: 16px 12px; scroll-padding-inline: 12px; }
+  /* These three have no box of their own, so a row clipped at the band gutter
+     reads as a broken image rather than as "there is more". They run out to
+     the screen edge instead - or the card's edge - and keep the first screen
+     lined up with the sentence above through the inline padding. */
+  .mrx-swipe, .mrx-dialogs, .mrx-tutorial {
+    margin-inline: -24px; padding-inline: 24px; scroll-padding-inline: 24px; }
+  /* .mrx-attempt2 > * pins its children to width:100%, which the negative
+     margins would only shift left - the row has to be told to grow. */
+  .mrx-tutorial { width: calc(100% + 48px); }
+
+  /* The card now holds a scroller and, under it, the callout - so it stacks.
+     nowrap matters: the wrap it inherits from the 1000px block turns a column
+     container into COLUMNS, which sizes both children by content and pushes
+     the scroller 1124px wide instead of letting it scroll at 279. */
+  .mrx-screenflow { flex-direction: column; flex-wrap: nowrap; align-items: stretch; }
+  /* 100% of a column is a HEIGHT, which would leave a card-tall hole here. */
+  .mrx-endpoint { flex: 0 0 auto; }
 
   /* ---- The closing list: the comparison is the point, so give it room ---- */
   .mrx-wildplate--pair { flex-direction: column; align-items: center; gap: 24px; }
@@ -574,8 +631,6 @@
      left its width to fall out of the aspect ratio at 139px - half the after
      beside it. Sized like the after so the two read as a pair. */
   .mrx-vs__before { flex: 0 0 auto; width: 100%; }
-  .mrx-tutorial { padding: 16px 0; flex-wrap: wrap; }
-  .mrx-tutorial img { width: auto; }
   /* Only the .mrx-vs pair stacks on a phone, so only its arrow turns down.
      The closing list's before and after stay side by side. */
   .mrx-vs .mrx-vs__arrow { transform: rotate(90deg); }
@@ -607,7 +662,11 @@
   .mrx-evidence { padding: 16px; }
   .mrx-desktop, .mrx-goalwrap, .mrx-challenge { padding-block: 24px; }
   .mrx-drift { padding-top: 32px; }
-  .mrx-attempt1 { padding-block: 32px 24px; }
+  .mrx-attempt1 { padding-block: 32px 0; }
+  .mrx-flowend { margin-top: 14px; }
+  /* 14 + arrow + 22: the label needs a touch more air under the arrow than an
+     image did, and 64px total still sits inside the phone budget. */
+  .mrx-scattered { padding-block: 22px 64px; }
   .mrx-attempt2 { padding-block: 24px; }
   .mrx-after { padding-block: 36px; }
   .mrx-turning { padding-block: 24px; }
@@ -700,11 +759,13 @@
   </div>
 
   <div class="mrx-screenflow">
+    <div class="mrx-swipe">
     <figure><img src="../media/multi-room/floor-plans-list-clean.webp" alt="The 3D Floor Plans list with a Start Scanning button" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Start scanning</figcaption></figure>
     <figure><img src="../media/multi-room/scan.webp" alt="Camera view prompting the pro to tilt the device slowly to scan the floor" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Detect the floor</figcaption></figure>
     <figure><img src="../media/multi-room/place-corner-points.webp" alt="Placing a corner point on the floor in camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Place corner points</figcaption></figure>
     <figure><img src="../media/multi-room/close-shape.webp" alt="The closed room shape with its wall dimensions shown over the camera view" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Close at the start point</figcaption></figure>
     <figure><img src="../media/multi-room/ready-floor-plan.webp" alt="The completed single-room plan with dimensions" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Room complete</figcaption></figure>
+    </div>
     <div class="mrx-endpoint">
       <p class="mrx-label">The flow ended here</p>
       <h3>Back to the floor plans list</h3>
@@ -807,12 +868,13 @@
       <figure><img src="../media/multi-room/name-room.webp?v=2" alt="A form for naming the room before continuing" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Name the room</figcaption></figure>
       <figure><img src="../media/multi-room/save-plan.webp" alt="A Save Your Work screen for naming the finished floor plan" width="375" height="812" loading="lazy" decoding="async"><figcaption class="mrx-cap">Save plan</figcaption></figure>
     </div>
+    <div class="mrx-flowend"><span aria-hidden="true">&rarr;</span></div>
   </section>
 
   <!-- The result of the first version: rooms in one plan, but unconnected -->
   <section class="mrx-band mrx-scattered">
     <figure>
-      <img src="../media/multi-room/scattered-rooms.webp?v=2" alt="The floor plans list, where each plan is now a floor rather than a room, and its thumbnail is several disconnected room shapes" width="614" height="1329" loading="lazy" decoding="async">
+      <img src="../media/multi-room/broken.webp" alt="Three rows of the floor plans list, where each plan is now a floor rather than a room, and its thumbnail is several disconnected room shapes" width="612" height="441" loading="lazy" decoding="async">
     </figure>
     <div class="mrx-scattered__text">
       <p class="mrx-label">The result</p>
