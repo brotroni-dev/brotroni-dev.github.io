@@ -90,8 +90,10 @@
   color: var(--text); margin: 12px 0 0; }
 
 /* --- User voices (gradient band, taupe panel + three quote cards) --- */
-.lsw-voices { background: linear-gradient(180deg, #FFFFFF 0%, #F6F6F5 100%);
-  padding-block: 72px 32px; }
+/* Solid grey, not a gradient: the band sits inside the grey run now - it used
+   to open white directly under the grey Context band, which put a hard edge
+   there - and the goal below it is what fades out to white. */
+.lsw-voices { background: #f6f6f5; padding-block: 40px 32px; }
 .lsw-voicespanel { background: #dcd7cf; border-radius: 16px; padding: 64px 32px;
   display: flex; flex-direction: column; align-items: center; gap: 40px; }
 .lsw-voicespanel__head { display: flex; flex-direction: column; align-items: center;
@@ -122,7 +124,7 @@
   line-height: 1.28; color: var(--title); margin: 12px 0 0; }
 
 /* --- The problem (text + 3D plan) --- */
-.lsw-problem { background: #f6f6f5; padding-top: 32px; display: flex; gap: 62px;
+.lsw-problem { background: #f6f6f5; padding-block: 32px 40px; display: flex; gap: 62px;
   align-items: center; }
 .lsw-problem__text { flex: 0 1 578px; min-width: 0; }
 .lsw-problem__text h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
@@ -442,9 +444,9 @@
   .lsw-opener { padding-top: 40px; }
   .lsw-rolebar { padding-bottom: 24px; }
   .lsw-context { padding-block: 36px; }
-  .lsw-voices { padding-block: 40px 24px; }
+  .lsw-voices { padding-block: 24px 24px; }
   .lsw-uj { padding-block: 24px 40px; }
-  .lsw-problem { padding-top: 24px; }
+  .lsw-problem { padding-block: 24px 24px; }
   .lsw-goalwrap { padding-block: 40px 24px; }
   .lsw-marker { padding-block: 36px 48px; }
   .lsw-hiw { padding-top: 36px; }
@@ -502,31 +504,6 @@
   <p>Built for renovation professionals, Houzz Pro's 3D Floor Planner is a simpler alternative to traditional CAD tools. It lets pros create and present 2D and 3D designs using real products from Houzz's catalog, with the long-term vision of turning those designs directly into project estimates.</p>
 </section>
 
-<!-- User voices -->
-<section class="lsw-band lsw-voices">
-  <div class="lsw-voicespanel">
-    <div class="lsw-voicespanel__head">
-      <p class="lsw-voicespanel__label">User voices</p>
-      <h2 class="lsw-voicespanel__h">Clients needed to see what they were saying yes to</h2>
-      <p class="lsw-voicespanel__sub">Pros shared that clients often struggled to grasp the scale of a design and understand what they were committing to.</p>
-    </div>
-    <div class="lsw-qcards">
-      <figure class="lsw-qcard">
-        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="lsw-qcard__text">I can imagine what the finished space will look like, but it's hard to get the client to see the same thing.</blockquote>
-      </figure>
-      <figure class="lsw-qcard">
-        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="lsw-qcard__text">A 3D view can look great, but it still doesn't show what it will feel like to stand in the room.</blockquote>
-      </figure>
-      <figure class="lsw-qcard">
-        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="lsw-qcard__text">It's a big investment for the client...If I can't make the vision clear, I can lose the project.</blockquote>
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- Users / JTBD -->
 <div class="lsw-band lsw-uj">
   <div class="lsw-ujcard">
@@ -549,6 +526,31 @@
   <figure class="lsw-problem__img">
     <img src="../media/ar/problem-plan.webp" alt="A 3D floor plan of a furnished apartment, seen from above on a screen" width="1458" height="991">
   </figure>
+</section>
+
+<!-- User voices -->
+<section class="lsw-band lsw-voices">
+  <div class="lsw-voicespanel">
+    <div class="lsw-voicespanel__head">
+      <p class="lsw-voicespanel__label">User voices</p>
+      <h2 class="lsw-voicespanel__h">Clients needed to see what they were saying yes to</h2>
+      <p class="lsw-voicespanel__sub">All three describe the same gap: the pro can already picture the finished room, and nothing on a screen gets the client to the same place.</p>
+    </div>
+    <div class="lsw-qcards">
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">I can imagine what the finished space will look like, but it's hard to get the client to see the same thing.</blockquote>
+      </figure>
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">A 3D view can look great, but it still doesn't show what it will feel like to stand in the room.</blockquote>
+      </figure>
+      <figure class="lsw-qcard">
+        <span class="lsw-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="lsw-qcard__text">It's a big investment for the client...If I can't make the vision clear, I can lose the project.</blockquote>
+      </figure>
+    </div>
+  </div>
 </section>
 
 <!-- The goal -->
