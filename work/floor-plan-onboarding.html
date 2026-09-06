@@ -152,6 +152,10 @@
 /* Chapter design panel: the Figma taupe workspace image sits inside the HTML
    card (header/intro stay real text); the GIF overlays only the demo box */
 .obx-chapfig { position: relative; margin: 24px 0 0; line-height: 0; }
+/* The overlays are positioned in percentages of the whole screenshot, so they
+   live in a box that is always the whole screenshot - which lets the phone
+   crop the figure around it without moving a single GIF or marker. */
+.obx-chapinner { position: relative; line-height: 0; }
 .obx-chapimg { display: block; width: 100%; height: auto; }
 /* cover, not fill: fill stretches the clip to the slot's dimensions, which was
    squashing drag-bath by 40%. cover keeps every shape true and crops instead. */
@@ -226,6 +230,18 @@
   .obx-card { padding: 20px; overflow: hidden; }
   .obx-panel { margin-inline: -20px; padding: 16px 0; border-radius: 0; }
   .obx-card > .obx-chapfig { margin-inline: -20px; }
+  /* Chapters 02 to 04 are screenshots pasted onto a taupe canvas, so at the
+     card's width the app itself was only 185px - while chapter 01's captures,
+     which have almost no such margin, filled all 327. The figure becomes a
+     window onto the app plus a little of that canvas, measured off each file
+     in source pixels and passed in as --cx/--cy/--cw/--ch. The inner box is
+     still the whole screenshot, scaled and pulled behind the window, so the
+     overlays keep their percentages. Files untouched, desktop untouched. */
+  .obx-chapfig--crop { overflow: hidden; aspect-ratio: var(--cw) / var(--ch); }
+  .obx-chapfig--crop .obx-chapinner { position: absolute; top: 0; left: 0;
+    width: calc(100% * var(--iw) / var(--cw));
+    transform: translate(calc(-100% * var(--cx) / var(--iw)),
+                         calc(-100% * var(--cy) / var(--ih))); }
   .obx-lrpanel { padding: 20px; }
   /* Once the row is a column, flex-basis is a HEIGHT - so a 210px basis left
      90px of empty taupe under every caption. The strip lost its inline
@@ -398,7 +414,9 @@
         <p class="obx-pcap">Users first practiced zooming and moving around a furnished sample plan instead of starting from scratch.</p>
         <div class="obx-pvis">
           <figure class="obx-chapfig" style="margin:0">
-            <img class="obx-chapimg" src="../media/onboarding/ch01-nav1.webp" alt="Navigation tutorial (1 of 2): zoom controls to explore the floor plan" loading="lazy" decoding="async">
+            <div class="obx-chapinner">
+              <img class="obx-chapimg" src="../media/onboarding/ch01-nav1.webp" alt="Navigation tutorial (1 of 2): zoom controls to explore the floor plan" loading="lazy" decoding="async">
+            </div>
           </figure>
         </div>
       </div>
@@ -406,12 +424,14 @@
         <p class="obx-pcap">They then selected an existing item and moved it, introducing direct canvas interaction without asking them to create anything yet.</p>
         <div class="obx-pvis">
           <figure class="obx-chapfig" style="margin:0">
-            <img class="obx-chapimg" src="../media/onboarding/ch01-nav2.webp" alt="Navigation tutorial (2 of 2): use the Selection Tool to choose an item and drag it to a new position" loading="lazy" decoding="async">
-            <img class="obx-gif" style="left:5.5%;top:46.2%;width:34.9%;height:34.9%" src="../media/onboarding/move-chair.gif" alt="Selecting an item and dragging it to a new position" loading="lazy" decoding="async">
-            <!-- The turquoise cue is baked into the screenshot; this sits exactly on
-                 top of it so it breathes again, as it did in earlier versions.
-                 .fp-marker lives in styles/main.css. -->
-            <span class="fp-marker" style="--px:70.8%;--py:36.33%;--pw:8%"></span>
+            <div class="obx-chapinner">
+              <img class="obx-chapimg" src="../media/onboarding/ch01-nav2.webp" alt="Navigation tutorial (2 of 2): use the Selection Tool to choose an item and drag it to a new position" loading="lazy" decoding="async">
+              <img class="obx-gif" style="left:5.5%;top:46.2%;width:34.9%;height:34.9%" src="../media/onboarding/move-chair.gif" alt="Selecting an item and dragging it to a new position" loading="lazy" decoding="async">
+              <!-- The turquoise cue is baked into the screenshot; this sits exactly on
+                   top of it so it breathes again, as it did in earlier versions.
+                   .fp-marker lives in styles/main.css. -->
+              <span class="fp-marker" style="--px:70.8%;--py:36.33%;--pw:8%"></span>
+            </div>
           </figure>
         </div>
       </div>
@@ -424,10 +444,12 @@
   <div class="obx-card">
     <div class="obx-chead"><span class="obx-cnum">02</span><h2 class="obx-ctitle">Draw a room</h2></div>
     <p class="obx-cintro">Next, users tried the Pen tool by drawing a room point by point.</p>
-    <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch02-design.webp" alt="The Pen Tool tutorial card beside the floor plan" loading="lazy" decoding="async">
-      <img class="obx-gif" style="left:25.33%;top:50.99%;width:18.47%;height:24.88%" src="../media/onboarding/draw-room.gif" alt="Drawing a room point to point" loading="lazy" decoding="async">
-      <span class="fp-marker" style="--px:63.94%;--py:34.88%;--pw:4.46%"></span>
+    <figure class="obx-chapfig obx-chapfig--crop" style="--iw:1904;--ih:1012;--cx:383;--cy:70;--cw:1137;--ch:867">
+      <div class="obx-chapinner">
+        <img class="obx-chapimg" src="../media/onboarding/ch02-design.webp" alt="The Pen Tool tutorial card beside the floor plan" loading="lazy" decoding="async">
+        <img class="obx-gif" style="left:25.33%;top:50.99%;width:18.47%;height:24.88%" src="../media/onboarding/draw-room.gif" alt="Drawing a room point to point" loading="lazy" decoding="async">
+        <span class="fp-marker" style="--px:63.94%;--py:34.88%;--pw:4.46%"></span>
+      </div>
     </figure>
   </div>
 </section>
@@ -437,9 +459,11 @@
   <div class="obx-card">
     <div class="obx-chead"><span class="obx-cnum">03</span><h2 class="obx-ctitle">Find and add items</h2></div>
     <p class="obx-cintro">Users added a door, a generic product, and a marketplace item, learning where to find each one as they worked. Items needed to sit fully inside the room, so the tutorial pointed out when something needed adjusting. We later added snapping as a temporary solution, making precise placement less demanding.</p>
-    <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch03-design.webp" alt="The Adding Items tutorial card beside the floor plan and the Baths product panel" loading="lazy" decoding="async">
-      <img class="obx-gif" style="left:16.34%;top:50.45%;width:15.23%;height:14.18%" src="../media/onboarding/drag-bath.gif" alt="Placing an item inside the room" loading="lazy" decoding="async">
+    <figure class="obx-chapfig obx-chapfig--crop" style="--iw:1904;--ih:1016;--cx:216;--cy:72;--cw:1471;--ch:871">
+      <div class="obx-chapinner">
+        <img class="obx-chapimg" src="../media/onboarding/ch03-design.webp" alt="The Adding Items tutorial card beside the floor plan and the Baths product panel" loading="lazy" decoding="async">
+        <img class="obx-gif" style="left:16.34%;top:50.45%;width:15.23%;height:14.18%" src="../media/onboarding/drag-bath.gif" alt="Placing an item inside the room" loading="lazy" decoding="async">
+      </div>
     </figure>
   </div>
 </section>
@@ -449,8 +473,10 @@
   <div class="obx-card">
     <div class="obx-chead"><span class="obx-cnum">04</span><h2 class="obx-ctitle">Explore in 3D</h2></div>
     <p class="obx-cintro">We saved the Dollhouse view for the end, where users could explore the space, resize items, change wall colors, and try different flooring.</p>
-    <figure class="obx-chapfig">
-      <img class="obx-chapimg" src="../media/onboarding/ch04-design.webp" alt="The Viewing in 3D tutorial card beside the Dollhouse view and the Materials panel" loading="lazy" decoding="async">
+    <figure class="obx-chapfig obx-chapfig--crop" style="--iw:1904;--ih:1008;--cx:242;--cy:68;--cw:1419;--ch:872">
+      <div class="obx-chapinner">
+        <img class="obx-chapimg" src="../media/onboarding/ch04-design.webp" alt="The Viewing in 3D tutorial card beside the Dollhouse view and the Materials panel" loading="lazy" decoding="async">
+      </div>
     </figure>
   </div>
 </section>
