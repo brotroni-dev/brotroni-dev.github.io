@@ -213,25 +213,6 @@
   .obx-problem { padding-bottom: 24px; }
   .obx-problem__text, .obx-chosen__img { flex: 1 1 auto; max-width: 100%; }
   .obx-learngrid, .obx-lmgrid { grid-template-columns: 1fr; gap: 24px; }
-
-  /* ---- Chapter screenshots: stop spending the screen on padding -----------
-     Two nested 32px insets - the white card and the taupe strip inside it -
-     were taking 128px of a 375px phone, which left the desktop captures 199px
-     to live in, 16% of their own size. The card keeps a small inset for its
-     text; the taupe strip and the bare figures run its full width instead,
-     which takes the captures to 327. The GIF overlays and the pulse markers
-     are positioned in percentages of their image, so they follow by
-     themselves. overflow:hidden is what keeps the strip inside the card's
-     rounded corners now that it reaches them. */
-  .obx-card { padding: 20px; overflow: hidden; }
-  .obx-panel { margin-inline: -20px; padding: 16px 0; border-radius: 0; }
-  .obx-card > .obx-chapfig { margin-inline: -20px; }
-  .obx-lrpanel { padding: 20px; }
-  /* Once the row is a column, flex-basis is a HEIGHT - so a 210px basis left
-     90px of empty taupe under every caption. The strip lost its inline
-     padding to the screenshots, so the caption carries its own and lands on
-     the same line as the card's other text. */
-  .obx-pcap { flex: 0 0 auto; padding-inline: 20px; }
 }
 
 /* ---------- Mobile vertical rhythm ----------
