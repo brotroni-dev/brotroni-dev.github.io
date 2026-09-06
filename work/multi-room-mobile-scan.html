@@ -493,10 +493,7 @@
   .mrx-drift__text, .mrx-turning__text { padding-top: 0; }
   .mrx-desktop, .mrx-challenge, .mrx-after, .mrx-tutorial { min-height: 0; }
   .mrx-stepcard--flip { flex-direction: column-reverse; }
-  .mrx-turning figure, .mrx-desktop figure { align-self: center; max-width: 460px; }
-  /* No cap on the scanning sketch: it is a 4:1 panorama, so a 460px ceiling
-     made it narrower than the paragraph it illustrates between 700 and 900. */
-  .mrx-challenge figure { align-self: center; }
+  .mrx-challenge figure, .mrx-turning figure, .mrx-desktop figure { align-self: center; max-width: 460px; }
   /* `.mrx-x figure` out-ranks the `.mrx-x > *` reset above, so the desktop
      flex-basis survived into the stacked column and became a HEIGHT - which
      left holes of 300-560px under these images on a phone. Reset by name. */
@@ -649,8 +646,8 @@
   /* Two classes, so these beat `.mrx-desktop img { width: 100% }` - one class
      plus an element loses to two classes. */
   .mrx-art { flex-direction: column; gap: 20px; }
-  .mrx-art .mrx-art__capture { flex: 0 0 auto; width: 100%; }
-  .mrx-art .mrx-art__editor  { flex: 0 0 auto; width: 100%; }
+  .mrx-art .mrx-art__capture { flex: 0 0 auto; width: 73%; }
+  .mrx-art .mrx-art__editor  { flex: 0 0 auto; width: 98%; }
   .mrx-art__arrow { transform: rotate(90deg); }
   /* The plate's 32px inset was spending a fifth of a 342px card on padding
      around a drawing that needed the room. The drawing's own background is
@@ -663,9 +660,7 @@
      to the list card alone (x 239 to 664 of the 900px export, measured off its
      own white edges) and the list then fills the plate at 295px. The file is
      untouched and the desktop version keeps the annotations. */
-  /* 72% of the plate's inside is the same 212px the swipe rows use for a
-     screen, so the list reads at one size with the rest of the phone layout. */
-  .mrx-evidence img { width: 72%; margin-inline: auto; aspect-ratio: 425 / 711;
+  .mrx-evidence img { width: 100%; aspect-ratio: 425 / 711;
     object-fit: cover; object-position: 50.32% 50%; }
   .mrx-desktop, .mrx-goalwrap, .mrx-challenge { padding-block: 24px; }
   .mrx-drift { padding-top: 32px; }
@@ -677,8 +672,6 @@
   .mrx-attempt2 { padding-block: 24px; }
   .mrx-after { padding-block: 36px; }
   .mrx-turning { padding-block: 24px; }
-  /* The isometric is a diagram, not a screen - it does not need the full column. */
-  .mrx-turning figure { width: 75%; margin-inline: auto; }
   .mrx-three { padding-block: 32px 36px; }
   .mrx-final { padding-block: 36px 24px; }
   .mrx-step { padding-bottom: 24px; }
