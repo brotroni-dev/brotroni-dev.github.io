@@ -216,7 +216,10 @@
 /* The wide artwork carries its own arrow. On a phone it is replaced by the
    capture group, and the editor and the arrow are laid out here instead, so
    the arrow is the page's actual glyph rather than a drawn one. */
-.mrx-art__arrow, .mrx-art__editor { display: none; }
+/* Scoped past `.mrx-desktop img`, which sets display:block and outranks a
+   lone class - which is why the single-room editor was showing up under the
+   wide composition on desktop. */
+.mrx-desktop .mrx-art__arrow, .mrx-desktop .mrx-art__editor { display: none; }
 .mrx-desktop__text h3 { font-family: var(--font-display); font-weight: 400; font-size: 24px;
   line-height: 1.16; color: var(--title); margin: 12px 0 0; }
 .mrx-desktop__text p { font-family: var(--font-body); font-size: 16px; line-height: 1.5;
@@ -591,9 +594,11 @@
   .mrx-art { display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .mrx-art picture { display: block; width: 73%; }
   .mrx-art picture img { width: 100%; height: auto; display: block; }
-  .mrx-art__arrow { display: block; font-family: var(--font-mono); font-weight: 500;
-    font-size: 28px; line-height: 1; color: var(--accent); }
-  .mrx-art__editor { display: block; width: 98%; height: auto; }
+  /* Same specificity as the rule that hides these above 700px, or that one wins
+     here too and the stack loses its arrow and its editor. */
+  .mrx-desktop .mrx-art__arrow { display: block; font-family: var(--font-mono);
+    font-weight: 500; font-size: 28px; line-height: 1; color: var(--accent); }
+  .mrx-desktop .mrx-art__editor { display: block; width: 98%; height: auto; }
   /* The plate's 32px inset was spending a fifth of a 342px card on padding
      around a drawing that needed the room. The drawing's own background is
      246,246,246 against the plate's #f6f6f5 - one unit apart in blue, so it
