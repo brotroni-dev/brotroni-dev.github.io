@@ -455,8 +455,9 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1000px) {
+  /* Three cards at 44% wrap to 2 + 1 and leave an orphan, so they stay in one
+     row down to 700px and stack from there. */
   .mrx-qcards { flex-wrap: wrap; }
-  .mrx-qcard { flex: 1 1 44%; }
   .mrx-screenflow, .mrx-dialogs { flex-wrap: wrap; justify-content: center; }
   .mrx-screenflow figure, .mrx-dialogs figure { flex: 0 1 150px; }
 }
@@ -587,11 +588,6 @@
   .mrx-before { padding-block: 36px 0; }
   .mrx-screenflow { margin-top: 36px; }
   .mrx-limit { padding-block: 36px; }
-  /* The voices read better once the three problems have been laid out, so on a
-     phone they move to the end of this run. Source order is unchanged, which
-     keeps the desktop sequence and means the section is never duplicated. */
-  .mrx-order { display: flex; flex-direction: column; }
-  .mrx-order > .mrx-voices { order: 1; }
   .mrx-art { display: flex; flex-direction: column; align-items: center; gap: 20px; }
   .mrx-art picture { display: block; width: 73%; }
   .mrx-art picture img { width: 100%; height: auto; display: block; }
@@ -662,40 +658,10 @@
 <!-- Context -->
 <section class="mrx-band mrx-context">
   <p class="mrx-label">Context</p>
-  <p>Houzz Pro's Room Scanner helps renovation professionals capture existing spaces on-site and turn them into editable floor plans using a phone or tablet. Instead of relying on manual measurements, sketches, and rebuilding the space later, pros can quickly document dimensions and room geometry, then continue refining the plan in 2D and 3D as part of the broader design workflow.</p>
+  <p>Renovation pros traditionally measured existing spaces on-site using tape measures, notes, and sketches, then recreated them later as digital floor plans. Houzz Pro&rsquo;s Room Scanner was designed to replace that manual process: using a phone or tablet, pros could capture a room&rsquo;s dimensions and geometry and turn them directly into an editable floor plan.</p>
 </section>
 
 <!-- User voices -->
-<!-- Voices through Problem 03. On a phone the voices move to the end of this
-     run, so they land after Problem 03 and before the goal. -->
-<div class="mrx-order">
-<section class="mrx-band mrx-voices">
-  <div class="mrx-voicespanel">
-    <div class="mrx-voicespanel__head">
-      <p class="mrx-voicespanel__label">User voices</p>
-      <h2 class="mrx-voicespanel__h">Pros needed one connected plan, not a list of rooms</h2>
-      <p class="mrx-voicespanel__sub">On site, they worked room by room, but mobile saved each scan separately and returned them to the list. Building one connected plan had to wait until they reached a computer.</p>
-    </div>
-    <div class="mrx-qcards">
-      <figure class="mrx-qcard">
-        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="mrx-qcard__text">I rarely have time to scan the whole property in one go.</blockquote>
-      </figure>
-      <figure class="mrx-qcard">
-        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="mrx-qcard__text">Why do I have to go back to the list every time I finish a room?</blockquote>
-      </figure>
-      <figure class="mrx-qcard">
-        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="mrx-qcard__text">I'm already on site with my phone...I shouldn't need a computer to keep building the plan</blockquote>
-      </figure>
-      <figure class="mrx-qcard">
-        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="mrx-qcard__text">I need to see how the next room connects while I'm still in the space.</blockquote>
-      </figure>
-    </div>
-  </div>
-</section>
 
 <!-- Users / JTBD -->
 <div class="mrx-band mrx-uj">
@@ -776,7 +742,30 @@
     <p>Mobile stopped after one room. Completing the property meant drawing the remaining rooms on desktop, or building the full plan there from the start.</p>
   </div>
 </section>
-</div><!-- /.mrx-order -->
+
+<section class="mrx-band mrx-voices">
+  <div class="mrx-voicespanel">
+    <div class="mrx-voicespanel__head">
+      <p class="mrx-voicespanel__label">User voices</p>
+      <h2 class="mrx-voicespanel__h">Pros needed one connected plan, not a list of rooms</h2>
+      <p class="mrx-voicespanel__sub">On site, they worked room by room, but mobile saved each scan separately and returned them to the list. Building one connected plan had to wait until they reached a computer.</p>
+    </div>
+    <div class="mrx-qcards">
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I want to keep scanning, but every time I finish a room, the app sends me back to the list and makes me start over.</blockquote>
+      </figure>
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I need to see how the next room connects while I&rsquo;m still in the space. A list of separate rooms doesn&rsquo;t tell me whether everything lines up.</blockquote>
+      </figure>
+      <figure class="mrx-qcard">
+        <span class="mrx-qcard__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="mrx-qcard__text">I&rsquo;m already standing in the property and I want to leave with the floor plan finished, not wait until I&rsquo;m back at my computer.</blockquote>
+      </figure>
+    </div>
+  </div>
+</section>
 
 <!-- The goal -->
 <div class="mrx-band mrx-goalwrap">
