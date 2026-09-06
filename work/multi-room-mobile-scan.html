@@ -654,6 +654,14 @@
      246,246,246 against the plate's #f6f6f5 - one unit apart in blue, so it
      can run to the plate's edges and still read as one surface. */
   .mrx-evidence { padding: 16px; }
+  /* The two project labels and their brackets take two thirds of this drawing's
+     width, which left the list itself 139px wide on a phone - too small to read
+     a row, and the labels too small to read either. The frame is cropped in CSS
+     to the list card alone (x 239 to 664 of the 900px export, measured off its
+     own white edges) and the list then fills the plate at 295px. The file is
+     untouched and the desktop version keeps the annotations. */
+  .mrx-evidence img { width: 100%; aspect-ratio: 425 / 711;
+    object-fit: cover; object-position: 50.32% 50%; }
   .mrx-desktop, .mrx-goalwrap, .mrx-challenge { padding-block: 24px; }
   .mrx-drift { padding-top: 32px; }
   .mrx-attempt1 { padding-block: 32px 0; }
