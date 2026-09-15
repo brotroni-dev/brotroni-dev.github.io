@@ -229,32 +229,17 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* status bar */
-.lsw-ph-status {
-  flex: none; display: flex; align-items: center; justify-content: space-between;
-  padding: calc(var(--u) * 9) calc(var(--u) * 16) calc(var(--u) * 3);
-  font-size: calc(var(--u) * 10); color: #000; font-weight: 500;
-}
-.lsw-ph-status__l, .lsw-ph-status__r { display: flex; align-items: center; gap: calc(var(--u) * 4); }
-.lsw-ph-status__l { font-weight: 400; }
-.lsw-ph-dots { letter-spacing: calc(var(--u) * -1); font-size: calc(var(--u) * 8); }
-.lsw-ph-batt { display: inline-block; width: calc(var(--u) * 16); height: calc(var(--u) * 8);
-  border: 1px solid #000; border-radius: calc(var(--u) * 2); position: relative; }
-.lsw-ph-batt::before { content: ""; position: absolute; inset: calc(var(--u) * 1);
-  right: calc(var(--u) * 4); background: #000; border-radius: calc(var(--u) * 1); }
-.lsw-ph-batt::after { content: ""; position: absolute; right: calc(var(--u) * -2);
-  top: calc(var(--u) * 2); width: calc(var(--u) * 1); height: calc(var(--u) * 4); background: #000; }
-
-/* header */
-.lsw-ph-header {
-  flex: none; display: flex; align-items: center; gap: calc(var(--u) * 8);
-  padding: calc(var(--u) * 6) calc(var(--u) * 16) calc(var(--u) * 12);
-}
-.lsw-ph-back { width: calc(var(--u) * 12); color: #222; display: flex; }
-.lsw-ph-title { flex: 1; display: flex; align-items: center; justify-content: center;
-  gap: calc(var(--u) * 6); font-size: calc(var(--u) * 15); font-weight: 600; color: #222; }
-.lsw-ph-title svg { width: calc(var(--u) * 13); height: calc(var(--u) * 13); }
-.lsw-ph-next { font-size: calc(var(--u) * 15); font-weight: 400; color: #222; }
+/* header: the exported status bar and title row. The file carries its own
+   drop shadow in its last 8 of 594px, so the image is pulled down by that much
+   (a percentage margin resolves against the width, which keeps it exact at
+   every size) and sits above the stage - the shadow falls on the grid rather
+   than on a strip of white. Two classes, because the plate's own
+   ".lsw-shot img" rules (one class plus an element) would otherwise reach
+   in, shrink it to the screenshot's share of the plate and give it a second
+   border inside the phone's own. */
+.lsw-ph-phone .lsw-ph-head { flex: none; display: block; width: 100%; height: auto;
+  border: 0; border-radius: 0;
+  position: relative; z-index: 1; margin-bottom: calc(-100% * 8 / 594); }
 
 /* screen: grid background + animation + card */
 .lsw-ph-stage {
@@ -609,21 +594,8 @@
       <div class="lsw-ph-phone" role="img"
            aria-label="A phone showing the Summer house floor plan on a grid. The plan turns gently from side to side around a fixed user marker that keeps facing the same direction.">
 
-        <!-- status bar -->
-        <div class="lsw-ph-status">
-          <span class="lsw-ph-status__l"><span class="lsw-ph-dots">&#9679;&#9679;&#9679;&#9675;&#9675;</span>&nbsp;Houzz</span>
-          <span class="lsw-ph-status__c">1:20 PM</span>
-          <span class="lsw-ph-status__r">77% <span class="lsw-ph-batt"></span></span>
-        </div>
-
-        <!-- header -->
-        <div class="lsw-ph-header">
-          <span class="lsw-ph-back"><svg viewBox="0 0 8 14" fill="none"><path d="M7 1 1 7l6 6" stroke="#222" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span class="lsw-ph-title">Summer house
-            <svg viewBox="0 0 14 14" fill="none"><path d="M9.5 1.5l3 3-7 7-3.5.5.5-3.5 7-7z" stroke="#727169" stroke-width="1.2" stroke-linejoin="round"/></svg>
-          </span>
-          <span class="lsw-ph-next">Next</span>
-        </div>
+        <!-- header: the app's own status bar and title row, exported from the design -->
+        <img class="lsw-ph-head" src="../media/ar/entry-header.webp" alt="" width="594" height="154" decoding="async">
 
         <!-- screen -->
         <div class="lsw-ph-stage">
