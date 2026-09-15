@@ -229,22 +229,19 @@
   -webkit-font-smoothing: antialiased;
 }
 
-/* header: the exported status bar and title row. The file carries its own
-   drop shadow in its last 8 of 594px, so the image is pulled down by that much
-   (a percentage margin resolves against the width, which keeps it exact at
-   every size) and sits above the stage - the shadow falls on the grid rather
-   than on a strip of white. Two classes, because the plate's own
-   ".lsw-shot img" rules (one class plus an element) would otherwise reach
-   in, shrink it to the screenshot's share of the plate and give it a second
+/* header: the exported status bar and title row, trimmed to its white edges.
+   Its own drop shadow is left off: stacked on the stage's top rule and the
+   grid's first line it made a band three times the weight of the grid, so the
+   grid's first line is the only separator. Two classes, because the plate's
+   ".lsw-shot img" rules (one class plus an element) would otherwise reach in,
+   shrink it to the screenshot's share of the plate and give it a second
    border inside the phone's own. */
 .lsw-ph-phone .lsw-ph-head { flex: none; display: block; width: 100%; height: auto;
-  border: 0; border-radius: 0;
-  position: relative; z-index: 1; margin-bottom: calc(-100% * 8 / 594); }
+  border: 0; border-radius: 0; }
 
 /* screen: grid background + animation + card */
 .lsw-ph-stage {
   position: relative; flex: 1; overflow: hidden;
-  border-top: 1px solid #EDECEA;
   background-image:
     linear-gradient(#E6E6E6 1px, transparent 1px),
     linear-gradient(90deg, #E6E6E6 1px, transparent 1px);
@@ -595,7 +592,7 @@
            aria-label="A phone showing the Summer house floor plan on a grid. The plan turns gently from side to side around a fixed user marker that keeps facing the same direction.">
 
         <!-- header: the app's own status bar and title row, exported from the design -->
-        <img class="lsw-ph-head" src="../media/ar/entry-header.webp" alt="" width="594" height="154" decoding="async">
+        <img class="lsw-ph-head" src="../media/ar/entry-header.webp?v=2" alt="" width="594" height="145" decoding="async">
 
         <!-- screen -->
         <div class="lsw-ph-stage">
