@@ -191,6 +191,15 @@
 .obx-outcome__h { font-family: var(--font-display); font-weight: 400; font-size: 24px; line-height: 1.32; color: var(--title); margin: 0 0 16px; max-width: 640px; }
 .obx-outcome__result p { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 0; max-width: 780px; }
 .obx-outcome__result p + p { margin-top: 6px; }
+/* Impact: the three behaviors as a vertical, typographic list - light Fraunces
+   numerals and hairline rules, no connecting rail or dots. Editorial, in the
+   site's own language, and distinct from the horizontal Learnings grid. The
+   third row is in the accent because that is where the lift was. */
+.obx-funnel { margin: 28px 0 0; max-width: 560px; }
+.obx-step { display: flex; align-items: baseline; gap: 22px; padding: 16px 0; border-top: 1px solid var(--line); }
+.obx-step__n { font-family: var(--font-display); font-weight: 300; font-size: 30px; line-height: 1; color: #C6C2BB; flex: 0 0 auto; }
+.obx-step__t { font-family: var(--font-display); font-weight: 400; font-size: 19px; line-height: 1.3; color: var(--title); margin: 0; }
+.obx-outcome__takeaway { font-family: var(--font-body); font-size: 16px; line-height: 1.7; color: var(--text); margin: 28px 0 0; max-width: 780px; }
 
 /* Learnings (gray band -> white card, 3 columns) */
 .obx-learn { background: #f4f4f4; padding-block: 72px; }
@@ -533,8 +542,14 @@
   <p class="obx-label">Impact</p>
   <div class="obx-outcome__result">
     <h2 class="obx-outcome__h">A clearer entry point increased adoption</h2>
-    <p>Floor plans have no single finished state, so I tracked three behaviors rather than one: how many pros opened the Floor Planner, how many finished the tutorial, and how many went on to start a plan of their own. Adoption roughly doubled after launch, and the biggest lift was in that last group - pros moving from practice to real work, which was exactly the behavior the project set out to&nbsp;change.</p>
+    <p>Floor plans have no single finished state, so I tracked three behaviors rather than&nbsp;one.</p>
   </div>
+  <div class="obx-funnel">
+    <div class="obx-step"><p class="obx-step__n">01</p><p class="obx-step__t">Opening the Floor Planner</p></div>
+    <div class="obx-step"><p class="obx-step__n">02</p><p class="obx-step__t">Finishing the tutorial</p></div>
+    <div class="obx-step"><p class="obx-step__n">03</p><p class="obx-step__t">Starting a real plan of their own</p></div>
+  </div>
+  <p class="obx-outcome__takeaway">Adoption roughly doubled after launch, and the biggest lift was in the third - pros moving from practice to real work, which was exactly the behavior the project set out to&nbsp;change.</p>
 </section>
 
 <!-- Learnings -->
